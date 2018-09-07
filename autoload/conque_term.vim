@@ -275,7 +275,6 @@ function! conque_term#open(...) "{{{
     try
         let options = {}
         let options["TERM"] = g:ConqueTerm_TERM
-        let options["CODE_PAGE"] = g:ConqueTerm_CodePage
         let options["color"] = g:ConqueTerm_Color
         let options["offset"] = 0 " g:ConqueTerm_StartMessages * 10
 

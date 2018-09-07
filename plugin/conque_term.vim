@@ -134,14 +134,6 @@ if !exists('g:ConqueTerm_PyVersion')
     let g:ConqueTerm_PyVersion = 2
 endif " }}}
 
-" Path to python.exe. (Windows only) {{{
-" By default, Conque will check C:\PythonNN\python.exe then will search system path
-" If you have installed Python in an unusual location and it's not in your path, fill in the full path below
-" E.g. 'C:\Program Files\Python\Python27\python.exe'
-if !exists('g:ConqueTerm_PyExe')
-    let g:ConqueTerm_PyExe = ''
-endif " }}}
-
 " Automatically close buffer when program exits {{{
 if !exists('g:ConqueTerm_CloseOnEnd')
     let g:ConqueTerm_CloseOnEnd = 0
@@ -163,13 +155,6 @@ endif " }}}
 " TODO - disabled and unused for now
 if !exists('g:ConqueTerm_StartMessages')
     let g:ConqueTerm_StartMessages = 1
-endif " }}}
-
-" Windows character code page {{{
-" Leave at 0 to use current environment code page.
-" Use 65001 for utf-8, although many console apps do not support it.
-if !exists('g:ConqueTerm_CodePage')
-    let g:ConqueTerm_CodePage = 0
 endif " }}}
 
 " InsertCharPre support {{{
