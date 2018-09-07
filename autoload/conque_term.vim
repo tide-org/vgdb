@@ -1,21 +1,21 @@
 " FILE:     autoload/conque_term.vim {{{
-" AUTHOR:   Nico Raffo <nicoraffo@gmail.com>
-" WEBSITE:  http://conque.googlecode.com
+" AUTHOR:   Willem van Ketwich <willvk@gmail.com>
+" WEBSITE:  http://...
 " MODIFIED: __MODIFIED__
-" VERSION:  __VERSION__, for Vim 7.0
+" VERSION:  __VERSION__, for Vim 7.0+
 " LICENSE:
-" Conque - Vim terminal/console emulator
-" Copyright (C) 2009-__YEAR__ Nico Raffo 
+" vgdb - gdb ide for vim
+" Copyright (C) 2018-__YEAR__ Nico Raffo, Willem van Ketwich
 "
 " MIT License
-" 
+"
 " Permission is hereby granted, free of charge, to any person obtaining a copy
 " of this software and associated documentation files (the "Software"), to deal
 " in the Software without restriction, including without limitation the rights
 " to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 " copies of the Software, and to permit persons to whom the Software is
 " furnished to do so, subject to the following conditions:
-" 
+"
 " The above copyright notice and this permission notice shall be included in
 " all copies or substantial portions of the Software.
 "
@@ -94,19 +94,15 @@ function! conque_term#fail(feature) " {{{
 
     " missing vim features
     if a:feature == 'python'
-
         call append('$', 'Conque ERROR: Python interface cannot be loaded')
         call append('$', '')
-
         if !executable("python")
             call append('$', 'Your version of Vim appears to be installed without the Python interface. In ')
             call append('$', 'addition, you may need to install Python.')
         else
             call append('$', 'Your version of Vim appears to be installed without the Python interface.')
         endif
-
         call append('$', '')
-
         call append('$', "You are using a Unix-like operating system. Most, if not all, of the popular ")
         call append('$', "Linux package managers have Python-enabled Vim available. For example ")
         call append('$', "vim-gnome or vim-gtk on Ubuntu will get you everything you need.")
@@ -115,9 +111,7 @@ function! conque_term#fail(feature) " {{{
         call append('$', "configure option. You will also need to install Python and the Python headers.")
         call append('$', "")
         call append('$', "If you are using OS X, MacVim will give you Python support by default.")
-
     endif
-
 endfunction " }}}
 
 " Go through various system checks before attempting to launch conque
@@ -211,6 +205,15 @@ endfunction " }}}
 " **********************************************************************************************************
 
 " {{{
+
+" gdb term
+" only passthrough atm
+
+function! conque_term#open_gdb(...)
+    let g:ConqueTerm_GdbMode = 'true'
+    call call("conque_term#open", a:000)
+endfunction
+
 
 " launch conque
 function! conque_term#open(...) "{{{
