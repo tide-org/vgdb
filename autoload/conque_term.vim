@@ -211,9 +211,21 @@ endfunction " }}}
 
 function! conque_term#open_gdb(...)
     let g:ConqueTerm_GdbMode = 'true'
-    call call("conque_term#open", a:000)
+    let command_string = get(a:000, 0, '')
+    let gdb_command = 'gdb ' . command_string
+    let params = [gdb_command] + a:000[1:]
+    call conque_term#print_list(params)
+    "call insert(params, 'gdb')
+    echo join(params, "...")
+    call call("conque_term#open", params )
 endfunction
 
+function! conque_term#print_list(...)
+    echo a:0 . " items:"
+    for s in a:000
+        echon ' ' . join(s, "...")
+    endfor
+endfunction
 
 " launch conque
 function! conque_term#open(...) "{{{
@@ -322,6 +334,9 @@ endfunction " }}}
 
 " set buffer options
 function! conque_term#set_buffer_settings(command, vim_startup_commands) "{{{
+
+    echo "command: " . a:command
+    echo "vim_startup_commands: " . join(a:vim_startup_commands, "...")
 
     " optional hooks to execute, e.g. 'split'
     for h in a:vim_startup_commands

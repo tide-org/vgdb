@@ -179,7 +179,7 @@ command! -nargs=+ -complete=shellcmd ConqueTerm call conque_term#open(<q-args>)
 command! -nargs=+ -complete=shellcmd ConqueTermSplit call conque_term#open(<q-args>, ['belowright split'])
 command! -nargs=+ -complete=shellcmd ConqueTermVSplit call conque_term#open(<q-args>, ['belowright vsplit'])
 command! -nargs=+ -complete=shellcmd ConqueTermTab call conque_term#open(<q-args>, ['tabnew'])
-command! -nargs=+ -complete=shellcmd Vgdb call conque_term#open_gdb(<q-args>)
+command! -nargs=? -complete=shellcmd Vgdb call conque_term#open_gdb(<q-args>)
 
 " }}}
 
