@@ -1,24 +1,24 @@
 " FILE:     plugin/conque_term.vim {{{
-" AUTHOR:   Nico Raffo <nicoraffo@gmail.com>
-" WEBSITE:  http://conque.googlecode.com
+" AUTHOR:   Willem van Ketwich <willvk@gmail.com>
+" WEBSITE:  http://...
 " MODIFIED: __MODIFIED__
-" VERSION:  __VERSION__, for Vim 7.0
+" VERSION:  __VERSION__, for Vim 7.0+
 " LICENSE:
-" Conque - Vim terminal/console emulator
-" Copyright (C) 2009-__YEAR__ Nico Raffo 
+" vgdb - gdb ide for vim
+" Copyright (C) 2018-__YEAR__ Nico Raffo, Willem van Ketwich
 "
 " MIT License
-" 
+"
 " Permission is hereby granted, free of charge, to any person obtaining a copy
 " of this software and associated documentation files (the "Software"), to deal
 " in the Software without restriction, including without limitation the rights
 " to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 " copies of the Software, and to permit persons to whom the Software is
 " furnished to do so, subject to the following conditions:
-" 
+"
 " The above copyright notice and this permission notice shall be included in
 " all copies or substantial portions of the Software.
-" 
+"
 " THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 " IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 " FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -134,14 +134,6 @@ if !exists('g:ConqueTerm_PyVersion')
     let g:ConqueTerm_PyVersion = 2
 endif " }}}
 
-" Path to python.exe. (Windows only) {{{
-" By default, Conque will check C:\PythonNN\python.exe then will search system path
-" If you have installed Python in an unusual location and it's not in your path, fill in the full path below
-" E.g. 'C:\Program Files\Python\Python27\python.exe'
-if !exists('g:ConqueTerm_PyExe')
-    let g:ConqueTerm_PyExe = ''
-endif " }}}
-
 " Automatically close buffer when program exits {{{
 if !exists('g:ConqueTerm_CloseOnEnd')
     let g:ConqueTerm_CloseOnEnd = 0
@@ -163,13 +155,6 @@ endif " }}}
 " TODO - disabled and unused for now
 if !exists('g:ConqueTerm_StartMessages')
     let g:ConqueTerm_StartMessages = 1
-endif " }}}
-
-" Windows character code page {{{
-" Leave at 0 to use current environment code page.
-" Use 65001 for utf-8, although many console apps do not support it.
-if !exists('g:ConqueTerm_CodePage')
-    let g:ConqueTerm_CodePage = 0
 endif " }}}
 
 " InsertCharPre support {{{
@@ -194,6 +179,7 @@ command! -nargs=+ -complete=shellcmd ConqueTerm call conque_term#open(<q-args>)
 command! -nargs=+ -complete=shellcmd ConqueTermSplit call conque_term#open(<q-args>, ['belowright split'])
 command! -nargs=+ -complete=shellcmd ConqueTermVSplit call conque_term#open(<q-args>, ['belowright vsplit'])
 command! -nargs=+ -complete=shellcmd ConqueTermTab call conque_term#open(<q-args>, ['tabnew'])
+command! -nargs=? -complete=shellcmd Vgdb call conque_term#open_gdb(<q-args>)
 
 " }}}
 

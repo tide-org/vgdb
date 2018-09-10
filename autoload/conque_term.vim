@@ -1,24 +1,24 @@
 " FILE:     autoload/conque_term.vim {{{
-" AUTHOR:   Nico Raffo <nicoraffo@gmail.com>
-" WEBSITE:  http://conque.googlecode.com
+" AUTHOR:   Willem van Ketwich <willvk@gmail.com>
+" WEBSITE:  http://...
 " MODIFIED: __MODIFIED__
-" VERSION:  __VERSION__, for Vim 7.0
+" VERSION:  __VERSION__, for Vim 7.0+
 " LICENSE:
-" Conque - Vim terminal/console emulator
-" Copyright (C) 2009-__YEAR__ Nico Raffo 
+" vgdb - gdb ide for vim
+" Copyright (C) 2018-__YEAR__ Nico Raffo, Willem van Ketwich
 "
 " MIT License
-" 
+"
 " Permission is hereby granted, free of charge, to any person obtaining a copy
 " of this software and associated documentation files (the "Software"), to deal
 " in the Software without restriction, including without limitation the rights
 " to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 " copies of the Software, and to permit persons to whom the Software is
 " furnished to do so, subject to the following conditions:
-" 
+"
 " The above copyright notice and this permission notice shall be included in
 " all copies or substantial portions of the Software.
-" 
+"
 " THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 " IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 " FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -94,61 +94,24 @@ function! conque_term#fail(feature) " {{{
 
     " missing vim features
     if a:feature == 'python'
-
         call append('$', 'Conque ERROR: Python interface cannot be loaded')
         call append('$', '')
-
         if !executable("python")
             call append('$', 'Your version of Vim appears to be installed without the Python interface. In ')
             call append('$', 'addition, you may need to install Python.')
         else
             call append('$', 'Your version of Vim appears to be installed without the Python interface.')
         endif
-
         call append('$', '')
-
-        if has('unix') == 1
-            call append('$', "You are using a Unix-like operating system. Most, if not all, of the popular ")
-            call append('$', "Linux package managers have Python-enabled Vim available. For example ")
-            call append('$', "vim-gnome or vim-gtk on Ubuntu will get you everything you need.")
-            call append('$', "")
-            call append('$', "If you are compiling Vim from source, make sure you use the --enable-pythoninterp ")
-            call append('$', "configure option. You will also need to install Python and the Python headers.")
-            call append('$', "")
-            call append('$', "If you are using OS X, MacVim will give you Python support by default.")
-        else
-            call append('$', "You appear to be using Windows. The official Vim 7.3 installer available at ")
-            call append('$', "http://www.vim.org comes with the required Python interfaces. You will also ")
-            call append('$', "need to install Python 2.7 and/or Python 3.1, both available at http://www.python.org")
-        endif
-
-    elseif a:feature == 'python_exe'
-
-        call append('$', "Conque ERROR: Can't find Python executable")
+        call append('$', "You are using a Unix-like operating system. Most, if not all, of the popular ")
+        call append('$', "Linux package managers have Python-enabled Vim available. For example ")
+        call append('$', "vim-gnome or vim-gtk on Ubuntu will get you everything you need.")
         call append('$', "")
-        call append('$', "Conque needs to know the full path to python.exe on Windows systems. By default, ")
-        call append('$', "Conque will check your system path as well as the most common installation path ")
-        call append('$', "C:\\PythonXX\\python.exe. To fix this error either:")
+        call append('$', "If you are compiling Vim from source, make sure you use the --enable-pythoninterp ")
+        call append('$', "configure option. You will also need to install Python and the Python headers.")
         call append('$', "")
-        call append('$', "Set the g:ConqueTerm_PyExe option in your .vimrc. E.g.")
-        call append('$', "        let g:ConqueTerm_PyExe = 'C:\Program Files\Python27\python.exe'")
-        call append('$', "")
-        call append('$', "Add the directory where you installed python to your system path. This isn't a bad ")
-        call append('$', "idea in general.")
-
-    elseif a:feature == 'ctypes'
-
-        call append('$', 'Conque ERROR: Python cannot load the ctypes module')
-        call append('$', "")
-        call append('$', "Conque requires the 'ctypes' python module. This has been a standard module since Python 2.5.")
-        call append('$', "")
-        call append('$', "The recommended fix is to make sure you're using the latest official GVim version 7.3, ")
-        call append('$', "and have at least one of the two compatible versions of Python installed, ")
-        call append('$', "2.7 or 3.1. You can download the GVim 7.3 installer from http://www.vim.org. You ")
-        call append('$', "can download the Python 2.7 or 3.1 installer from http://www.python.org")
-
+        call append('$', "If you are using OS X, MacVim will give you Python support by default.")
     endif
-
 endfunction " }}}
 
 " Go through various system checks before attempting to launch conque
@@ -201,30 +164,8 @@ function! conque_term#dependency_check() " {{{
         return 0
     endif
 
-    " quick and dirty platform declaration
-    if has('unix') == 1
-        let s:platform = 'unix'
-        sil exe s:py . " CONQUE_PLATFORM = 'unix'"
-    else
-        let s:platform = 'windows'
-        sil exe s:py . " CONQUE_PLATFORM = 'windows'"
-    endif
-
-    " if we're using Windows, make sure ctypes is available
-    if s:platform == 'windows'
-        try
-            sil exe s:py . " import ctypes"
-        catch
-            call conque_term#fail('ctypes')
-            return 0
-        endtry
-    endif
-
-    " if we're using Windows, make sure we can finde python executable
-    if s:platform == 'windows' && conque_term#find_python_exe() == ''
-        call conque_term#fail('python_exe')
-        return 0
-    endif
+    let s:platform = 'unix'
+    sil exe s:py . " CONQUE_PLATFORM = 'unix'"
 
     " check for global cursorhold/cursormove events
     let o = ''
@@ -259,178 +200,32 @@ function! conque_term#dependency_check() " {{{
 
 endfunction " }}}
 
-" }}}
-
-" **********************************************************************************************************
-" **** STARTUP MESSAGES ************************************************************************************
-" **********************************************************************************************************
-
-" {{{
-"if g:ConqueTerm_StartMessages
-"    let msg_file = s:scriptdirpy . 'version.vim'
-"    let msg_show = 1
-"    let msg_ct = 1
-"
-"    " we can write to conque_term directory
-"    if filewritable(s:scriptdirpy) == 2
-"
-"        if filewritable(msg_file)
-"
-"            " read current message file
-"            try
-"                silent execute "source " . msg_file
-"                if exists('g:ConqueTerm_MsgCt') && exists('g:ConqueTerm_MsgVer')
-"                    if g:ConqueTerm_MsgVer == g:ConqueTerm_Version && g:ConqueTerm_MsgCt > 2
-"                        let msg_show = 0
-"                    else
-"                        let msg_ct = g:ConqueTerm_MsgCt + 1
-"                    endif
-"                endif
-"            catch
-"            endtry
-"        endif
-"
-"        " update message file
-"        if msg_show
-"            let file_contents = ['let g:ConqueTerm_MsgCt = ' . msg_ct, 'let g:ConqueTerm_MsgVer = ' . g:ConqueTerm_Version]
-"            call writefile(file_contents, msg_file)
-"        endif
-"    endif
-"
-"    " save our final decision
-"    let g:ConqueTerm_StartMessages = msg_show
-"endif
-" }}}
-
-" **********************************************************************************************************
-" **** WINDOWS VK CODES ************************************************************************************
-" **********************************************************************************************************
-
-" Windows Virtual Key Codes  {{{
-let s:windows_vk = {
-\    'VK_ADD' : 107,
-\    'VK_APPS' : 93,
-\    'VK_ATTN' : 246,
-\    'VK_BACK' : 8,
-\    'VK_BROWSER_BACK' : 166,
-\    'VK_BROWSER_FORWARD' : 167,
-\    'VK_CANCEL' : 3,
-\    'VK_CAPITAL' : 20,
-\    'VK_CLEAR' : 12,
-\    'VK_CONTROL' : 17,
-\    'VK_CONVERT' : 28,
-\    'VK_CRSEL' : 247,
-\    'VK_DECIMAL' : 110,
-\    'VK_DELETE' : 46,
-\    'VK_DIVIDE' : 111,
-\    'VK_DOWN' : 40,
-\    'VK_DOWN_CTL' : '40;1024',
-\    'VK_END' : 35,
-\    'VK_EREOF' : 249,
-\    'VK_ESCAPE' : 27,
-\    'VK_EXECUTE' : 43,
-\    'VK_EXSEL' : 248,
-\    'VK_F1' : 112,
-\    'VK_F10' : 121,
-\    'VK_F11' : 122,
-\    'VK_F12' : 123,
-\    'VK_F13' : 124,
-\    'VK_F14' : 125,
-\    'VK_F15' : 126,
-\    'VK_F16' : 127,
-\    'VK_F17' : 128,
-\    'VK_F18' : 129,
-\    'VK_F19' : 130,
-\    'VK_F2' : 113,
-\    'VK_F20' : 131,
-\    'VK_F21' : 132,
-\    'VK_F22' : 133,
-\    'VK_F23' : 134,
-\    'VK_F24' : 135,
-\    'VK_F3' : 114,
-\    'VK_F4' : 115,
-\    'VK_F5' : 116,
-\    'VK_F6' : 117,
-\    'VK_F7' : 118,
-\    'VK_F8' : 119,
-\    'VK_F9' : 120,
-\    'VK_FINAL' : 24,
-\    'VK_HANGEUL' : 21,
-\    'VK_HANGUL' : 21,
-\    'VK_HANJA' : 25,
-\    'VK_HELP' : 47,
-\    'VK_HOME' : 36,
-\    'VK_INSERT' : 45,
-\    'VK_JUNJA' : 23,
-\    'VK_KANA' : 21,
-\    'VK_KANJI' : 25,
-\    'VK_LBUTTON' : 1,
-\    'VK_LCONTROL' : 162,
-\    'VK_LEFT' : 37,
-\    'VK_LEFT_CTL' : '37;1024',
-\    'VK_LMENU' : 164,
-\    'VK_LSHIFT' : 160,
-\    'VK_LWIN' : 91,
-\    'VK_MBUTTON' : 4,
-\    'VK_MEDIA_NEXT_TRACK' : 176,
-\    'VK_MEDIA_PLAY_PAUSE' : 179,
-\    'VK_MEDIA_PREV_TRACK' : 177,
-\    'VK_MENU' : 18,
-\    'VK_MODECHANGE' : 31,
-\    'VK_MULTIPLY' : 106,
-\    'VK_NEXT' : 34,
-\    'VK_NONAME' : 252,
-\    'VK_NONCONVERT' : 29,
-\    'VK_NUMLOCK' : 144,
-\    'VK_NUMPAD0' : 96,
-\    'VK_NUMPAD1' : 97,
-\    'VK_NUMPAD2' : 98,
-\    'VK_NUMPAD3' : 99,
-\    'VK_NUMPAD4' : 100,
-\    'VK_NUMPAD5' : 101,
-\    'VK_NUMPAD6' : 102,
-\    'VK_NUMPAD7' : 103,
-\    'VK_NUMPAD8' : 104,
-\    'VK_NUMPAD9' : 105,
-\    'VK_OEM_CLEAR' : 254,
-\    'VK_PA1' : 253,
-\    'VK_PAUSE' : 19,
-\    'VK_PLAY' : 250,
-\    'VK_PRINT' : 42,
-\    'VK_PRIOR' : 33,
-\    'VK_PROCESSKEY' : 229,
-\    'VK_RBUTTON' : 2,
-\    'VK_RCONTROL' : 163,
-\    'VK_RETURN' : 13,
-\    'VK_RIGHT' : 39,
-\    'VK_RIGHT_CTL' : '39;1024',
-\    'VK_RMENU' : 165,
-\    'VK_RSHIFT' : 161,
-\    'VK_RWIN' : 92,
-\    'VK_SCROLL' : 145,
-\    'VK_SELECT' : 41,
-\    'VK_SEPARATOR' : 108,
-\    'VK_SHIFT' : 16,
-\    'VK_SNAPSHOT' : 44,
-\    'VK_SPACE' : 32,
-\    'VK_SUBTRACT' : 109,
-\    'VK_TAB' : 9,
-\    'VK_UP' : 38,
-\    'VK_UP_CTL' : '38;1024',
-\    'VK_VOLUME_DOWN' : 174,
-\    'VK_VOLUME_MUTE' : 173,
-\    'VK_VOLUME_UP' : 175,
-\    'VK_XBUTTON1' : 5,
-\    'VK_XBUTTON2' : 6,
-\    'VK_ZOOM' : 251
-\   }
-" }}}
-
 " **********************************************************************************************************
 " **** ACTUAL CONQUE FUNCTIONS!  ***************************************************************************
 " **********************************************************************************************************
 
 " {{{
+
+" gdb term
+" only passthrough atm
+
+function! conque_term#open_gdb(...)
+    let g:ConqueTerm_GdbMode = 'true'
+    let command_string = get(a:000, 0, '')
+    let gdb_command = 'gdb ' . command_string
+    let params = [gdb_command] + a:000[1:]
+    call conque_term#print_list(params)
+    "call insert(params, 'gdb')
+    echo join(params, "...")
+    call call("conque_term#open", params )
+endfunction
+
+function! conque_term#print_list(...)
+    echo a:0 . " items:"
+    for s in a:000
+        echon ' ' . join(s, "...")
+    endfor
+endfunction
 
 " launch conque
 function! conque_term#open(...) "{{{
@@ -495,30 +290,17 @@ function! conque_term#open(...) "{{{
     try
         let options = {}
         let options["TERM"] = g:ConqueTerm_TERM
-        let options["CODE_PAGE"] = g:ConqueTerm_CodePage
         let options["color"] = g:ConqueTerm_Color
         let options["offset"] = 0 " g:ConqueTerm_StartMessages * 10
 
-        if s:platform == 'unix'
-            execute s:py . ' ' . g:ConqueTerm_Var . ' = Conque()'
-            execute s:py . ' ' . g:ConqueTerm_Var . ".open()"
-        else
-            " find python.exe and communicator
-            let py_exe = conque_term#find_python_exe()
-            let py_vim = s:scriptdirpy . 'conque_sole_communicator.py'
-            execute s:py . ' ' . g:ConqueTerm_Var . ' = ConqueSole()'
-            execute s:py . ' ' . g:ConqueTerm_Var . ".open()"
-
-            if g:ConqueTerm_ColorMode == 'conceal'
-                call conque_term#init_conceal_color()
-            endif
-        endif
+        execute s:py . ' ' . g:ConqueTerm_Var . ' = Conque()'
+        execute s:py . ' ' . g:ConqueTerm_Var . ".open()"
     catch
         echohl WarningMsg | echomsg "An error occurred: " . command | echohl None
         return 0
     endtry
 
-    " set key mappings and auto commands 
+    " set key mappings and auto commands
     if is_buffer
         call conque_term#set_mappings('start')
     endif
@@ -540,7 +322,7 @@ endfunction "}}}
 
 " open(), but no buffer
 function! conque_term#subprocess(command) " {{{
-    
+
     let t_obj = conque_term#open(a:command, [], 0, 0)
     if !exists('b:ConqueTerm_Var')
         call conque_term#on_blur()
@@ -553,13 +335,16 @@ endfunction " }}}
 " set buffer options
 function! conque_term#set_buffer_settings(command, vim_startup_commands) "{{{
 
+    echo "command: " . a:command
+    echo "vim_startup_commands: " . join(a:vim_startup_commands, "...")
+
     " optional hooks to execute, e.g. 'split'
     for h in a:vim_startup_commands
         sil exe h
     endfor
     sil exe 'edit ++enc=utf-8 ' . g:ConqueTerm_BufName
 
-    " buffer settings 
+    " buffer settings
     setlocal fileencoding=utf-8 " file encoding, even tho there's no file
     setlocal nopaste           " conque won't work in paste mode
     setlocal buftype=nofile    " this buffer is not a file, you can't save it
@@ -722,38 +507,16 @@ function! conque_term#set_mappings(action) "{{{
 
     " Special keys {{{
     if l:action == 'start'
-        if s:platform == 'unix'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <BS> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x08"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Space> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u(" "))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <S-BS> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x08"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <S-Space> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u(" "))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Up> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[A"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Down> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[B"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Right> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[C"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Left> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[D"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Home> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1bOH"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <End> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1bOF"))<CR>'
-        else
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <BS> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x08"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Space> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u(" "))<CR>'
-
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <S-BS> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x08"))<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <S-Space> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u(" "))<CR>'
-
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Up> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_UP . ')<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Down> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_DOWN . ')<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Right> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_RIGHT . ')<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Left> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_LEFT . ')<CR>'
-
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <C-Up> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk("' . s:windows_vk.VK_UP_CTL . '")<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <C-Down> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk("' . s:windows_vk.VK_DOWN_CTL . '")<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <C-Right> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk("' . s:windows_vk.VK_RIGHT_CTL . '")<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <C-Left> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk("' . s:windows_vk.VK_LEFT_CTL . '")<CR>'
-
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Del> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_DELETE . ')<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <Home> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_HOME . ')<CR>'
-            sil exe 'i' . map_modifier . 'map <silent> <buffer> <End> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_END . ')<CR>'
-        endif
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <BS> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x08"))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <Space> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u(" "))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <S-BS> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x08"))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <S-Space> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u(" "))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <Up> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[A"))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <Down> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[B"))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <Right> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[C"))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <Left> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[D"))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <Home> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1bOH"))<CR>'
+        sil exe 'i' . map_modifier . 'map <silent> <buffer> <End> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1bOF"))<CR>'
     else
         sil exe 'i' . map_modifier . 'map <silent> <buffer> <BS>'
         sil exe 'i' . map_modifier . 'map <silent> <buffer> <Space>'
@@ -771,33 +534,18 @@ function! conque_term#set_mappings(action) "{{{
     " <F-> keys {{{
     if g:ConqueTerm_SendFunctionKeys
         if l:action == 'start'
-            if s:platform == 'unix'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F1>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[11~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F2>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[12~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F3>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("1b[13~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F4>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[14~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F5>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[15~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F6>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[17~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F7>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[18~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F8>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[19~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F9>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[20~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F10> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[21~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F11> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[23~"))<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F12> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[24~"))<CR>'
-            else
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F1> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F1 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F2> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F2 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F3> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F3 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F4> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F4 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F5> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F5 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F6> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F6 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F7> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F7 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F8> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F8 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F9> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F9 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F10> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F10 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F11> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F11 . ')<CR>'
-                sil exe 'i' . map_modifier . 'map <silent> <buffer> <F12> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write_vk(' . s:windows_vk.VK_F12 . ')<CR>'
-            endif
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F1>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[11~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F2>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[12~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F3>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("1b[13~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F4>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[14~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F5>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[15~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F6>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[17~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F7>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[18~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F8>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[19~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F9>  <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[20~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F10> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[21~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F11> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[23~"))<CR>'
+            sil exe 'i' . map_modifier . 'map <silent> <buffer> <F12> <C-o>:' . s:py . ' ' . b:ConqueTerm_Var . '.write(u("\x1b[24~"))<CR>'
         else
             sil exe 'i' . map_modifier . 'map <silent> <buffer> <F1>'
             sil exe 'i' . map_modifier . 'map <silent> <buffer> <F2>'
@@ -969,7 +717,7 @@ function! conque_term#on_focus(...) " {{{
     if s:NeoComplCache_WasEnabled == 2
         NeoComplCacheLock
     endif
- 
+
     if g:ConqueTerm_ReadUnfocused == 1
         autocmd! ConqueTerm CursorHoldI *
         autocmd! ConqueTerm CursorHold *
@@ -1053,159 +801,6 @@ function! conque_term#call_hooks(event, t_obj) " {{{
     for Fu in s:hooks[a:event]
         call Fu(a:t_obj)
     endfor
-
-endfunction " }}}
-
-" }}}
-
-" **********************************************************************************************************
-" **** Windows only functions ******************************************************************************
-" **********************************************************************************************************
-
-" {{{
-
-" find python.exe in windows
-function! conque_term#find_python_exe() " {{{
-
-    " first check configuration for custom value
-    if g:ConqueTerm_PyExe != '' && executable(g:ConqueTerm_PyExe)
-        return g:ConqueTerm_PyExe
-    endif
-
-    let sys_paths = split($PATH, ';')
-
-    " get exact python version
-    sil exe ':' . s:py . ' import sys, vim'
-    sil exe ':' . s:py . ' vim.command("let g:ConqueTerm_PyVersion = " + str(sys.version_info[0]) + str(sys.version_info[1]))'
-
-    " ... and add to path list
-    call add(sys_paths, 'C:\Python' . g:ConqueTerm_PyVersion)
-    call reverse(sys_paths)
-
-    " check if python.exe is in paths
-    for path in sys_paths
-        let cand = path . '\' . 'python.exe'
-        if executable(cand)
-            return cand
-        endif
-    endfor
-
-    echohl WarningMsg | echomsg "Unable to find python.exe, see :help ConqueTerm_PythonExe for more information" | echohl None
-
-    return ''
-
-endfunction " }}}
-
-" initialize concealed colors
-function! conque_term#init_conceal_color() " {{{
-
-    highlight link ConqueCCBG Normal
-
-    " foreground colors, low intensity
-    syn region ConqueCCF000 matchgroup=ConqueConceal start="\esf000;" end="\eef000;" concealends contains=ConqueCCBG
-    syn region ConqueCCF00c matchgroup=ConqueConceal start="\esf00c;" end="\eef00c;" concealends contains=ConqueCCBG
-    syn region ConqueCCF0c0 matchgroup=ConqueConceal start="\esf0c0;" end="\eef0c0;" concealends contains=ConqueCCBG
-    syn region ConqueCCF0cc matchgroup=ConqueConceal start="\esf0cc;" end="\eef0cc;" concealends contains=ConqueCCBG
-    syn region ConqueCCFc00 matchgroup=ConqueConceal start="\esfc00;" end="\eefc00;" concealends contains=ConqueCCBG
-    syn region ConqueCCFc0c matchgroup=ConqueConceal start="\esfc0c;" end="\eefc0c;" concealends contains=ConqueCCBG
-    syn region ConqueCCFcc0 matchgroup=ConqueConceal start="\esfcc0;" end="\eefcc0;" concealends contains=ConqueCCBG
-    syn region ConqueCCFccc matchgroup=ConqueConceal start="\esfccc;" end="\eefccc;" concealends contains=ConqueCCBG
-
-    " foreground colors, high intensity
-    syn region ConqueCCF000 matchgroup=ConqueConceal start="\esf000;" end="\eef000;" concealends contains=ConqueCCBG
-    syn region ConqueCCF00f matchgroup=ConqueConceal start="\esf00f;" end="\eef00f;" concealends contains=ConqueCCBG
-    syn region ConqueCCF0f0 matchgroup=ConqueConceal start="\esf0f0;" end="\eef0f0;" concealends contains=ConqueCCBG
-    syn region ConqueCCF0ff matchgroup=ConqueConceal start="\esf0ff;" end="\eef0ff;" concealends contains=ConqueCCBG
-    syn region ConqueCCFf00 matchgroup=ConqueConceal start="\esff00;" end="\eeff00;" concealends contains=ConqueCCBG
-    syn region ConqueCCFf0f matchgroup=ConqueConceal start="\esff0f;" end="\eeff0f;" concealends contains=ConqueCCBG
-    syn region ConqueCCFff0 matchgroup=ConqueConceal start="\esfff0;" end="\eefff0;" concealends contains=ConqueCCBG
-    syn region ConqueCCFfff matchgroup=ConqueConceal start="\esffff;" end="\eeffff;" concealends contains=ConqueCCBG
-
-    " background colors, low intensity
-    syn region ConqueCCB000 matchgroup=ConqueCCBG start="\esb000;" end="\eeb000;" concealends
-    syn region ConqueCCB00c matchgroup=ConqueCCBG start="\esb00c;" end="\eeb00c;" concealends
-    syn region ConqueCCB0c0 matchgroup=ConqueCCBG start="\esb0c0;" end="\eeb0c0;" concealends
-    syn region ConqueCCB0cc matchgroup=ConqueCCBG start="\esb0cc;" end="\eeb0cc;" concealends
-    syn region ConqueCCBc00 matchgroup=ConqueCCBG start="\esbc00;" end="\eebc00;" concealends
-    syn region ConqueCCBc0c matchgroup=ConqueCCBG start="\esbc0c;" end="\eebc0c;" concealends
-    syn region ConqueCCBcc0 matchgroup=ConqueCCBG start="\esbcc0;" end="\eebcc0;" concealends
-    syn region ConqueCCBccc matchgroup=ConqueCCBG start="\esbccc;" end="\eebccc;" concealends
-
-    " background colors, high intensity
-    syn region ConqueCCB000 matchgroup=ConqueCCBG start="\esb000;" end="\eeb000;" concealends
-    syn region ConqueCCB00f matchgroup=ConqueCCBG start="\esb00f;" end="\eeb00f;" concealends
-    syn region ConqueCCB0f0 matchgroup=ConqueCCBG start="\esb0f0;" end="\eeb0f0;" concealends
-    syn region ConqueCCB0ff matchgroup=ConqueCCBG start="\esb0ff;" end="\eeb0ff;" concealends
-    syn region ConqueCCBf00 matchgroup=ConqueCCBG start="\esbf00;" end="\eebf00;" concealends
-    syn region ConqueCCBf0f matchgroup=ConqueCCBG start="\esbf0f;" end="\eebf0f;" concealends
-    syn region ConqueCCBff0 matchgroup=ConqueCCBG start="\esbff0;" end="\eebff0;" concealends
-    syn region ConqueCCBfff matchgroup=ConqueCCBG start="\esbfff;" end="\eebfff;" concealends
-
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-    "highlight link ConqueCCConceal Error
-
-    " foreground colors, low intensity
-    highlight ConqueCCF000 guifg=#000000
-    highlight ConqueCCF00c guifg=#0000cc
-    highlight ConqueCCF0c0 guifg=#00cc00
-    highlight ConqueCCF0cc guifg=#00cccc
-    highlight ConqueCCFc00 guifg=#cc0000
-    highlight ConqueCCFc0c guifg=#cc00cc
-    highlight ConqueCCFcc0 guifg=#cccc00
-    highlight ConqueCCFccc guifg=#cccccc
-
-    " foreground colors, high intensity
-    highlight ConqueCCF000 guifg=#000000
-    highlight ConqueCCF00f guifg=#0000ff
-    highlight ConqueCCF0f0 guifg=#00ff00
-    highlight ConqueCCF0ff guifg=#00ffff
-    highlight ConqueCCFf00 guifg=#ff0000
-    highlight ConqueCCFf0f guifg=#ff00ff
-    highlight ConqueCCFff0 guifg=#ffff00
-    highlight ConqueCCFfff guifg=#ffffff
-
-    " background colors, low intensity
-    highlight ConqueCCB000 guibg=#000000
-    highlight ConqueCCB00c guibg=#0000cc
-    highlight ConqueCCB0c0 guibg=#00cc00
-    highlight ConqueCCB0cc guibg=#00cccc
-    highlight ConqueCCBc00 guibg=#cc0000
-    highlight ConqueCCBc0c guibg=#cc00cc
-    highlight ConqueCCBcc0 guibg=#cccc00
-    highlight ConqueCCBccc guibg=#cccccc
-
-    " background colors, high intensity
-    highlight ConqueCCB000 guibg=#000000
-    highlight ConqueCCB00f guibg=#0000ff
-    highlight ConqueCCB0f0 guibg=#00ff00
-    highlight ConqueCCB0ff guibg=#00ffff
-    highlight ConqueCCBf00 guibg=#ff0000
-    highlight ConqueCCBf0f guibg=#ff00ff
-    highlight ConqueCCBff0 guibg=#ffff00
-    highlight ConqueCCBfff guibg=#ffffff
-
-    " background colors, low intensity
-    highlight link ConqueCCB000 ConqueCCBG
-    highlight link ConqueCCB00c ConqueCCBG
-    highlight link ConqueCCB0c0 ConqueCCBG
-    highlight link ConqueCCB0cc ConqueCCBG
-    highlight link ConqueCCBc00 ConqueCCBG
-    highlight link ConqueCCBc0c ConqueCCBG
-    highlight link ConqueCCBcc0 ConqueCCBG
-    highlight link ConqueCCBccc ConqueCCBG
-
-    " background colors, high intensity
-    highlight link ConqueCCB000 ConqueCCBG
-    highlight link ConqueCCB00f ConqueCCBG
-    highlight link ConqueCCB0f0 ConqueCCBG
-    highlight link ConqueCCB0ff ConqueCCBG
-    highlight link ConqueCCBf00 ConqueCCBG
-    highlight link ConqueCCBf0f ConqueCCBG
-    highlight link ConqueCCBff0 ConqueCCBG
-    highlight link ConqueCCBfff ConqueCCBG
 
 endfunction " }}}
 
@@ -1356,7 +951,7 @@ function! s:term_obj.read(...) dict " {{{
     let read_time = get(a:000, 0, 1)
     let update_buffer = get(a:000, 1, self.is_buffer)
 
-    if update_buffer 
+    if update_buffer
         let up_py = 'True'
     else
         let up_py = 'False'
@@ -1472,7 +1067,7 @@ function! conque_term#get_instance(...) " {{{
     let buf_num = get(a:000, 0, 0)
 
     if exists('g:ConqueTerm_Terminals[buf_num]')
-        
+
     elseif exists('b:ConqueTerm_Var')
         let buf_num = b:ConqueTerm_Idx
     else
@@ -1493,15 +1088,8 @@ function! conque_term#load_python() " {{{
 
     exec s:py . "file " . s:scriptdirpy . "conque_globals.py"
     exec s:py . "file " . s:scriptdirpy . "conque.py"
-    if s:platform == 'windows'
-        exec s:py . "file " . s:scriptdirpy . "conque_win32_util.py"
-        exec s:py . "file " . s:scriptdirpy . "conque_sole_shared_memory.py"
-        exec s:py . "file " . s:scriptdirpy . "conque_sole.py"
-        exec s:py . "file " . s:scriptdirpy . "conque_sole_wrapper.py"
-    else
-        exec s:py . "file " . s:scriptdirpy . "conque_screen.py"
-        exec s:py . "file " . s:scriptdirpy . "conque_subprocess.py"
-    endif
+    exec s:py . "file " . s:scriptdirpy . "conque_screen.py"
+    exec s:py . "file " . s:scriptdirpy . "conque_subprocess.py"
 
 endfunction " }}}
 
