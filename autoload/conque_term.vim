@@ -215,7 +215,6 @@ function! conque_term#open_gdb(...)
     let gdb_command = 'gdb ' . command_string
     let params = [gdb_command] + a:000[1:]
     call conque_term#print_list(params)
-    "call insert(params, 'gdb')
     echo join(params, "...")
     call call("conque_term#open", params )
 endfunction
