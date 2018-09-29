@@ -301,7 +301,6 @@ class Conque:
             self.color_history[buffer_line] = []
         self.color_history[buffer_line].append({'name': syntax_name, 'start': start, 'end': end, 'highlight': highlight})
 
-
     def prune_colors(self):
         logging.info('pruning colors ' + str(len(self.color_history.keys())))
         buffer_line = self.get_buffer_line(self.l)
@@ -543,7 +542,6 @@ class Conque:
             self.screen.insert(self.top, '')
         else:
             self.l += -1
-
         self.color_changes = {}
 
     def hash_screen_alignment_test(self):
@@ -612,7 +610,6 @@ class Conque:
         self.proc.signal(1)
 
     def parse_csi(self, s):
-        """ Parse an escape sequence into it's meaningful values. """
         attr = {'key': s[-1], 'flag': '', 'val': 1, 'vals': []}
         if len(s) == 1:
             return attr

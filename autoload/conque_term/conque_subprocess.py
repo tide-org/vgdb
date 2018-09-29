@@ -95,7 +95,6 @@ class ConqueSubprocess:
                 p_status = False
         except:
             p_status = False
-
         return p_status
 
     def window_resize(self, lines, columns):

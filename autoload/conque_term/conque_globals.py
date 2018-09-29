@@ -185,28 +185,16 @@ CONQUE_SEQ_REGEX_CHAR = re.compile("^\x1b[()]")
 CONQUE_TABLE_OUTPUT = re.compile("^\s*\|\s.*\s\|\s*$|^\s*\+[=+-]+\+\s*$")
 CONQUE_COLOR_SEQUENCE = ('000', '009', '090', '099', '900', '909', '990', '999', '000', '00f', '0f0', '0ff', 'f00', 'f0f', 'ff0', 'fff')
 # Windows subprocess constants
-# shared memory size
 CONQUE_SOLE_BUFFER_LENGTH = 1000
 CONQUE_SOLE_INPUT_SIZE = 1000
 CONQUE_SOLE_STATS_SIZE = 1000
 CONQUE_SOLE_COMMANDS_SIZE = 255
 CONQUE_SOLE_RESCROLL_SIZE = 255
 CONQUE_SOLE_RESIZE_SIZE = 255
-# interval of screen redraw
-# larger number means less frequent
 CONQUE_SOLE_SCREEN_REDRAW = 50
-# interval of full buffer redraw
-# larger number means less frequent
 CONQUE_SOLE_BUFFER_REDRAW = 500
-# interval of full output bucket replacement
-# larger number means less frequent, 1 = every time
 CONQUE_SOLE_MEM_REDRAW = 1000
-# maximum number of lines with terminal colors
-# ignored if g:ConqueTerm_Color = 2
 CONQUE_MAX_SYNTAX_LINES = 200
-# windows input splitting on special keys
 CONQUE_WIN32_REGEX_VK = re.compile("(\x1b\[[0-9;]+VK)")
-# windows attribute string splitting
 CONQUE_WIN32_REGEX_ATTR = re.compile("((.)\\2*)", re.DOTALL)
-# special key attributes
 CONQUE_VK_ATTR_CTRL_PRESSED = u('1024')
