@@ -416,13 +416,6 @@ class Conque:
             else:
                 self.tabstops.append(False)
 
-    def idle(self):
-        pass
-
-    def resume(self):
-        pass
-        pass
-
     def close(self):
         self.proc.close()
 

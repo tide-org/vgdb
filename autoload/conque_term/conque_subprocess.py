@@ -89,13 +89,12 @@ class ConqueSubprocess:
         self.signal(15)
 
     def is_alive(self):
-        p_status = True
         try:
             if os.waitpid(self.pid, os.WNOHANG)[0]:
-                p_status = False
+                return False
         except:
-            p_status = False
-        return p_status
+            return False
+        return True
 
     def window_resize(self, lines, columns):
         try:
