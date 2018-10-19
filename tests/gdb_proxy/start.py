@@ -10,9 +10,11 @@ print >>sys.stderr, 'starting up on %s port %s' % server_address
 sock.connect(server_address)
 
 try:
-    message = b'qRcmd,737764705f7363616e'
+    message = b'$qSupported:multiprocess+;swbreak+;hwbreak+;qRelocInsn+;fork-events+;vfork-events+;exec-events+;vContSupported+;QThreadEvents+;no-resumed+;xmlRegisters=i386#6a'
     print >> sys.stderr, 'sending "%s"' % message
     sock.sendall(message)
+    data = sock.recv(4096)
+    print >> sys.stderr, 'received "%s"' % data
     data = sock.recv(4096)
     print >> sys.stderr, 'received "%s"' % data
 finally:
