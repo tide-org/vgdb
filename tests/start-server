@@ -1,3 +1,0 @@
-#!/bin/bash
-
-gdbserver :9999 $1
