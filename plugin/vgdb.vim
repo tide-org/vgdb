@@ -1,7 +1,7 @@
 if exists('g:Vgdb_Loaded')
-    finish
+  finish
 endif
 
-command! -nargs=? -complete=shellcmd Vgdb call vgdb#open_gdb(<q-args>)
+command! -nargs=? -complete=shellcmd Vgdb call vgdb#open(<q-args>)
 
 let g:Vgdb_Loaded = 1

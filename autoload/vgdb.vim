@@ -4,19 +4,16 @@ endif
 
 let s:scriptdir = expand("<sfile>:h") . '/'
 let s:scriptdirpy = expand("<sfile>:h") . '/vgdb/'
+let s:initialised = 0
+let g:Vgdb_PyVersion = 3
 
-" Display various error messages
-function! vgdb#fail(feature) " {{{
-
-    " create a new buffer
+function! vgdb#fail(feature)
     new
     setlocal buftype=nofile
     setlocal nonumber
     setlocal foldcolumn=0
     setlocal wrap
     setlocal noswapfile
-
-    " missing vim features
     if a:feature == 'python'
         call append('$', 'Vgdb ERROR: Python interface cannot be loaded')
         call append('$', '')
@@ -36,15 +33,12 @@ function! vgdb#fail(feature) " {{{
         call append('$', "")
         call append('$', "If you are using OS X, MacVim will give you Python support by default.")
     endif
-endfunction " }}}
+endfunction
 
 function! vgdb#dependency_check()
-    " don't recheck the second time 'round
-    if s:initialized == 1
+    if s:initialised == 1
         return 1
     endif
-
-    " choose a python version
     let s:py = ''
     if g:Vgdb_PyVersion == 3
         let pytest = 'python3'
@@ -52,16 +46,12 @@ function! vgdb#dependency_check()
         let pytest = 'python'
         let g:Vgdb_PyVersion = 2
     endif
-
-    " first test the requested version
     if has(pytest)
         if pytest == 'python3'
             let s:py = 'py3'
         else
             let s:py = 'py'
         endif
-
-    " otherwise use the other version
     else
         let py_alternate = 5 - g:Vgdb_PyVersion
         if py_alternate == 3
@@ -79,13 +69,10 @@ function! vgdb#dependency_check()
             endif
         endif
     endif
-
-    " test if we actually found a python version
     if s:py == ''
         call vgdb#fail('python')
         return 0
     endif
-
     call vgdb#load_python()
     return 1
 endfunction
@@ -115,15 +102,6 @@ function! vgdb#open(...)
     if !vgdb#dependency_check()
         return 0
     endif
-
-    " switch to buffer if needed
-    if is_buffer && return_to_current
-      let save_sb = &switchbuf
-      sil set switchbuf=usetab
-      let current_buffer = bufname("%")
-    endif
-
-    " bare minimum validation
     if s:py == ''
         echohl WarningMsg | echomsg "Vgdb requires the Python interface to be installed. See :help Vgdb for more information." | echohl None
         return 0
@@ -141,8 +119,7 @@ function! vgdb#open(...)
     endif
 
     try
-        execute s:py . ' ' . g:Vgdb_Var . ' = .Initialias()'
-        execute s:py . ' ' . g:Vgdb_Var . ".Run()"
+        execute s:py . ' ' . g:Vgdb_Var . ".test()"
     catch
         echohl WarningMsg | echomsg "An error occurred: " . command | echohl None
         return 0
@@ -150,6 +127,5 @@ function! vgdb#open(...)
 endfunction
 
 function! vgdb#load_python()
-    exec s:py . "file " . s:scriptdirpy . "entrypoint.py"
-"    exec s:py . "file " . s:scriptdirpy . "example.py"
+    exec s:py . "file " . s:scriptdir . "vgdb.py"
 endfunction
