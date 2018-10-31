@@ -5,7 +5,7 @@ endif
 let s:scriptdir = expand("<sfile>:h") . '/'
 let s:scriptdirpy = expand("<sfile>:h") . '/vgdb/'
 let s:initialised = 0
-let g:Vgdb_PyVersion = 3
+let g:Vgdb_PyVersion = 0
 
 function! vgdb#fail(feature)
     new
@@ -73,24 +73,8 @@ function! vgdb#dependency_check()
         call vgdb#fail('python')
         return 0
     endif
-    call vgdb#load_python()
+    call vgdb#source_python_files()
     return 1
-endfunction
-
-function! vgdb#open_gdb(...)
-    let command_string = get(a:000, 0, '')
-    let gdb_command = 'gdb ' . command_string
-    let params = [gdb_command] + a:000[1:]
-    call vgdb#print_list(params)
-    echo join(params, "...")
-    call call("vgdb#open", params )
-endfunction
-
-function! vgdb#print_list(...)
-    echo a:0 . " items:"
-    for s in a:000
-        echon ' ' . join(s, "...")
-    endfor
 endfunction
 
 function! vgdb#open(...)
@@ -106,26 +90,15 @@ function! vgdb#open(...)
         echohl WarningMsg | echomsg "Vgdb requires the Python interface to be installed. See :help Vgdb for more information." | echohl None
         return 0
     endif
-    if empty(command)
-        echohl WarningMsg | echomsg "Invalid usage: no program path given. Use :Vgdb YOUR PROGRAM, e.g. :Vgdb ./testapp" | echohl None
-        return 0
-    else
-        let cmd_args = split(command, '[^\\]\@<=\s')
-        let cmd_args[0] = substitute(cmd_args[0], '\\ ', ' ', 'g')
-        if !executable(cmd_args[0])
-            echohl WarningMsg | echomsg "Not an executable: " . cmd_args[0] | echohl None
-            return 0
-        endif
-    endif
 
     try
-        execute s:py . ' ' . g:Vgdb_Var . ".test()"
+        execute s:py . ' test("5")'
     catch
         echohl WarningMsg | echomsg "An error occurred: " . command | echohl None
         return 0
     endtry
 endfunction
 
-function! vgdb#load_python()
+function! vgdb#source_python_files()
     exec s:py . "file " . s:scriptdir . "vgdb.py"
 endfunction
