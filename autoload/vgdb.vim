@@ -3,7 +3,6 @@ if !exists('g:Vgdb_Loaded')
 endif
 
 let s:scriptdir = expand("<sfile>:h") . '/'
-let s:scriptdirpy = expand("<sfile>:h") . '/vgdb/'
 let s:initialised = 0
 let g:Vgdb_PyVersion = 0
 
@@ -77,11 +76,8 @@ function! vgdb#dependency_check()
     return 1
 endfunction
 
-function! vgdb#open(...)
+function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
-    let vim_startup_commands = get(a:000, 1, [])
-    let return_to_current  = get(a:000, 2, 0)
-    let is_buffer  = get(a:000, 3, 1)
 
     if !vgdb#dependency_check()
         return 0
@@ -92,7 +88,7 @@ function! vgdb#open(...)
     endif
 
     try
-        execute s:py . ' test("5")'
+        execute s:py . ' start_gdb("' . command . '")'
     catch
         echohl WarningMsg | echomsg "An error occurred: " . command | echohl None
         return 0
