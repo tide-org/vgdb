@@ -7,7 +7,10 @@ ptyprocessdir = os.path.join(currentdir, "lib/ptyprocess")
 pexpectdir = os.path.join(currentdir, "lib/pexpect")
 sys.path.insert(0, ptyprocessdir)
 sys.path.insert(0, pexpectdir)
+
 import pexpect
+import vim
+
 
 def start_gdb(commands):
     try:
@@ -16,7 +19,13 @@ def start_gdb(commands):
         child.expect('\(gdb\)')
         child.sendline('info')
         child.expect('\(gdb\)')
-        print(child.before)
+        print("here1")
+        vim.command("let g:test = ''")
+        lines = child.before.replace("\r","").split("\n")
+        for line in lines:
+            print(line)
+            vim.command("let g:test = g:test . '" + line + "'")
+        print("here2")
     except Exception as ex:
         print("error in python: " + ex)
 
