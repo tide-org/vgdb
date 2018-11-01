@@ -3,6 +3,7 @@ if !exists('g:Vgdb_Loaded')
 endif
 
 let s:scriptdir = expand("<sfile>:h") . '/'
+let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 let s:initialised = 0
 let g:Vgdb_PyVersion = 0
 
