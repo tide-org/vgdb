@@ -6,6 +6,7 @@ let s:scriptdir = expand("<sfile>:h") . '/'
 let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 let s:initialised = 0
 let g:Vgdb_PyVersion = 0
+let g:query_result = []
 
 function! vgdb#fail(feature)
     new
@@ -79,7 +80,7 @@ endfunction
 
 function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
-
+    echom "command: " . command
     if !vgdb#dependency_check()
         return 0
     endif
@@ -89,10 +90,24 @@ function! vgdb#start_gdb(...)
     endif
 
     try
-        execute s:py . ' start_gdb("' . command . '")'
-    catch
-        echohl WarningMsg | echomsg "An error occurred: " . command | echohl None
-        return 0
+        execute s:py . ' vgdb = Vgdb()'
+        execute s:py . ' vgdb.start_gdb("' . command . '")'
+    catch a:exception
+        echohl WarningMsg | echomsg "An error occurred in vgdb#start_gdb: " . command . ", " . a:exception | echohl None
+        return 1
+    endtry
+endfunction
+
+function! vgdb#run_command(...)
+    let command = get(a:000, 0, '')
+    try
+        execute s:py . ' vgdb.run_command("' . command . '")'
+        for line in g:query_result
+            echohl WarningMsg | echomsg "line: " . line | echohl None
+        endfor
+    catch a:exception
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
+        return 1
     endtry
 endfunction
 
