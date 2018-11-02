@@ -11,6 +11,7 @@ sys.path.insert(0, pexpectdir)
 import pexpect
 import vim
 import shutil
+import re
 
 class Vgdb(object):
 
@@ -24,7 +25,7 @@ class Vgdb(object):
             print("error in start_gdb: " + ex)
             return 1
 
-    def run_command(self, command):
+    def run_command_with_result(self, command):
         try:
             self.child.sendline(command)
             self.child.expect('\(gdb\)')
@@ -37,3 +38,25 @@ class Vgdb(object):
             print("error in run_command: " + ex)
             return 1
 
+    def run_to_entrypoint(self):
+        entrypoint = self.get_entrypoint()
+        self.run_command("breakpoint *" + entrypoint)
+        self.run_command("run")
+
+    def get_entrypoint(self):
+        entrypoint = None
+        lines = self.run_command("info file")
+        pattern = re.compile('0x[0-9a-f]{6,12}')
+        for line in lines:
+            if re.search("Entry point:", line):
+                m = re.search(pattern, line)
+                entrypoint = m.group()
+        return entrypoint
+
+    def run_command(self, command):
+        try:
+            self.child.sendline(command)
+            self.child.expect('\(gdb\)')
+            return self.child.before.replace("\r","").replace("'", "''").split("\n")
+        except Exception as ex:
+            print("error in run_command: " + ex)

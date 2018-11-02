@@ -101,10 +101,20 @@ endfunction
 function! vgdb#run_command(...)
     let command = get(a:000, 0, '')
     try
-        execute s:py . ' vgdb.run_command("' . command . '")'
+        execute s:py . ' vgdb.run_command_with_result("' . command . '")'
         for line in g:query_result
             echohl WarningMsg | echomsg "line: " . line | echohl None
         endfor
+    catch a:exception
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
+        return 1
+    endtry
+endfunction
+
+function! vgdb#run_to_entrypoint(...)
+    let command = get(a:000, 0, '')
+    try
+        execute s:py . ' vgdb.run_to_entrypoint()'
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
         return 1
