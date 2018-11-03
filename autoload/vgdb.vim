@@ -7,6 +7,7 @@ let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 let s:initialised = 0
 let g:Vgdb_PyVersion = 0
 let g:query_result = []
+let g:app_entrpoint = ''
 
 function! vgdb#fail(feature)
     new
@@ -61,7 +62,7 @@ function! vgdb#dependency_check()
             let pytest = 'python'
         endif
         if has(pytest)
-            echohl WarningMsg | echomsg "Python " . g:Vgdb_PyVersion . " interface is not installed, using Python " . py_alternate . " instead" | echohl None
+            "echohl WarningMsg | echomsg "Python " . g:Vgdb_PyVersion . " interface is not installed, using Python " . py_alternate . " instead" | echohl None
             let g:Vgdb_PyVersion = py_alternate
             if pytest == 'python3'
                 let s:py = 'py3'
@@ -80,7 +81,6 @@ endfunction
 
 function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
-    echom "command: " . command
     if !vgdb#dependency_check()
         return 0
     endif
@@ -92,6 +92,7 @@ function! vgdb#start_gdb(...)
     try
         execute s:py . ' vgdb = Vgdb()'
         execute s:py . ' vgdb.start_gdb("' . command . '")'
+        echom "Vgdb started successfully"
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#start_gdb: " . command . ", " . a:exception | echohl None
         return 1
@@ -102,9 +103,10 @@ function! vgdb#run_command(...)
     let command = get(a:000, 0, '')
     try
         execute s:py . ' vgdb.run_command_with_result("' . command . '")'
-        for line in g:query_result
-            echohl WarningMsg | echomsg "line: " . line | echohl None
-        endfor
+        "for line in g:query_result
+        "    echohl WarningMsg | echomsg "line: " . line | echohl None
+        "endfor
+        echom "command run successfully: " . command
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
         return 1
@@ -115,6 +117,7 @@ function! vgdb#run_to_entrypoint(...)
     let command = get(a:000, 0, '')
     try
         execute s:py . ' vgdb.run_to_entrypoint()'
+        echom "application started and broke at entrypoint: " . g:app_entrypoint
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
         return 1

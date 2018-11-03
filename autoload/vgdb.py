@@ -40,18 +40,25 @@ class Vgdb(object):
 
     def run_to_entrypoint(self):
         entrypoint = self.get_entrypoint()
+        vim.command("let g:app_entrypoint = '" + entrypoint + "'")
         self.run_command("breakpoint *" + entrypoint)
         self.run_command("run")
 
-    def get_entrypoint(self):
-        entrypoint = None
-        lines = self.run_command("info file")
-        pattern = re.compile('0x[0-9a-f]{6,12}')
+    def run_command_get_match(self, command, regex_match):
+        match_string = None
+        lines = self.run_command(command)
+        return self.get_match(regex_match, lines)
+
+    def get_match(self, regex_match, lines):
+        pattern = re.compile(regex_match)
         for line in lines:
-            if re.search("Entry point:", line):
-                m = re.search(pattern, line)
-                entrypoint = m.group()
-        return entrypoint
+            if re.search(pattern, line):
+                match = re.search(pattern, line)
+                match_string = match.group(1)
+        return match_string
+
+    def get_entrypoint(self):
+        return self.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{6,12})')
 
     def run_command(self, command):
         try:
