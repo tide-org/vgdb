@@ -8,3 +8,5 @@ info file entrypoint format:
 ~"\tEntry point: 0x400430\n"
 regex:    ~"\\tEntry point: (0x[0-9a-f]{6,12})\\n"
 py regex: ~\"\\tEntry point: (0x[0-9a-f]{6,12})\\n\"
+
+
