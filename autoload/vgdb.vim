@@ -20,21 +20,10 @@ function! vgdb#fail()
     setlocal noswapfile
     call append('$', 'Vgdb ERROR: Python interface cannot be loaded')
     call append('$', '')
+    call append('$', 'Your version of Vim appears to be installed without the Python interface.')
     if !executable("python")
-        call append('$', 'Your version of Vim appears to be installed without the Python interface. In ')
-        call append('$', 'addition, you may need to install Python.')
-    else
-        call append('$', 'Your version of Vim appears to be installed without the Python interface.')
+        call append('$', 'You may also need to install Python.')
     endif
-    call append('$', '')
-    call append('$', "You are using a Unix-like operating system. Most, if not all, of the popular ")
-    call append('$', "Linux package managers have Python-enabled Vim available. For example ")
-    call append('$', "vim-gnome or vim-gtk on Ubuntu will get you everything you need.")
-    call append('$', "")
-    call append('$', "If you are compiling Vim from source, make sure you use the --enable-pythoninterp ")
-    call append('$', "configure option. You will also need to install Python and the Python headers.")
-    call append('$', "")
-    call append('$', "If you are using OS X, MacVim will give you Python support by default.")
 endfunction
 
 function! vgdb#dependency_check()
