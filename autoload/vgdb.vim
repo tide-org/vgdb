@@ -8,8 +8,10 @@ let s:initialised = 0
 let g:Vgdb_PyVersion = 0
 let g:query_result = []
 let g:app_entrpoint = ''
+let g:last_register_result = []
 
-function! vgdb#fail(feature)
+
+function! vgdb#fail()
     new
     setlocal buftype=nofile
     setlocal nonumber
@@ -60,7 +62,6 @@ function! vgdb#dependency_check()
             let pytest = 'python'
         endif
         if has(pytest)
-            "echohl WarningMsg | echomsg "Python " . g:Vgdb_PyVersion . " interface is not installed, using Python " . py_alternate . " instead" | echohl None
             let g:Vgdb_PyVersion = py_alternate
             if pytest == 'python3'
                 let s:py = 'py3'
@@ -70,7 +71,7 @@ function! vgdb#dependency_check()
         endif
     endif
     if s:py == ''
-        call vgdb#fail('python')
+        call vgdb#fail()
         return 0
     endif
     call vgdb#source_python_files()
@@ -101,10 +102,8 @@ function! vgdb#run_command(...)
     let command = get(a:000, 0, '')
     try
         execute s:py . ' vgdb.run_command_with_result("' . command . '")'
-        "for line in g:query_result
-        "    echohl WarningMsg | echomsg "line: " . line | echohl None
-        "endfor
-        echom "command run successfully: " . command
+        echom "command ran successfully: " . command
+        call vgdb#update_buffers()
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
         return 1
@@ -122,14 +121,26 @@ function! vgdb#run_to_entrypoint(...)
     endtry
 endfunction
 
+function! vgdb#update_buffers()
+    if bufnr('vg_registers') > 0
+        call vgdb#display_registers()
+    endif
+endfunction
+
 function! vgdb#display_registers(...)
-    vnew
-    setlocal buftype=nofile
-    setlocal nonumber
-    setlocal foldcolumn=0
-    setlocal wrap
-    setlocal noswapfile
     execute s:py . ' vgdb.run_command_with_result("info registers")'
+    if bufnr('vg_registers') == -1
+        vnew
+        setlocal buftype=nofile
+        setlocal nonumber
+        setlocal foldcolumn=0
+        setlocal wrap
+        setlocal noswapfile
+        setlocal bufhidden=delete
+        file vg_registers
+    else
+        edit! vg_registers
+    endif
     call append(line('$'), g:query_result)
 endfunction
 

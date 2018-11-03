@@ -27,10 +27,8 @@ class Vgdb(object):
 
     def run_command_with_result(self, command):
         try:
-            self.child.sendline(command)
-            self.child.expect('\(gdb\)')
             vim.command("let g:query_result = []")
-            lines = self.child.before.replace("\r","").replace("'", "''").split("\n")
+            lines = self.run_command(command)
             for line in lines:
                 vim.command("call add(g:query_result, '" + line + "' )")
             return 0
@@ -41,7 +39,7 @@ class Vgdb(object):
     def run_to_entrypoint(self):
         entrypoint = self.get_entrypoint()
         vim.command("let g:app_entrypoint = '" + entrypoint + "'")
-        self.run_command("breakpoint *" + entrypoint)
+        self.run_command("b *" + entrypoint)
         self.run_command("run")
 
     def run_command_get_match(self, command, regex_match):
@@ -54,7 +52,8 @@ class Vgdb(object):
         for line in lines:
             if re.search(pattern, line):
                 match = re.search(pattern, line)
-                match_string = match.group(1)
+                if match != None:
+                    match_string = match.group(1)
         return match_string
 
     def get_entrypoint(self):
@@ -64,6 +63,12 @@ class Vgdb(object):
         try:
             self.child.sendline(command)
             self.child.expect('\(gdb\)')
-            return self.child.before.replace("\r","").replace("'", "''").split("\n")
+            buffstring = self.child.before
+            try:
+                while not self.child.expect(r'.+', timeout=0.05):
+                    buffstring += self.child.match.group(0)
+            except:
+                pass
+            return buffstring.replace("\r","").replace("'", "''").split("\n")
         except Exception as ex:
             print("error in run_command: " + ex)
