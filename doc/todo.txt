@@ -2,7 +2,7 @@
 [x] start at entrypoint option (but hacky)
 [ ] integrate docker debugging
 [ ] add register view buffer and update with step
-
+[ ] add source for os-specific test binaries
 
 info file entrypoint format:
 ~"\tEntry point: 0x400430\n"
