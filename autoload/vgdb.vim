@@ -103,7 +103,7 @@ function! vgdb#run_to_entrypoint(...)
     let command = get(a:000, 0, '')
     try
         execute s:py . ' vgdb.run_to_entrypoint()'
-        echom "application started and broke at entrypoint: " . g:app_entrypoint
+        echom "application started and halted at entrypoint: " . g:app_entrypoint
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
         return 1
@@ -111,15 +111,15 @@ function! vgdb#run_to_entrypoint(...)
 endfunction
 
 function! vgdb#update_buffers()
-    if bufnr('vg_registers') > 0
+    if vgdb#window_by_bufname('vg_registers', 0) != -1
         call vgdb#display_registers()
     endif
 endfunction
 
 function! vgdb#display_registers(...)
-    execute s:py . ' vgdb.run_command_with_result("info registers")'
-    if bufnr('vg_registers') == -1
-        vnew
+    let l:current_window_num = winnr()
+    if vgdb#window_by_bufname('vg_registers', 1) == -1
+        60vnew
         setlocal buftype=nofile
         setlocal nonumber
         setlocal foldcolumn=0
@@ -128,11 +128,26 @@ function! vgdb#display_registers(...)
         setlocal bufhidden=delete
         file vg_registers
     else
-        edit! vg_registers
+        silent 1,$d _
     endif
+    execute s:py . ' vgdb.run_command_with_result("info registers")'
     call append(line('$'), g:query_result)
+    exec l:current_window_num . 'wincmd w'
 endfunction
 
+function! vgdb#window_by_bufname(bufname, switch_window)
+    let bufmap = map(range(1, winnr('$')), '[bufname(winbufnr(v:val)), v:val]')
+    let filtered_map = filter(bufmap, 'v:val[0] =~ a:bufname')
+    if len(filtered_map) > 0
+        let thewindow = filtered_map[0][1]
+        if a:switch_window
+            execute thewindow . 'wincmd w'
+        endif
+        return thewindow
+    else
+        return -1
+    endif
+endfunction
 
 function! vgdb#source_python_files()
     exec s:py . "file " . s:scriptdir . "vgdb.py"

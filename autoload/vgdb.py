@@ -63,12 +63,26 @@ class Vgdb(object):
         try:
             self.child.sendline(command)
             self.child.expect('\(gdb\)')
-            buffstring = self.child.before
+            buffer_string = self.child.before
             try:
                 while not self.child.expect(r'.+', timeout=0.05):
-                    buffstring += self.child.match.group(0)
+                    buffer_string += self.child.match.group(0)
             except:
                 pass
-            return buffstring.replace("\r","").replace("'", "''").split("\n")
+            return self.filter_command_result(buffer_string)
         except Exception as ex:
             print("error in run_command: " + ex)
+
+    def filter_command_result(self, buffer_result):
+        lines_to_keep = []
+        lines =  buffer_result.replace("\r","").replace("'", "''").split("\n")
+        for line in lines:
+            if line.startswith('~"') and line.endswith('\\n"'):
+                lines_to_keep.append(line.lstrip('~"').rstrip('\\n"'))
+        return lines_to_keep
+
+
+
+
+
+
