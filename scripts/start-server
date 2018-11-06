@@ -2,4 +2,4 @@
 
 cd $(dirname $0)/../tests
 
-gdbserver :9999 ../tests/binaries/hello_linux
+gdbserver :9999 ../tests/binaries/${BINARY_TO_RUN}

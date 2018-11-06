@@ -11,6 +11,8 @@ services:
       - seccomp:unconfined
     ports:
       - "9999:9999"
+    environment:
+      - BINARY_TO_RUN
     volumes:
       - ..:/work
     command: /work/scripts/start-server
