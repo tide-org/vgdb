@@ -2,8 +2,10 @@
 [x] start at entrypoint option
 [x] integrate docker debugging
 [x] add register view buffer and update with step
-[ ] add source for os-specific test binaries
-[ ] add macos docker integration
+[x] add source for os-specific test binaries
+[ ] establish if symbols file found from starup
+[ ] add option for stacking/abutting extra windows
+[ ] detect symbols in files
 [ ] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
 [ ] add memory view buffers and update with step
 [ ] add local variables view buffer and update with step
