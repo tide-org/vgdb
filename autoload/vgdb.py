@@ -18,7 +18,7 @@ class Vgdb(object):
     def start_gdb(self, commands):
         try:
             gdb_path = shutil.which("gdb")
-            self.child = pexpect.spawnu(gdb_path +  ' --interpreter=mi2 ' + commands)
+            self.child = pexpect.spawnu(gdb_path +  ' -q --interpreter=mi2 ' + commands)
             self.child.expect('\(gdb\)')
             return 0
         except Exception as ex:
