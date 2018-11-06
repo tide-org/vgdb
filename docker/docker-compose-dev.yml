@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
 
@@ -15,5 +15,6 @@ services:
       - BINARY_TO_RUN
     volumes:
       - ..:/work
+      - ${BINARY_LOCATION}:/binaries
     command: /work/scripts/start-server
 

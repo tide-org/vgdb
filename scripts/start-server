@@ -1,5 +1,7 @@
 #!/bin/bash
 
-cd $(dirname $0)/../tests
+set -x
 
-gdbserver :9999 ../tests/binaries/${BINARY_TO_RUN}
+ls -alh /binaries
+
+gdbserver :9999 /binaries/${BINARY_TO_RUN}

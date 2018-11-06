@@ -1,5 +1,22 @@
 #! /bin/sh -e
 
+# Usage: bin/dev-up <path of binary to run>
+#
+# note: on MacOS, coreutils must be installed. e.g. `brew install creutils`
+#       on CentOS, you may need to run `yum install coreutils`
+
 cd $(dirname $0)/../docker
 
-docker-compose -f docker-compose-dev.yml run --rm --service-ports dev-server "${@-sh}"
+if [ -z $1 ];
+then
+    BINARY_TO_RUN=hello_linux
+    BINARY_LOCATION=../tests/binaries
+else
+    BINARY_LOCATION=$( realpath $(dirname "$1") )
+    BINARY_TO_RUN=$(basename "$1")
+fi
+
+echo "binary to run: " $BINARY_TO_RUN
+echo "binary location: " $BINARY_LOCATION
+
+BINARY_TO_RUN=${BINARY_TO_RUN} BINARY_LOCATION=${BINARY_LOCATION} docker-compose -f docker-compose-dev.yml run --rm --service-ports dev-server "${@-sh}"
