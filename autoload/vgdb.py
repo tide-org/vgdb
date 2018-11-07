@@ -21,6 +21,7 @@ class Vgdb(object):
             self.child = pexpect.spawnu(gdb_path +  ' -q --interpreter=mi2 ' + commands)
             self.child.expect('\(gdb\)')
             lines = self.get_filtered_output()
+            self.set_binary_symbols_status(lines)
             return 0
         except Exception as ex:
             print("error in start_gdb: " + ex)
@@ -80,6 +81,10 @@ class Vgdb(object):
         try:
             self.child.sendline(command)
             self.child.expect('\(gdb\)')
+            lines = self.get_filtered_output()
+            self.set_binary_symbols_status(lines)
+            if 'target' in command.lower():
+                self.set_binary_symbols_status(lines)
             buffer_string = self.seek_to_end_of_tty()
             return self.filter_command_result(buffer_string)
         except Exception as ex:

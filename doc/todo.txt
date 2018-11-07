@@ -3,9 +3,10 @@
 [x] integrate docker debugging
 [x] add register view buffer and update with step
 [x] add source for os-specific test binaries
-[ ] establish if symbols file found from starup
+[x] establish if symbols file found from starup
 [ ] add option for stacking/abutting extra windows
-[ ] detect symbols in files
+[x] detect symbols in files
+[ ] add disassembly output buffer if not symbols found
 [ ] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
 [ ] add memory view buffers and update with step
 [ ] add local variables view buffer and update with step
