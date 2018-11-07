@@ -9,6 +9,8 @@ let g:Vgdb_PyVersion = 0
 let g:query_result = []
 let g:app_entrpoint = ''
 let g:last_register_result = []
+let g:vg_binary_loaded = 0
+let g:vg_symbols_loaded = 0
 
 
 function! vgdb#fail()

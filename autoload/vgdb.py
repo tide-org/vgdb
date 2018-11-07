@@ -20,10 +20,27 @@ class Vgdb(object):
             gdb_path = shutil.which("gdb")
             self.child = pexpect.spawnu(gdb_path +  ' -q --interpreter=mi2 ' + commands)
             self.child.expect('\(gdb\)')
+            lines = self.get_filtered_output()
             return 0
         except Exception as ex:
             print("error in start_gdb: " + ex)
             return 1
+
+    def set_binary_symbols_status(self, lines):
+        binary_loaded = False
+        no_symbols_found = False
+        for line in lines:
+            if 'Reading symbols from' in line:
+                binary_loaded = True
+            if '(no debugging symbols found)' in line:
+                no_symbols_found = True
+                binary_loaded = True
+        symbols_loaded = not no_symbols_found
+        # this is an impssible state which can occur if neither string is matched above
+        if symbols_loaded == True and binary_loaded == False:
+            symbols_loaded = False
+        vim.command("let g:vg_binary_loaded = " + str(int(binary_loaded)))
+        vim.command("let g:vg_symbols_loaded = " + str(int(symbols_loaded)))
 
     def run_command_with_result(self, command):
         try:
@@ -63,21 +80,29 @@ class Vgdb(object):
         try:
             self.child.sendline(command)
             self.child.expect('\(gdb\)')
-            buffer_string = self.child.before
-            try:
-                while not self.child.expect(r'.+', timeout=0.05):
-                    buffer_string += self.child.match.group(0)
-            except:
-                pass
+            buffer_string = self.seek_to_end_of_tty()
             return self.filter_command_result(buffer_string)
         except Exception as ex:
             print("error in run_command: " + ex)
+
+    def get_filtered_output(self):
+        buffer_string = self.seek_to_end_of_tty()
+        return self.filter_command_result(buffer_string)
+
+    def seek_to_end_of_tty(self, timeout=0.05):
+        buffer_string = self.child.before
+        try:
+            while not self.child.expect(r'.+', timeout=timeout):
+                buffer_string += self.child.match.group(0)
+        except:
+            pass
+        return buffer_string
 
     def filter_command_result(self, buffer_result):
         lines_to_keep = []
         lines =  buffer_result.replace("\r","").replace("'", "''").split("\n")
         for line in lines:
-            if line.startswith('~"') and line.endswith('\\n"'):
+            if line.startswith('~"'):
                 lines_to_keep.append(line.lstrip('~"').rstrip('\\n"'))
         return lines_to_keep
 
