@@ -1,4 +1,4 @@
-[ ] add session log file
+[x] add session log file
 [x] start at entrypoint option
 [x] integrate docker debugging
 [x] add register view buffer and update with step

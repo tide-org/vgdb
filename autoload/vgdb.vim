@@ -138,14 +138,14 @@ function! vgdb#display_registers(...)
 endfunction
 
 function! vgdb#window_by_bufname(bufname, switch_window)
-    let bufmap = map(range(1, winnr('$')), '[bufname(winbufnr(v:val)), v:val]')
-    let filtered_map = filter(bufmap, 'v:val[0] =~ a:bufname')
-    if len(filtered_map) > 0
-        let thewindow = filtered_map[0][1]
+    let l:bufmap = map(range(1, winnr('$')), '[bufname(winbufnr(v:val)), v:val]')
+    let l:filtered_map = filter(bufmap, 'v:val[0] =~ a:bufname')
+    if len(l:filtered_map) > 0
+        let l:found_window = filtered_map[0][1]
         if a:switch_window
-            execute thewindow . 'wincmd w'
+            execute l:found_window . 'wincmd w'
         endif
-        return thewindow
+        return l:found_window
     else
         return -1
     endif

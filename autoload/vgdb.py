@@ -15,10 +15,22 @@ import re
 
 class Vgdb(object):
 
+    def __init__(self):
+        self.load_disassembly_on_start = vim.eval('g:vg_load_disassembly_on_start')
+        self.use_session_log_file = vim.eval('g:vg_use_session_log_file')
+        self.session_log_filename = vim.eval('g:vg_session_log_filename')
+        self.startup_commands = None
+        self.current_command = None
+        self.child = None
+        self.log_file_handle = None
+        if self.use_session_log_file:
+            self.log_file_handle = open(self.session_log_filename, "w+")
+
     def start_gdb(self, commands):
         try:
+            self.startup_commands = commands
             gdb_path = shutil.which("gdb")
-            self.child = pexpect.spawnu(gdb_path +  ' -q --interpreter=mi2 ' + commands)
+            self.child = pexpect.spawnu(gdb_path +  ' -q --interpreter=mi2 ' + self.startup_commands)
             self.child.expect('\(gdb\)')
             lines = self.get_filtered_output()
             self.set_binary_symbols_status(lines)
@@ -57,11 +69,10 @@ class Vgdb(object):
     def run_to_entrypoint(self):
         entrypoint = self.get_entrypoint()
         vim.command("let g:app_entrypoint = '" + entrypoint + "'")
-        self.run_command("b *" + entrypoint)
+        self.run_command("breakpoint *" + entrypoint)
         self.run_command("run")
 
     def run_command_get_match(self, command, regex_match):
-        match_string = None
         lines = self.run_command(command)
         return self.get_match(regex_match, lines)
 
@@ -83,16 +94,20 @@ class Vgdb(object):
             self.child.expect('\(gdb\)')
             lines = self.get_filtered_output()
             self.set_binary_symbols_status(lines)
-            if 'target' in command.lower():
+            if 'target remote' in command.lower():
                 self.set_binary_symbols_status(lines)
-            buffer_string = self.seek_to_end_of_tty()
-            return self.filter_command_result(buffer_string)
+            return lines
         except Exception as ex:
             print("error in run_command: " + ex)
 
     def get_filtered_output(self):
         buffer_string = self.seek_to_end_of_tty()
+        self.write_to_log(buffer_string)
         return self.filter_command_result(buffer_string)
+
+    def write_to_log(self, log_string):
+        if self.use_session_log_file:
+            self.log_file_handle.write(log_string)
 
     def seek_to_end_of_tty(self, timeout=0.05):
         buffer_string = self.child.before
