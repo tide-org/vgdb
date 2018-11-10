@@ -4,20 +4,22 @@
 [x] add register view buffer and update with step
 [x] add source for os-specific test binaries
 [x] establish if symbols file found from starup
-[ ] fix session log when run command run multiple times in one call - eg Vgrte
-[ ] detect host os at startup and set vim variable for this
-[ ] add a session log view buffer and update with step
-[ ] add gdb error detection and notification
+[x] fix session log when run command run multiple times in one call - eg Vgrte
+[x] add a session log view buffer and update with step
+[ ] add gdb error/warning buffer view and update with step
+[ ] add local variables view buffer and update with step
+[ ] add breakpoints view buffer and update with step
+[ ] add watchpoints view buffer and update with step
 [x] add fix for macos using Vgrte: https://stackoverflow.com/questions/40110435/unknown-ending-signal-when-using-debugger-gdb - done - https://stackoverflow.com/a/52450255/512965
 [x] add option for stacking/abutting extra windows
 [x] detect symbols in files
-[ ] add disassembly output buffer if symbols not found
+[ ] add disassembly output buffer if symbols not found ( add to empty buffer or abutt)
 [ ] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
-[ ] add memory view buffers and update with step
-[ ] add local variables view buffer and update with step
-[ ] add breakpoints view buffer and update with step
-[ ] add session log view buffer and update with step
-[ ] add call stack view buffer and update with step
+[ ] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
+[ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint address)
+[ ] add segments view buffer ( no update with step)
+[ ] add sections view buffer ( no update with step)
+[ ] add call stack view buffer and update with step (only if symbols loaded)
 [ ] add thread view buffer and update with step
 [ ] add debugging source functionality and open source files if present (start with .s files)
 [ ] add shortcut keys for debugging
@@ -28,8 +30,10 @@
 [ ] add tests where required
 [ ] refactor py vgdb into separate classe subsystem for interpreting mi
 [ ] add gdb supported higher level languages support
+[ ] add goto definition functionality
 [ ] add interpreted languages support where possible
-[ ] add scripting plugin
+[ ] add scripting plugin support
+[ ] add llvm support
 
 info file entrypoint format:
 ~"\tEntry point: 0x400430\n"
