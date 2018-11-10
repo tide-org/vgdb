@@ -5,12 +5,12 @@ endif
 let s:scriptdir = expand("<sfile>:h") . '/'
 let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 let s:initialised = 0
-let g:Vgdb_PyVersion = 0
-let g:query_result = []
+let g:vg_python_version = 0
+let g:vg_query_result = []
 let g:vg_full_query_result = []
 let g:vg_session_log = []
-let g:app_entrpoint = ''
-let g:last_register_result = []
+let g:vg_app_entrypoint = ''
+let g:vg_last_register_result = []
 let g:vg_binary_loaded = 0
 let g:vg_symbols_loaded = 0
 let g:vg_valid_buffers = ['vg_registers', 'vg_session_log']
@@ -35,11 +35,11 @@ function! vgdb#dependency_check()
         return 1
     endif
     let s:py = ''
-    if g:Vgdb_PyVersion == 3
+    if g:vg_python_version == 3
         let pytest = 'python3'
     else
         let pytest = 'python'
-        let g:Vgdb_PyVersion = 2
+        let g:vg_python_version = 2
     endif
     if has(pytest)
         if pytest == 'python3'
@@ -48,14 +48,14 @@ function! vgdb#dependency_check()
             let s:py = 'py'
         endif
     else
-        let py_alternate = 5 - g:Vgdb_PyVersion
+        let py_alternate = 5 - g:vg_python_version
         if py_alternate == 3
             let pytest = 'python3'
         else
             let pytest = 'python'
         endif
         if has(pytest)
-            let g:Vgdb_PyVersion = py_alternate
+            let g:vg_python_version = py_alternate
             if pytest == 'python3'
                 let s:py = 'py3'
             else
@@ -107,7 +107,7 @@ function! vgdb#run_to_entrypoint(...)
     let command = get(a:000, 0, '')
     try
         execute s:py . ' vgdb.run_to_entrypoint()'
-        echom "application started and halted at entrypoint: " . g:app_entrypoint
+        echom "application started and halted at entrypoint: " . g:vg_app_entrypoint
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
         return 1
@@ -127,9 +127,10 @@ function! vgdb#display_session_log(...)
     let l:current_window_num = winnr()
     call vgdb#create_split('vg_session_log')
     call vgdb#window_by_bufname('vg_session_log', 1)
-    call append(line('$'), g:full_query_result)
-    let g:full_query_result = []
-    exec l:current_window_num . 'wincmd w'
+    call append(line('$'), g:vg_full_query_result)
+    let g:vg_full_query_result = []
+    execute 'normal! G'
+    execute l:current_window_num . 'wincmd w'
 endfunction
 
 function! vgdb#display_registers(...)
@@ -138,7 +139,7 @@ function! vgdb#display_registers(...)
     execute s:py . ' vgdb.run_command_with_result("info registers")'
     call vgdb#window_by_bufname('vg_registers', 1)
     silent 1,$d _
-    call append(line('$'), g:query_result)
+    call append(line('$'), g:vg_query_result)
     exec l:current_window_num . 'wincmd w'
 endfunction
 

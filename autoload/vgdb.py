@@ -57,10 +57,10 @@ class Vgdb(object):
 
     def run_command_with_result(self, command):
         try:
-            vim.command("let g:query_result = []")
+            vim.command("let g:vg_query_result = []")
             lines = self.run_command(command)
             for line in lines:
-                vim.command("call add(g:query_result, '" + line + "' )")
+                vim.command("call add(g:vg_query_result, '" + line + "' )")
             return 0
         except Exception as ex:
             print("error in run_command: " + ex)
@@ -68,7 +68,7 @@ class Vgdb(object):
 
     def run_to_entrypoint(self):
         entrypoint = self.get_entrypoint()
-        vim.command("let g:app_entrypoint = '" + entrypoint + "'")
+        vim.command("let g:vg_app_entrypoint = '" + entrypoint + "'")
         self.run_command("b *" + entrypoint)
         self.run_command("run")
 
@@ -108,10 +108,10 @@ class Vgdb(object):
     def write_to_log(self, log_string):
         if self.use_session_log_file:
             self.log_file_handle.write(log_string)
-        vim.command("let g:full_query_result = []")
+        vim.command("let g:vg_full_query_result = []")
         log_lines = self.filter_query_result(log_string, True)
         for log_line in log_lines:
-            vim.command("call add(g:full_query_result, '" + log_line + "' )")
+            vim.command("call add(g:vg_full_query_result, '" + log_line + "' )")
 
     def seek_to_end_of_tty(self, timeout=0.05):
         buffer_string = self.child.before

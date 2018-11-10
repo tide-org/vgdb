@@ -4,6 +4,7 @@
 [x] add register view buffer and update with step
 [x] add source for os-specific test binaries
 [x] establish if symbols file found from starup
+[ ] fix session log when run command run multiple times in one call - eg Vgrte
 [ ] detect host os at startup and set vim variable for this
 [ ] add a session log view buffer and update with step
 [ ] add gdb error detection and notification
