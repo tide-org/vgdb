@@ -4,6 +4,10 @@
 [x] add register view buffer and update with step
 [x] add source for os-specific test binaries
 [x] establish if symbols file found from starup
+[ ] detect host os at startup and set vim variable for this
+[ ] add a session log view buffer and update with step
+[ ] add gdb error detection and notification
+[x] add fix for macos using Vgrte: https://stackoverflow.com/questions/40110435/unknown-ending-signal-when-using-debugger-gdb - done - https://stackoverflow.com/a/52450255/512965
 [ ] add option for stacking/abutting extra windows
 [x] detect symbols in files
 [ ] add disassembly output buffer if not symbols found
