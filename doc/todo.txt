@@ -8,9 +8,9 @@
 [ ] add a session log view buffer and update with step
 [ ] add gdb error detection and notification
 [x] add fix for macos using Vgrte: https://stackoverflow.com/questions/40110435/unknown-ending-signal-when-using-debugger-gdb - done - https://stackoverflow.com/a/52450255/512965
-[ ] add option for stacking/abutting extra windows
+[x] add option for stacking/abutting extra windows
 [x] detect symbols in files
-[ ] add disassembly output buffer if not symbols found
+[ ] add disassembly output buffer if symbols not found
 [ ] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
 [ ] add memory view buffers and update with step
 [ ] add local variables view buffer and update with step

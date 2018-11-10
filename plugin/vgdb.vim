@@ -11,7 +11,11 @@ if !exists('g:vg_use_session_log_file')
 endif
 
 if !exists('g:vg_session_log_filename')
-    let g:vg_session_log_filename = 'vgdb_test_session.log'
+    let g:vg_session_log_filename = 'vgdb_session.log'
+endif
+
+if !exists('g:vg_stack_buffers')
+    let g:vg_stack_buffers = 1
 endif
 
 command! -nargs=? -complete=shellcmd Vgdb call vgdb#start_gdb(<q-args>)
@@ -23,6 +27,8 @@ command! -nargs=? -complete=shellcmd Vgb call vgdb#run_command(<q-args>)
 command! -nargs=? -complete=shellcmd Vgrte call vgdb#run_to_entrypoint(<q-args>)
 
 command! -nargs=? -complete=shellcmd Vgreg call vgdb#display_registers(<q-args>)
+
+command! -nargs=? -complete=shellcmd Vgsl call vgdb#display_session_log(<q-args>)
 
 command! -nargs=? -complete=shellcmd Vgdis call vgdb#show_disassembly(<q-args>)
 

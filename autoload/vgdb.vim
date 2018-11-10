@@ -7,11 +7,13 @@ let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 let s:initialised = 0
 let g:Vgdb_PyVersion = 0
 let g:query_result = []
+let g:vg_full_query_result = []
+let g:vg_session_log = []
 let g:app_entrpoint = ''
 let g:last_register_result = []
 let g:vg_binary_loaded = 0
 let g:vg_symbols_loaded = 0
-
+let g:vg_valid_buffers = ['vg_registers', 'vg_session_log']
 
 function! vgdb#fail()
     new
@@ -116,25 +118,61 @@ function! vgdb#update_buffers()
     if vgdb#window_by_bufname('vg_registers', 0) != -1
         call vgdb#display_registers()
     endif
+    if vgdb#window_by_bufname('vg_session_log', 0) != -1
+        call vgdb#display_session_log()
+    endif
+endfunction
+
+function! vgdb#display_session_log(...)
+    let l:current_window_num = winnr()
+    call vgdb#create_split('vg_session_log')
+    call vgdb#window_by_bufname('vg_session_log', 1)
+    call append(line('$'), g:full_query_result)
+    let g:full_query_result = []
+    exec l:current_window_num . 'wincmd w'
 endfunction
 
 function! vgdb#display_registers(...)
     let l:current_window_num = winnr()
-    if vgdb#window_by_bufname('vg_registers', 1) == -1
-        60vnew
+    call vgdb#create_split('vg_registers')
+    execute s:py . ' vgdb.run_command_with_result("info registers")'
+    call vgdb#window_by_bufname('vg_registers', 1)
+    silent 1,$d _
+    call append(line('$'), g:query_result)
+    exec l:current_window_num . 'wincmd w'
+endfunction
+
+function! vgdb#remove_unlisted_buffers()
+    let l:buffer_numbers = filter(range(1,bufnr('$')), 'bufexists(v:val)')
+    for l:buffer_number in l:buffer_numbers
+        if !bufloaded(l:buffer_number) && !buflisted(l:buffer_number)
+            exe 'bwipeout ' . l:buffer_number
+        endif
+    endfor
+endfunction
+
+function! vgdb#create_split(buffer_name)
+    call vgdb#remove_unlisted_buffers()
+    if vgdb#window_by_bufname(a:buffer_name, 0) == -1
+        if g:vg_stack_buffers
+            let l:existing_window = vgdb#first_window_by_valid_buffers()
+            if l:existing_window != -1
+                execute l:existing_window . 'wincmd w'
+                new
+            else
+                60vnew
+            endif
+        else
+            60vnew
+        endif
         setlocal buftype=nofile
         setlocal nonumber
         setlocal foldcolumn=0
         setlocal wrap
         setlocal noswapfile
         setlocal bufhidden=delete
-        file vg_registers
-    else
-        silent 1,$d _
+        exec 'file ' . a:buffer_name
     endif
-    execute s:py . ' vgdb.run_command_with_result("info registers")'
-    call append(line('$'), g:query_result)
-    exec l:current_window_num . 'wincmd w'
 endfunction
 
 function! vgdb#window_by_bufname(bufname, switch_window)
@@ -149,6 +187,16 @@ function! vgdb#window_by_bufname(bufname, switch_window)
     else
         return -1
     endif
+endfunction
+
+function! vgdb#first_window_by_valid_buffers()
+    for buffer_name in g:vg_valid_buffers
+        let l:window_number = vgdb#window_by_bufname(buffer_name, 0)
+        if l:window_number != -1
+            return window_number
+        endif
+    endfor
+    return -1
 endfunction
 
 function! vgdb#source_python_files()

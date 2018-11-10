@@ -69,7 +69,7 @@ class Vgdb(object):
     def run_to_entrypoint(self):
         entrypoint = self.get_entrypoint()
         vim.command("let g:app_entrypoint = '" + entrypoint + "'")
-        self.run_command("breakpoint *" + entrypoint)
+        self.run_command("b *" + entrypoint)
         self.run_command("run")
 
     def run_command_get_match(self, command, regex_match):
@@ -103,11 +103,15 @@ class Vgdb(object):
     def get_filtered_output(self):
         buffer_string = self.seek_to_end_of_tty()
         self.write_to_log(buffer_string)
-        return self.filter_command_result(buffer_string)
+        return self.filter_query_result(buffer_string)
 
     def write_to_log(self, log_string):
         if self.use_session_log_file:
             self.log_file_handle.write(log_string)
+        vim.command("let g:full_query_result = []")
+        log_lines = self.filter_query_result(log_string, True)
+        for log_line in log_lines:
+            vim.command("call add(g:full_query_result, '" + log_line + "' )")
 
     def seek_to_end_of_tty(self, timeout=0.05):
         buffer_string = self.child.before
@@ -118,11 +122,11 @@ class Vgdb(object):
             pass
         return buffer_string
 
-    def filter_command_result(self, buffer_result):
+    def filter_query_result(self, buffer_result, keep_all=False):
         lines_to_keep = []
-        lines =  buffer_result.replace("\r","").replace("'", "''").split("\n")
+        lines =  buffer_result.replace("\r","").replace("'", "''").replace("\\t", "    ").split("\n")
         for line in lines:
-            if line.startswith('~"'):
+            if line.startswith('~"') or keep_all:
                 lines_to_keep.append(line.lstrip('~"').rstrip('\\n"'))
         return lines_to_keep
 
