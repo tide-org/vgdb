@@ -112,6 +112,7 @@ class Vgdb(object):
         log_lines = self.filter_query_result(log_string, True)
         for log_line in log_lines:
             vim.command("call add(g:vg_full_query_result, '" + log_line + "' )")
+        vim.command("call vgdb#check_update_session_log()")
 
     def seek_to_end_of_tty(self, timeout=0.05):
         buffer_string = self.child.before
@@ -129,9 +130,3 @@ class Vgdb(object):
             if line.startswith('~"') or keep_all:
                 lines_to_keep.append(line.lstrip('~"').rstrip('\\n"'))
         return lines_to_keep
-
-
-
-
-
-

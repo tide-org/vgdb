@@ -1,4 +1,4 @@
-if !exists('g:Vgdb_Loaded')
+if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
@@ -115,9 +115,17 @@ function! vgdb#run_to_entrypoint(...)
 endfunction
 
 function! vgdb#update_buffers()
+    call vgdb#check_update_registers()
+    call vgdb#check_update_session_log()
+endfunction
+
+function! vgdb#check_update_registers()
     if vgdb#window_by_bufname('vg_registers', 0) != -1
         call vgdb#display_registers()
     endif
+endfunction
+
+function! vgdb#check_update_session_log()
     if vgdb#window_by_bufname('vg_session_log', 0) != -1
         call vgdb#display_session_log()
     endif
