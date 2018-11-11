@@ -6,9 +6,10 @@
 [x] establish if symbols file found from starup
 [x] fix session log when run command run multiple times in one call - eg Vgrte
 [x] add a session log view buffer and update with step
+[ ] add variable height windows
 [ ] add gdb error/warning buffer view and update with step
 [ ] add local variables view buffer and update with step
-[ ] add breakpoints view buffer and update with step
+[x] add breakpoints view buffer and update with step
 [ ] add watchpoints view buffer and update with step
 [x] add fix for macos using Vgrte: https://stackoverflow.com/questions/40110435/unknown-ending-signal-when-using-debugger-gdb - done - https://stackoverflow.com/a/52450255/512965
 [x] add option for stacking/abutting extra windows

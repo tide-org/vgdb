@@ -5,6 +5,7 @@ endif
 let s:scriptdir = expand("<sfile>:h") . '/'
 let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 let s:initialised = 0
+
 let g:vg_python_version = 0
 let g:vg_query_result = []
 let g:vg_full_query_result = []
@@ -13,74 +14,41 @@ let g:vg_app_entrypoint = ''
 let g:vg_last_register_result = []
 let g:vg_binary_loaded = 0
 let g:vg_symbols_loaded = 0
-let g:vg_valid_buffers = ['vg_registers', 'vg_session_log']
+let g:vg_valid_buffers = ['vg_registers', 'vg_session_log', 'vg_breakpoints']
+let g:vg_remote_target = 0
 
 function! vgdb#fail()
-    new
-    setlocal buftype=nofile
-    setlocal nonumber
-    setlocal foldcolumn=0
-    setlocal wrap
-    setlocal noswapfile
-    call append('$', 'Vgdb ERROR: Python interface cannot be loaded')
-    call append('$', '')
-    call append('$', 'Your version of Vim appears to be installed without the Python interface.')
+    echohl WarningMsg | echomsg "Vgdb ERROR: Python interface cannot be loaded" | echohl None
+    echohl WarningMsg | echomsg "Your version of Vim appears to be installed without the Python interface." | echohl None
     if !executable("python")
-        call append('$', 'You may also need to install Python.')
+        echohl WarningMsg | echomsg "You may also need to install Python." | echohl None
     endif
 endfunction
 
 function! vgdb#dependency_check()
     if s:initialised == 1
-        return 1
+        return 0
     endif
     let s:py = ''
-    if g:vg_python_version == 3
-        let pytest = 'python3'
-    else
-        let pytest = 'python'
-        let g:vg_python_version = 2
-    endif
+    let pytest = 'python3'
     if has(pytest)
         if pytest == 'python3'
             let s:py = 'py3'
-        else
-            let s:py = 'py'
-        endif
-    else
-        let py_alternate = 5 - g:vg_python_version
-        if py_alternate == 3
-            let pytest = 'python3'
-        else
-            let pytest = 'python'
-        endif
-        if has(pytest)
-            let g:vg_python_version = py_alternate
-            if pytest == 'python3'
-                let s:py = 'py3'
-            else
-                let s:py = 'py'
-            endif
         endif
     endif
     if s:py == ''
         call vgdb#fail()
-        return 0
+        return 1
     endif
     call vgdb#source_python_files()
-    return 1
+    return 0
 endfunction
 
 function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
-    if !vgdb#dependency_check()
+    if vgdb#dependency_check()
         return 0
     endif
-    if s:py == ''
-        echohl WarningMsg | echomsg "Vgdb requires the Python interface to be installed. See :help Vgdb for more information." | echohl None
-        return 0
-    endif
-
     try
         execute s:py . ' vgdb = Vgdb()'
         execute s:py . ' vgdb.start_gdb("' . command . '")'
@@ -107,6 +75,7 @@ function! vgdb#run_to_entrypoint(...)
     let command = get(a:000, 0, '')
     try
         execute s:py . ' vgdb.run_to_entrypoint()'
+        call vgdb#update_buffers()
         echom "application started and halted at entrypoint: " . g:vg_app_entrypoint
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
@@ -115,8 +84,10 @@ function! vgdb#run_to_entrypoint(...)
 endfunction
 
 function! vgdb#update_buffers()
+    call vgdb#remove_unlisted_buffers()
     call vgdb#check_update_registers()
     call vgdb#check_update_session_log()
+    call vgdb#check_update_breakpoints()
 endfunction
 
 function! vgdb#check_update_registers()
@@ -128,6 +99,12 @@ endfunction
 function! vgdb#check_update_session_log()
     if vgdb#window_by_bufname('vg_session_log', 0) != -1
         call vgdb#display_session_log()
+    endif
+endfunction
+
+function! vgdb#check_update_breakpoints()
+    if vgdb#window_by_bufname('vg_breakpoints', 0) != -1
+        call vgdb#display_breakpoints()
     endif
 endfunction
 
@@ -146,6 +123,16 @@ function! vgdb#display_registers(...)
     call vgdb#create_split('vg_registers')
     execute s:py . ' vgdb.run_command_with_result("info registers")'
     call vgdb#window_by_bufname('vg_registers', 1)
+    silent 1,$d _
+    call append(line('$'), g:vg_query_result)
+    exec l:current_window_num . 'wincmd w'
+endfunction
+
+function! vgdb#display_breakpoints(...)
+    let l:current_window_num = winnr()
+    call vgdb#create_split('vg_breakpoints')
+    execute s:py . ' vgdb.run_command_with_result("info breakpoints")'
+    call vgdb#window_by_bufname('vg_breakpoints', 1)
     silent 1,$d _
     call append(line('$'), g:vg_query_result)
     exec l:current_window_num . 'wincmd w'
@@ -180,7 +167,7 @@ function! vgdb#create_split(buffer_name)
         setlocal wrap
         setlocal noswapfile
         setlocal bufhidden=delete
-        exec 'file ' . a:buffer_name
+        silent exec 'file ' . a:buffer_name
     endif
 endfunction
 

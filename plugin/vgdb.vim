@@ -30,6 +30,8 @@ command! -nargs=? -complete=shellcmd Vgreg call vgdb#display_registers(<q-args>)
 
 command! -nargs=? -complete=shellcmd Vgsl call vgdb#display_session_log(<q-args>)
 
+command! -nargs=? -complete=shellcmd Vgbp call vgdb#display_breakpoints(<q-args>)
+
 command! -nargs=? -complete=shellcmd Vgdis call vgdb#show_disassembly(<q-args>)
 
 let g:vg_loaded = 1
