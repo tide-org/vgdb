@@ -3,6 +3,7 @@ if !exists('g:vg_loaded')
 endif
 
 let s:scriptdir = expand("<sfile>:h") . '/'
+let s:vgdbscriptdir = s:scriptdir . "vgdb/"
 let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 let s:initialised = 0
 
@@ -196,5 +197,8 @@ function! vgdb#first_window_by_valid_buffers()
 endfunction
 
 function! vgdb#source_python_files()
-    exec s:py . "file " . s:scriptdir . "vgdb.py"
+    exec s:py . "file " . s:vgdbscriptdir . "vgdb.py"
+    exec s:py . "file " . s:vgdbscriptdir . "symbols_status.py"
+    exec s:py . "file " . s:vgdbscriptdir . "log.py"
+    exec s:py . "file " . s:vgdbscriptdir . "command_handler.py"
 endfunction

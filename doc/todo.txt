@@ -16,6 +16,7 @@
 [x] detect symbols in files
 [ ] add disassembly output buffer if symbols not found ( add to empty buffer or abutt)
 [ ] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
+[ ] use vim event loop for BufUnload when closing vg_ buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
 [ ] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
 [ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint address)
 [ ] add segments view buffer ( no update with step)
@@ -29,7 +30,8 @@
 [ ] add edit variable values functionality
 [ ] add documentation
 [ ] add tests where required
-[ ] refactor py vgdb into separate classe subsystem for interpreting mi
+[x] refactor py vgdb into separate classes
+[ ] create extensible subsystem for interpreting mi
 [ ] add gdb supported higher level languages support
 [ ] add goto definition functionality
 [ ] add interpreted languages support where possible
