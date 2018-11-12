@@ -14,22 +14,37 @@
 [x] add fix for macos using Vgrte: https://stackoverflow.com/questions/40110435/unknown-ending-signal-when-using-debugger-gdb - done - https://stackoverflow.com/a/52450255/512965
 [x] add option for stacking/abutting extra windows
 [x] detect symbols in files
+[ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
+[ ] add open buffers at startup option
+[ ] find empty boffer for loading source code
+[ ] add ability to scan for all source files for a binary
+[ ] add ability to list all source files as tabs or using NerdTree
+[ ] make buffers non-modifiable by user
+[ ] add editable settings screen buffer
+[ ] add highlight for changed register values between operations
+[ ] add highlight for changed memory values between operations
+[ ] add option to only update status registers when relevant commands have been run (step, stepi, continue, run, etc.)
+
 [ ] add disassembly output buffer if symbols not found ( add to empty buffer or abutt)
+
 [ ] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
-[ ] use vim event loop for BufUnload when closing vg_ buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
+[ ] use vim event loop for `BufUnload` when closing `vg_` buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
 [ ] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
 [ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint address)
 [ ] add segments view buffer ( no update with step)
 [ ] add sections view buffer ( no update with step)
 [ ] add call stack view buffer and update with step (only if symbols loaded)
 [ ] add thread view buffer and update with step
+
 [ ] add debugging source functionality and open source files if present (start with .s files)
+
 [ ] add shortcut keys for debugging
+[ ] add a configurable YAML template for different uses
 [ ] add edit register values functionality
 [ ] add edit memory values functionality
 [ ] add edit variable values functionality
-[ ] add documentation
-[ ] add tests where required
+[ ] add documentatio
+[ ] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
 [x] refactor py vgdb into separate classes
 [ ] create extensible subsystem for interpreting mi
 [ ] add gdb supported higher level languages support
@@ -37,10 +52,3 @@
 [ ] add interpreted languages support where possible
 [ ] add scripting plugin support
 [ ] add llvm support
-
-info file entrypoint format:
-~"\tEntry point: 0x400430\n"
-regex:    ~"\\tEntry point: (0x[0-9a-f]{6,12})\\n"
-py regex: ~\"\\tEntry point: (0x[0-9a-f]{6,12})\\n\"
-
-
