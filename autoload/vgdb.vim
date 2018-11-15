@@ -157,10 +157,10 @@ function! vgdb#create_split(buffer_name)
                 execute l:existing_window . 'wincmd w'
                 new
             else
-                60vnew
+                exec g:vg_stack_buffer_window_width . 'vnew'
             endif
         else
-            60vnew
+            exec g:vg_stack_buffer_window_width . 'vnew'
         endif
         setlocal buftype=nofile
         setlocal nonumber
@@ -198,7 +198,4 @@ endfunction
 
 function! vgdb#source_python_files()
     exec s:py . "file " . s:vgdbscriptdir . "vgdb.py"
-    exec s:py . "file " . s:vgdbscriptdir . "symbols_status.py"
-    exec s:py . "file " . s:vgdbscriptdir . "log.py"
-    exec s:py . "file " . s:vgdbscriptdir . "command_handler.py"
 endfunction
