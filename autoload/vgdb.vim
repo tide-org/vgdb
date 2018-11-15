@@ -120,24 +120,23 @@ function! vgdb#display_session_log(...)
 endfunction
 
 function! vgdb#display_registers(...)
+    call vgdb#default_display_buffer('vg_registers', 'info registers')
+endfunction
+
+function! vgdb#display_breakpoints(...)
+    call vgdb#default_display_buffer('vg_breakpoints', 'info breakpoints')
+endfunction
+
+function! vgdb#default_display_buffer(buffer_name, command)
     let l:current_window_num = winnr()
-    call vgdb#create_split('vg_registers')
-    execute s:py . ' vgdb.run_command_with_result("info registers")'
-    call vgdb#window_by_bufname('vg_registers', 1)
+    call vgdb#create_split(a:buffer_name)
+    execute s:py . ' vgdb.run_command_with_result("' . a:command . '")'
+    call vgdb#window_by_bufname(a:buffer_name, 1)
     silent 1,$d _
     call append(line('$'), g:vg_query_result)
     exec l:current_window_num . 'wincmd w'
 endfunction
 
-function! vgdb#display_breakpoints(...)
-    let l:current_window_num = winnr()
-    call vgdb#create_split('vg_breakpoints')
-    execute s:py . ' vgdb.run_command_with_result("info breakpoints")'
-    call vgdb#window_by_bufname('vg_breakpoints', 1)
-    silent 1,$d _
-    call append(line('$'), g:vg_query_result)
-    exec l:current_window_num . 'wincmd w'
-endfunction
 
 function! vgdb#remove_unlisted_buffers()
     let l:buffer_numbers = filter(range(1,bufnr('$')), 'bufexists(v:val)')
