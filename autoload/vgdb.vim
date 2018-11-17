@@ -7,17 +7,6 @@ let s:vgdbscriptdir = s:scriptdir . "vgdb/"
 let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 let s:initialised = 0
 
-let g:vg_python_version = 0
-let g:vg_query_result = []
-let g:vg_full_query_result = []
-let g:vg_session_log = []
-let g:vg_app_entrypoint = ''
-let g:vg_last_register_result = []
-let g:vg_binary_loaded = 0
-let g:vg_symbols_loaded = 0
-let g:vg_valid_buffers = ['vg_registers', 'vg_session_log', 'vg_breakpoints']
-let g:vg_remote_target = 0
-
 function! vgdb#fail()
     echohl WarningMsg | echomsg "Vgdb ERROR: Python interface cannot be loaded" | echohl None
     echohl WarningMsg | echomsg "Your version of Vim appears to be installed without the Python interface." | echohl None
@@ -30,14 +19,14 @@ function! vgdb#dependency_check()
     if s:initialised == 1
         return 0
     endif
-    let s:py = ''
+    let g:vg_py = ''
     let pytest = 'python3'
     if has(pytest)
         if pytest == 'python3'
-            let s:py = 'py3'
+            let g:vg_py = 'py3'
         endif
     endif
-    if s:py == ''
+    if g:vg_py == ''
         call vgdb#fail()
         return 1
     endif
@@ -47,12 +36,13 @@ endfunction
 
 function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
+    call vg_globals#source_globals()
     if vgdb#dependency_check()
         return 0
     endif
     try
-        execute s:py . ' vgdb = Vgdb()'
-        execute s:py . ' vgdb.start_gdb("' . command . '")'
+        execute g:vg_py . ' vgdb = Vgdb()'
+        execute g:vg_py . ' vgdb.start_gdb("' . command . '")'
         echom "Vgdb started successfully"
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#start_gdb: " . command . ", " . a:exception | echohl None
@@ -63,7 +53,7 @@ endfunction
 function! vgdb#run_command(...)
     let command = get(a:000, 0, '')
     try
-        execute s:py . ' vgdb.run_command_with_result("' . command . '")'
+        execute g:vg_py . ' vgdb.run_command_with_result("' . command . '")'
         echom "command ran successfully: " . command
         call vgdb#update_buffers()
     catch a:exception
@@ -75,7 +65,7 @@ endfunction
 function! vgdb#run_to_entrypoint(...)
     let command = get(a:000, 0, '')
     try
-        execute s:py . ' vgdb.run_to_entrypoint()'
+        execute g:vg_py . ' vgdb.run_to_entrypoint()'
         call vgdb#update_buffers()
         echom "application started and halted at entrypoint: " . g:vg_app_entrypoint
     catch a:exception
@@ -85,34 +75,34 @@ function! vgdb#run_to_entrypoint(...)
 endfunction
 
 function! vgdb#update_buffers()
-    call vgdb#remove_unlisted_buffers()
+    call vg_buffer#remove_unlisted_buffers()
     call vgdb#check_update_registers()
     call vgdb#check_update_session_log()
     call vgdb#check_update_breakpoints()
 endfunction
 
 function! vgdb#check_update_registers()
-    if vgdb#window_by_bufname('vg_registers') != -1
+    if vg_buffer#window_by_bufname('vg_registers') != -1
         call vgdb#display_registers()
     endif
 endfunction
 
 function! vgdb#check_update_session_log()
-    if vgdb#window_by_bufname('vg_session_log') != -1
+    if vg_buffer#window_by_bufname('vg_session_log') != -1
         call vgdb#display_session_log()
     endif
 endfunction
 
 function! vgdb#check_update_breakpoints()
-    if vgdb#window_by_bufname('vg_breakpoints') != -1
+    if vg_buffer#window_by_bufname('vg_breakpoints') != -1
         call vgdb#display_breakpoints()
     endif
 endfunction
 
 function! vgdb#display_session_log(...)
     let l:current_window_num = winnr()
-    call vgdb#create_split('vg_session_log')
-    call vgdb#window_by_bufname('vg_session_log', 1)
+    call vg_buffer#create_split('vg_session_log')
+    call vg_buffer#window_by_bufname('vg_session_log', 1)
     call append(line('$'), g:vg_full_query_result)
     let g:vg_full_query_result = []
     execute 'normal! G'
@@ -120,128 +110,23 @@ function! vgdb#display_session_log(...)
 endfunction
 
 function! vgdb#display_registers(...)
-    call vgdb#default_display_buffer('vg_registers', 'info registers')
+    call vg_buffer#default_display_buffer('vg_registers', 'info registers')
 endfunction
 
 function! vgdb#display_breakpoints(...)
-    call vgdb#default_display_buffer('vg_breakpoints', 'info breakpoints')
-endfunction
-
-function! vgdb#default_display_buffer(buffer_name, command)
-    let l:current_window_num = winnr()
-    call vgdb#create_split(a:buffer_name)
-    execute s:py . ' vgdb.run_command_with_result("' . a:command . '")'
-    call vgdb#window_by_bufname(a:buffer_name, 1)
-    silent 1,$d _
-    call append(line('$'), g:vg_query_result)
-    exec l:current_window_num . 'wincmd w'
+    call vg_buffer#default_display_buffer('vg_breakpoints', 'info breakpoints')
 endfunction
 
 function! vgdb#display_disassembly(...)
     let l:current_window_num = winnr()
-    call vgdb#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
-    execute s:py . ' vgdb.display_disassembly()'
-    call vgdb#window_by_bufname('vg_disassembly', 1)
+    call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
+    execute g:vg_py . ' vgdb.display_disassembly()'
+    call vg_buffer#window_by_bufname('vg_disassembly', 1)
     silent 1,$d _
     call append(line('$'), g:vg_query_result)
     exec l:current_window_num . 'wincmd w'
 endfunction
 
-function! vgdb#switch_to_existing_buffer_or_set_empty_buffer_or_split(buffer_name, ...)
-    let a:syntax = get(a:, 1, '')
-    if vgdb#window_by_bufname(a:buffer_name, 1) == -1
-        if vgdb#switch_to_empty_buffer() == -1
-            call vgdb#create_split(a:buffer_name, a:syntax)
-        else
-            call vgdb#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
-        endif
-    endif
-endfunction
-
-function! vgdb#switch_to_empty_buffer()
-    let l:empty_buffer_number = vgdb#find_empty_buffer_number()
-    if l:empty_buffer_number != -1
-        execute 'buffer ' . l:empty_buffer_number
-        return l:empty_buffer_number
-    endif
-    return -1
-endfunction
-
-function! vgdb#remove_unlisted_buffers()
-    let l:buffer_numbers = filter(range(1,bufnr('$')), 'bufexists(v:val)')
-    for l:buffer_number in l:buffer_numbers
-        if !bufloaded(l:buffer_number) && !buflisted(l:buffer_number)
-            exe 'bwipeout ' . l:buffer_number
-        endif
-    endfor
-endfunction
-
-function! vgdb#find_empty_buffer_number()
-    let l:buffer_numbers = filter(range(1,bufnr('$')), 'bufexists(v:val)')
-    for l:buffer_number in l:buffer_numbers
-        if bufname(l:buffer_number) == ''
-            return l:buffer_number
-        endif
-    endfor
-    return -1
-endfunction
-
-function! vgdb#create_split(buffer_name, ...)
-    let a:syntax = get(a:, 1, '')
-    call vgdb#remove_unlisted_buffers()
-    if vgdb#window_by_bufname(a:buffer_name, 0) == -1
-        if g:vg_stack_buffers
-            let l:existing_window = vgdb#first_window_by_valid_buffers()
-            if l:existing_window != -1
-                execute l:existing_window . 'wincmd w'
-                new
-            else
-                exec g:vg_stack_buffer_window_width . 'vnew'
-            endif
-        else
-            exec g:vg_stack_buffer_window_width . 'vnew'
-        endif
-        call vgdb#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
-    endif
-endfunction
-
-function! vgdb#set_current_buffer_for_vgdb(buffer_name, ...)
-    let a:syntax = get(a:, 1, '')
-    setlocal buftype=nofile
-    setlocal nonumber
-    setlocal foldcolumn=0
-    setlocal wrap
-    setlocal noswapfile
-    setlocal bufhidden=delete
-    exec 'setlocal syntax=' . a:syntax
-    silent exec 'file ' . a:buffer_name
-endfunction
-
-function! vgdb#window_by_bufname(bufname, ...)
-    let a:switch_window = get(a:, 1, 0)
-    let l:bufmap = map(range(1, winnr('$')), '[bufname(winbufnr(v:val)), v:val]')
-    let l:filtered_map = filter(l:bufmap, 'v:val[0] =~ a:bufname')
-    if len(l:filtered_map) > 0
-        let l:found_window = filtered_map[0][1]
-        if a:switch_window
-            execute l:found_window . 'wincmd w'
-        endif
-        return l:found_window
-    else
-        return -1
-    endif
-endfunction
-
-function! vgdb#first_window_by_valid_buffers()
-    for buffer_name in g:vg_valid_buffers
-        let l:window_number = vgdb#window_by_bufname(buffer_name)
-        if l:window_number != -1
-            return window_number
-        endif
-    endfor
-    return -1
-endfunction
-
 function! vgdb#source_python_files()
-    exec s:py . "file " . s:vgdbscriptdir . "vgdb.py"
+    exec g:vg_py . "file " . s:vgdbscriptdir . "vgdb.py"
 endfunction
