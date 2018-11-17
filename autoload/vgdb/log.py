@@ -13,4 +13,4 @@ def write_to_log(log_string):
     log_lines = Filter.filter_query_result(log_string, True)
     for log_line in log_lines:
         vim.command("call add(g:vg_full_query_result, '" + log_line + "' )")
-    vim.command("call vgdb#check_update_session_log()")
+    vim.command("call vg_display#check_update_session_log()")
