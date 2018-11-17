@@ -10,22 +10,30 @@
 [ ] add gdb error/warning buffer view and update with step
 [ ] add local variables view buffer and update with step
 [x] add breakpoints view buffer and update with step
+[ ] right-trim raw output
 [ ] add watchpoints view buffer and update with step
 [x] add fix for macos using Vgrte: https://stackoverflow.com/questions/40110435/unknown-ending-signal-when-using-debugger-gdb - done - https://stackoverflow.com/a/52450255/512965
 [x] add option for stacking/abutting extra windows
 [x] detect symbols in files
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
 [ ] add open buffers at startup option
-[ ] find empty boffer for loading source code
+[x] find empty buffer for loading source code
 [ ] add ability to scan for all source files for a binary
 [ ] add ability to list all source files as tabs or using NerdTree
-[ ] make buffers non-modifiable by user
-[ ] add editable settings screen buffer
-[ ] add highlight for changed register values between operations
-[ ] add highlight for changed memory values between operations
-[ ] add option to only update status registers when relevant commands have been run (step, stepi, continue, run, etc.)
 
-[ ] add disassembly output buffer if symbols not found ( add to empty buffer or abutt)
+[ ] make buffers non-modifiable by user
+
+[ ] add editable settings screen buffer
+
+[ ] add highlight for changed register values between operations
+
+[ ] add highlight for changed memory values between operations
+
+[ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
+
+[ ] split window handling into separate autoload vim file
+
+[x] add disassembly output buffer ( add to empty buffer or abutt)
 
 [ ] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
 [ ] use vim event loop for `BufUnload` when closing `vg_` buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
@@ -43,7 +51,7 @@
 [ ] add edit register values functionality
 [ ] add edit memory values functionality
 [ ] add edit variable values functionality
-[ ] add documentatio
+[ ] add documentation
 [ ] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
 [x] refactor py vgdb into separate classes
 [ ] create extensible subsystem for interpreting mi

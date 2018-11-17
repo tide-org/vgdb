@@ -22,6 +22,7 @@ class Vgdb(object):
         self.startup_commands = ''
         self.current_command = ''
         self.cmd_hnd = None
+        self.entrypoint = ''
 
     def start_gdb(self, commands):
         try:
@@ -39,10 +40,17 @@ class Vgdb(object):
         except Exception as ex:
             print("error in Vgdb.run_command(): " + ex)
 
+    def display_disassembly(self):
+        self.get_set_entrypoint()
+        self.run_command_with_result("disassemble " + self.entrypoint)
+
+    def get_set_entrypoint(self):
+        self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{6,12})')
+        vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
+
     def run_to_entrypoint(self):
-        entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{6,12})')
-        vim.command("let g:vg_app_entrypoint = '" + entrypoint + "'")
-        self.cmd_hnd.run_command("b *" + entrypoint)
+        self.get_set_entrypoint()
+        self.cmd_hnd.run_command("b *" + self.entrypoint)
         remote_target = vim.eval('g:vg_remote_target')
         if remote_target:
             self.cmd_hnd.run_command("continue")
