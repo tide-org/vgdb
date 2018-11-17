@@ -2,6 +2,13 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
+function! vg_display#open_startup_buffers()
+    for l:buffer_name in g:vg_startup_buffers
+        execute 'call vg_display#display_' . l:buffer_name . '()'
+    endfor
+endfunction
+
+
 function! vg_display#update_buffers()
     call vg_buffer#remove_unlisted_buffers()
     call vg_display#check_update_registers()

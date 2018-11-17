@@ -16,10 +16,12 @@
 [x] add option for stacking/abutting extra windows
 [x] detect symbols in files
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
-[ ] add open buffers at startup option
+[x] add open buffers at startup option
 [x] find empty buffer for loading source code
 [ ] add ability to scan for all source files for a binary
 [ ] add ability to list all source files as tabs or using NerdTree
+
+[ ] format disassembly output for debug and match step output to current line (with highlight)
 
 [ ] make buffers non-modifiable by user
 
@@ -31,7 +33,7 @@
 
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
 
-[ ] split window handling into separate autoload vim file
+[x] split window handling into separate autoload vim file
 
 [x] add disassembly output buffer ( add to empty buffer or abutt)
 

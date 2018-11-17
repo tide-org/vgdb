@@ -5,6 +5,8 @@ if !exists('g:vg_use_session_log_file') | let g:vg_use_session_log_file = 1 | en
 if !exists('g:vg_session_log_filename') | let g:vg_session_log_filename = 'vgdb_session.log' | endif
 if !exists('g:vg_stack_buffers') | let g:vg_stack_buffers = 1 | endif
 if !exists('g:vg_stack_buffer_window_width') | let g:vg_stack_buffer_window_width = 60 | endif
+if !exists('g:vg_open_buffers_on_startup') | let g:vg_open_buffers_on_startup = 1 | endif
+if !exists('g:vg_startup_buffers') | let g:vg_startup_buffers = [ 'registers', 'session_log', 'breakpoints' ] | endif
 
 command! -nargs=? -complete=shellcmd Vgdb call vgdb#start_gdb(<q-args>)
 command! -nargs=? -complete=shellcmd Vgc call vgdb#run_command(<q-args>)
