@@ -18,23 +18,23 @@ endfunction
 
 function! vg_display#check_update_registers()
     if vg_buffer#window_by_bufname('vg_registers') != -1
-        call vg_display#display_registers()
+        call vg_display#display_vg_registers()
     endif
 endfunction
 
 function! vg_display#check_update_session_log()
     if vg_buffer#window_by_bufname('vg_session_log') != -1
-        call vg_display#display_session_log()
+        call vg_display#display_vg_session_log()
     endif
 endfunction
 
 function! vg_display#check_update_breakpoints()
     if vg_buffer#window_by_bufname('vg_breakpoints') != -1
-        call vg_display#display_breakpoints()
+        call vg_display#display_vg_breakpoints()
     endif
 endfunction
 
-function! vg_display#display_session_log(...)
+function! vg_display#display_vg_session_log(...)
     let l:current_window_num = winnr()
     call vg_buffer#create_split('vg_session_log')
     call vg_buffer#window_by_bufname('vg_session_log', 1)
@@ -44,15 +44,15 @@ function! vg_display#display_session_log(...)
     execute l:current_window_num . 'wincmd w'
 endfunction
 
-function! vg_display#display_registers(...)
+function! vg_display#display_vg_registers(...)
     call vg_buffer#default_display_buffer('vg_registers', 'info registers')
 endfunction
 
-function! vg_display#display_breakpoints(...)
+function! vg_display#display_vg_breakpoints(...)
     call vg_buffer#default_display_buffer('vg_breakpoints', 'info breakpoints')
 endfunction
 
-function! vg_display#display_disassembly(...)
+function! vg_display#display_vg_disassembly(...)
     let l:current_window_num = winnr()
     call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
     execute g:vg_py . ' vgdb.display_disassembly()'

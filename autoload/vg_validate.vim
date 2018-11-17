@@ -22,8 +22,7 @@ endfunction
 
 function! vg_validate#validate_startup_buffer_names()
     for l:buffer_name in g:vg_startup_buffers
-        let l:vg_buffer_name = 'vg_' . l:buffer_name
-        if index(g:vg_valid_buffers, l:vg_buffer_name) == -1
+        if index(g:vg_valid_buffers, l:buffer_name) == -1
             echoerr "Error: buffer " . l:buffer_name . " is not a valid buffer in g:vg_startup_buffers"
             return 1
         endif
