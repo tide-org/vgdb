@@ -5,3 +5,6 @@ def filter_query_result(buffer_result, keep_all=False):
         if line.startswith('~"') or keep_all:
             lines_to_keep.append(line.lstrip('~"').rstrip('\\n"'))
     return lines_to_keep
+
+def filter_lines_for_buffer(lines, buffer_name):
+    return lines

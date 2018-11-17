@@ -8,7 +8,6 @@ function! vg_display#open_startup_buffers()
     endfor
 endfunction
 
-
 function! vg_display#update_buffers()
     call vg_buffer#remove_unlisted_buffers()
     call vg_display#check_update_registers()

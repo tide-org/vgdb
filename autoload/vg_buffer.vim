@@ -5,7 +5,7 @@ endif
 function! vg_buffer#default_display_buffer(buffer_name, command)
     let l:current_window_num = winnr()
     call vg_buffer#create_split(a:buffer_name)
-    execute g:vg_py . ' vgdb.run_command_with_result("' . a:command . '")'
+    execute g:vg_py . ' vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")'
     call vg_buffer#window_by_bufname(a:buffer_name, 1)
     silent 1,$d _
     call append(line('$'), g:vg_query_result)

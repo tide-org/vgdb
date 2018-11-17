@@ -31,10 +31,10 @@ class Vgdb(object):
         except Exception as ex:
             print("error in Vgdb.start_gdb(): " + ex)
 
-    def run_command_with_result(self, command):
+    def run_command_with_result(self, command, buffer_name=''):
         try:
             vim.command("let g:vg_query_result = []")
-            lines = self.cmd_hnd.run_command(command)
+            lines = self.cmd_hnd.run_command(command, buffer_name)
             for line in lines:
                 vim.command("call add(g:vg_query_result, '" + line + "' )")
         except Exception as ex:
@@ -42,7 +42,7 @@ class Vgdb(object):
 
     def display_disassembly(self):
         self.get_set_entrypoint()
-        self.run_command_with_result("disassemble " + self.entrypoint)
+        self.run_command_with_result("disassemble " + self.entrypoint, 'vg_disassembly')
 
     def get_set_entrypoint(self):
         self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{6,12})')

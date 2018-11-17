@@ -16,11 +16,11 @@ class CommandHandler(object):
         lines = self.get_filtered_output()
         SymbolsStatus.set_binary_symbols_status(lines)
 
-    def run_command(self, command):
+    def run_command(self, command, buffer_name=''):
         try:
             self.child.sendline(command)
             self.child.expect('\(gdb\)')
-            lines = self.get_filtered_output()
+            lines = self.get_filtered_output(buffer_name)
             self.check_set_remote(command, lines)
             return lines
         except Exception as ex:
@@ -31,10 +31,13 @@ class CommandHandler(object):
             SymbolsStatus.set_binary_symbols_status(lines)
             vim.command("let g:vg_remote_target = 1")
 
-    def get_filtered_output(self):
+    def get_filtered_output(self, buffer_name=''):
         buffer_string = self.seek_to_end_of_tty()
         Log.write_to_log(buffer_string)
-        return Filter.filter_query_result(buffer_string)
+        lines = Filter.filter_query_result(buffer_string)
+        if buffer_name != '':
+            lines = Filter.filter_lines_for_buffer(lines, buffer_name)
+        return lines
 
     def seek_to_end_of_tty(self, timeout=0.05):
         buffer_string = self.child.before
