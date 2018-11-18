@@ -9,7 +9,7 @@ Vimrunner::RSpec.configure do |config|
   # Decide how to start a Vim instance. In this block, an instance should be
   # spawned and set up with anything project-specific.
   config.start_vim do
-    vim = Vimrunner.start
+    vim = Vimrunner::Server.new(:executable => "/usr/local/bin/vim").start
 
     # Or, start a GUI instance:
     # vim = Vimrunner.start_gvim

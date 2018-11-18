@@ -4,6 +4,7 @@ services:
 
   test-vim:
     hostname: test-vim
+    privileged: true
     depends_on:
       - test-gdbserver
     build:
@@ -12,8 +13,11 @@ services:
     working_dir: /work
     environment:
       - "IN_DOCKER=YES"
+      - DISPLAY
+      - "QT_X11_NO_MITSHM=1"
     volumes:
       - ..:/work
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
   test-gdbserver:
     hostname: test-gdbserver
     build:
