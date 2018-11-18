@@ -1,0 +1,10 @@
+#! /usr/bin/env ruby
+
+$: << File.expand_path('../../lib', __FILE__)
+
+require 'irb'
+require 'vimrunner'
+
+$vim = Vimrunner.start_gvim
+
+IRB.start

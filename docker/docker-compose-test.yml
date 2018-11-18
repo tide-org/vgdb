@@ -2,20 +2,20 @@ version: "3"
 
 services:
 
-  test-client:
-    hostname: test-client
+  test-vim:
+    hostname: test-vim
     depends_on:
-      - test-server
+      - test-gdbserver
     build:
       context: ..
-      dockerfile: ./docker/Dockerfile-client
+      dockerfile: ./docker/Dockerfile-vim
     working_dir: /work
     environment:
       - "IN_DOCKER=YES"
     volumes:
       - ..:/work
-  test-server:
-    hostname: test-server
+  test-gdbserver:
+    hostname: test-gdbserver
     build:
       context: ..
       dockerfile: ./docker/Dockerfile-server

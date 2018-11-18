@@ -1,7 +1,22 @@
 #! /bin/sh
 
-cd /work
+set -x
+
+unset BUNDLE_PATH
+unset BUNDLE_BIN
+
+cd /work/tests/vimrunner
+
+pwd
+
+bundle install
+
+gem build vimrunner.gemspec
+
+gem install vimrunner-0.3.4.gem
 
 cd /work/tests
 
-nosetests test_*.py
+gem install rspec
+
+rspec spec/test_buffers.rb
