@@ -8,7 +8,7 @@
 [x] add a session log view buffer and update with step
 [x] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
 [x] add option to run command before startup of vgdb - eg. docker container with gdbserver
-[ ] make buffers non-modifiable by user
+[x] make buffers non-modifiable by user
 [ ] format disassembly output for debug and match step output to current line (with highlight)
 [ ] add highlight for changed register values between operations
 [ ] use register to write to buffer instead of append() (like NerdTree)
