@@ -2,4 +2,5 @@
 *.pyc
 *.swp
 vgdb_session.log
-*[*\.]gem
+tests/vimrunner/*.gem
+#*[*\.]gem
