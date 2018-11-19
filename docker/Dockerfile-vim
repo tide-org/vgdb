@@ -35,4 +35,4 @@ RUN \
 
 RUN gem install rspec
 
-RUN apt-get update && apt-get install -y xserver-xorg xorg jwm
+RUN touch /root/.Xauthority

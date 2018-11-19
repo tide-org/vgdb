@@ -4,6 +4,10 @@ set -x
 
 cd $(dirname $0)/../docker
 
+HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+
+xhost + ${HOST_IP}
+
 docker-compose -f docker-compose-test.yml down --remove-orphans
 docker-compose -f docker-compose-test.yml build
-docker-compose -f docker-compose-test.yml run --rm --service-ports test-vim "${@-sh}"
+HOST_IP=${HOST_IP} docker-compose -f docker-compose-test.yml run --rm --service-ports test-vim "${@-sh}"

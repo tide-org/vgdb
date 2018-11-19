@@ -2,3 +2,4 @@
 *.pyc
 *.swp
 vgdb_session.log
+*[*\.]gem

@@ -13,7 +13,7 @@ services:
     working_dir: /work
     environment:
       - "IN_DOCKER=YES"
-      - DISPLAY
+      - "DISPLAY=${HOST_IP}:0"
       - "QT_X11_NO_MITSHM=1"
     volumes:
       - ..:/work

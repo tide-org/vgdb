@@ -9,13 +9,13 @@ describe "My Vim plugin" do
     EOF
 
     vim.edit 'test.rb'
-    do_plugin_related_stuff_with(vim)
     vim.write
 
     IO.read('test.rb').should eq normalize_string_indent(<<-EOF)
-      def bar
-        foo
+      def foo
+        bar
       end
+
     EOF
   end
 end

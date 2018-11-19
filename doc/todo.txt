@@ -9,7 +9,7 @@
 [ ] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
 [ ] make buffers non-modifiable by user
 [ ] format disassembly output for debug and match step output to current line (with highlight)
-[ ] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
+[x] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
     [ ] add variable height windows
     [ ] add gdb error/warning buffer view and update with step
     [ ] add local variables view buffer and update with step
