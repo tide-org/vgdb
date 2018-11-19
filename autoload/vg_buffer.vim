@@ -7,8 +7,10 @@ function! vg_buffer#default_display_buffer(buffer_name, command)
     call vg_buffer#create_split(a:buffer_name)
     execute g:vg_py . ' vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")'
     call vg_buffer#window_by_bufname(a:buffer_name, 1)
+    setlocal modifiable
     silent 1,$d _
     call append(line('$'), g:vg_query_result)
+    setlocal nomodifiable
     exec l:current_window_num . 'wincmd w'
 endfunction
 
@@ -78,6 +80,7 @@ function! vg_buffer#set_current_buffer_for_vgdb(buffer_name, ...)
     setlocal wrap
     setlocal noswapfile
     setlocal bufhidden=delete
+    setlocal nomodifiable
     exec 'setlocal syntax=' . a:syntax
     silent exec 'file ' . a:buffer_name
 endfunction

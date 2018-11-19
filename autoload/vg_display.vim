@@ -37,7 +37,9 @@ function! vg_display#display_vg_session_log(...)
     let l:current_window_num = winnr()
     call vg_buffer#create_split('vg_session_log')
     call vg_buffer#window_by_bufname('vg_session_log', 1)
+    setlocal modifiable
     call append(line('$'), g:vg_full_query_result)
+    setlocal nomodifiable
     let g:vg_full_query_result = []
     execute 'normal! G'
     execute l:current_window_num . 'wincmd w'
@@ -56,7 +58,9 @@ function! vg_display#display_vg_disassembly(...)
     call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
     execute g:vg_py . ' vgdb.display_disassembly()'
     call vg_buffer#window_by_bufname('vg_disassembly', 1)
+    setlocal modifiable
     silent 1,$d _
     call append(line('$'), g:vg_query_result)
+    setlocal nomodifiable
     exec l:current_window_num . 'wincmd w'
 endfunction
