@@ -7,7 +7,7 @@ windows:
       width: nn
       query: [string]
       filter:
-        - filter1: [regex string - e.g. to strip out unwanted characters and lines]
+        - filter1: [regex string - e.g. to strip out unwanted characters and lines] (or name of python file.py#method(lines[]) to iterate over lines[] and return lines[]
         - filter2: ...
       updatable: [y|n,1|0]
       update_on_each_query: [y|n,1|0]
@@ -16,6 +16,11 @@ windows:
       expect: [string]
       error: [regex string]
       module: [module name string]
+command:
+   - command_name:
+       run_on_command_before_command: file.py#function(command) returns string or bool
+       run_on_command_after_command:  same as above
+       run_on_lines_after_command: file.py#function(linesp[) returns lines[]
 modules:
   - module_name:
       startup_command: [string]
