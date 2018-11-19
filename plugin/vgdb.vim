@@ -9,6 +9,8 @@ if !exists('g:vg_open_buffers_on_startup') | let g:vg_open_buffers_on_startup = 
 if !exists('g:vg_startup_buffers') | let g:vg_startup_buffers = [ 'vg_registers', 'vg_breakpoints' ] | endif
 if !exists('g:vg_connect_to_remote_on_startup') | let g:vg_connect_to_remote_on_startup = 1 | endif
 if !exists('g:vg_remote_address') | let g:vg_remote_address = 'localhost:9999' | endif
+if !exists('g:vg_run_command_on_startup') | let g:vg_run_command_on_startup = 1 | endif
+if !exists('g:vg_command_to_run_on_startup') | let g:vg_command_to_run_on_startup = 'bin/dev-up' | endif
 
 
 command! -nargs=? -complete=shellcmd Vgdb call vgdb#start_gdb(<q-args>)

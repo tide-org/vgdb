@@ -7,9 +7,11 @@
 [x] fix session log when run command run multiple times in one call - eg Vgrte
 [x] add a session log view buffer and update with step
 [x] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
+[x] add option to run command before startup of vgdb - eg. docker container with gdbserver
 [ ] make buffers non-modifiable by user
 [ ] format disassembly output for debug and match step output to current line (with highlight)
 [ ] add highlight for changed register values between operations
+[ ] use register to write to buffer instead of append() (like NerdTree)
 [x] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
     [ ] add variable height windows
     [ ] add gdb error/warning buffer view and update with step
