@@ -19,6 +19,10 @@ function! vgdb#start_gdb(...)
         if g:vg_open_buffers_on_startup
             call vg_display#open_startup_buffers()
         endif
+        if g:vg_connect_to_remote_on_startup
+            call vgdb#run_command("target remote " . g:vg_remote_address)
+            call vgdb#run_to_entrypoint()
+        endif
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#start_gdb: " . command . ", " . a:exception | echohl None
     endtry
