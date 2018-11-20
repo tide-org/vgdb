@@ -45,8 +45,9 @@ class Vgdb(object):
         self.run_command_with_result("disassemble " + self.entrypoint, 'vg_disassembly')
 
     def get_set_entrypoint(self):
-        self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{6,12})')
-        vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
+        if self.entrypoint == '':
+            self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{6,12})')
+            vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
 
     def run_to_entrypoint(self):
         self.get_set_entrypoint()
