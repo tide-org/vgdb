@@ -10,4 +10,5 @@ function! vg_globals#source_globals()
     let g:vg_valid_buffers = ['vg_registers', 'vg_session_log', 'vg_breakpoints']
     let g:vg_remote_target = 0
     let g:vg_py = ''
+    let g:vg_current_breakpoint = ''
 endfunction

@@ -23,6 +23,7 @@ class Vgdb(object):
         self.current_command = ''
         self.cmd_hnd = None
         self.entrypoint = ''
+        self.current_breakpoint = vim.eval('g:vg_current_breakpoint')
 
     def start_gdb(self, commands):
         try:
@@ -40,6 +41,12 @@ class Vgdb(object):
                     vim.command("call add(g:vg_query_result, '" + line + "' )")
         except Exception as ex:
             print("error in Vgdb.run_command(): " + ex)
+
+    def run_stepi(self):
+        self.current_breakpoint = self.cmd_hnd.run_command_get_match("stepi", '(0x[0-9a-f]{6,12})')
+        if self.current_breakpoint != None:
+            vim.command("let g:vg_current_breakpoint = '" + self.current_breakpoint + "'")
+        print("current breakpoint: " + self.current_breakpoint)
 
     def display_disassembly(self):
         self.get_set_entrypoint()

@@ -22,12 +22,12 @@ class vg_disassembly(abstract_filter_predicate):
     @property
     def line_formatters(self):
         return [
-            self.remove_first_two_chars,
+            self.remove_first_three_chars,
             self.trim_trailing_whitespace
         ]
 
-    def remove_first_two_chars(self, line):
-        return line[2:]
+    def remove_first_three_chars(self, line):
+        return line[3:]
 
     def trim_trailing_whitespace(self, line):
         return line.rstrip()

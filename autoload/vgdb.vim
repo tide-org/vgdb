@@ -51,6 +51,17 @@ function! vgdb#run_command(...)
     endtry
 endfunction
 
+function! vgdb#run_stepi(...)
+    let command = get(a:000, 0, '')
+    try
+        execute g:vg_py . ' vgdb.run_stepi()'
+        call vg_display#update_buffers()
+        " TODO: set highlight for current breakpoint
+    catch a:exception
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
+    endtry
+endfunction
+
 function! vgdb#run_to_entrypoint(...)
     let command = get(a:000, 0, '')
     try
