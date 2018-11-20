@@ -35,8 +35,9 @@ class Vgdb(object):
         try:
             vim.command("let g:vg_query_result = []")
             lines = self.cmd_hnd.run_command(command, buffer_name)
-            for line in lines:
-                vim.command("call add(g:vg_query_result, '" + line + "' )")
+            if lines:
+                for line in lines:
+                    vim.command("call add(g:vg_query_result, '" + line + "' )")
         except Exception as ex:
             print("error in Vgdb.run_command(): " + ex)
 

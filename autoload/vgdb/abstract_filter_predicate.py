@@ -16,9 +16,22 @@ class abstract_filter_predicate(ABC):
                     line_ok = False
             if line_ok:
                 result.append(line)
+        result = self.run_formatters(result)
+        return result
+
+    def run_formatters(self, lines):
+        result = []
+        for line in lines:
+            for formatter in self.line_formatters:
+                line = formatter(line)
+            result.append(line)
         return result
 
     @property
     @abstractmethod
     def excluded_lines(self):
-        pass
+        return []
+
+    @abstractmethod
+    def line_formatters(self, formatters):
+        return []

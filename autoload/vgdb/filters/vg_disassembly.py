@@ -18,3 +18,17 @@ class vg_disassembly(abstract_filter_predicate):
             'Dump of assembler code for',
             'End of assembler dump.'
         ]
+
+    @property
+    def line_formatters(self):
+        return [
+            self.remove_first_two_chars,
+            self.trim_trailing_whitespace
+        ]
+
+    def remove_first_two_chars(self, line):
+        return line[2:]
+
+    def trim_trailing_whitespace(self, line):
+        return line.rstrip()
+
