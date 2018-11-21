@@ -43,10 +43,9 @@ class Vgdb(object):
             print("error in Vgdb.run_command(): " + ex)
 
     def run_stepi(self):
-        self.current_breakpoint = self.cmd_hnd.run_command_get_match("stepi", '(0x[0-9a-f]{6,12})')
+        self.current_breakpoint = self.cmd_hnd.run_command_get_match("stepi", '(0x[0-9a-f]{2,16})')
         if self.current_breakpoint != None:
             vim.command("let g:vg_current_breakpoint = '" + self.current_breakpoint + "'")
-        print("current breakpoint: " + self.current_breakpoint)
 
     def display_disassembly(self):
         self.get_set_entrypoint()
@@ -54,7 +53,7 @@ class Vgdb(object):
 
     def get_set_entrypoint(self):
         if self.entrypoint == '':
-            self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{6,12})')
+            self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{2,16})')
             vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
 
     def run_to_entrypoint(self):

@@ -35,6 +35,9 @@ loggers:
       default_log_value:
       timestamp:
       filter:
+events:
+  - event_name:
+      subscriber: [name of buffer to update when an event occurs]
 window_handles:
   - window_name:
       window:

@@ -2,6 +2,8 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
+highlight disassembly_pos cterm=NONE ctermbg=darkred guibg=darkred
+
 function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
     if vgdb#call_bootstrap_functions() | return 0 | endif
@@ -23,12 +25,8 @@ function! vgdb#call_bootstrap_functions()
 endfunction
 
 function! vgdb#call_on_startup_functions()
-    if g:vg_open_buffers_on_startup
-        call vg_display#open_startup_buffers()
-    endif
-    if g:vg_run_command_on_startup
-        execute '!nohup ' . g:vg_command_to_run_on_startup . ' </dev/null >/dev/null 2>&1 &'
-    endif
+    if g:vg_open_buffers_on_startup | call vg_display#open_startup_buffers() | endif
+    if g:vg_run_command_on_startup | execute '!nohup ' . g:vg_command_to_run_on_startup . ' </dev/null >/dev/null 2>&1 &' | endif
     if g:vg_connect_to_remote_on_startup
         call vgdb#run_command("target remote " . g:vg_remote_address)
         call vgdb#run_to_entrypoint()
@@ -51,7 +49,6 @@ function! vgdb#run_stepi(...)
     try
         execute g:vg_py . ' vgdb.run_stepi()'
         call vg_display#update_buffers()
-        " TODO: set highlight for current breakpoint
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
     endtry

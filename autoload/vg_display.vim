@@ -13,6 +13,7 @@ function! vg_display#update_buffers()
     call vg_display#check_update_registers()
     call vg_display#check_update_session_log()
     call vg_display#check_update_breakpoints()
+    call vg_display#check_update_disassembly()
 endfunction
 
 function! vg_display#check_update_registers()
@@ -30,6 +31,12 @@ endfunction
 function! vg_display#check_update_breakpoints()
     if vg_buffer#window_by_bufname('vg_breakpoints') != -1
         call vg_display#display_vg_breakpoints()
+    endif
+endfunction
+
+function! vg_display#check_update_disassembly()
+    if vg_buffer#window_by_bufname('vg_disassembly') != -1
+        call vg_display#display_vg_disassembly()
     endif
 endfunction
 
@@ -61,6 +68,23 @@ function! vg_display#display_vg_disassembly(...)
     setlocal modifiable
     silent 1,$d _
     call append(line('$'), g:vg_query_result)
+    if g:vg_current_breakpoint != '' | call vg_display#update_breakpoint() | endif
     setlocal nomodifiable
     exec l:current_window_num . 'wincmd w'
+endfunction
+
+function! vg_display#update_breakpoint()
+    let l:line_counter = 2
+    let l:breakpoint_line = -1
+    for l:line in g:vg_query_result
+        if l:line =~ g:vg_current_breakpoint
+            let l:breakpoint_line = l:line_counter
+        endif
+        let l:line_counter +=1
+    endfor
+    if l:breakpoint_line != -1
+        sign define wholeline linehl=disassembly_pos
+        execute "sign unplace 2"
+        execute "sign place 2 line=" . l:breakpoint_line . " name=wholeline file=" . expand("%:p")
+    endif
 endfunction
