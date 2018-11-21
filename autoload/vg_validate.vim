@@ -1,4 +1,7 @@
 let s:initialised = 0
+let s:scriptdir = expand("<sfile>:h") . '/'
+let s:vgdbscriptdir = s:scriptdir . "vgdb/"
+let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 
 function! vg_validate#fail()
     echohl WarningMsg | echomsg "Vgdb ERROR: Python interface cannot be loaded" | echohl None
@@ -17,6 +20,7 @@ function! vg_validate#dependency_check()
         call vg_validate#fail()
         return 1
     endif
+    call vg_validate#source_python_files()
     return 0
 endfunction
 
@@ -28,4 +32,8 @@ function! vg_validate#validate_startup_buffer_names()
         endif
     endfor
     return 0
+endfunction
+
+function! vg_validate#source_python_files()
+    exec g:vg_py . "file " . s:vgdbscriptdir . "vgdb.py"
 endfunction

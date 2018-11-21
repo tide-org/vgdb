@@ -2,10 +2,6 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
-let s:scriptdir = expand("<sfile>:h") . '/'
-let s:vgdbscriptdir = s:scriptdir . "vgdb/"
-let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
-
 function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
     if vgdb#call_bootstrap_functions() | return 0 | endif
@@ -22,7 +18,6 @@ endfunction
 function! vgdb#call_bootstrap_functions()
     call vg_globals#source_globals()
     if vg_validate#dependency_check() | return 1 | endif
-    call vgdb#source_python_files()
     if vg_validate#validate_startup_buffer_names() | return 1 | endif
     return 0
 endfunction
@@ -73,6 +68,3 @@ function! vgdb#run_to_entrypoint(...)
     endtry
 endfunction
 
-function! vgdb#source_python_files()
-    exec g:vg_py . "file " . s:vgdbscriptdir . "vgdb.py"
-endfunction
