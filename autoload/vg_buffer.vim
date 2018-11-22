@@ -2,18 +2,6 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
-function! vg_buffer#default_display_buffer(buffer_name, command)
-    let l:current_window_num = winnr()
-    call vg_buffer#create_split(a:buffer_name)
-    execute g:vg_py . ' vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")'
-    call vg_buffer#window_by_bufname(a:buffer_name, 1)
-    setlocal modifiable
-    silent 1,$d _
-    call append(line('$'), g:vg_query_result)
-    setlocal nomodifiable
-    exec l:current_window_num . 'wincmd w'
-endfunction
-
 function! vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split(buffer_name, ...)
     let a:syntax = get(a:, 1, '')
     if vg_buffer#window_by_bufname(a:buffer_name, 1) == -1

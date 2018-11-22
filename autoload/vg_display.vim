@@ -2,6 +2,14 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
+function! vg_display#default_display_buffer(buffer_name, command)
+    let l:current_window_num = winnr()
+    call vg_buffer#create_split(a:buffer_name)
+    execute g:vg_py . ' vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")'
+    call vg_display#write_array_to_buffer(a:buffer_name, 'g:vg_query_result')
+    exec l:current_window_num . 'wincmd w'
+endfunction
+
 function! vg_display#open_startup_buffers()
     for l:buffer_name in g:vg_startup_buffers
         execute 'call vg_display#display_' . l:buffer_name . '()'
@@ -43,38 +51,40 @@ endfunction
 function! vg_display#display_vg_session_log(...)
     let l:current_window_num = winnr()
     call vg_buffer#create_split('vg_session_log')
-    call vg_buffer#window_by_bufname('vg_session_log', 1)
-    setlocal modifiable
-    call append(line('$'), g:vg_full_query_result)
-    setlocal nomodifiable
+    call vg_display#write_array_to_buffer('vg_session_log', 'g:vg_full_query_result', 1)
     let g:vg_full_query_result = []
     execute 'normal! G'
     execute l:current_window_num . 'wincmd w'
 endfunction
 
 function! vg_display#display_vg_registers(...)
-    call vg_buffer#default_display_buffer('vg_registers', 'info registers')
+    call vg_display#default_display_buffer('vg_registers', 'info registers')
 endfunction
 
 function! vg_display#display_vg_breakpoints(...)
-    call vg_buffer#default_display_buffer('vg_breakpoints', 'info breakpoints')
+    call vg_display#default_display_buffer('vg_breakpoints', 'info breakpoints')
 endfunction
 
 function! vg_display#display_vg_disassembly(...)
     let l:current_window_num = winnr()
     call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
     execute g:vg_py . ' vgdb.display_disassembly()'
-    call vg_buffer#window_by_bufname('vg_disassembly', 1)
-    setlocal modifiable
-    silent 1,$d _
-    call append(line('$'), g:vg_query_result)
+    call vg_display#write_array_to_buffer('vg_disassembly', 'g:vg_query_result')
     if g:vg_current_breakpoint != '' | call vg_display#update_breakpoint() | endif
-    setlocal nomodifiable
     exec l:current_window_num . 'wincmd w'
 endfunction
 
+function! vg_display#write_array_to_buffer(buffer_name, array_name, ...)
+    let a:keep_buffer = get(a:, 1, 1)
+    call vg_buffer#window_by_bufname(a:buffer_name, 1)
+    setlocal modifiable
+    if !a:keep_buffer | silent! 1,$delete _ | endif
+    execute "silent! call setline('.', " . a:array_name . '))'
+    setlocal nomodifiable
+endfunction
+
 function! vg_display#update_breakpoint()
-    let l:line_counter = 2
+    let l:line_counter = 1
     let l:breakpoint_line = -1
     for l:line in g:vg_query_result
         if l:line =~ g:vg_current_breakpoint

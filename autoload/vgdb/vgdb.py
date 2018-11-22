@@ -23,7 +23,7 @@ class Vgdb(object):
         self.current_command = ''
         self.cmd_hnd = None
         self.entrypoint = ''
-        self.current_breakpoint = vim.eval('g:vg_current_breakpoint')
+        self.current_breakpoint = ''
 
     def start_gdb(self, commands):
         try:
@@ -54,7 +54,9 @@ class Vgdb(object):
     def get_set_entrypoint(self):
         if self.entrypoint == '':
             self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{2,16})')
+            self.current_breakpoint = self.entrypoint
             vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
+            vim.command("let g:vg_current_breakpoint = '" + self.current_breakpoint + "'")
 
     def run_to_entrypoint(self):
         self.get_set_entrypoint()
