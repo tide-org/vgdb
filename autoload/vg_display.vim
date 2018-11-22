@@ -51,7 +51,7 @@ endfunction
 function! vg_display#display_vg_session_log(...)
     let l:current_window_num = winnr()
     call vg_buffer#create_split('vg_session_log')
-    call vg_display#write_array_to_buffer('vg_session_log', 'g:vg_full_query_result', 1)
+    call vg_display#write_array_to_buffer('vg_session_log', 'g:vg_full_query_result', 0)
     let g:vg_full_query_result = []
     execute 'normal! G'
     execute l:current_window_num . 'wincmd w'
@@ -75,10 +75,10 @@ function! vg_display#display_vg_disassembly(...)
 endfunction
 
 function! vg_display#write_array_to_buffer(buffer_name, array_name, ...)
-    let a:keep_buffer = get(a:, 1, 1)
+    let a:clear_buffer = get(a:, 1, 1)
     call vg_buffer#window_by_bufname(a:buffer_name, 1)
     setlocal modifiable
-    if !a:keep_buffer | silent! 1,$delete _ | endif
+    if a:clear_buffer | silent! 1,$delete _ | endif
     execute "silent! call setline('.', " . a:array_name . '))'
     setlocal nomodifiable
 endfunction
