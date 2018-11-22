@@ -26,7 +26,7 @@ function! vg_buffer#remove_unlisted_buffers()
     let l:buffer_numbers = filter(range(1,bufnr('$')), 'bufexists(v:val)')
     for l:buffer_number in l:buffer_numbers
         if !bufloaded(l:buffer_number) && !buflisted(l:buffer_number)
-            exe 'bwipeout ' . l:buffer_number
+            execute 'bwipeout ' . l:buffer_number
         endif
     endfor
 endfunction

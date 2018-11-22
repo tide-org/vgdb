@@ -11,11 +11,14 @@
 [x] make buffers non-modifiable by user
 [x] format disassembly output for debug and match step output to current line (with highlight)
 [x] add highlight for changed register values between operations
-[ ] do various buffer/display.vim refactoring
+[x] do various buffer/display.vim refactoring
+[ ] open grey column for Vgdis by default to prevent flickering for current break position (when removed and re-added)
+[ ] start Vgdis at current breakpoint if loaded - from entrypoint
 [-] fix Vgdis opening in side window when no empty buffer (should stack in main window)
 [ ] add custom vg_ buffer name, filter, command, abutt/stack/empty feature
-[ ] use register to write to buffer instead of append() (like NerdTree)
 [ ] add piets for breakpoints in gutter (as per http://vimdoc.sourceforge.net/htmldoc/sign.html)
+[ ] add Vgcont to continue
+[x] use register to write to buffer instead of append() (like NerdTree)
 [x] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
     [ ] add variable height windows
     [ ] add gdb error/warning buffer view and update with step

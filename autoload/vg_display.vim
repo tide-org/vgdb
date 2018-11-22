@@ -93,7 +93,6 @@ function! vg_display#update_breakpoint()
         let l:line_counter +=1
     endfor
     if l:breakpoint_line != -1
-        sign define wholeline linehl=disassembly_pos
         execute "sign unplace 2"
         execute "sign place 2 line=" . l:breakpoint_line . " name=wholeline file=" . expand("%:p")
     endif
