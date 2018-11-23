@@ -55,6 +55,16 @@ function! vgdb#run_stepi(...)
     endtry
 endfunction
 
+function! vgdb#run_continue(...)
+    let command = get(a:000, 0, '')
+    try
+        execute g:vg_py . ' vgdb.run_continue()'
+        call vg_display#update_buffers()
+    catch a:exception
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_continue: " . command . ", " . a:exception | echohl None
+    endtry
+endfunction
+
 function! vgdb#run_to_entrypoint(...)
     let command = get(a:000, 0, '')
     try

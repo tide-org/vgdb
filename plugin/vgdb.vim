@@ -22,5 +22,6 @@ command! -nargs=? -complete=shellcmd Vgsl call vg_display#display_vg_session_log
 command! -nargs=? -complete=shellcmd Vgbp call vg_display#display_vg_breakpoints(<q-args>)
 command! -nargs=? -complete=shellcmd Vgdis call vg_display#display_vg_disassembly(<q-args>)
 command! -nargs=? -complete=shellcmd Vgstepi call vgdb#run_stepi(<q-args>)
+command! -nargs=? -complete=shellcmd Vgcont call vgdb#run_continue(<q-args>)
 
 let g:vg_loaded = 1

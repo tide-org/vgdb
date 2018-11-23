@@ -44,6 +44,13 @@ class Vgdb(object):
 
     def run_stepi(self):
         self.current_breakpoint = self.cmd_hnd.run_command_get_match("stepi", '(0x[0-9a-f]{2,16})')
+        self.try_set_breakpoint()
+
+    def run_continue(self):
+        self.current_breakpoint = self.cmd_hnd.run_command_get_match("continue", '(0x[0-9a-f]{2,16})')
+        self.try_set_breakpoint()
+
+    def try_set_breakpoint(self):
         if self.current_breakpoint != None:
             vim.command("let g:vg_current_breakpoint = '" + self.current_breakpoint + "'")
 
@@ -54,9 +61,13 @@ class Vgdb(object):
     def get_set_entrypoint(self):
         if self.entrypoint == '':
             self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{2,16})')
+            self.entrypoint = self.pad_hexadecimal_to_64bit(self.entrypoint)
             self.current_breakpoint = self.entrypoint
             vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
-            vim.command("let g:vg_current_breakpoint = '" + self.current_breakpoint + "'")
+        self.try_set_breakpoint()
+
+    def pad_hexadecimal_to_64bit(self, hex_string):
+        return '0x' + hex_string[2:].zfill(16)
 
     def run_to_entrypoint(self):
         self.get_set_entrypoint()

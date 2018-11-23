@@ -20,6 +20,15 @@
 [ ] add Vgcont to continue
 [x] use register to write to buffer instead of append() (like NerdTree)
 [x] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
+[ ] add xserver to docker-compose containers to make tests self-composed
+[ ] abstract the four types of buffer - default register, streaming/log, debug window, breakpoint
+    could be conidered as:
+      refreshed/iterated     - register or memory and comparison before/after
+      appended/continued     - session log
+      controlled/structured  - disassembly or other where output is modified
+      used/derrived          - breakpoint where output is used for another window
+    useful for config
+[ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
     [ ] add variable height windows
     [ ] add gdb error/warning buffer view and update with step
     [ ] add local variables view buffer and update with step
@@ -28,7 +37,6 @@
 [x] add fix for macos using Vgrte: https://stackoverflow.com/questions/40110435/unknown-ending-signal-when-using-debugger-gdb - done - https://stackoverflow.com/a/52450255/512965
 [x] add option for stacking/abutting extra windows
 [ ] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
-[ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
 [ ] make stacking/abutting buffer-specific
 [x] detect symbols in files
     [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
