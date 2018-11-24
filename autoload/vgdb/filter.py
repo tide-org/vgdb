@@ -13,13 +13,9 @@ def filter_query_result(buffer_result, keep_all=False):
 def filter_lines_for_buffer(lines, buffer_name):
     filtered_buffers = vim.eval('g:vg_filtered_buffers')
     if buffer_name.lower() in filtered_buffers:
-        lines = filter_for_buffer(lines, buffer_name)
-    return lines
-
-def filter_for_buffer(lines, buffer_name):
-    filter_module = "filters." + buffer_name
-    buffer_filter = importlib.import_module(filter_module)
-    buffer_filter = getattr(sys.modules[filter_module], buffer_name)
-    processor = buffer_filter()
-    lines = processor.process_lines(lines)
+        filter_module = "filters." + buffer_name
+        buffer_filter = importlib.import_module(filter_module)
+        buffer_filter = getattr(sys.modules[filter_module], buffer_name)
+        processor = buffer_filter(lines)
+        lines = processor.processed_lines
     return lines

@@ -1,16 +1,9 @@
 import sys
 sys.path.append("..")
 
-from abstract_filter_predicate import abstract_filter_predicate
+from filter_predicate_base import filter_predicate_base
 
-class vg_disassembly(abstract_filter_predicate):
-
-    def __init__(self):
-        pass
-
-    def process_lines(self, lines):
-        lines = super(vg_disassembly, self).process_lines(lines)
-        return lines
+class vg_disassembly(filter_predicate_base):
 
     @property
     def excluded_lines(self):
@@ -31,4 +24,3 @@ class vg_disassembly(abstract_filter_predicate):
 
     def trim_trailing_whitespace(self, line):
         return line.rstrip()
-

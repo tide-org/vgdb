@@ -15,17 +15,23 @@
 [x] start Vgdis at current breakpoint if loaded - from entrypoint
 [-] fix Vgdis opening in side window when no empty buffer (should stack in main window)
 [ ] add custom vg_ buffer name, filter, command, abutt/stack/empty feature
-[ ] add piets for breakpoints in gutter (as per http://vimdoc.sourceforge.net/htmldoc/sign.html)
-[ ] add Vgcont to continue
+[x] get list of breakpoints
+[x] add piets for breakpoints in gutter (as per http://vimdoc.sourceforge.net/htmldoc/sign.html)
+[ ] make breakpoints show in vg_disassembly without vg_breakpoints open
+[x] add Vgcont to continue
 [x] use register to write to buffer instead of append() (like NerdTree)
 [x] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
+[ ] find empty of '#' buffer for attaching windows to (instead of current)
+[ ] genericise filter.filter_query_result
 [ ] add xserver to docker-compose containers to make tests self-composed
+[ ] add a configurable YAML template for different uses
+[ ] create extensible subsystem for interpreting mi
 [ ] abstract the four types of buffer - default register, streaming/log, debug window, breakpoint
     could be conidered as:
       refreshed/iterated     - register or memory and comparison before/after
       appended/continued     - session log
       controlled/structured  - disassembly or other where output is modified
-      used/derrived          - breakpoint where output is used for another window
+      used/derrived          - breakpoint where output is used for another window or status buffer
     useful for config
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
     [ ] add variable height windows
@@ -55,13 +61,11 @@
 [ ] add thread view buffer and update with step
 [ ] add debugging source functionality and open source files if present (start with .s files)
 [ ] add shortcut keys for debugging
-[ ] add a configurable YAML template for different uses
 [ ] add edit register values functionality
 [ ] add edit memory values functionality
 [ ] add edit variable values functionality
 [ ] add documentation
 [x] refactor py vgdb into separate classes
-[ ] create extensible subsystem for interpreting mi
 [ ] add gdb supported higher level languages support
 [ ] add goto definition functionality
 [ ] add interpreted languages support where possible

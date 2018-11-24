@@ -74,7 +74,8 @@ function! vg_display#display_vg_disassembly(...)
     call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
     execute g:vg_py . ' vgdb.display_disassembly()'
     call vg_display#write_array_to_buffer('vg_disassembly', 'g:vg_query_result')
-    if g:vg_current_breakpoint != '' | call vg_display#update_breakpoint() | endif
+    if g:vg_current_breakpoint != '' | call vg_display#update_breakpoint_lines() | endif
+    if len(g:vg_breakpoints) != 0 | call vg_display#update_breakpoint_piets() | endif
     exec l:current_window_num . 'wincmd w'
 endfunction
 
@@ -87,7 +88,19 @@ function! vg_display#write_array_to_buffer(buffer_name, array_name, ...)
     setlocal nomodifiable
 endfunction
 
-function! vg_display#update_breakpoint()
+function! vg_display#update_breakpoint_piets()
+    for l:breakpoint in g:vg_breakpoints
+        let l:line_counter = 1
+        for l:line in g:vg_query_result
+            if l:line =~ l:breakpoint
+                execute "sign place 3 line=" . l:line_counter . " name=piet file=" . expand("%:p")
+            endif
+            let l:line_counter += 1
+        endfor
+    endfor
+endfunction
+
+function! vg_display#update_breakpoint_lines()
     let l:line_counter = 1
     let l:breakpoint_line = -1
     for l:line in g:vg_query_result

@@ -1,24 +1,17 @@
 import sys
 sys.path.append("..")
 
-from abstract_filter_predicate import abstract_filter_predicate
+from filter_predicate_base import filter_predicate_base
 
-class vg_breakpoints(abstract_filter_predicate):
-
-    def __init__(self):
-        pass
-
-    def process_lines(self, lines):
-        lines = super(vg_breakpoints, self).process_lines(lines)
-        return lines
+class vg_breakpoints(filter_predicate_base):
 
     @property
-    def excluded_lines(self):
-        return []
-
-    @property
-    def line_formatters(self):
-        return []
-
-    def line_matchers(self, matchers, vim_global):
-        return []
+    def line_matchers(self):
+        return [
+            {
+                'vg_name': 'vg_breakpoints',
+                'regex': '(0x[0-9a-f]{2,16})',
+                'type': 'array',
+                'description': 'match each address in the breakpoints output and place in an array'
+            },
+        ]
