@@ -74,7 +74,7 @@ function! vg_display#display_vg_disassembly(...)
     call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
     execute g:vg_py . ' vgdb.display_disassembly()'
     call vg_display#write_array_to_buffer('vg_disassembly', 'g:vg_query_result')
-    if g:vg_current_breakpoint != '' | call vg_display#update_breakpoint_lines() | endif
+    if g:vg_current_frame_address != '' | call vg_display#update_breakpoint_lines() | endif
     if len(g:vg_breakpoints) != 0 | call vg_display#update_breakpoint_piets() | endif
     exec l:current_window_num . 'wincmd w'
 endfunction
@@ -104,7 +104,7 @@ function! vg_display#update_breakpoint_lines()
     let l:line_counter = 1
     let l:breakpoint_line = -1
     for l:line in g:vg_query_result
-        if l:line =~ g:vg_current_breakpoint
+        if l:line =~ g:vg_current_frame_address
             let l:breakpoint_line = l:line_counter
         endif
         let l:line_counter +=1

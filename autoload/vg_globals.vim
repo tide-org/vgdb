@@ -11,6 +11,6 @@ function! vg_globals#source_globals()
     let g:vg_filtered_buffers = ['vg_breakpoints', 'vg_disassembly']
     let g:vg_remote_target = 0
     let g:vg_py = ''
-    let g:vg_current_breakpoint = ''
+    let g:vg_current_frame_address = ''
     let g:vg_breakpoints = []
 endfunction

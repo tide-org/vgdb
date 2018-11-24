@@ -23,7 +23,7 @@ class Vgdb(object):
         self.current_command = ''
         self.cmd_hnd = None
         self.entrypoint = ''
-        self.current_breakpoint = ''
+        self.current_frame_address = ''
 
     def start_gdb(self, commands):
         try:
@@ -43,16 +43,16 @@ class Vgdb(object):
             print("error in Vgdb.run_command(): " + ex)
 
     def run_stepi(self):
-        self.current_breakpoint = self.cmd_hnd.run_command_get_match("stepi", '(0x[0-9a-f]{2,16})')
+        self.current_frame_address = self.cmd_hnd.run_command_get_match("stepi", '(0x[0-9a-f]{2,16})')
         self.try_set_breakpoint()
 
     def run_continue(self):
-        self.current_breakpoint = self.cmd_hnd.run_command_get_match("continue", '(0x[0-9a-f]{2,16})')
+        self.current_frame_address = self.cmd_hnd.run_command_get_match("continue", '(0x[0-9a-f]{2,16})')
         self.try_set_breakpoint()
 
     def try_set_breakpoint(self):
-        if self.current_breakpoint != None:
-            vim.command("let g:vg_current_breakpoint = '" + self.current_breakpoint + "'")
+        if self.current_frame_address != None:
+            vim.command("let g:vg_current_frame_address = '" + self.current_frame_address + "'")
 
     def display_disassembly(self):
         self.get_set_entrypoint()
@@ -63,7 +63,7 @@ class Vgdb(object):
         if self.entrypoint == '':
             self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{2,16})')
             self.entrypoint = self.pad_hexadecimal_to_64bit(self.entrypoint)
-            self.current_breakpoint = self.entrypoint
+            self.current_frame_address = self.entrypoint
             vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
         self.try_set_breakpoint()
 
