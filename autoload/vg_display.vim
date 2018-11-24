@@ -2,10 +2,14 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
-function! vg_display#default_display_buffer(buffer_name, command)
+function! vg_display#default_display_buffer_run_command(buffer_name, command)
+    call vg_display#default_display_buffer_python_method(a:buffer_name, 'vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")')
+endfunction
+
+function! vg_display#default_display_buffer_python_method(buffer_name, python_method)
     let l:current_window_num = winnr()
     call vg_buffer#create_split(a:buffer_name)
-    execute g:vg_py . ' vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")'
+    execute g:vg_py . ' ' . a:python_method
     call vg_display#write_array_to_buffer(a:buffer_name, 'g:vg_query_result')
     exec l:current_window_num . 'wincmd w'
 endfunction
@@ -58,11 +62,11 @@ function! vg_display#display_vg_session_log(...)
 endfunction
 
 function! vg_display#display_vg_registers(...)
-    call vg_display#default_display_buffer('vg_registers', 'info registers')
+    call vg_display#default_display_buffer_run_command('vg_registers', 'info registers')
 endfunction
 
 function! vg_display#display_vg_breakpoints(...)
-    call vg_display#default_display_buffer('vg_breakpoints', 'info breakpoints')
+    call vg_display#default_display_buffer_run_command('vg_breakpoints', 'info breakpoints')
 endfunction
 
 function! vg_display#display_vg_disassembly(...)

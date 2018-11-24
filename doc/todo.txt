@@ -12,8 +12,7 @@
 [x] format disassembly output for debug and match step output to current line (with highlight)
 [x] add highlight for changed register values between operations
 [x] do various buffer/display.vim refactoring
-[ ] open grey column for Vgdis by default to prevent flickering for current break position (when removed and re-added)
-[ ] start Vgdis at current breakpoint if loaded - from entrypoint
+[x] start Vgdis at current breakpoint if loaded - from entrypoint
 [-] fix Vgdis opening in side window when no empty buffer (should stack in main window)
 [ ] add custom vg_ buffer name, filter, command, abutt/stack/empty feature
 [ ] add piets for breakpoints in gutter (as per http://vimdoc.sourceforge.net/htmldoc/sign.html)

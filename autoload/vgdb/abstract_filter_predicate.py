@@ -34,3 +34,6 @@ class abstract_filter_predicate(ABC):
     @abstractmethod
     def line_formatters(self, formatters):
         return []
+
+    def line_matchers(self, matchers, vim_global):
+        return []
