@@ -7,8 +7,10 @@ windows:
       width: nn
       query: [string]
       filter:
-        - filter1: [regex string - e.g. to strip out unwanted characters and lines] (or name of python file.py#method(lines[]) to iterate over lines[] and return lines[]
-        - filter2: ...
+        - vg_name:
+          regex:
+          type:
+          description:
       updatable: [y|n,1|0]
       update_on_each_query: [y|n,1|0]
       update_on_query: [regex string of query]
@@ -16,6 +18,7 @@ windows:
       expect: [string]
       error: [regex string]
       module: [module name string]
+      depends_on:
 command:
    - command_name:
        run_on_command_before_command: file.py#function(command) returns string or bool

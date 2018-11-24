@@ -56,6 +56,7 @@ class Vgdb(object):
 
     def display_disassembly(self):
         self.get_set_entrypoint()
+        self.run_command_with_result("info breakpoints", "vg_breakpoints")
         self.run_command_with_result("disassemble " + self.entrypoint, 'vg_disassembly')
 
     def get_set_entrypoint(self):

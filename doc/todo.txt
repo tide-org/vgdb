@@ -13,15 +13,18 @@
 [x] add highlight for changed register values between operations
 [x] do various buffer/display.vim refactoring
 [x] start Vgdis at current breakpoint if loaded - from entrypoint
+[ ] find empty or alternate ('#') buffer for attaching windows to (instead of current)
 [-] fix Vgdis opening in side window when no empty buffer (should stack in main window)
 [ ] add custom vg_ buffer name, filter, command, abutt/stack/empty feature
+[ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added
+    use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
+[ ] optimise calls to get breakpoints to only when required (adding/removing)
 [x] get list of breakpoints
 [x] add piets for breakpoints in gutter (as per http://vimdoc.sourceforge.net/htmldoc/sign.html)
-[ ] make breakpoints show in vg_disassembly without vg_breakpoints open
+[x] make breakpoints show in vg_disassembly without vg_breakpoints open
 [x] add Vgcont to continue
 [x] use register to write to buffer instead of append() (like NerdTree)
 [x] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
-[ ] find empty of '#' buffer for attaching windows to (instead of current)
 [ ] genericise filter.filter_query_result
 [ ] add xserver to docker-compose containers to make tests self-composed
 [ ] add a configurable YAML template for different uses
