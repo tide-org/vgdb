@@ -6,6 +6,8 @@
 [ ] add xserver to docker-compose containers to make tests self-composed
 [ ] add a configurable YAML template for different uses
 [ ] create extensible subsystem for interpreting mi
+[ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
+[ ] refresh breakpoints between steps on vg_disassembly
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
     [ ] add variable height windows
     [ ] add gdb error/warning buffer view and update with step

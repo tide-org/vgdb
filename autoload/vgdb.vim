@@ -71,7 +71,7 @@ function! vgdb#run_to_entrypoint(...)
     try
         execute g:vg_py . ' vgdb.run_to_entrypoint()'
         call vg_display#update_buffers()
-        echom "application started and halted at entrypoint: " . g:vg_app_entrypoint
+        if strlen(g:vg_app_entrypoint) > 0 | echom "application started and halted at entrypoint: " . g:vg_app_entrypoint | endif
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
     endtry

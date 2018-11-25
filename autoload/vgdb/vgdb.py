@@ -22,7 +22,7 @@ class Vgdb(object):
         self.startup_commands = ''
         self.current_command = ''
         self.cmd_hnd = None
-        self.entrypoint = ''
+        self.entrypoint = None
         self.current_frame_address = ''
 
     def start_gdb(self, commands):
@@ -51,20 +51,21 @@ class Vgdb(object):
         self.try_set_breakpoint()
 
     def try_set_breakpoint(self):
-        if self.current_frame_address != None:
+        if self.current_frame_address:
             vim.command("let g:vg_current_frame_address = '" + self.current_frame_address + "'")
 
     def display_disassembly(self):
         self.get_set_entrypoint()
         self.run_command_with_result("info breakpoints", "vg_breakpoints")
-        self.run_command_with_result("disassemble " + self.entrypoint, 'vg_disassembly')
+        self.run_command_with_result("disassemble", 'vg_disassembly')
 
     def get_set_entrypoint(self):
-        if self.entrypoint == '':
+        if not self.entrypoint:
             self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{2,16})')
-            self.entrypoint = self.pad_hexadecimal_to_64bit(self.entrypoint)
-            self.current_frame_address = self.entrypoint
-            vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
+            if self.entrypoint:
+                self.entrypoint = self.pad_hexadecimal_to_64bit(self.entrypoint)
+                self.current_frame_address = self.entrypoint
+                vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
         self.try_set_breakpoint()
 
     def pad_hexadecimal_to_64bit(self, hex_string):
@@ -72,9 +73,12 @@ class Vgdb(object):
 
     def run_to_entrypoint(self):
         self.get_set_entrypoint()
-        self.cmd_hnd.run_command("b *" + self.entrypoint)
-        remote_target = vim.eval('g:vg_remote_target')
-        if remote_target:
-            self.cmd_hnd.run_command("continue")
+        if self.entrypoint:
+            self.cmd_hnd.run_command("break *" + self.entrypoint)
+            remote_target = vim.eval('g:vg_remote_target')
+            if remote_target:
+                self.cmd_hnd.run_command("continue")
+            else:
+                self.cmd_hnd.run_command("run")
         else:
-            self.cmd_hnd.run_command("run")
+            print("error: unable to get entrypoint")
