@@ -1,0 +1,39 @@
+[x] add session log file
+[x] start at entrypoint option
+[x] integrate docker debugging
+[x] add register view buffer and update with step
+[x] add source for os-specific test binaries
+[x] establish if symbols file found from starup
+[x] fix session log when run command run multiple times in one call - eg Vgrte
+[x] add a session log view buffer and update with step
+[x] add vim startup variables - start and connect, start and run to entrypoint (must specify binary)
+[x] add option to run command before startup of vgdb - eg. docker container with gdbserver
+[x] make buffers non-modifiable by user
+[x] format disassembly output for debug and match step output to current line (with highlight)
+[x] add highlight for changed register values between operations
+[x] do various buffer/display.vim refactoring
+[x] start Vgdis at current breakpoint if loaded - from entrypoint
+[x] fix Vgdis opening in side window when no empty buffer (should stack in main window)
+[x] refactor py vgdb into separate classes
+[x] get list of breakpoints
+[x] add piets for breakpoints in gutter (as per http://vimdoc.sourceforge.net/htmldoc/sign.html)
+[x] make breakpoints show in vg_disassembly without vg_breakpoints open
+[x] add Vgcont to continue
+[x] use register to write to buffer instead of append() (like NerdTree)
+[x] add tests using [vimrunner](https://github.com/AndrewRadev/vimrunner) and add to as required
+[x] add breakpoints view buffer and update with step
+[x] add fix for macos using Vgrte: https://stackoverflow.com/questions/40110435/unknown-ending-signal-when-using-debugger-gdb - done - https://stackoverflow.com/a/52450255/512965
+[x] add option for stacking/abutting extra windows
+[x] detect symbols in files
+[x] add open buffers at startup option
+[x] find empty buffer for loading source code
+[x] split window handling into separate autoload vim file
+[x] add disassembly output buffer ( add to empty buffer or abutt)
+[n] abstract the four types of buffer - default register, streaming/log, debug window, breakpoint
+    could be conidered as:
+      refreshed/iterated     - register or memory and comparison before/after
+      appended/continued     - session log
+      controlled/structured  - disassembly or other where output is modified
+      used/derrived          - breakpoint where output is used for another window or status buffer
+    useful for config
+
