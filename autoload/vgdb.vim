@@ -1,5 +1,5 @@
 if !exists('g:vg_loaded')
-    runtime! plugin/vgdb.vim
+    runtime! plugin/*.vim
 endif
 
 highlight disassembly_pos cterm=NONE ctermbg=darkred guibg=darkred
