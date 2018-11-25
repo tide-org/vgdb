@@ -1,10 +1,4 @@
-if !exists('g:vg_loaded')
-    runtime! plugin/*.vim
-endif
-
-highlight disassembly_pos cterm=NONE ctermbg=darkred guibg=darkred
-sign define wholeline linehl=disassembly_pos
-sign define piet text=>> texthl=Search
+if !exists('g:vg_loaded') | runtime! plugin/*.vim | endif
 
 function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
