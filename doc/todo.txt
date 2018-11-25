@@ -13,8 +13,7 @@
 [x] add highlight for changed register values between operations
 [x] do various buffer/display.vim refactoring
 [x] start Vgdis at current breakpoint if loaded - from entrypoint
-[ ] find empty or alternate ('#') buffer for attaching windows to (instead of current)
-[-] fix Vgdis opening in side window when no empty buffer (should stack in main window)
+[x] fix Vgdis opening in side window when no empty buffer (should stack in main window)
 [ ] add custom vg_ buffer name, filter, command, abutt/stack/empty feature
 [ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added
     use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)

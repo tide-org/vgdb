@@ -6,7 +6,7 @@ function! vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split(buffe
     let a:syntax = get(a:, 1, '')
     if vg_buffer#window_by_bufname(a:buffer_name, 1) == -1
         if vg_buffer#switch_to_empty_buffer() == -1
-            call vg_buffer#create_split(a:buffer_name, a:syntax)
+            call vg_buffer#create_split(a:buffer_name, a:syntax, 1)
         else
             call vg_buffer#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
         endif
@@ -43,10 +43,15 @@ endfunction
 
 function! vg_buffer#create_split(buffer_name, ...)
     let a:syntax = get(a:, 1, '')
+    let a:split_for_main_window = get(a:, 2, 0)
     call vg_buffer#remove_unlisted_buffers()
+    if a:split_for_main_window
+        let l:existing_window = vg_buffer#get_current_window_number()
+    else
+        let l:existing_window = vg_buffer#first_window_by_valid_buffers()
+    endif
     if vg_buffer#window_by_bufname(a:buffer_name, 0) == -1
         if g:vg_stack_buffers
-            let l:existing_window = vg_buffer#first_window_by_valid_buffers()
             if l:existing_window != -1
                 execute l:existing_window . 'wincmd w'
                 new
@@ -58,6 +63,12 @@ function! vg_buffer#create_split(buffer_name, ...)
         endif
         call vg_buffer#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
     endif
+endfunction
+
+function! vg_buffer#get_current_window_number()
+   let l:current_buffer = bufnr("%")
+   let l:first_matching_window = bufwinnr(l:current_buffer)
+   return l:first_matching_window
 endfunction
 
 function! vg_buffer#set_current_buffer_for_vgdb(buffer_name, ...)
