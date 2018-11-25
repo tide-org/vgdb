@@ -70,4 +70,3 @@ function! vgdb#run_to_entrypoint(...)
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
     endtry
 endfunction
-

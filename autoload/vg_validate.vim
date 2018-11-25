@@ -12,9 +12,8 @@ endfunction
 function! vg_validate#dependency_check()
     if s:initialised == 1 | return 0 | endif
     let g:vg_py = ''
-    let pytest = 'python3'
-    if has(pytest)
-        if pytest == 'python3' | let g:vg_py = 'py3' | endif
+    if has('python3')
+        let g:vg_py = 'py3'
     endif
     if g:vg_py == ''
         call vg_validate#fail()
