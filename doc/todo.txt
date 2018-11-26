@@ -1,25 +1,22 @@
 [ ] add custom vg_ buffer name, filter, command, abutt/stack/empty feature
-[ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added
-    use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
+[ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
 [ ] optimise calls to get breakpoints to only when required (adding/removing)
 [ ] genericise filter.filter_query_result
-[ ] add xserver to docker-compose containers to make tests self-composed
 [ ] add a configurable YAML template for different uses
-[ ] create extensible subsystem for interpreting mi
 [ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
 [ ] refresh breakpoints between steps on vg_disassembly
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
-    [ ] add variable height windows
-    [ ] add gdb error/warning buffer view and update with step
-    [ ] add local variables view buffer and update with step
-    [ ] add watchpoints view buffer and update with step
+[ ] add variable height windows
+[ ] add gdb error/warning buffer view and update with step
+[ ] add local variables view buffer and update with step
+[ ] add watchpoints view buffer and update with step
 [ ] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
 [ ] make stacking/abutting buffer-specific
-    [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
-    [ ] add ability to scan for all source files for a binary
-    [ ] add ability to list all source files as tabs or using NerdTree
-    [ ] add editable settings screen buffer
-    [ ] add highlight for changed memory values between operations
+[ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
+[ ] add ability to scan for all source files for a binary
+[ ] add ability to list all source files as tabs or using NerdTree
+[ ] add editable settings screen buffer
+[ ] add highlight for changed memory values between operations
 [ ] use vim event loop for `BufUnload` when closing `vg_` buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
 [ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint addressi, current address)
 [ ] add segments view buffer ( no update with step)
@@ -37,3 +34,4 @@
 [ ] add interpreted languages support where possible
 [ ] add scripting plugin support
 [ ] add llvm support
+[ ] add xserver to docker-compose containers to make tests self-composed

@@ -16,7 +16,9 @@ endfunction
 function! vg_buffer#switch_to_empty_buffer()
     let l:empty_buffer_number = vg_buffer#find_empty_buffer_number()
     if l:empty_buffer_number != -1
-        execute 'buffer ' . l:empty_buffer_number
+        let l:empty_buffer_window_id = win_findbuf(l:empty_buffer_number)
+        echom "empty_window_id:" . l:empty_buffer_window_id[0]
+        call win_gotoid(l:empty_buffer_window_id[0])
         return l:empty_buffer_number
     endif
     return -1
