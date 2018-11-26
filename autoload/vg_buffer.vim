@@ -47,24 +47,31 @@ function! vg_buffer#create_split(buffer_name, ...)
     let a:syntax = get(a:, 1, '')
     let a:split_for_main_window = get(a:, 2, 0)
     call vg_buffer#remove_unlisted_buffers()
-    if a:split_for_main_window
-        let l:existing_window = vg_buffer#get_current_window_number()
-    else
-        let l:existing_window = vg_buffer#first_window_by_valid_buffers()
-    endif
+    let l:existing_window = vg_buffer#get_window_to_split_for(a:split_for_main_window)
     if vg_buffer#window_by_bufname(a:buffer_name, 0) == -1
-        if g:vg_stack_buffers
-            if l:existing_window != -1
-                execute l:existing_window . 'wincmd w'
-                new
-            else
-                exec g:vg_stack_buffer_window_width . 'vnew'
-            endif
+        call vg_buffer#split_windows_for_existing_or_new(l:existing_window)
+        call vg_buffer#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
+    endif
+endfunction
+
+function! vg_buffer#split_windows_for_existing_or_new(existing_window)
+    if g:vg_stack_buffers
+        if a:existing_window != -1
+            execute a:existing_window . 'wincmd w'
+            new
         else
             exec g:vg_stack_buffer_window_width . 'vnew'
         endif
-        call vg_buffer#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
+    else
+        exec g:vg_stack_buffer_window_width . 'vnew'
     endif
+endfunction
+
+function! vg_buffer#get_window_to_split_for(split_for_main_window)
+    if a:split_for_main_window
+        return vg_buffer#get_current_window_number()
+    endif
+    return vg_buffer#first_window_by_valid_buffers()
 endfunction
 
 function! vg_buffer#get_current_window_number()
