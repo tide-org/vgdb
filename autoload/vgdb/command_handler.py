@@ -39,7 +39,7 @@ class CommandHandler(object):
             lines = Filter.filter_lines_for_buffer(lines, buffer_name)
         return lines
 
-    def seek_to_end_of_tty(self, timeout=0.05):
+    def seek_to_end_of_tty(self, timeout=0.07):
         buffer_string = self.child.before
         try:
             while not self.child.expect(r'.+', timeout=timeout):

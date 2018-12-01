@@ -17,7 +17,6 @@ class vg_base(filter_predicate_base):
         return [ self.split_to_array_by_newline_char ]
 
     def keep_return_values(self, line):
-        print("line:" + str(line))
         if line.startswith('~"'):
             return line.lstrip('~"')[:-4]
 
