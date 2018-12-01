@@ -9,3 +9,5 @@ if !exists('g:vg_connect_to_remote_on_startup')   | let g:vg_connect_to_remote_o
 if !exists('g:vg_remote_address')                 | let g:vg_remote_address = 'localhost:9999'                        | endif
 if !exists('g:vg_run_command_on_startup')         | let g:vg_run_command_on_startup = 0                               | endif
 if !exists('g:vg_command_to_run_on_startup')      | let g:vg_command_to_run_on_startup = 'bin/dev-up'                 | endif
+if !exists('g:vg_use_buffer_template')            | let g:vg_use_buffer_template = 1                                  | endif
+if !exists('g:vg_buffer_template_location')       | let g:vg_buffer_template_location = './tests/buffer_config.yml'   | endif

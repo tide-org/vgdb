@@ -8,3 +8,4 @@ command! -nargs=? -complete=shellcmd Vgbp           call vg_display#display_vg_b
 command! -nargs=? -complete=shellcmd Vgdis          call vg_display#display_vg_disassembly(<q-args>)
 command! -nargs=? -complete=shellcmd Vgstepi        call vgdb#run_stepi(<q-args>)
 command! -nargs=? -complete=shellcmd Vgcont         call vgdb#run_continue(<q-args>)
+command! -nargs=? -complete=shellcmd Vgdisplaybuff  call vg_display#display_buffer(<q-args>)

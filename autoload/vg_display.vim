@@ -2,6 +2,18 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
+function! vg_display#get_template_buffers()
+    execute g:vg_py . ' vgdb.get_template_buffers()'
+endfunction
+
+function! vg_display#display_buffer(...)
+    let l:buffer_name = get(a:000, 0, '')
+    if l:buffer_name != ''
+
+    endif
+
+endfunction
+
 function! vg_display#default_display_buffer_run_command(buffer_name, command)
     call vg_display#default_display_buffer_python_method(a:buffer_name, 'vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")')
 endfunction

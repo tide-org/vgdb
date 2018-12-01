@@ -21,6 +21,7 @@ function! vgdb#call_bootstrap_functions()
 endfunction
 
 function! vgdb#call_on_startup_functions()
+    if g:vg_use_buffer_template | call vg_display#get_template_buffers() | endif
     if g:vg_open_buffers_on_startup | call vg_display#open_startup_buffers() | endif
     if g:vg_run_command_on_startup | execute '!nohup ' . g:vg_command_to_run_on_startup . ' </dev/null >/dev/null 2>&1 &' | endif
     if g:vg_connect_to_remote_on_startup

@@ -1,15 +1,21 @@
 import os
 import inspect
 import sys
+import codecs
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 ptyprocessdir = os.path.join(currentdir, "../lib/ptyprocess")
 pexpectdir = os.path.join(currentdir, "../lib/pexpect")
+poyodir = os.path.join(currentdir, "../lib/poyo")
 sys.path.insert(0, currentdir)
 sys.path.insert(0, ptyprocessdir)
 sys.path.insert(0, pexpectdir)
+sys.path.insert(0, poyodir)
+
+print(sys.path)
 
 import pexpect
+from poyo import parse_string, PoyoException
 import vim
 import re
 from command_handler import CommandHandler
@@ -82,3 +88,14 @@ class Vgdb(object):
                 self.cmd_hnd.run_command("run")
         else:
             print("error: unable to get entrypoint")
+
+    def get_template_buffers(self):
+        template_location = vim.eval("g:vg_buffer_template_location")
+        full_template_location =  os.path.join(os.getcwd(), template_location)
+        with codecs.open(full_template_location, encoding='utf-8') as ymlfile:
+            ymlstring = ymlfile.read()
+        try:
+            config = parse_string(ymlstring)
+            print("config:" + str(config))
+        except PoyoException as exc:
+            print("error: " + str(exc))

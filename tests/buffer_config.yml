@@ -1,0 +1,5 @@
+---
+
+buffers:
+  vg_watchpoints:
+    command: info watchpoints
