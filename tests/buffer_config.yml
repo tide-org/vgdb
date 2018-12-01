@@ -9,3 +9,8 @@ buffers:
   vg_breakpoints:
     command: info breakpoints
     on_startup: false
+  vg_session_log:
+    scrolling_buffer: true
+    on_startup: true
+    buffer_input_variable: 'g:vg_full_query_result'
+
