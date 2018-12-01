@@ -24,7 +24,7 @@ function! vg_validate#dependency_check()
 endfunction
 
 function! vg_validate#validate_startup_buffer_names()
-    for l:buffer_name in g:vg_startup_buffers
+    for l:buffer_name in g:vg_config_startup_buffers
         if index(g:vg_valid_buffers, l:buffer_name) == -1
             echoerr "Error: buffer " . l:buffer_name . " is not a valid buffer in g:vg_startup_buffers"
             return 1

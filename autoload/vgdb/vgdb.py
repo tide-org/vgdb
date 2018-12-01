@@ -94,6 +94,12 @@ class Vgdb(object):
             ymlstring = ymlfile.read()
         try:
             config = parse_string(ymlstring)
-            vim.command("let g:vg_buffer_template_dictionary = " + str(config) )
+            config_string = str(config).replace(": False", ": 'False'").replace(": True", ": 'True'")
+            vim.command("let g:vg_buffer_template_dictionary = " + config_string)
+            for buffer_item in config["buffers"]:
+                vim.command("let g:vg_config_buffers = add(g:vg_config_buffers, '" + buffer_item + "')")
+                if "on_startup" in config["buffers"][buffer_item]:
+                    if config["buffers"][buffer_item]["on_startup"] == True:
+                        vim.command("let g:vg_config_startup_buffers = add(g:vg_config_startup_buffers, '" + buffer_item + "')")
         except PoyoException as exc:
             print("error: " + str(exc))

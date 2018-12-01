@@ -14,4 +14,6 @@ function! vg_globals#source_globals()
     let g:vg_current_frame_address = ''
     let g:vg_breakpoints = []
     let g:vg_buffer_template_dictionary = {}
+    let g:vg_config_startup_buffers = ['vg_session_log']
+    let g:vg_config_buffers = []
 endfunction

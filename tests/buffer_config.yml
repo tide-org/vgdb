@@ -5,3 +5,7 @@ buffers:
     command: info watchpoints
   vg_registers:
     command: info registers
+    on_startup: true
+  vg_breakpoints:
+    command: info breakpoints
+    on_startup: false

@@ -9,10 +9,11 @@ endfunction
 function! vg_display#display_buffer(...)
     let a:buffer_name = get(a:000, 0, '')
     if a:buffer_name != '' && g:vg_buffer_template_dictionary != {}
-        let l:buffer_config = g:vg_buffer_template_dictionary['buffers'][a:buffer_name]
-        let l:buffer_command = l:buffer_config['command']
-        call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_command)
-        echo "opened buffer:" . a:buffer_name
+        if has_key(g:vg_buffer_template_dictionary['buffers'], a:buffer_name)
+            let l:buffer_config = g:vg_buffer_template_dictionary['buffers'][a:buffer_name]
+            let l:buffer_command = l:buffer_config['command']
+            call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_command)
+        endif
     endif
 endfunction
 
@@ -29,34 +30,37 @@ function! vg_display#default_display_buffer_python_method(buffer_name, python_me
 endfunction
 
 function! vg_display#open_startup_buffers()
-    for l:buffer_name in g:vg_startup_buffers
-        execute 'call vg_display#display_' . l:buffer_name . '()'
+    for l:buffer_name in g:vg_config_startup_buffers
+        call vg_display#display_buffer(l:buffer_name)
+        if l:buffer_name == 'vg_session_log'
+            call vg_display#display_vg_session_log()
+        endif
+        if l:buffer_name == 'vg_disassembly'
+            call vg_display#display_vg_disassembly()
+        endif
     endfor
 endfunction
 
 function! vg_display#update_buffers()
     call vg_buffer#remove_unlisted_buffers()
-    call vg_display#check_update_registers()
+    call vg_display#check_update_config_buffers()
     call vg_display#check_update_session_log()
-    call vg_display#check_update_breakpoints()
     call vg_display#check_update_disassembly()
 endfunction
 
-function! vg_display#check_update_registers()
-    if vg_buffer#window_by_bufname('vg_registers') != -1
-        call vg_display#display_vg_registers()
-    endif
+function! vg_display#check_update_config_buffers()
+    for l:buffer_name in g:vg_config_buffers
+        if vg_buffer#window_by_bufname(l:buffer_name) != -1
+            let l:buffer_config = g:vg_buffer_template_dictionary['buffers'][l:buffer_name]
+            let l:buffer_command = l:buffer_config['command']
+            call vg_display#default_display_buffer_run_command(l:buffer_name, l:buffer_command)
+        endif
+    endfor
 endfunction
 
 function! vg_display#check_update_session_log()
     if vg_buffer#window_by_bufname('vg_session_log') != -1
         call vg_display#display_vg_session_log()
-    endif
-endfunction
-
-function! vg_display#check_update_breakpoints()
-    if vg_buffer#window_by_bufname('vg_breakpoints') != -1
-        call vg_display#display_vg_breakpoints()
     endif
 endfunction
 
@@ -73,14 +77,6 @@ function! vg_display#display_vg_session_log(...)
     let g:vg_full_query_result = []
     execute 'normal! G'
     execute l:current_window_num . 'wincmd w'
-endfunction
-
-function! vg_display#display_vg_registers(...)
-    call vg_display#default_display_buffer_run_command('vg_registers', 'info registers')
-endfunction
-
-function! vg_display#display_vg_breakpoints(...)
-    call vg_display#default_display_buffer_run_command('vg_breakpoints', 'info breakpoints')
 endfunction
 
 function! vg_display#display_vg_disassembly(...)
