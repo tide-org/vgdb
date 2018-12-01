@@ -8,10 +8,9 @@ endfunction
 
 function! vg_display#display_buffer(...)
     let l:buffer_name = get(a:000, 0, '')
-    if l:buffer_name != ''
-
+    if l:buffer_name != '' && g:vg_buffer_template_dictionary != {}
+        echom "here"
     endif
-
 endfunction
 
 function! vg_display#default_display_buffer_run_command(buffer_name, command)

@@ -13,4 +13,5 @@ function! vg_globals#source_globals()
     let g:vg_py = ''
     let g:vg_current_frame_address = ''
     let g:vg_breakpoints = []
+    let g:vg_buffer_template_dictionary = {}
 endfunction

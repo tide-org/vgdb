@@ -12,8 +12,6 @@ sys.path.insert(0, ptyprocessdir)
 sys.path.insert(0, pexpectdir)
 sys.path.insert(0, poyodir)
 
-print(sys.path)
-
 import pexpect
 from poyo import parse_string, PoyoException
 import vim
@@ -96,6 +94,6 @@ class Vgdb(object):
             ymlstring = ymlfile.read()
         try:
             config = parse_string(ymlstring)
-            print("config:" + str(config))
+            vim.command("let g:vg_buffer_template_dictionary = " + str(config) )
         except PoyoException as exc:
             print("error: " + str(exc))
