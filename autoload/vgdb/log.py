@@ -10,7 +10,7 @@ def write_to_log(log_string):
     if use_session_log_file:
         log_file_handle.write(log_string)
     vim.command("let g:vg_full_query_result = []")
-    log_lines = Filter.filter_query_result(log_string, True)
+    log_lines = Filter.call_filter_class(log_string, 'vg_session_log')
     for log_line in log_lines:
         vim.command("call add(g:vg_full_query_result, '" + log_line + "' )")
     vim.command("call vg_display#check_update_session_log()")

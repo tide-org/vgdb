@@ -34,7 +34,7 @@ class CommandHandler(object):
     def get_filtered_output(self, buffer_name=''):
         buffer_string = self.seek_to_end_of_tty()
         Log.write_to_log(buffer_string)
-        lines = Filter.filter_query_result(buffer_string)
+        lines = Filter.call_filter_class(buffer_string, 'vg_base')
         if buffer_name != '':
             lines = Filter.filter_lines_for_buffer(lines, buffer_name)
         return lines
