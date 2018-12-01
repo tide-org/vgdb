@@ -7,9 +7,12 @@ function! vg_display#get_template_buffers()
 endfunction
 
 function! vg_display#display_buffer(...)
-    let l:buffer_name = get(a:000, 0, '')
-    if l:buffer_name != '' && g:vg_buffer_template_dictionary != {}
-        echom "here"
+    let a:buffer_name = get(a:000, 0, '')
+    if a:buffer_name != '' && g:vg_buffer_template_dictionary != {}
+        let l:buffer_config = g:vg_buffer_template_dictionary['buffers'][a:buffer_name]
+        let l:buffer_command = l:buffer_config['command']
+        call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_command)
+        echo "opened buffer:" . a:buffer_name
     endif
 endfunction
 

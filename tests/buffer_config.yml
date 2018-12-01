@@ -3,3 +3,5 @@
 buffers:
   vg_watchpoints:
     command: info watchpoints
+  vg_registers:
+    command: info registers
