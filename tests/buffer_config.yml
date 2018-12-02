@@ -27,10 +27,11 @@ settings:
         stack_buffers_by_default: true
         stack_buffer_window_width: 60
     process:
-        ttl_stream_timeout: 0.15
+        ttl_stream_timeout: 0.1
         run_command_on_startup: false
         command_to_run_on_startup: 'bin/dev-up'
         command_on_startup_log_file: 'vgdb_startup.log'
         main_process_name: 'gdb'
         main_process_default_arguments: ' -q --interpreter=mi2 '
         find_full_process_name: 'true'
+        end_of_output_regex: '\(gdb\)'

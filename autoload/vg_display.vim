@@ -19,14 +19,6 @@ function! vg_display#default_display_buffer_run_command(buffer_name, command)
     call vg_display#default_display_buffer_python_method(a:buffer_name, 'vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")')
 endfunction
 
-function! vg_display#default_display_buffer_python_method(buffer_name, python_method)
-    let l:current_window_num = winnr()
-    call vg_buffer#create_split(a:buffer_name)
-    execute g:vg_py . ' ' . a:python_method
-    call vg_display#write_array_to_buffer(a:buffer_name, 'g:vg_query_result')
-    exec l:current_window_num . 'wincmd w'
-endfunction
-
 function! vg_display#open_startup_buffers()
     for l:buffer_name in g:vg_config_startup_buffers
         call vg_display#display_buffer(l:buffer_name)
@@ -68,6 +60,14 @@ function! vg_display#check_update_disassembly()
     if vg_buffer#window_by_bufname('vg_disassembly') != -1
         call vg_display#display_vg_disassembly()
     endif
+endfunction
+
+function! vg_display#default_display_buffer_python_method(buffer_name, python_method)
+    let l:current_window_num = winnr()
+    call vg_buffer#create_split(a:buffer_name)
+    execute g:vg_py . ' ' . a:python_method
+    call vg_display#write_array_to_buffer(a:buffer_name, 'g:vg_query_result')
+    exec l:current_window_num . 'wincmd w'
 endfunction
 
 function! vg_display#display_vg_session_log(...)
