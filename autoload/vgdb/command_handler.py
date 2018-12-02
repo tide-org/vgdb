@@ -39,10 +39,10 @@ class CommandHandler(object):
             lines = Filter.filter_lines_for_buffer(lines, buffer_name)
         return lines
 
-    def seek_to_end_of_tty(self, timeout=0.15):
+    def seek_to_end_of_tty(self, timeout=0.1):
         buffer_string = self.child.before
         try:
-            while not self.child.expect(r'.+', timeout=timeout):
+            while not self.child.expect([r'.+', '\(gdb\)'], timeout=timeout):
                 buffer_string += self.child.match.group(0)
         except:
             pass

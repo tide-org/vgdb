@@ -1,7 +1,6 @@
 import os
 import inspect
 import sys
-import codecs
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 ptyprocessdir = os.path.join(currentdir, "../lib/ptyprocess")
@@ -13,10 +12,12 @@ sys.path.insert(0, pexpectdir)
 sys.path.insert(0, poyodir)
 
 import pexpect
-from poyo import parse_string, PoyoException
+
 import vim
 import re
+
 from command_handler import CommandHandler
+from config import Config
 import symbols_status as SymbolsStatus
 
 class Vgdb(object):
@@ -28,6 +29,7 @@ class Vgdb(object):
         self.cmd_hnd = None
         self.entrypoint = None
         self.current_frame_address = ''
+        self.config_dictionary = {}
 
     def start_gdb(self, commands):
         try:
@@ -87,19 +89,6 @@ class Vgdb(object):
         else:
             print("error: unable to get entrypoint")
 
-    def get_template_buffers(self):
-        template_location = vim.eval("g:vg_buffer_template_location")
-        full_template_location =  os.path.join(os.getcwd(), template_location)
-        with codecs.open(full_template_location, encoding='utf-8') as ymlfile:
-            ymlstring = ymlfile.read()
-        try:
-            config = parse_string(ymlstring)
-            config_string = str(config).replace(": False", ": 'False'").replace(": True", ": 'True'")
-            vim.command("let g:vg_buffer_template_dictionary = " + config_string)
-            for buffer_item in config["buffers"]:
-                vim.command("let g:vg_config_buffers = add(g:vg_config_buffers, '" + buffer_item + "')")
-                if "on_startup" in config["buffers"][buffer_item]:
-                    if config["buffers"][buffer_item]["on_startup"] == True:
-                        vim.command("let g:vg_config_startup_buffers = add(g:vg_config_startup_buffers, '" + buffer_item + "')")
-        except PoyoException as exc:
-            print("error: " + str(exc))
+    def get_config(self):
+        print("hhere")
+        self.config_dictionary = Config().get

@@ -2,17 +2,15 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
-function! vg_display#get_template_buffers()
-    execute g:vg_py . ' vgdb.get_template_buffers()'
-endfunction
-
 function! vg_display#display_buffer(...)
     let a:buffer_name = get(a:000, 0, '')
-    if a:buffer_name != '' && g:vg_buffer_template_dictionary != {}
-        if has_key(g:vg_buffer_template_dictionary['buffers'], a:buffer_name)
-            let l:buffer_config = g:vg_buffer_template_dictionary['buffers'][a:buffer_name]
-            let l:buffer_command = l:buffer_config['command']
-            call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_command)
+    if a:buffer_name != '' && g:vg_config_dictionary != {}
+        if has_key(g:vg_config_dictionary['buffers'], a:buffer_name)
+            let l:buffer_config = g:vg_config_dictionary['buffers'][a:buffer_name]
+            if has_key(l:buffer_config, 'command')
+                let l:buffer_command = l:buffer_config['command']
+                call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_command)
+            endif
         endif
     endif
 endfunction
@@ -51,9 +49,11 @@ endfunction
 function! vg_display#check_update_config_buffers()
     for l:buffer_name in g:vg_config_buffers
         if vg_buffer#window_by_bufname(l:buffer_name) != -1
-            let l:buffer_config = g:vg_buffer_template_dictionary['buffers'][l:buffer_name]
-            let l:buffer_command = l:buffer_config['command']
-            call vg_display#default_display_buffer_run_command(l:buffer_name, l:buffer_command)
+            let l:buffer_config = g:vg_config_dictionary['buffers'][l:buffer_name]
+            if has_key(l:buffer_config, 'command')
+                let l:buffer_command = l:buffer_config['command']
+                call vg_display#default_display_buffer_run_command(l:buffer_name, l:buffer_command)
+            endif
         endif
     endfor
 endfunction
