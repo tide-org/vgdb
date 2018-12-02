@@ -3,6 +3,7 @@
 buffers:
     vg_watchpoints:
         command: 'info watchpoints'
+        on_startup: true
     vg_registers:
         command: 'info registers'
         on_startup: true

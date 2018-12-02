@@ -2,17 +2,26 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
-function! vg_display#display_buffer(...)
-    let a:buffer_name = get(a:000, 0, '')
+function! vg_display#display_buffer(buffer_name)
     if a:buffer_name != '' && g:vg_config_dictionary != {}
         if has_key(g:vg_config_dictionary['buffers'], a:buffer_name)
             let l:buffer_config = g:vg_config_dictionary['buffers'][a:buffer_name]
             if has_key(l:buffer_config, 'command')
-                let l:buffer_command = l:buffer_config['command']
-                call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_command)
+                call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_config["command"])
             endif
         endif
     endif
+endfunction
+
+function! vg_display#check_update_config_buffers()
+    for l:buffer_name in g:vg_config_buffers
+        if vg_buffer#window_by_bufname(l:buffer_name) != -1
+            let l:buffer_config = g:vg_config_dictionary['buffers'][l:buffer_name]
+            if has_key(l:buffer_config, 'command')
+                call vg_display#default_display_buffer_run_command(l:buffer_name, l:buffer_config["command"])
+            endif
+        endif
+    endfor
 endfunction
 
 function! vg_display#default_display_buffer_run_command(buffer_name, command)
@@ -22,6 +31,7 @@ endfunction
 function! vg_display#open_startup_buffers()
     for l:buffer_name in g:vg_config_startup_buffers
         call vg_display#display_buffer(l:buffer_name)
+        " two edge cases to refactor for
         if l:buffer_name == 'vg_session_log'
             call vg_display#display_vg_session_log()
         endif
@@ -36,18 +46,6 @@ function! vg_display#update_buffers()
     call vg_display#check_update_config_buffers()
     call vg_display#check_update_session_log()
     call vg_display#check_update_disassembly()
-endfunction
-
-function! vg_display#check_update_config_buffers()
-    for l:buffer_name in g:vg_config_buffers
-        if vg_buffer#window_by_bufname(l:buffer_name) != -1
-            let l:buffer_config = g:vg_config_dictionary['buffers'][l:buffer_name]
-            if has_key(l:buffer_config, 'command')
-                let l:buffer_command = l:buffer_config['command']
-                call vg_display#default_display_buffer_run_command(l:buffer_name, l:buffer_command)
-            endif
-        endif
-    endfor
 endfunction
 
 function! vg_display#check_update_session_log()
