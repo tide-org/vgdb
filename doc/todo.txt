@@ -10,10 +10,12 @@
 [x] define session log from config file
 [ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
 [ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
+[ ] refactor disassembly and step, break, run, etc. to be generic and in config template
 [ ] optimise calls to get breakpoints only when required (adding/removing)
 [ ] refactor command_handler move post-command logic into separate class (check_set_remote) into command_processing (events) plugin path overrides for after_spawn and after_command
-[ ] implement command on startup log file
+[ ] implement command on startup log file (use pexpect)
 [ ] create command for graceful shutdown of vgdb
+[ ] add ability to set a breakpoint from the current line of code/disassembly
 [ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
 [ ] refresh breakpoints between steps on vg_disassembly
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
