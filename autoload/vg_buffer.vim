@@ -108,7 +108,7 @@ function! vg_buffer#window_by_bufname(bufname, ...)
 endfunction
 
 function! vg_buffer#first_window_by_valid_buffers()
-    for buffer_name in g:vg_valid_buffers
+    for buffer_name in g:vg_config_buffers
         let l:window_number = vg_buffer#window_by_bufname(buffer_name)
         if l:window_number != -1
             return window_number

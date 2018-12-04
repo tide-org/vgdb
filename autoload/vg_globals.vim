@@ -7,13 +7,12 @@ function! vg_globals#source_globals()
     let g:vg_last_register_result = []
     let g:vg_binary_loaded = 0
     let g:vg_symbols_loaded = 0
-    let g:vg_valid_buffers = ['vg_registers', 'vg_session_log', 'vg_breakpoints']
     let g:vg_filtered_buffers = ['vg_breakpoints', 'vg_disassembly']
     let g:vg_remote_target = 0
     let g:vg_py = ''
     let g:vg_current_frame_address = ''
     let g:vg_breakpoints = []
     let g:vg_config_dictionary = {}
-    let g:vg_config_startup_buffers = ['vg_session_log']
+    let g:vg_config_startup_buffers = []
     let g:vg_config_buffers = []
 endfunction

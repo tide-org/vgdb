@@ -13,7 +13,6 @@ buffers:
     vg_session_log:
         scrolling_buffer: true
         on_startup: true
-        buffer_input_variable: 'g:vg_full_query_result'
         is_session_log_buffer: true
 
 settings:
@@ -21,6 +20,7 @@ settings:
         use_session_log_file: true
         session_log_filename: 'vgdb_session.log'
         session_buffer_name: 'vg_session_log'
+        buffer_input_variable: 'g:vg_full_query_result'
     buffers:
         default_input_buffer_variable: 'g:vg_query_result'
         base_filter: 'vg_base'
