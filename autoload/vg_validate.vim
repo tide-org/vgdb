@@ -11,11 +11,10 @@ endfunction
 
 function! vg_validate#dependency_check()
     if s:initialised == 1 | return 0 | endif
-    let g:vg_py = ''
     if has('python3')
-        let g:vg_py = 'py3'
-    endif
-    if g:vg_py == ''
+        let g:vg_py = 'py3 '
+        let g:vg_pyfile = 'py3file '
+    else
         call vg_validate#fail()
         return 1
     endif
@@ -34,5 +33,5 @@ function! vg_validate#validate_startup_buffer_names()
 endfunction
 
 function! vg_validate#source_python_files()
-    exec g:vg_py . "file " . s:vgdbscriptdir . "vgdb.py"
+    exec g:vg_pyfile . s:vgdbscriptdir . "vgdb.py"
 endfunction

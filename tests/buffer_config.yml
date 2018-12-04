@@ -13,7 +13,6 @@ buffers:
     vg_session_log:
         scrolling_buffer: true
         on_startup: true
-        is_session_log_buffer: true
 
 settings:
     logging:

@@ -3,12 +3,14 @@ if !exists('g:vg_loaded')
 endif
 
 function! vg_display#display_buffer(buffer_name)
+    let l:buffer_command = ''
     if a:buffer_name != '' && g:vg_config_dictionary != {}
         if has_key(g:vg_config_dictionary['buffers'], a:buffer_name)
             let l:buffer_config = g:vg_config_dictionary['buffers'][a:buffer_name]
             if has_key(l:buffer_config, 'command')
-                call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_config["command"])
+                let l:buffer_command = l:buffer_config['command']
             endif
+            call vg_display#default_display_buffer_run_command(a:buffer_name, l:buffer_command)
         endif
     endif
 endfunction
@@ -25,16 +27,23 @@ function! vg_display#check_update_config_buffers()
 endfunction
 
 function! vg_display#default_display_buffer_run_command(buffer_name, command)
-    call vg_display#default_display_buffer_python_method(a:buffer_name, 'vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")')
+    let l:python_command = ''
+    let l:scrolling_buffer = 0
+    if len(a:command) > 0
+        let l:python_command = 'vgdb.run_command_with_result("' . a:command . '", "'. a:buffer_name .'")'
+    endif
+    if has_key(g:vg_config_dictionary['buffers'][a:buffer_name], 'scrolling_buffer')
+        if g:vg_config_dictionary['buffers'][a:buffer_name]['scrolling_buffer'] ==? 'true'
+            let l:scrolling_buffer = 1
+        endif
+    endif
+    call vg_display#default_display_buffer(a:buffer_name, l:python_command, l:scrolling_buffer)
 endfunction
 
 function! vg_display#open_startup_buffers()
     for l:buffer_name in g:vg_config_startup_buffers
         call vg_display#display_buffer(l:buffer_name)
-        " two edge cases to refactor for
-        if l:buffer_name == 'vg_session_log'
-            call vg_display#display_vg_session_log()
-        endif
+        " one edge case to refactor for
         if l:buffer_name == 'vg_disassembly'
             call vg_display#display_vg_disassembly()
         endif
@@ -50,7 +59,7 @@ endfunction
 
 function! vg_display#check_update_session_log()
     if vg_buffer#window_by_bufname('vg_session_log') != -1
-        call vg_display#display_vg_session_log()
+        call vg_display#display_buffer('vg_session_log')
     endif
 endfunction
 
@@ -60,27 +69,44 @@ function! vg_display#check_update_disassembly()
     endif
 endfunction
 
-function! vg_display#default_display_buffer_python_method(buffer_name, python_method)
-    let l:current_window_num = winnr()
-    call vg_buffer#create_split(a:buffer_name)
-    execute g:vg_py . ' ' . a:python_method
-    call vg_display#write_array_to_buffer(a:buffer_name, 'g:vg_query_result')
-    exec l:current_window_num . 'wincmd w'
+function! vg_display#is_session_log_buffer(buffer_name)
+    if a:buffer_name ==? g:vg_config_dictionary['settings']['logging']['session_buffer_name']
+        return 1
+    endif
+    return 0
 endfunction
 
-function! vg_display#display_vg_session_log(...)
+function! vg_display#get_buffer_input_variable(buffer_name)
+    if vg_display#is_session_log_buffer(a:buffer_name)
+        return g:vg_config_dictionary['settings']['logging']['buffer_input_variable']
+    endif
+    return g:vg_config_dictionary['settings']['buffers']['default_input_buffer_variable']
+endfunction
+
+function! vg_display#default_display_buffer(buffer_name, python_command, ...)
+    let a:scrolling_buffer = get(a:, 2, 0)
+    let l:clear_buffer = 0
     let l:current_window_num = winnr()
-    call vg_buffer#create_split('vg_session_log')
-    call vg_display#write_array_to_buffer('vg_session_log', 'g:vg_full_query_result', 0)
-    let g:vg_full_query_result = []
-    execute 'normal! G'
-    execute l:current_window_num . 'wincmd w'
+    let l:buffer_input_variable = vg_display#get_buffer_input_variable(a:buffer_name)
+    call vg_buffer#create_split(a:buffer_name)
+    if len(a:python_command) > 0
+        execute g:vg_py . a:python_command
+    endif
+    if vg_display#is_session_log_buffer(a:buffer_name)
+        let l:clear_buffer = 1
+    endif
+    call vg_display#write_array_to_buffer(a:buffer_name, l:buffer_input_variable, l:clear_buffer)
+    if a:scrolling_buffer
+        let g:vg_full_query_result = []
+        execute 'normal! G'
+    endif
+    exec l:current_window_num . 'wincmd w'
 endfunction
 
 function! vg_display#display_vg_disassembly(...)
     let l:current_window_num = winnr()
     call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
-    execute g:vg_py . ' vgdb.display_disassembly()'
+    execute g:vg_py . 'vgdb.display_disassembly()'
     call vg_display#write_array_to_buffer('vg_disassembly', 'g:vg_query_result')
     if g:vg_current_frame_address != '' | call vg_display#update_breakpoint_lines() | endif
     if len(g:vg_breakpoints) != 0 | call vg_display#update_breakpoint_piets() | endif
