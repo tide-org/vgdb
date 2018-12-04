@@ -5,6 +5,7 @@
 [x] make tty timeout a config setting
 [x] add watchpoints view buffer and update with step
 [x] get session log buffer name from config file
+[x] fix session log truncating and not scrolling
 [ ] refactor vg_display for readability
 [x] define session log from config file
 [ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)

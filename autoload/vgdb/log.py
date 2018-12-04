@@ -18,4 +18,4 @@ def write_to_log(log_string):
     log_lines = Filter.call_filter_class(log_string, session_buffer_name)
     for log_line in log_lines:
         vim.command("call add(" + buffer_input_variable + ", '" + log_line + "' )")
-    vim.command("call vg_display#check_update_session_log()")
+    vim.command("call vg_display#check_update_buffer('" + session_buffer_name + "')")

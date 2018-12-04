@@ -18,10 +18,7 @@ endfunction
 function! vg_display#check_update_config_buffers()
     for l:buffer_name in g:vg_config_buffers
         if vg_buffer#window_by_bufname(l:buffer_name) != -1
-            let l:buffer_config = g:vg_config_dictionary['buffers'][l:buffer_name]
-            if has_key(l:buffer_config, 'command')
-                call vg_display#default_display_buffer_run_command(l:buffer_name, l:buffer_config["command"])
-            endif
+            call vg_display#display_buffer(l:buffer_name)
         endif
     endfor
 endfunction
@@ -53,13 +50,12 @@ endfunction
 function! vg_display#update_buffers()
     call vg_buffer#remove_unlisted_buffers()
     call vg_display#check_update_config_buffers()
-    call vg_display#check_update_session_log()
     call vg_display#check_update_disassembly()
 endfunction
 
-function! vg_display#check_update_session_log()
-    if vg_buffer#window_by_bufname('vg_session_log') != -1
-        call vg_display#display_buffer('vg_session_log')
+function! vg_display#check_update_buffer(buffer_name)
+    if vg_buffer#window_by_bufname(a:buffer_name) != -1
+        call vg_display#display_buffer(a:buffer_name)
     endif
 endfunction
 
@@ -84,8 +80,8 @@ function! vg_display#get_buffer_input_variable(buffer_name)
 endfunction
 
 function! vg_display#default_display_buffer(buffer_name, python_command, ...)
-    let a:scrolling_buffer = get(a:, 2, 0)
-    let l:clear_buffer = 0
+    let a:scrolling_buffer = get(a:, 1, 0)
+    let l:clear_buffer = 1
     let l:current_window_num = winnr()
     let l:buffer_input_variable = vg_display#get_buffer_input_variable(a:buffer_name)
     call vg_buffer#create_split(a:buffer_name)
@@ -93,11 +89,10 @@ function! vg_display#default_display_buffer(buffer_name, python_command, ...)
         execute g:vg_py . a:python_command
     endif
     if vg_display#is_session_log_buffer(a:buffer_name)
-        let l:clear_buffer = 1
+        let l:clear_buffer = 0
     endif
     call vg_display#write_array_to_buffer(a:buffer_name, l:buffer_input_variable, l:clear_buffer)
     if a:scrolling_buffer
-        let g:vg_full_query_result = []
         execute 'normal! G'
     endif
     exec l:current_window_num . 'wincmd w'

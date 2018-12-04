@@ -90,4 +90,4 @@ class Vgdb(object):
             print("error: unable to get entrypoint")
 
     def get_config(self):
-        self.config_dictionary = Config().get
+        self.config_dictionary = Config().get()
