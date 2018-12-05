@@ -1,4 +1,3 @@
-if !exists('g:vg_load_disassembly_on_start')      | let g:vg_load_disassembly_on_start = 0                            | endif
 if !exists('g:vg_use_session_log_file')           | let g:vg_use_session_log_file = 1                                 | endif
 if !exists('g:vg_session_log_filename')           | let g:vg_session_log_filename = 'vgdb_session.log'                | endif
 if !exists('g:vg_stack_buffers')                  | let g:vg_stack_buffers = 1                                        | endif

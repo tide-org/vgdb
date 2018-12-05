@@ -23,7 +23,6 @@ import symbols_status as SymbolsStatus
 class Vgdb(object):
 
     def __init__(self):
-        self.load_disassembly_on_start = vim.eval('g:vg_load_disassembly_on_start')
         self.startup_commands = ''
         self.current_command = ''
         self.cmd_hnd = None
