@@ -41,33 +41,30 @@ function! vgdb#run_command(...)
     endtry
 endfunction
 
-function! vgdb#run_stepi(...)
-    let command = get(a:000, 0, '')
+function! vgdb#run_stepi()
     try
         execute g:vg_py . ' vgdb.run_stepi()'
         call vg_display#update_buffers()
     catch a:exception
-        echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_stepi: " . a:exception | echohl None
     endtry
 endfunction
 
-function! vgdb#run_continue(...)
-    let command = get(a:000, 0, '')
+function! vgdb#run_continue()
     try
         execute g:vg_py . ' vgdb.run_continue()'
         call vg_display#update_buffers()
     catch a:exception
-        echohl WarningMsg | echomsg "An error occurred in vgdb#run_continue: " . command . ", " . a:exception | echohl None
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_continue: ", " . a:exception | echohl None
     endtry
 endfunction
 
-function! vgdb#run_to_entrypoint(...)
-    let command = get(a:000, 0, '')
+function! vgdb#run_to_entrypoint()
     try
         execute g:vg_py . ' vgdb.run_to_entrypoint()'
         call vg_display#update_buffers()
         if strlen(g:vg_app_entrypoint) > 0 | echom "application started and halted at entrypoint: " . g:vg_app_entrypoint | endif
     catch a:exception
-        echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_to_entrypoint:", " . a:exception | echohl None
     endtry
 endfunction

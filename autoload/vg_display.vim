@@ -154,6 +154,18 @@ function! vg_display#update_breakpoint_piets()
 endfunction
 
 function! vg_display#update_breakpoint_lines()
+    let l:breakpoint_line = vg_display#find_breakpoint_line()
+    call vg_display#set_breakpoint_line(l:breakpoint_line)
+endfunction
+
+function! vg_display#set_breakpoint_line(breakpoint_line)
+    if a:breakpoint_line != -1
+        execute "sign unplace 2"
+        execute "sign place 2 line=" . a:breakpoint_line . " name=wholeline file=" . expand("%:p")
+    endif
+endfunction
+
+function! vg_display#find_breakpoint_line()
     let l:line_counter = 1
     let l:breakpoint_line = -1
     for l:line in g:vg_query_result
@@ -162,8 +174,5 @@ function! vg_display#update_breakpoint_lines()
         endif
         let l:line_counter +=1
     endfor
-    if l:breakpoint_line != -1
-        execute "sign unplace 2"
-        execute "sign place 2 line=" . l:breakpoint_line . " name=wholeline file=" . expand("%:p")
-    endif
+    return l:breakpoint_line
 endfunction
