@@ -36,4 +36,14 @@
       controlled/structured  - disassembly or other where output is modified
       used/derrived          - breakpoint where output is used for another window or status buffer
     useful for config
+[x] add custom vg_ buffer name, filter, command
+[x] better error handling on dictionary keys (when missing), rename g:vg_config_template_...
+[x] genericise filter.filter_query_result
+[x] add a configurable YAML template for different uses
+[x] make tty timeout a config setting
+[x] add watchpoints view buffer and update with step
+[x] get session log buffer name from config file
+[x] fix session log truncating and not scrolling
+[x] refactor vg_display for readability
+[x] define session log from config file
 

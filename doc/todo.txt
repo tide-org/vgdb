@@ -1,15 +1,5 @@
-[x] add custom vg_ buffer name, filter, command
-[x] better error handling on dictionary keys (when missing), rename g:vg_config_template_...
-[x] genericise filter.filter_query_result
-[x] add a configurable YAML template for different uses
-[x] make tty timeout a config setting
-[x] add watchpoints view buffer and update with step
-[x] get session log buffer name from config file
-[x] fix session log truncating and not scrolling
-[ ] refactor vg_display for readability
 [ ] refactor out g:vg_query_result
 [ ] allow diff-buffers (e.g. registers comparison)
-[x] define session log from config file
 [ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
 [ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
 [ ] refactor disassembly and step, break, run, etc. to be generic and in config template
