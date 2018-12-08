@@ -91,6 +91,47 @@ function! vg_display#get_buffer_input_variable(buffer_name)
     return g:vg_config_dictionary['settings']['buffers']['default_input_buffer_variable']
 endfunction
 
+function! vg_display#is_diff_buffer(buffer_name)
+    let l:buffer_config = g:vg_config_dictionary['buffers'][a:buffer_name]
+    if has_key(l:buffer_config, 'diff')
+        if has_key(l:buffer_config['diff'], 'show_diff')
+            if l:buffer_config['diff']['show_diff'] =~ 'true'
+                return 1
+            endif
+        endif
+    endif
+   return 0
+endfunction
+
+function! vg_display#check_do_buffer_diff(buffer_name, buffer_input_variable)
+    if vg_display#is_diff_buffer(a:buffer_name)
+         let l:cache_variable = vg_display#get_buffer_input_cache_variable(a:buffer_name)
+         let l:local_cache_copy = []
+         execute "if !exists('" . l:cache_variable . "') | let " . l:cache_variable . " = [] | endif"
+         execute 'let l:local_cache_copy = ' . l:cache_variable
+         let l:local_buffer_input = []
+         execute 'let l:local_buffer_input = ' . a:buffer_input_variable
+         call vg_display#do_diff_highlight(a:buffer_name, l:local_cache_copy, l:local_buffer_input)
+         execute 'let ' . l:cache_variable . ' = ' . a:buffer_input_variable
+         unlet l:local_cache_copy
+         unlet l:local_buffer_input
+    endif
+endfunction
+
+function vg_display#do_diff_highlight(buffer_name, cached_lines, current_lines)
+
+endfunction
+
+function! vg_display#get_buffer_input_cache_variable(buffer_name)
+    let l:buffer_config = g:vg_config_dictionary['buffers'][a:buffer_name]
+    if has_key(l:buffer_config, 'diff')
+        if has_key(l:buffer_config['diff'], 'buffer_input_cache_variable')
+             return l:buffer_config['diff']['buffer_input_cache_variable']
+        endif
+    endif
+    return ''
+endfunction
+
 function! vg_display#default_display_buffer(buffer_name, python_command, ...)
     let a:scrolling_buffer = get(a:, 1, 0)
     let l:current_window_num = winnr()
@@ -99,6 +140,7 @@ function! vg_display#default_display_buffer(buffer_name, python_command, ...)
     call vg_display#check_run_python_command(a:python_command)
     let l:clear_buffer = vg_display#get_clear_buffer(a:buffer_name)
     call vg_display#write_array_to_buffer(a:buffer_name, l:buffer_input_variable, l:clear_buffer)
+    call vg_display#check_do_buffer_diff(a:buffer_name, l:buffer_input_variable)
     call vg_display#check_do_scroll_to_end(a:scrolling_buffer)
     exec l:current_window_num . 'wincmd w'
 endfunction

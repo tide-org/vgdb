@@ -42,11 +42,14 @@ class Vgdb(object):
         try:
             vim.command("let " + self.default_input_buffer_variable + " = []")
             lines = self.cmd_hnd.run_command(command, buffer_name)
-            if lines:
-                for line in lines:
-                    vim.command("call add(" + self.default_input_buffer_variable + ", '" + line + "' )")
+            self.add_lines_to_input_buffer(lines)
         except Exception as ex:
             print("error in Vgdb.run_command(): " + ex)
+
+    def add_lines_to_input_buffer(self, lines):
+        if lines:
+            for line in lines:
+                vim.command("call add(" + self.default_input_buffer_variable + ", '" + line + "' )")
 
     def run_stepi(self):
         self.current_frame_address = self.cmd_hnd.run_command_get_match("stepi", '(0x[0-9a-f]{2,16})')
