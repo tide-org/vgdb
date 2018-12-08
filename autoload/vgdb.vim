@@ -41,7 +41,7 @@ function! vgdb#run_command(...)
     endtry
 endfunction
 
-function! vgdb#run_stepi()
+function! vgdb#run_stepi(...)
     try
         execute g:vg_py . ' vgdb.run_stepi()'
         call vg_display#update_buffers()
@@ -50,7 +50,7 @@ function! vgdb#run_stepi()
     endtry
 endfunction
 
-function! vgdb#run_continue()
+function! vgdb#run_continue(...)
     try
         execute g:vg_py . ' vgdb.run_continue()'
         call vg_display#update_buffers()
@@ -59,7 +59,7 @@ function! vgdb#run_continue()
     endtry
 endfunction
 
-function! vgdb#run_to_entrypoint()
+function! vgdb#run_to_entrypoint(...)
     try
         execute g:vg_py . ' vgdb.run_to_entrypoint()'
         call vg_display#update_buffers()

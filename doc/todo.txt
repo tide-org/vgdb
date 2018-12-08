@@ -1,4 +1,5 @@
-[ ] refactor out g:vg_query_result
+[x] refactor out g:vg_query_result
+[ ] remove the need for g:vg_filtered_buffers
 [ ] allow diff-buffers (e.g. registers comparison)
 [ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
 [ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)

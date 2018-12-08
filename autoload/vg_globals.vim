@@ -1,6 +1,5 @@
 function! vg_globals#source_globals()
     let g:vg_python_version = 0
-    let g:vg_query_result = []
     let g:vg_full_query_result = []
     let g:vg_session_log = []
     let g:vg_app_entrypoint = ''

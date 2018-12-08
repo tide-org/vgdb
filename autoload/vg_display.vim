@@ -126,10 +126,14 @@ function! vg_display#display_vg_disassembly(...)
     let l:current_window_num = winnr()
     call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
     execute g:vg_py . 'vgdb.display_disassembly()'
-    call vg_display#write_array_to_buffer('vg_disassembly', 'g:vg_query_result')
+    call vg_display#write_array_to_buffer('vg_disassembly', vg_display#get_default_input_buffer_variable())
     if g:vg_current_frame_address != '' | call vg_display#update_breakpoint_lines() | endif
     if len(g:vg_breakpoints) != 0 | call vg_display#update_breakpoint_piets() | endif
     exec l:current_window_num . 'wincmd w'
+endfunction
+
+function! vg_display#get_default_input_buffer_variable()
+    return g:vg_config_dictionary["settings"]["buffers"]["default_input_buffer_variable"]
 endfunction
 
 function! vg_display#write_array_to_buffer(buffer_name, array_name, ...)
@@ -142,15 +146,19 @@ function! vg_display#write_array_to_buffer(buffer_name, array_name, ...)
 endfunction
 
 function! vg_display#update_breakpoint_piets()
+    let l:buffer_input_variable_name = vg_display#get_default_input_buffer_variable()
+    let l:local_buffer_input_variable = []
+    execute "let l:local_buffer_input_variable = " . l:buffer_input_variable_name
     for l:breakpoint in g:vg_breakpoints
         let l:line_counter = 1
-        for l:line in g:vg_query_result
+        for l:line in l:local_buffer_input_variable
             if l:line =~ l:breakpoint
                 execute "sign place 3 line=" . l:line_counter . " name=piet file=" . expand("%:p")
             endif
             let l:line_counter += 1
         endfor
     endfor
+    unlet l:local_buffer_input_variable
 endfunction
 
 function! vg_display#update_breakpoint_lines()
@@ -166,13 +174,17 @@ function! vg_display#set_breakpoint_line(breakpoint_line)
 endfunction
 
 function! vg_display#find_breakpoint_line()
+    let l:buffer_input_variable_name = vg_display#get_default_input_buffer_variable()
+    let l:local_buffer_input_variable = []
+    execute "let l:local_buffer_input_variable = " . l:buffer_input_variable_name
     let l:line_counter = 1
     let l:breakpoint_line = -1
-    for l:line in g:vg_query_result
+    for l:line in l:local_buffer_input_variable
         if l:line =~ g:vg_current_frame_address
             let l:breakpoint_line = l:line_counter
         endif
         let l:line_counter +=1
     endfor
+    unlet l:local_buffer_input_variable
     return l:breakpoint_line
 endfunction

@@ -29,6 +29,7 @@ class Vgdb(object):
         self.entrypoint = None
         self.current_frame_address = ''
         self.config_dictionary = {}
+        self.default_input_buffer_variable = ''
 
     def start_gdb(self, commands):
         try:
@@ -39,11 +40,11 @@ class Vgdb(object):
 
     def run_command_with_result(self, command, buffer_name=''):
         try:
-            vim.command("let g:vg_query_result = []")
+            vim.command("let " + self.default_input_buffer_variable + " = []")
             lines = self.cmd_hnd.run_command(command, buffer_name)
             if lines:
                 for line in lines:
-                    vim.command("call add(g:vg_query_result, '" + line + "' )")
+                    vim.command("call add(" + self.default_input_buffer_variable + ", '" + line + "' )")
         except Exception as ex:
             print("error in Vgdb.run_command(): " + ex)
 
@@ -90,3 +91,5 @@ class Vgdb(object):
 
     def get_config(self):
         self.config_dictionary = Config().get()
+        self.default_input_buffer_variable = self.config_dictionary["settings"]["buffers"]["default_input_buffer_variable"]
+        print("here: " + self.default_input_buffer_variable)
