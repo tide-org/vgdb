@@ -17,6 +17,19 @@ buffers:
         scrolling_buffer: true
         on_startup: true
 
+commands:
+    stepi:
+    cont:
+    run_to_entrypoint:
+
+events:
+    before_spawn:
+    after_spawn:
+    before_command:
+    after_command:
+    before_buffer_update:
+    after_buffer_update:
+
 settings:
     logging:
         use_session_log_file: true
@@ -30,7 +43,7 @@ settings:
         stack_buffers_by_default: true
         stack_buffer_window_width: 60
     process:
-        ttl_stream_timeout: 0.1
+        ttl_stream_timeout: 0.08
         run_command_on_startup: false
         command_to_run_on_startup: 'bin/dev-up'
         command_on_startup_log_file: 'vgdb_startup.log'

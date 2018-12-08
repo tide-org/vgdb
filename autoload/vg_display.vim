@@ -118,8 +118,8 @@ function! vg_display#check_do_buffer_diff(buffer_name, buffer_input_variable)
     endif
 endfunction
 
-function vg_display#do_diff_highlight(buffer_name, cached_lines, current_lines)
-
+function! vg_display#do_diff_highlight(buffer_name, cached_lines, current_lines)
+    return 1
 endfunction
 
 function! vg_display#get_buffer_input_cache_variable(buffer_name)

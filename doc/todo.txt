@@ -7,6 +7,7 @@
 [ ] create command plugin architecture - e.g. run to entrypoint, command events - eg stepi
 [ ] optimise calls to get breakpoints only when required (adding/removing)
 [ ] refactor command_handler move post-command logic into separate class (check_set_remote) into command_processing (events) plugin path overrides for after_spawn and after_command
+[ ] refactor vg_display into smaller classes
 [ ] implement command on startup log file (use pexpect)
 [ ] create command for graceful shutdown of vgdb
 [ ] add ability to set a breakpoint from the current line of code/disassembly
