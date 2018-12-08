@@ -7,6 +7,9 @@ buffers:
     vg_registers:
         command: 'info registers'
         on_startup: true
+        diff:
+            show_diff: true
+            buffer_input_cache_variable: 'g:vg_registers_cache'
     vg_breakpoints:
         command: 'info breakpoints'
         on_startup: false

@@ -39,4 +39,5 @@
 [ ] add interpreted languages support where possible
 [ ] add scripting plugin support
 [ ] add llvm support
-[ ] add xserver to docker-compose containers to make tests self-composed
+[ ] add other process support (e.g. ssh, terminals, log streams, etc)
+[ ] add xserver to docker-compose containers to make tests self-contained
