@@ -30,6 +30,7 @@ class Vgdb(object):
         self.current_frame_address = ''
         self.config_dictionary = {}
         self.default_input_buffer_variable = ''
+        self.get_config()
 
     def start_gdb(self, commands):
         try:
