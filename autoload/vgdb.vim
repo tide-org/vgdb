@@ -40,12 +40,14 @@ function! vgdb#run_command(...)
     endtry
 endfunction
 
-function! vgdb#run_stepi(...)
+function! vgdb#run_config_command(...)
+    let command = get(a:000, 0, '')
     try
-        execute g:vg_py . ' vgdb.run_stepi()'
+        execute g:vg_py . ' vgdb.run_config_command("' . command . '")'
+        echom "config command ran successfully: " . command
         call vg_display#update_buffers()
     catch a:exception
-        echohl WarningMsg | echomsg "An error occurred in vgdb#run_stepi: " . a:exception | echohl None
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_config_command: " . command . ", " . a:exception | echohl None
     endtry
 endfunction
 

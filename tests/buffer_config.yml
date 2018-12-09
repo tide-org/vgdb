@@ -17,8 +17,15 @@ buffers:
 
 commands:
     stepi:
-    cont:
-    run_to_entrypoint:
+        stepi_and_get_current_address:
+            type: 'command_with_match'
+            command: 'stepi'
+            match: '(0x[0-9a-f]{2,16})'
+            try_set: 'current_frame_address'
+
+variables:
+    current_frame_address:
+        type: 'python_and_vim'
 
 events:
     before_spawn:
