@@ -3,7 +3,6 @@ if !exists('g:vg_loaded')
 endif
 
 function! vg_display#display_buffer(buffer_name)
-    let l:buffer_command = ''
     if a:buffer_name != '' && g:vg_config_dictionary != {}
         if has_key(g:vg_config_dictionary['buffers'], a:buffer_name)
             let l:buffer_command = vg_display#get_buffer_command(g:vg_config_dictionary['buffers'][a:buffer_name])
@@ -13,10 +12,7 @@ function! vg_display#display_buffer(buffer_name)
 endfunction
 
 function! vg_display#get_buffer_command(buffer_config)
-    if has_key(a:buffer_config, 'command')
-        return a:buffer_config['command']
-    endif
-    return ''
+    return get(a:buffer_config, 'command', '')
 endfunction
 
 function! vg_display#check_update_config_buffers()
@@ -119,13 +115,12 @@ function! vg_display#check_do_buffer_diff(buffer_name, buffer_input_variable)
 endfunction
 
 function! vg_display#do_diff_highlight(buffer_name, cached_lines, current_lines)
-    execute "sign unplace 3"
+    execute "sign unplace * file=" . expand("%:p")
     if len(a:cached_lines) > 0
        if len(a:cached_lines) <= len(a:current_lines)
           let l:line_index = 0
           for l:line in a:current_lines
               if l:line !=? a:cached_lines[l:line_index]
-                  echom "line index:" . l:line_index
                   call vg_display#set_diff_line(l:line_index + 1)
               endif
               let l:line_index += 1

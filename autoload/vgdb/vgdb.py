@@ -96,4 +96,3 @@ class Vgdb(object):
     def get_config(self):
         self.config_dictionary = Config().get()
         self.default_input_buffer_variable = self.config_dictionary["settings"]["buffers"]["default_input_buffer_variable"]
-        print("here: " + self.default_input_buffer_variable)
