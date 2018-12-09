@@ -17,3 +17,16 @@
 # display registers window
 
 `:Vgreg`
+
+
+# to step into an instruction:
+
+`:VgRunConfigCommand stepi`
+
+# to continue to end:
+
+`:VgRunConfigCommand continue`
+
+# to show disassembly:
+
+`:Vgdis`

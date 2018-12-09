@@ -71,13 +71,14 @@ class Vgdb(object):
         variables_dict = self.config_dictionary["variables"]
         if self.is_variable_in_config(variable_name):
             variable_type = variables_dict[variable_name].get("type", None)
-            if variable_type != None:
+            if variable_type != None and variable_value != None:
                 self.set_variable_for_type(variable_name, variable_value, variable_type)
 
     def set_variable_for_type(self, variable_name, variable_value, variable_type):
-        if variable_type.lower() == 'python_and_vim':
+        if variable_type.lower().__contains__('python'):
             self.variable_dictionary[variable_name] = variable_value
-            vim.command("let g:vg_" + variable_name + " = " + variable_value)
+        if variable_type.lower().__contains__('vim'):
+            vim.command("let g:vg_" + variable_name + " = " + str(variable_value))
 
     def is_variable_in_config(self, variable_name):
         vars_dict = self.config_dictionary["variables"]
@@ -92,10 +93,6 @@ class Vgdb(object):
         if commands_dict != None:
             return True
         return False
-
-    def run_continue(self):
-        self.variable_dictionary['current_frame_address'] = self.cmd_hnd.run_command_get_match("continue", '(0x[0-9a-f]{2,16})')
-        self.try_set_breakpoint()
 
     def try_set_breakpoint(self):
         if self.variable_dictionary['current_frame_address']:

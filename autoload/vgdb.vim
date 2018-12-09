@@ -51,15 +51,6 @@ function! vgdb#run_config_command(...)
     endtry
 endfunction
 
-function! vgdb#run_continue(...)
-    try
-        execute g:vg_py . ' vgdb.run_continue()'
-        call vg_display#update_buffers()
-    catch a:exception
-        echohl WarningMsg | echomsg "An error occurred in vgdb#run_continue: ", " . a:exception | echohl None
-    endtry
-endfunction
-
 function! vgdb#run_to_entrypoint(...)
     try
         execute g:vg_py . ' vgdb.run_to_entrypoint()'
