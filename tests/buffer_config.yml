@@ -3,7 +3,6 @@
 buffers:
     vg_watchpoints:
         command: 'info watchpoints'
-        on_startup: true
     vg_registers:
         command: 'info registers'
         on_startup: true
@@ -12,10 +11,10 @@ buffers:
             buffer_input_cache_variable: 'g:vg_registers_cache'
     vg_breakpoints:
         command: 'info breakpoints'
-        on_startup: false
+        on_startup: true
     vg_session_log:
         scrolling_buffer: true
-        on_startup: true
+        on_Startup: true
 
 commands:
     stepi:

@@ -119,7 +119,19 @@ function! vg_display#check_do_buffer_diff(buffer_name, buffer_input_variable)
 endfunction
 
 function! vg_display#do_diff_highlight(buffer_name, cached_lines, current_lines)
-    return 1
+    execute "sign unplace 3"
+    if len(a:cached_lines) > 0
+       if len(a:cached_lines) <= len(a:current_lines)
+          let l:line_index = 0
+          for l:line in a:current_lines
+              if l:line !=? a:cached_lines[l:line_index]
+                  echom "line index:" . l:line_index
+                  call vg_display#set_diff_line(l:line_index + 1)
+              endif
+              let l:line_index += 1
+           endfor
+       endif
+    endif
 endfunction
 
 function! vg_display#get_buffer_input_cache_variable(buffer_name)
@@ -206,6 +218,12 @@ endfunction
 function! vg_display#update_breakpoint_lines()
     let l:breakpoint_line = vg_display#find_breakpoint_line()
     call vg_display#set_breakpoint_line(l:breakpoint_line)
+endfunction
+
+function! vg_display#set_diff_line(diff_line)
+    if a:diff_line > 0
+        execute "sign place 3 line=" . a:diff_line . " name=wholeline file=" . expand("%:p")
+    endif
 endfunction
 
 function! vg_display#set_breakpoint_line(breakpoint_line)
