@@ -11,10 +11,9 @@ buffers:
             buffer_input_cache_variable: 'g:vg_registers_cache'
     vg_breakpoints:
         command: 'info breakpoints'
-        on_startup: true
     vg_session_log:
         scrolling_buffer: true
-        on_Startup: true
+        on_startup: true
 
 commands:
     stepi:
