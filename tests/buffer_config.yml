@@ -17,17 +17,21 @@ buffers:
 
 commands:
     stepi:
-        stepi_and_get_current_address:
-            type: 'command_with_match'
-            command: 'stepi'
-            match: '(0x[0-9a-f]{2,16})'
-            try_set: 'current_frame_address'
+        steps:
+            stepi_and_get_current_address:
+                type: 'command_with_match'
+                command: 'stepi'
+                match: '(0x[0-9a-f]{2,16})'
+                try_set: 'current_frame_address'
+        update_buffers: true
     continue:
-        continue_and_get_current_address:
-            type: 'command_with_match'
-            command: 'continue'
-            match: '(0x[0-9a-f]{2,16})'
-            try_set: 'current_frame_address'
+        steps:
+            continue_and_get_current_address:
+                type: 'command_with_match'
+                command: 'continue'
+                match: '(0x[0-9a-f]{2,16})'
+                try_set: 'current_frame_address'
+        update_buffers: true
 
 variables:
     current_frame_address:
@@ -36,6 +40,12 @@ variables:
 events:
     before_spawn:
     after_spawn:
+    before_config_command:
+    after_config_command:
+        message_run_to_entrypoint_was_successful:
+            run_for: 'run_to_entrypoint'
+            type: 'vim'
+            function: 'vgdb#events#run_to_entrypoint#was_successful'
     before_command:
     after_command:
     before_buffer_update:

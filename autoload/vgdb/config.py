@@ -2,17 +2,7 @@ from poyo import parse_string, PoyoException
 import vim
 import os
 import codecs
-
-def singleton(cls):
-
-    instances = {}
-
-    def getinstance():
-        if cls not in instances:
-            instances[cls] = cls()
-        return instances[cls]
-
-    return getinstance
+from singleton import singleton
 
 @singleton
 class Config:
