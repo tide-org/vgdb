@@ -2,9 +2,11 @@
 [x] remove the need for g:vg_filtered_buffers
 [x] fix vg_session_log not starting on_startup
 [x] allow diff-buffers (e.g. registers comparison)
+[ ] replace poyo with pyyaml
 [ ] refactor run_to_entrypoint into config.yml
 [ ] make buffers only update when set in config with 'update_buffers'
 [ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
+[ ] gey pyyaml working correctly from autoload/lib path
 [ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
 [x] refactor disassembly to be generic and in config template
 [ ] refactor step, break, run, etc. to be generic and in config template

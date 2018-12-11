@@ -5,11 +5,11 @@ import sys
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 ptyprocessdir = os.path.join(currentdir, "../lib/ptyprocess")
 pexpectdir = os.path.join(currentdir, "../lib/pexpect")
-poyodir = os.path.join(currentdir, "../lib/poyo")
+pyyamldir = os.path.join(currentdir, "../lib/pyyaml")
 sys.path.insert(0, currentdir)
 sys.path.insert(0, ptyprocessdir)
 sys.path.insert(0, pexpectdir)
-sys.path.insert(0, poyodir)
+sys.path.insert(0, pyyamldir)
 
 import pexpect
 

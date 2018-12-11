@@ -1,4 +1,4 @@
-from poyo import parse_string, PoyoException
+import yaml
 import vim
 import os
 import codecs
@@ -20,12 +20,9 @@ class Config:
         full_template_location = self.__get_full_template_location()
         with codecs.open(full_template_location, encoding='utf-8') as ymlfile:
             ymlstring = ymlfile.read()
-        try:
-            config = parse_string(ymlstring)
+            config = yaml.load(ymlstring)
             self.__config_dictionary = config
             self.__set_vim_globals(config)
-        except PoyoException as exc:
-            print("error setting config: " + str(exc))
 
     def __get_full_template_location(self):
         template_location = vim.eval("g:vg_config_location")
@@ -33,7 +30,7 @@ class Config:
         return full_template_location
 
     def __set_vim_globals(self, config):
-        config_string = str(config).replace(": False", ": 'False'").replace(": True", ": 'True'")
+        config_string = str(config).replace(": False", ": 'False'").replace(": True", ": 'True'").replace(": None", ": 'None'")
         vim.command("let g:vg_config_dictionary = " + config_string)
         self.__set_vim_buffer_config(config)
 
