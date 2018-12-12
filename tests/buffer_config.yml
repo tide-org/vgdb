@@ -18,19 +18,17 @@ buffers:
 commands:
     stepi:
         steps:
-            stepi_and_get_current_address:
-                type: 'command_with_match'
-                command: 'stepi'
-                match: '(0x[0-9a-f]{2,16})'
-                try_set: 'current_frame_address'
+            - type: 'command_with_match'
+              command: 'stepi'
+              match: '(0x[0-9a-f]{2,16})'
+              try_set: 'current_frame_address'
         update_buffers: true
     continue:
         steps:
-            continue_and_get_current_address:
-                type: 'command_with_match'
-                command: 'continue'
-                match: '(0x[0-9a-f]{2,16})'
-                try_set: 'current_frame_address'
+            - type: 'command_with_match'
+              command: 'continue'
+              match: '(0x[0-9a-f]{2,16})'
+              try_set: 'current_frame_address'
         update_buffers: true
 
 variables:

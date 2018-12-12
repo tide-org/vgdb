@@ -16,15 +16,13 @@ class ConfigCommand(object):
 
     def run_config_command(self, command):
         if self.is_command_in_config(command):
-            commands_dict = self.config_dictionary["commands"][command]["steps"]
-            commands_list = list(commands_dict.keys())
+            commands_list = self.config_dictionary["commands"][command]["steps"]
             for command_item in commands_list:
-                command_values = commands_dict[command_item]
-                if command_values["type"].lower() == 'command_with_match':
-                  command_item_command = command_values["command"]
-                  match = command_values["match"]
+                if command_item["type"].lower() == 'command_with_match':
+                  command_item_command = command_item["command"]
+                  match = command_item["match"]
                   match_result = self.cmd_hnd.run_command_get_match(command_item_command, match)
-                  try_set_var = command_values.get("try_set", None)
+                  try_set_var = command_item.get("try_set", None)
                   if try_set_var != None:
                       if match != None:
                           self.set_variable_for_command(try_set_var, match_result)
