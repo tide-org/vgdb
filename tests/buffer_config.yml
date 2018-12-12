@@ -16,6 +16,32 @@ buffers:
         on_startup: true
 
 commands:
+    run_to_entrypoint:
+        steps:
+            - type: 'config_command'
+              name: 'get_set_entrypoint'
+            - type: 'create_string'
+              name: 'breakpoint_command'
+              string: 'break *%s'
+              args:
+                - 'app_entrypoint'
+            - type: 'run_command_string'
+              command_string: 'breakpoint_command'
+            - type: 'run_command'
+              command: 'continue'
+
+    get_set_entrypoint:
+        steps:
+            - type: 'run_command_with_match'
+              command: 'info file'
+              match: 'Entry point: (0x[0-9a-f]{2,16)'
+              try_set: 'app_entrypoint'
+            - type: 'python_function'
+              function_file: 'string_helpers.py'
+              function_name: 'pad_hexadecimal_to_64bit'
+              input_args:
+                - 'app_entrypoint'
+              set_on_return: 'app_entrypoint'
     stepi:
         steps:
             - type: 'command_with_match'
@@ -34,7 +60,10 @@ commands:
 variables:
     current_frame_address:
         type: 'python_and_vim'
-
+    app_entrypoint:
+        type: 'python_and_vim'
+        #default_value: 'use this for constants'
+        #updatable: false  - and this
 events:
     before_spawn:
     after_spawn:
