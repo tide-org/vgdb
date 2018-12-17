@@ -18,7 +18,7 @@ class ConfigCommand(object):
         if self.is_command_in_config(command):
             commands_list = self.config_dictionary["commands"][command]["steps"]
             for command_item in commands_list:
-                if command_item["type"].lower() == 'command_with_match':
+                if command_item["action"].lower() == 'command_with_match':
                   command_item_command = command_item["command"]
                   match = command_item["match"]
                   match_result = self.cmd_hnd.run_command_get_match(command_item_command, match)
@@ -43,14 +43,9 @@ class ConfigCommand(object):
     def is_variable_in_config(self, variable_name):
         vars_dict = self.config_dictionary["variables"]
         variable_exists = vars_dict.get(variable_name, None)
-        if variable_exists != None:
-            return True
-        return False
+        return variable_exists != None
 
     def is_command_in_config(self, command):
         config_commands = self.config_dictionary["commands"]
         commands_dict = config_commands.get(command, None)
-        if commands_dict != None:
-            return True
-        return False
-
+        return commands_dict != None
