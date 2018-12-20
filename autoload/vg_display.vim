@@ -112,25 +112,21 @@ endfunction
 
 function! vg_display#do_diff_highlight(buffer_name, cached_lines, current_lines)
     execute "sign unplace * file=" . expand("%:p")
-    if len(a:cached_lines) > 0
-       if len(a:cached_lines) <= len(a:current_lines)
-          let l:line_index = 0
-          for l:line in a:current_lines
-              if l:line !=? a:cached_lines[l:line_index]
-                  call vg_display#set_diff_line(l:line_index + 1)
-              endif
-              let l:line_index += 1
-           endfor
-       endif
+    if len(a:cached_lines) > 0 && len(a:cached_lines) <= len(a:current_lines)
+        let l:line_index = 0
+        for l:line in a:current_lines
+            if l:line !=? a:cached_lines[l:line_index]
+                call vg_display#set_diff_line(l:line_index + 1)
+            endif
+            let l:line_index += 1
+        endfor
     endif
 endfunction
 
 function! vg_display#get_buffer_input_cache_variable(buffer_name)
     let l:buffer_config = g:vg_config_dictionary['buffers'][a:buffer_name]
-    if has_key(l:buffer_config, 'diff')
-        if has_key(l:buffer_config['diff'], 'buffer_input_cache_variable')
-             return l:buffer_config['diff']['buffer_input_cache_variable']
-        endif
+    if has_key(l:buffer_config, 'diff') && has_key(l:buffer_config['diff'], 'buffer_input_cache_variable')
+         return l:buffer_config['diff']['buffer_input_cache_variable']
     endif
     return ''
 endfunction

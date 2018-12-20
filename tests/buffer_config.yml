@@ -64,9 +64,9 @@ commands:
 
 variables:
     current_frame_address:
-        action: 'python_and_vim'
+        type: 'python_and_vim'
     app_entrypoint:
-        action: 'python_and_vim'
+        type: 'python_and_vim'
         #default_value: 'use this for constants'
         #updatable: false  - and this
 events:
