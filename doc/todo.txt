@@ -1,9 +1,3 @@
-[x] refactor out g:vg_query_result
-[x] remove the need for g:vg_filtered_buffers
-[x] fix vg_session_log not starting on_startup
-[x] allow diff-buffers (e.g. registers comparison)
-[x] replace poyo with pyyaml
-[x] make command steps an array of steps
 [ ] create a list of all events in config and add them to an events list
 [ ] create functions to trigger all events for different areas - before/after command, buffer updates, spawn and config commands
 [ ] refactor run_to_entrypoint into config.yml

@@ -46,4 +46,10 @@
 [x] fix session log truncating and not scrolling
 [x] refactor vg_display for readability
 [x] define session log from config file
+[x] refactor out g:vg_query_result
+[x] remove the need for g:vg_filtered_buffers
+[x] fix vg_session_log not starting on_startup
+[x] allow diff-buffers (e.g. registers comparison)
+[x] replace poyo with pyyaml
+[x] make command steps an array of steps
 

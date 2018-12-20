@@ -89,12 +89,8 @@ endfunction
 
 function! vg_display#is_diff_buffer(buffer_name)
     let l:buffer_config = g:vg_config_dictionary['buffers'][a:buffer_name]
-    if has_key(l:buffer_config, 'diff')
-        if has_key(l:buffer_config['diff'], 'show_diff')
-            if l:buffer_config['diff']['show_diff'] =~ 'true'
-                return 1
-            endif
-        endif
+    if has_key(l:buffer_config, 'diff') &&  has_key(l:buffer_config['diff'], 'show_diff') && l:buffer_config['diff']['show_diff'] =~ 'true'
+        return 1
     endif
    return 0
 endfunction
