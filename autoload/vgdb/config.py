@@ -23,6 +23,10 @@ class Config:
             config = yaml.load(ymlstring)
             self.__config_dictionary = config
             self.__set_vim_globals(config)
+            self.__set_config_variables(config)
+
+    def __set_config_variables(self, config):
+        pass
 
     def __get_full_template_location(self):
         template_location = vim.eval("g:vg_config_location")

@@ -28,10 +28,8 @@ class Vgdb(object):
         self.current_command = ''
         self.cmd_hnd = None
         self.entrypoint = None
-        self.config_dictionary = {}
-        self.default_input_buffer_variable = ''
-        self.get_config()
-        self.config_command = ConfigCommand(self.config_dictionary)
+        self.default_input_buffer_variable = Config().get()["settings"]["buffers"]["default_input_buffer_variable"]
+        self.config_command = ConfigCommand()
 
     def start_gdb(self, commands):
         try:
@@ -63,12 +61,15 @@ class Vgdb(object):
         self.run_command_with_result("disassemble", 'vg_disassembly')
 
     def try_set_breakpoint(self):
+        print("tryset")
         if self.config_command.variable_dictionary['current_frame_address']:
+            print("setting cfa")
             vim.command("let g:vg_current_frame_address = '" + self.config_command.variable_dictionary['current_frame_address'] + "'")
 
     def get_set_entrypoint(self):
         if not self.entrypoint:
             self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{2,16})')
+            print("entrypoint: " + self.entrypoint)
             if self.entrypoint:
                 self.entrypoint = self.pad_hexadecimal_to_64bit(self.entrypoint)
                 self.config_command.variable_dictionary['current_frame_address'] = self.entrypoint
@@ -89,7 +90,3 @@ class Vgdb(object):
                 self.cmd_hnd.run_command("run")
         else:
             print("error: unable to get entrypoint")
-
-    def get_config(self):
-        self.config_dictionary = Config().get()
-        self.default_input_buffer_variable = self.config_dictionary["settings"]["buffers"]["default_input_buffer_variable"]

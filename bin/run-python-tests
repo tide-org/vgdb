@@ -1,0 +1,5 @@
+#! /bin/sh -e
+
+cd $(dirname $0)/.
+
+./test-python-environment /work/scripts/run-python-tests

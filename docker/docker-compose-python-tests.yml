@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+
+  test-python-vgdb:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile-python-tests
+    working_dir: /work
+    volumes:
+      - ..:/work
+

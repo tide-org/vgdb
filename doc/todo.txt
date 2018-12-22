@@ -1,3 +1,6 @@
+[x] add nose tests for python components
+[x] make all config_dicts call Config()
+[ ] implement 2-way event-driven vim to python variables
 [ ] create a list of all events in config and add them to an events list
 [ ] create functions to trigger all events for different areas - before/after command, buffer updates, spawn and config commands
 [ ] refactor run_to_entrypoint into config.yml

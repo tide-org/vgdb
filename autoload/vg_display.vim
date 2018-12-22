@@ -68,7 +68,9 @@ function! vg_display#check_update_buffer(buffer_name)
 endfunction
 
 function! vg_display#check_update_disassembly()
+    echom "updating disassembly"
     if vg_buffer#window_by_bufname('vg_disassembly') != -1
+        echom "disassembly buffer open"
         call vg_display#display_vg_disassembly()
     endif
 endfunction
@@ -168,6 +170,7 @@ function! vg_display#display_vg_disassembly(...)
     call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
     execute g:vg_py . 'vgdb.display_disassembly()'
     call vg_display#write_array_to_buffer('vg_disassembly', vg_display#get_default_input_buffer_variable())
+    echom "vg_current_frame_address:" . g:vg_current_frame_address
     if g:vg_current_frame_address != '' | call vg_display#update_breakpoint_lines() | endif
     if len(g:vg_breakpoints) != 0 | call vg_display#update_breakpoint_piets() | endif
     exec l:current_window_num . 'wincmd w'
