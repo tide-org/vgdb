@@ -5,7 +5,7 @@ from nose import with_setup
 from nose.tools import nottest
 from actionable_dict import ActionableDict
 
-parent_dict_result = None
+parent_keys_result = None
 
 class TestActionableDict():
 
@@ -20,51 +20,51 @@ class TestActionableDict():
 
     @staticmethod
     @nottest
-    def callback_test_empty(parent_dict, value):
+    def callback_test_empty(parent_keys, value):
         pass
 
     @staticmethod
     @nottest
-    def callback_test_parent_dict_array(parent_dict, value):
-        parent_dict_result = parent_dict
-        print("value changed: " + str(value) + " with keys: " + str(parent_dict))
-        assert parent_dict != None
+    def callback_test_parent_keys(parent_keys, value):
+        parent_keys_result = parent_keys
+        print("value changed: " + str(value) + " with keys: " + str(parent_keys))
+        assert parent_keys != None
 
     @staticmethod
     @nottest
-    def callback_test_value(parent_dict, value):
-        parent_dict_result = parent_dict
-        print("value changed: " + str(value) + " with keys: " + str(parent_dict))
+    def callback_test_value(parent_keys, value):
+        parent_keys_result = parent_keys
+        print("value changed: " + str(value) + " with keys: " + str(parent_keys))
         assert value != None
 
     @staticmethod
     @nottest
-    def callback_test_parent_dict_array_correct(parent_dict, value):
-        parent_dict_result = parent_dict
-        print("value changed: " + str(value) + " with keys: " + str(parent_dict))
-        assert parent_dict == ['b', 'c']
+    def callback_test_parent_keys_correct(parent_keys, value):
+        parent_keys_result = parent_keys
+        print("value changed: " + str(value) + " with keys: " + str(parent_keys))
+        assert parent_keys == ['b', 'c']
 
     @staticmethod
     @nottest
-    def callback_test_value_correct(parent_dict, value):
-        parent_dict_result = parent_dict
-        print("value changed: " + str(value) + " with keys: " + str(parent_dict))
+    def callback_test_value_correct(parent_keys, value):
+        parent_keys_result = parent_keys
+        print("value changed: " + str(value) + " with keys: " + str(parent_keys))
         assert value == 5
 
     def test_can_set_callback(self):
         self.test_dict = ActionableDict( { 'b': { 'c': 3 } }, self.callback_test_empty)
         assert self.test_dict.callback != None
 
-    def test_can_call_callback_and_get_parent_dict(self):
-        self.test_dict = ActionableDict( { 'b': { 'c': 3 } }, self.callback_test_parent_dict_array)
+    def test_can_call_callback_and_get_parent_keys(self):
+        self.test_dict = ActionableDict( { 'b': { 'c': 3 } }, self.callback_test_parent_keys)
         self.test_dict['b']['c'] = 5
 
     def test_can_call_callback_and_get_value(self):
         self.test_dict = ActionableDict( { 'b': { 'c': 3 } }, self.callback_test_value)
         self.test_dict['b']['c'] = 5
 
-    def test_can_call_callback_and_get_parent_dict_correct(self):
-        self.test_dict = ActionableDict( { 'b': { 'c': 3 } }, self.callback_test_parent_dict_array_correct)
+    def test_can_call_callback_and_get_parent_keys_correct(self):
+        self.test_dict = ActionableDict( { 'b': { 'c': 3 } }, self.callback_test_parent_keys_correct)
         self.test_dict['b']['c'] = 5
 
     def test_can_call_callback_and_get_value_correct(self):
