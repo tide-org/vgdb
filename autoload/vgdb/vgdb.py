@@ -61,9 +61,7 @@ class Vgdb(object):
         self.run_command_with_result("disassemble", 'vg_disassembly')
 
     def try_set_breakpoint(self):
-        print("tryset")
         if self.config_command.variable_dictionary['current_frame_address']:
-            print("setting cfa")
             vim.command("let g:vg_current_frame_address = '" + self.config_command.variable_dictionary['current_frame_address'] + "'")
 
     def get_set_entrypoint(self):

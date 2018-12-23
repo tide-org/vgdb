@@ -68,9 +68,7 @@ function! vg_display#check_update_buffer(buffer_name)
 endfunction
 
 function! vg_display#check_update_disassembly()
-    echom "updating disassembly"
     if vg_buffer#window_by_bufname('vg_disassembly') != -1
-        echom "disassembly buffer open"
         call vg_display#display_vg_disassembly()
     endif
 endfunction

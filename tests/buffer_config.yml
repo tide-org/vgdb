@@ -65,8 +65,6 @@ commands:
 variables:
     current_frame_address:
     app_entrypoint:
-        #default_value: 'use this for constants'
-        #updatable: false  - and this
 events:
     before_spawn:
     after_spawn:
