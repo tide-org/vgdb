@@ -20,14 +20,13 @@ commands:
         steps:
             - action: 'run_config_command'
               name: 'get_set_entrypoint'
-            - action: 'create_interpolated_variable'
-              type: 'string'
-              name: 'breakpoint_command'
-              value: 'break *%s'
+            - action: 'create_interpolated_string'
+              variable_name: 'breakpoint_command'
+              value: 'break *{0}'
               args:
                 - 'app_entrypoint'
             - action: 'run_command_string'
-              string: 'breakpoint_command'
+              variable_name: 'breakpoint_command'
             - action: 'run_command'
               command: 'continue'
             - action: 'handle_event'

@@ -25,19 +25,32 @@ class ConfigCommand(object):
             commands_list = Config().get()["commands"][command]["steps"]
             for command_item in commands_list:
                 command_action = command_item["action"].lower()
-                print("ci: " + str(command_item))
                 if command_action == 'run_command_with_match':
                     command_item_command = command_item["command"]
                     match = command_item["match"]
-                    print("rcwm:" + str(command_item_command) + "match: " + match)
                     match_result = self.cmd_hnd.run_command_get_match(command_item_command, match)
-                    print("match result: " + str(match_result))
                     try_set_var = command_item.get("try_set", None)
                     if try_set_var and match_result:
-                        print("setting")
                         Config().get()["variables"][try_set_var] = match_result
                 elif command_action == 'run_python_function':
                     python_function = self.get_python_function(command_item)
+                elif command_action == 'run_config_command':
+                    self.run_config_command(command_item['name'])
+                elif command_action == 'create_interpolated_string':
+                    variable_name = command_item["variable_name"]
+                    string_value = command_item["value"]
+                    args = command_item["args"]
+                    resolved_args = []
+                    for arg in args:
+                        resolved_args.append(Config().get()["variables"][arg])
+                    result_string = string_value.format(*resolved_args)
+                    Config().get()["variables"][variable_name] = result_string
+                elif command_action == 'run_command_string':
+                    variable_name = command_item['variable_name']
+                    variable_value = Config().get()["variables"][variable_name]
+                    self.cmd_hnd.run_command(variable_value)
+                elif command_action == 'run_command':
+                    self.cmd_hnd.run_command(command_item['command'])
 
     def get_python_function(self, command_item):
         function_file = command_item["function_file"]
