@@ -29,9 +29,7 @@ commands:
               variable_name: 'breakpoint_command'
             - action: 'run_command'
               command: 'continue'
-            - action: 'handle_event'
-              name: 'after_config_command'
-              language: 'vim'
+            - action: 'run_vim_function'
               function_name: 'vgdb#functions#run_to_entrypoint#was_successful'
 
     get_set_entrypoint:
@@ -67,6 +65,7 @@ variables:
     binary_loaded: 0
     symbols_loaded: 0
     remote_target: 0
+
 events:
     before_spawn:
     after_spawn:

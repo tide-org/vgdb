@@ -36,7 +36,6 @@ class Config:
         if isinstance(value, str):
             string_value = "'" + string_value + "'"
         let_string += " = " + string_value
-        print("let_string: " + let_string)
         vim.command(let_string)
 
     def __string_replace_for_vim(self, string_to_replace):

@@ -51,6 +51,10 @@ class ConfigCommand(object):
                     self.cmd_hnd.run_command(variable_value)
                 elif command_action == 'run_command':
                     self.cmd_hnd.run_command(command_item['command'])
+                elif command_action == 'run_vim_function':
+                    function_name = command_item["function_name"]
+                    vim_command = "call " + function_name + "()"
+                    vim.command(vim_command)
 
     def get_python_function(self, command_item):
         function_file = command_item["function_file"]

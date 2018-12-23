@@ -3,21 +3,23 @@
 [x] implement 2-way event-driven vim to python variables - py to vim working - to implement reverse as required
 [x] make plugins directory moveable
 [x] allow defaults for config variables
-[ ] create a list of all events in config and add them to an events list
+[ ] move check_set_remote to config file
+[ ] refactor Vgdis into config file
+[ ] create a list of events in config and add them to an events list
 [ ] create functions to trigger all events for different areas - before/after command, buffer updates, spawn and config commands
 [x] refactor run_to_entrypoint into config.yml
 [ ] make buffers only update when set in config with 'update_buffers'
 [ ] wire up all the config yaml functions
-[ ] make 'config_command' step
-[ ] make create_string step
-[ ] make 'run_command_string' step
-[ ] make 'run_command' step
+[x] make 'config_command' step
+[x] make create_string step
+[x] make 'run_command_string' step
+[x] make 'run_command' step
 [ ] make 'vim_function_after_config_command' step
-[ ] make 'run_command_with_match' step
-[ ] make 'python_function' step
+[x] make 'run_command_with_match' step
+[x] make 'python_function' step
 [ ] make 'vim_function' step
-[ ] make 'command_with_match' step
-[ ] make variables in config at startup
+[x] make 'command_with_match' step
+[x] make variables in config at startup
 [ ] make all event steps and document: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
 [ ] document all step types
 [ ] create schematics of modules of app and workflows
