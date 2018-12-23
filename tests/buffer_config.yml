@@ -45,7 +45,7 @@ commands:
               function_file: 'string_helpers.py'
               function_name: 'pad_hexadecimal_to_64bit'
               input_args:
-                - 'app_entrypoint'
+                  hex_string: 'app_entrypoint'
               set_on_return: 'app_entrypoint'
     stepi:
         steps:

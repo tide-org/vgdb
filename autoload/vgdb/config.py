@@ -32,7 +32,7 @@ class Config:
         let_string = "let g:vg_config_dictionary"
         for key in parent_keys:
             let_string += "['" + key + "']"
-        string_value = str(value).replace(": False", ": 'False'").replace(": True", ": 'True'").replace(": None", ": 'None'")
+        string_value = str(value).replace("True", "'True'").replace("False", "'False'").replace("None", "'None'").replace(": False", ": 'False'").replace(": True", ": 'True'").replace(": None", ": 'None'")
         if isinstance(value, str):
             string_value = "'" + string_value + "'"
         let_string += " = " + string_value

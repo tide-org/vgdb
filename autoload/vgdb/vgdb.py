@@ -71,7 +71,7 @@ class Vgdb(object):
             if self.entrypoint:
                 self.entrypoint = self.pad_hexadecimal_to_64bit(self.entrypoint)
                 self.config_command.variable_dictionary['current_frame_address'] = self.entrypoint
-                vim.command("let g:vg_app_entrypoint = '" + self.entrypoint + "'")
+                vim.command("let g:vg_config_dictionary['variables']['app_entrypoint'] = '" + self.entrypoint + "'")
         self.try_set_breakpoint()
 
     def pad_hexadecimal_to_64bit(self, hex_string):
