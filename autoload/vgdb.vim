@@ -50,14 +50,3 @@ function! vgdb#run_config_command(...)
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_config_command: " . command . ", " . a:exception | echohl None
     endtry
 endfunction
-
-function! vgdb#run_to_entrypoint(...)
-    try
-        execute g:vg_py . ' vgdb.run_to_entrypoint()'
-        call vg_display#update_buffers()
-        let l:app_entrypoint = g:vg_config_dictionary['variables']['app_entrypoint']
-        if strlen(l:app_entrypoint) > 0 | echom "application started and halted at entrypoint: " . l:app_entrypoint | endif
-    catch a:exception
-        echohl WarningMsg | echomsg "An error occurred in vgdb#run_to_entrypoint:", " . a:exception | echohl None
-    endtry
-endfunction
