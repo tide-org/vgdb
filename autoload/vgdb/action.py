@@ -19,7 +19,7 @@ def get_actions_list():
         action_files = [f for f in listdir(actions_path) if isfile(join(actions_path, f))]
         for action_file in action_files:
             if action_file[-3:].lower() == ".py" and action_file.lower() != "__init__.py":
-                actions_list.append(actions_file[:-3])
+                actions_list.append(action_file[:-3])
 
 def call_action_class(action_dict, action_name):
     action_module = "actions." + action_name

@@ -14,5 +14,5 @@ def set_binary_symbols_status(lines):
     # this is an impssible state which can occur if neither string is matched above
     if symbols_loaded == True and binary_loaded == False:
         symbols_loaded = False
-    Config().get()['variables']['binary_loaded'] = str(int(binary_loaded))
-    Config().get()['variables']['symbols_loaded'] = str(int(symbols_loaded))
+    Config().get()['variables']['binary_loaded'] = int(binary_loaded)
+    Config().get()['variables']['symbols_loaded'] = int(symbols_loaded)

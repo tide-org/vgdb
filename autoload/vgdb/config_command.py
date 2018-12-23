@@ -4,6 +4,8 @@ from config import Config
 import os
 import importlib
 import sys
+import plugin_helpers as plugins
+
 
 @singleton
 class ConfigCommand(object):
@@ -37,23 +39,18 @@ class ConfigCommand(object):
         function_name = command_item["function_name"]
         input_args = command_item.get("input_args", {})
         set_on_return = command_item.get("set_on_return", None)
-        script_path = os.path.dirname(os.path.realpath(__file__))
-        functions_path = os.path.join(script_path, "./functions")
-        function_file_path = os.path.join(functions_path, function_file)
-        print("function path: " + function_file_path + " function name: " + function_name)
-        function_module_name = "functions." + function_file.replace(".py", "")
+        functions_path = plugins.resolve_plugin_path('functions')
+        if functions_path not in sys.path:
+            sys.path.insert(0, functions_path)
+        function_module_name = function_file.replace(".py", "")
         function_module = importlib.import_module(function_module_name)
         function = getattr(sys.modules[function_module_name], function_name)
         interpolated_input_args = {}
         for key, value in input_args.items():
             interpolated_input_args[key] = Config().get()["variables"][value]
-        print("ia: " + str(input_args))
-        print("iia: " + str(interpolated_input_args))
         function_result = function(**interpolated_input_args)
-        print("fr: " + str(function_result))
         if set_on_return:
             Config().get()["variables"][set_on_return] = function_result
-
 
     def set_variable_for_command(self, variable_name, variable_value):
         variables_dict = Config().get()["variables"]
