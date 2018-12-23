@@ -12,6 +12,7 @@ class ConfigCommand(object):
 
     variable_dictionary = {}
     cmd_hnd = None
+    valid_actions = ['run_command_with_match', 'run_python_string', 'create_interpolated_string', 'run_command', 'run_command_string']
 
     def __init__(self):
         pass
@@ -24,14 +25,18 @@ class ConfigCommand(object):
             commands_list = Config().get()["commands"][command]["steps"]
             for command_item in commands_list:
                 command_action = command_item["action"].lower()
-                if command_action == 'command_with_match':
+                print("ci: " + str(command_item))
+                if command_action == 'run_command_with_match':
                     command_item_command = command_item["command"]
                     match = command_item["match"]
+                    print("rcwm:" + str(command_item_command) + "match: " + match)
                     match_result = self.cmd_hnd.run_command_get_match(command_item_command, match)
+                    print("match result: " + str(match_result))
                     try_set_var = command_item.get("try_set", None)
-                    if try_set_var and match:
-                        self.set_variable_for_command(try_set_var, match_result)
-                elif command_action == 'python_function':
+                    if try_set_var and match_result:
+                        print("setting")
+                        Config().get()["variables"][try_set_var] = match_result
+                elif command_action == 'run_python_function':
                     python_function = self.get_python_function(command_item)
 
     def get_python_function(self, command_item):
@@ -51,15 +56,6 @@ class ConfigCommand(object):
         function_result = function(**interpolated_input_args)
         if set_on_return:
             Config().get()["variables"][set_on_return] = function_result
-
-    def set_variable_for_command(self, variable_name, variable_value):
-        variables_dict = Config().get()["variables"]
-        if self.is_variable_in_config(variable_name) and variable_value:
-            Config().get()["variables"][variable_name] = variable_value
-
-    def is_variable_in_config(self, variable_name):
-        variable_exists = Config().get()["variables"].get(variable_name, None)
-        return variable_exists != None
 
     def is_command_in_config(self, command):
         commands_dict = Config().get()["commands"].get(command, None)

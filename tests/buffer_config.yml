@@ -18,9 +18,9 @@ buffers:
 commands:
     run_to_entrypoint:
         steps:
-            - action: 'config_command'
+            - action: 'run_config_command'
               name: 'get_set_entrypoint'
-            - action: 'create_variable'
+            - action: 'create_interpolated_variable'
               type: 'string'
               name: 'breakpoint_command'
               value: 'break *%s'
@@ -30,7 +30,7 @@ commands:
               string: 'breakpoint_command'
             - action: 'run_command'
               command: 'continue'
-            - action: 'event'
+            - action: 'handle_event'
               name: 'after_config_command'
               language: 'vim'
               function_name: 'vgdb#functions#run_to_entrypoint#was_successful'
@@ -39,9 +39,9 @@ commands:
         steps:
             - action: 'run_command_with_match'
               command: 'info file'
-              match: 'Entry point: (0x[0-9a-f]{2,16)'
+              match: '(?<=Entry point: )0x[0-9a-f]{2,16}'
               try_set: 'app_entrypoint'
-            - action: 'python_function'
+            - action: 'run_python_function'
               function_file: 'string_helpers.py'
               function_name: 'pad_hexadecimal_to_64bit'
               input_args:
@@ -49,16 +49,16 @@ commands:
               set_on_return: 'app_entrypoint'
     stepi:
         steps:
-            - action: 'command_with_match'
+            - action: 'run_command_with_match'
               command: 'stepi'
-              match: '(0x[0-9a-f]{2,16})'
+              match: '0x[0-9a-f]{2,16}'
               try_set: 'current_frame_address'
         update_buffers: true
     continue:
         steps:
             - action: 'command_with_match'
               command: 'continue'
-              match: '(0x[0-9a-f]{2,16})'
+              match: '0x[0-9a-f]{2,16}'
               try_set: 'current_frame_address'
         update_buffers: true
 

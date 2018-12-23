@@ -25,7 +25,7 @@ function! vgdb#call_on_startup_functions()
     if g:vg_run_command_on_startup | execute '!nohup ' . g:vg_command_to_run_on_startup . ' </dev/null >/dev/null 2>&1 &' | endif
     if g:vg_connect_to_remote_on_startup
         call vgdb#run_command("target remote " . g:vg_remote_address)
-        call vgdb#run_to_entrypoint()
+        "call vgdb#run_to_entrypoint()
     endif
 endfunction
 

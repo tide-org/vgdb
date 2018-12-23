@@ -75,10 +75,8 @@ class CommandHandler(object):
 
     def get_match(self, regex_match, lines):
         match_string = None
-        pattern = re.compile(regex_match)
         for line in lines:
-            if re.search(pattern, line):
-                match = re.search(pattern, line)
-                if match != None:
-                    match_string = match.group(1)
+            if re.search(regex_match, line):
+                match = re.search(regex_match, line)
+                match_string = match.group()
         return match_string
