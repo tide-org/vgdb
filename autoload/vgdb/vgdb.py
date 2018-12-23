@@ -60,19 +60,13 @@ class Vgdb(object):
         self.run_command_with_result("info breakpoints", "vg_breakpoints")
         self.run_command_with_result("disassemble", 'vg_disassembly')
 
-    def try_set_breakpoint(self):
-        if self.config_command.variable_dictionary['current_frame_address']:
-            vim.command("let g:vg_current_frame_address = '" + self.config_command.variable_dictionary['current_frame_address'] + "'")
-
     def get_set_entrypoint(self):
         if not self.entrypoint:
             self.entrypoint = self.cmd_hnd.run_command_get_match("info file", 'Entry point: (0x[0-9a-f]{2,16})')
             print("entrypoint: " + self.entrypoint)
             if self.entrypoint:
                 self.entrypoint = self.pad_hexadecimal_to_64bit(self.entrypoint)
-                self.config_command.variable_dictionary['current_frame_address'] = self.entrypoint
-                vim.command("let g:vg_config_dictionary['variables']['app_entrypoint'] = '" + self.entrypoint + "'")
-        self.try_set_breakpoint()
+                Config().get()["variables"]['current_frame_address'] = self.entrypoint
 
     def pad_hexadecimal_to_64bit(self, hex_string):
         return '0x' + hex_string[2:].zfill(16)
@@ -81,7 +75,7 @@ class Vgdb(object):
         self.get_set_entrypoint()
         if self.entrypoint:
             self.cmd_hnd.run_command("break *" + self.entrypoint)
-            remote_target = vim.eval('g:vg_remote_target')
+            remote_target = Config().get()["variables"]['remote_target']
             if remote_target:
                 self.cmd_hnd.run_command("continue")
             else:

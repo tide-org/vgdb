@@ -48,7 +48,7 @@ class CommandHandler(object):
     def check_set_remote(self, command, lines):
         if 'target remote' in command.lower():
             SymbolsStatus.set_binary_symbols_status(lines)
-            vim.command("let g:vg_remote_target = 1")
+            Config().get()['variables']['remote_target'] = 1
 
     def get_filtered_output(self, buffer_name=''):
         buffer_string = self.seek_to_end_of_tty()

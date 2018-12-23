@@ -1,4 +1,5 @@
 import vim
+from config import Config
 
 def set_binary_symbols_status(lines):
     binary_loaded = False
@@ -13,5 +14,5 @@ def set_binary_symbols_status(lines):
     # this is an impssible state which can occur if neither string is matched above
     if symbols_loaded == True and binary_loaded == False:
         symbols_loaded = False
-    vim.command("let g:vg_binary_loaded = " + str(int(binary_loaded)))
-    vim.command("let g:vg_symbols_loaded = " + str(int(symbols_loaded)))
+    Config().get()['variables']['binary_loaded'] = str(int(binary_loaded))
+    Config().get()['variables']['symbols_loaded'] = str(int(symbols_loaded))
