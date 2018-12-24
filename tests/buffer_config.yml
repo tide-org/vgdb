@@ -93,14 +93,18 @@ variables:
     connect_to_remote: 1
 
 events:
+    before_spawn:
+    after_spawn:
     before_startup:
     after_startup:
-       - 'connect_to_remote'
-       - 'run_to_entrypoint'
+        - 'connect_to_remote'
+        - 'run_to_entrypoint'
     before_config_command:
     after_config_command:
     before_command:
     after_command:
+        - function_file: 'after_command.py'
+          function_name: 'check_set_remote'
     before_buffer_update:
     after_buffer_update:
 

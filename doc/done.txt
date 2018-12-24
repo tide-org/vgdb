@@ -52,4 +52,22 @@
 [x] allow diff-buffers (e.g. registers comparison)
 [x] replace poyo with pyyaml
 [x] make command steps an array of steps
-
+[x] add nose tests for python components
+[x] make all config_dicts call Config()
+[x] implement 2-way event-driven vim to python variables - py to vim working - to implement reverse as required
+[x] make plugins directory moveable
+[x] allow defaults for config variables
+[x] make startup command be done from config
+[x] move target remote to config
+[x] move check_set_remote to config file
+[x] create functions to trigger all events for different areas - before/after command, buffer updates, spawn and config commands - done for most, needs documenting
+[x] refactor run_to_entrypoint into config.yml
+[x] make 'config_command' step
+[x] make create_string step
+[x] make 'run_command_string' step
+[x] make 'run_command' step
+[x] make 'run_command_with_match' step
+[x] make 'python_function' step
+[x] make 'vim_function' step
+[x] make 'command_with_match' step
+[x] make variables in config at startup

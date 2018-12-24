@@ -1,36 +1,19 @@
-[x] add nose tests for python components
-[x] make all config_dicts call Config()
-[x] implement 2-way event-driven vim to python variables - py to vim working - to implement reverse as required
-[x] make plugins directory moveable
-[x] allow defaults for config variables
-[x] make startup command be done from config
+[ ] create actions pluggable and have built-in actions as well
+[ ] make a runnable vimrunner test for registers window
+[ ] refactor out most vim global vars
 [ ] refactor vg_config_buffers to use dict
-[x] move target remote to config
-[ ] move check_set_remote to config file
+[ ] refactor vg_display code for disassemble into separate file/class
 [ ] refactor Vgdis into config file
-[ ] create a list of events in config and add them to an events list
-[ ] create functions to trigger all events for different areas - before/after command, buffer updates, spawn and config commands
 [ ] create a deterministic actions mapping feature (e.g. tree view or DOT graph)
-[x] refactor run_to_entrypoint into config.yml
 [ ] make buffers only update when set in config with 'update_buffers'
 [ ] wire up all the config yaml functions
-[x] make 'config_command' step
-[x] make create_string step
-[x] make 'run_command_string' step
-[x] make 'run_command' step
-[ ] make 'vim_function_after_config_command' step
-[x] make 'run_command_with_match' step
-[x] make 'python_function' step
-[ ] make 'vim_function' step
-[x] make 'command_with_match' step
-[x] make variables in config at startup
-[ ] make all event steps and document: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
+[ ] document event steps: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
 [ ] document all step types
 [ ] create schematics of modules of app and workflows
 [ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
 [ ] gey pyyaml working correctly from autoload/lib path
 [ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
-[x] refactor disassembly to be generic and in config template
+[ ] refactor disassembly to be generic and in config template
 [ ] refactor step, break, run, etc. to be generic and in config template
 [ ] create command plugin architecture - e.g. run to entrypoint, command events - eg stepi
 [ ] optimise calls to get breakpoints only when required (adding/removing)

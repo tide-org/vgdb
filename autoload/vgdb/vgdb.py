@@ -19,7 +19,6 @@ import re
 from command_handler import CommandHandler
 from config import Config
 from config_command import ConfigCommand
-import symbols_status as SymbolsStatus
 
 class Vgdb(object):
 

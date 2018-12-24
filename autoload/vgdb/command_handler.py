@@ -1,11 +1,13 @@
 import pexpect
 import vim
 import shutil
+import sys
 import re
+import importlib
 import filter as Filter
 import log as Log
-import symbols_status as SymbolsStatus
 from config import Config
+import plugin_helpers as Plugin
 
 class CommandHandler(object):
 
@@ -15,10 +17,13 @@ class CommandHandler(object):
         self.spawn_child_process(startup_commands)
 
     def spawn_child_process(self, startup_commands):
+        args = [startup_commands]
+        self.run_position_something_functions("before_spawn", args)
         self.child = pexpect.spawnu(self.process_path + self.process_settings["main_process_default_arguments"] + startup_commands)
         self.child.expect(self.end_of_output_regex)
         lines = self.get_filtered_output()
-        SymbolsStatus.set_binary_symbols_status(lines)
+        args = [startup_commands, lines]
+        self.run_position_something_functions("after_spawn", args)
 
     def get_config_settings(self):
         self.child = None
@@ -37,18 +42,30 @@ class CommandHandler(object):
 
     def run_command(self, command, buffer_name=''):
         try:
+            args_list = [command, buffer_name]
+            self.run_position_something_functions("before_command", args_list)
             self.child.sendline(command)
             self.child.expect(self.end_of_output_regex)
             lines = self.get_filtered_output(buffer_name)
-            self.check_set_remote(command, lines)
+            args_list = [command, buffer_name, lines]
+            self.run_position_something_functions("after_command", args_list)
             return lines
         except Exception as ex:
             print("error in CommandHandler.run_command(): " + ex)
 
-    def check_set_remote(self, command, lines):
-        if 'target remote' in command.lower():
-            SymbolsStatus.set_binary_symbols_status(lines)
-            Config().get()['variables']['remote_target'] = 1
+    def run_position_something_functions(self, position_something, args_list):
+        functions = Config().get()["events"][position_something]
+        if functions:
+            for function in functions:
+                function_file = function["function_file"]
+                function_name = function["function_name"]
+                functions_path = Plugin.resolve_plugin_path('functions')
+                if functions_path not in sys.path:
+                    sys.path.insert(0, functions_path)
+                function_module_name = function_file.replace(".py", "")
+                function_module = importlib.import_module(function_module_name)
+                function = getattr(sys.modules[function_module_name], function_name)
+                function_result = function(*args_list)
 
     def get_filtered_output(self, buffer_name=''):
         buffer_string = self.seek_to_end_of_tty()
