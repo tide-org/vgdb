@@ -35,42 +35,56 @@ class ConfigCommand(object):
                 lines = []
                 vim.command("let " + self.default_input_buffer_variable + " = []")
                 command_action = command_item["action"].lower()
-                if command_action in self.valid_actions:
-                    if command_action == 'run_command_with_match':
-                        command_item_command = command_item["command"]
-                        match = command_item["match"]
-                        match_result = self.cmd_hnd.run_command_get_match(command_item_command, match)
-                        try_set_var = command_item.get("try_set", None)
-                        if try_set_var and match_result:
-                            Config().get()["variables"][try_set_var] = match_result
-                    elif command_action == 'run_python_function':
-                        python_function = self.get_python_function(command_item)
-                    elif command_action == 'run_config_command':
-                        print("config_command: " + command_item["name"])
-                        self.run_config_command(command_item['name'], buffer_name)
-                    elif command_action == 'create_interpolated_string':
-                        variable_name = command_item["variable_name"]
-                        string_value = command_item["value"]
-                        args = command_item["args"]
-                        resolved_args = []
-                        for arg in args:
-                            resolved_args.append(Config().get()["variables"][arg])
-                        result_string = string_value.format(*resolved_args)
-                        Config().get()["variables"][variable_name] = result_string
-                    elif command_action == 'run_command_string':
-                        variable_name = command_item['variable_name']
-                        variable_value = Config().get()["variables"][variable_name]
-                        lines = self.cmd_hnd.run_command(variable_value, buffer_name)
-                    elif command_action == 'run_command':
-                        lines = self.cmd_hnd.run_command(command_item['command'], buffer_name)
-                    elif command_action == 'run_vim_function':
-                        function_name = command_item["function_name"]
-                        vim_command = "call " + function_name + "()"
-                        vim.command(vim_command)
-                if len(lines) > 0:
+                lines = self.run_command_action(command_action, command_item, buffer_name)
+                if lines and len(lines) > 0:
                     self.add_lines_to_input_buffer(lines)
 
-    def get_python_function(self, command_item):
+    def run_command_action(self, command_action, command_item, buffer_name):
+        if command_action in self.valid_actions:
+            if command_action == 'run_command_with_match':
+                return self.run_command_with_match(command_item, buffer_name)
+            elif command_action == 'run_python_function':
+                return self.run_python_function(command_item)
+            elif command_action == 'run_config_command':
+                return self.run_config_command(command_item['name'], buffer_name)
+            elif command_action == 'create_interpolated_string':
+                return self.create_interpolated_string(command_item, buffer_name)
+            elif command_action == 'run_command_string':
+                return self.run_command_string(command_item, buffer_name)
+            elif command_action == 'run_command':
+                return self.cmd_hnd.run_command(command_item['command'], buffer_name)
+            elif command_action == 'run_vim_function':
+                return self.run_vim_function(command_item)
+
+    def run_command_with_match(self, command_item, buffer_name=''):
+        command_item_command = command_item["command"]
+        match = command_item["match"]
+        match_result = self.cmd_hnd.run_command_get_match(command_item_command, match)
+        try_set_var = command_item.get("try_set", None)
+        if try_set_var and match_result:
+            Config().get()["variables"][try_set_var] = match_result
+
+    def run_vim_function(self, command_item, buffer_name=''):
+        function_name = command_item["function_name"]
+        vim_command = "call " + function_name + "()"
+        vim.command(vim_command)
+
+    def run_command_string(self, command_item, buffer_name=''):
+        variable_name = command_item['variable_name']
+        variable_value = Config().get()["variables"][variable_name]
+        return self.cmd_hnd.run_command(variable_value, buffer_name)
+
+    def create_interpolated_string(self, command_item, buffer_name=''):
+        variable_name = command_item["variable_name"]
+        string_value = command_item["value"]
+        args = command_item["args"]
+        resolved_args = []
+        for arg in args:
+            resolved_args.append(Config().get()["variables"][arg])
+        result_string = string_value.format(*resolved_args)
+        Config().get()["variables"][variable_name] = result_string
+
+    def run_python_function(self, command_item, buffer_name=''):
         function_file = command_item["function_file"]
         function_name = command_item["function_name"]
         input_args = command_item.get("input_args", {})
