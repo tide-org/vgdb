@@ -3,10 +3,14 @@
 [x] implement 2-way event-driven vim to python variables - py to vim working - to implement reverse as required
 [x] make plugins directory moveable
 [x] allow defaults for config variables
+[x] make startup command be done from config
+[ ] refactor vg_config_buffers to use dict
+[x] move target remote to config
 [ ] move check_set_remote to config file
 [ ] refactor Vgdis into config file
 [ ] create a list of events in config and add them to an events list
 [ ] create functions to trigger all events for different areas - before/after command, buffer updates, spawn and config commands
+[ ] create a deterministic actions mapping feature (e.g. tree view or DOT graph)
 [x] refactor run_to_entrypoint into config.yml
 [ ] make buffers only update when set in config with 'update_buffers'
 [ ] wire up all the config yaml functions

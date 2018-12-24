@@ -24,11 +24,7 @@ import symbols_status as SymbolsStatus
 class Vgdb(object):
 
     def __init__(self):
-        self.startup_commands = ''
-        self.current_command = ''
         self.cmd_hnd = None
-        self.entrypoint = None
-        self.default_input_buffer_variable = Config().get()["settings"]["buffers"]["default_input_buffer_variable"]
         self.config_command = ConfigCommand()
 
     def start_gdb(self, commands):
@@ -39,23 +35,14 @@ class Vgdb(object):
         except Exception as ex:
             print("error in Vgdb.start_gdb(): " + ex)
 
-    def run_command_with_result(self, command, buffer_name=''):
-        try:
-            vim.command("let " + self.default_input_buffer_variable + " = []")
-            lines = self.cmd_hnd.run_command(command, buffer_name)
-            self.add_lines_to_input_buffer(lines)
-        except Exception as ex:
-            print("error in Vgdb.run_command(): " + ex)
-
-    def add_lines_to_input_buffer(self, lines):
-        if lines:
-            for line in lines:
-                vim.command("call add(" + self.default_input_buffer_variable + ", '" + line + "' )")
+    def run_config_command_for_buffer(self, command, buffer_name):
+        self.config_command.run_config_command(command, buffer_name)
 
     def run_config_command(self, command):
         self.config_command.run_config_command(command)
 
     def display_disassembly(self):
+        pass
         #self.get_set_entrypoint()
-        self.run_command_with_result("info breakpoints", "vg_breakpoints")
-        self.run_command_with_result("disassemble", 'vg_disassembly')
+        self.run_config_command_for_buffer("list_breakpoints", "vg_breakpoints")
+        self.run_config_command_for_buffer("disassemble", 'vg_disassembly')

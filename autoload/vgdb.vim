@@ -4,10 +4,12 @@ function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
     if vgdb#call_bootstrap_functions() | return 0 | endif
     try
+        call vgdb#run_startup_commands('before')
         execute g:vg_py . ' vgdb = Vgdb()'
         execute g:vg_py . ' vgdb.start_gdb("' . command . '")'
         echom "Vgdb started successfully"
         call vgdb#call_on_startup_functions()
+        call vgdb#run_startup_commands('after')
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#start_gdb: " . command . ", " . a:exception | echohl None
     endtry
@@ -23,21 +25,15 @@ endfunction
 function! vgdb#call_on_startup_functions()
     if g:vg_open_buffers_on_startup | call vg_display#open_startup_buffers() | endif
     if g:vg_run_command_on_startup | execute '!nohup ' . g:vg_command_to_run_on_startup . ' </dev/null >/dev/null 2>&1 &' | endif
-    if g:vg_connect_to_remote_on_startup
-        call vgdb#run_command("target remote " . g:vg_remote_address)
-        execute "VgRunConfigCommand run_to_entrypoint"
-    endif
 endfunction
 
-function! vgdb#run_command(...)
-    let command = get(a:000, 0, '')
-    try
-        execute g:vg_py . ' vgdb.run_command_with_result("' . command . '")'
-        echom "command ran successfully: " . command
-        call vg_display#update_buffers()
-    catch a:exception
-        echohl WarningMsg | echomsg "An error occurred in vgdb#run_command: " . command . ", " . a:exception | echohl None
-    endtry
+function! vgdb#run_startup_commands(position)
+    let l:startup_commands = g:vg_config_dictionary["events"][a:position . "_startup"]
+    if type(l:startup_commands) == 3
+        for l:startup_command in l:startup_commands
+            call vgdb#run_config_command(l:startup_command)
+        endfor
+    endif
 endfunction
 
 function! vgdb#run_config_command(...)
