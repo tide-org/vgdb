@@ -50,7 +50,7 @@ function! vg_display#open_startup_buffers()
         call vg_display#display_buffer(l:buffer_name)
         " one edge case to refactor for
         if l:buffer_name == 'vg_disassembly'
-            call vg_display#display_vg_disassembly()
+            call vg_disassembly#display_vg_disassembly()
         endif
     endfor
 endfunction
@@ -58,18 +58,12 @@ endfunction
 function! vg_display#update_buffers()
     call vg_buffer#remove_unlisted_buffers()
     call vg_display#check_update_config_buffers()
-    call vg_display#check_update_disassembly()
+    call vg_disassembly#check_update_disassembly()
 endfunction
 
 function! vg_display#check_update_buffer(buffer_name)
     if vg_buffer#window_by_bufname(a:buffer_name) != -1
         call vg_display#display_buffer(a:buffer_name)
-    endif
-endfunction
-
-function! vg_display#check_update_disassembly()
-    if vg_buffer#window_by_bufname('vg_disassembly') != -1
-        call vg_display#display_vg_disassembly()
     endif
 endfunction
 
@@ -163,16 +157,6 @@ function! vg_display#get_clear_buffer(buffer_name)
     return 1
 endfunction
 
-function! vg_display#display_vg_disassembly(...)
-    let l:current_window_num = winnr()
-    call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split('vg_disassembly', 'asm')
-    execute g:vg_py . 'vgdb.display_disassembly()'
-    call vg_display#write_array_to_buffer('vg_disassembly', vg_display#get_default_input_buffer_variable())
-    if g:vg_config_dictionary['variables']['current_frame_address'] != '' | call vg_display#update_breakpoint_lines() | endif
-    if len(g:vg_breakpoints) != 0 | call vg_display#update_breakpoint_piets() | endif
-    exec l:current_window_num . 'wincmd w'
-endfunction
-
 function! vg_display#get_default_input_buffer_variable()
     return g:vg_config_dictionary["settings"]["buffers"]["default_input_buffer_variable"]
 endfunction
@@ -186,53 +170,8 @@ function! vg_display#write_array_to_buffer(buffer_name, array_name, ...)
     setlocal nomodifiable
 endfunction
 
-function! vg_display#update_breakpoint_piets()
-    let l:buffer_input_variable_name = vg_display#get_default_input_buffer_variable()
-    let l:local_buffer_input_variable = []
-    execute "let l:local_buffer_input_variable = " . l:buffer_input_variable_name
-    for l:breakpoint in g:vg_breakpoints
-        let l:line_counter = 1
-        for l:line in l:local_buffer_input_variable
-            if l:line =~ l:breakpoint
-                execute "sign place 3 line=" . l:line_counter . " name=piet file=" . expand("%:p")
-            endif
-            let l:line_counter += 1
-        endfor
-    endfor
-    unlet l:local_buffer_input_variable
-endfunction
-
-function! vg_display#update_breakpoint_lines()
-    let l:breakpoint_line = vg_display#find_breakpoint_line()
-    call vg_display#set_breakpoint_line(l:breakpoint_line)
-endfunction
-
 function! vg_display#set_diff_line(diff_line)
     if a:diff_line > 0
         execute "sign place 3 line=" . a:diff_line . " name=wholeline file=" . expand("%:p")
     endif
-endfunction
-
-function! vg_display#set_breakpoint_line(breakpoint_line)
-    if a:breakpoint_line != -1
-        execute "sign unplace 2"
-        execute "sign place 2 line=" . a:breakpoint_line . " name=wholeline file=" . expand("%:p")
-    endif
-endfunction
-
-function! vg_display#find_breakpoint_line()
-    let l:buffer_input_variable_name = vg_display#get_default_input_buffer_variable()
-    let l:local_buffer_input_variable = []
-    execute "let l:local_buffer_input_variable = " . l:buffer_input_variable_name
-    let l:line_counter = 1
-    let l:breakpoint_line = -1
-    let l:current_frame_address = g:vg_config_dictionary['variables']['current_frame_address']
-    for l:line in l:local_buffer_input_variable
-        if l:line =~ l:current_frame_address
-            let l:breakpoint_line = l:line_counter
-        endif
-        let l:line_counter +=1
-    endfor
-    unlet l:local_buffer_input_variable
-    return l:breakpoint_line
 endfunction

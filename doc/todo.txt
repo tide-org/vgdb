@@ -1,8 +1,9 @@
-[ ] create actions pluggable and have built-in actions as well
+[ ] move vg_display diasssembly code to commands config and functions plugins
+[ ] create actions pluggable and have built-in actions as well as functions plugins path
 [ ] make a runnable vimrunner test for registers window
 [ ] refactor out most vim global vars
 [ ] refactor vg_config_buffers to use dict
-[ ] refactor vg_display code for disassemble into separate file/class
+[x] refactor vg_display code for disassemble into separate file/class
 [ ] refactor Vgdis into config file
 [ ] create a deterministic actions mapping feature (e.g. tree view or DOT graph)
 [ ] make buffers only update when set in config with 'update_buffers'

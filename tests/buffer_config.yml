@@ -14,6 +14,11 @@ buffers:
     vg_session_log:
         scrolling_buffer: true
         on_startup: true
+    vg_disassembly:
+        command: 'display_disassembly'
+        is_primary_buffer: true
+        language: 'asm'
+        on_startup: false
 
 commands:
     disassemble:
