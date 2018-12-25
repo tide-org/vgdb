@@ -54,15 +54,17 @@ function! vg_buffer#create_split(buffer_name, ...)
 endfunction
 
 function! vg_buffer#split_windows_for_existing_or_new(existing_window)
-    if g:vg_stack_buffers
+    let l:window_width = g:vg_config_dictionary['settings']['buffers']['stack_buffer_window_width']
+    let l:stack_buffers = g:vg_config_dictionary['settings']['buffers']['stack_buffers_by_default']
+    if l:stack_buffers
         if a:existing_window != -1
             execute a:existing_window . 'wincmd w'
             new
         else
-            exec g:vg_stack_buffer_window_width . 'vnew'
+            exec l:window_width . 'vnew'
         endif
     else
-        exec g:vg_stack_buffer_window_width . 'vnew'
+        exec l:window_width . 'vnew'
     endif
 endfunction
 

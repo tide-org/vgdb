@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import re
 import vim
 import sys
+from config import Config
 
 class filter_predicate_base(ABC):
 
@@ -50,7 +51,7 @@ class filter_predicate_base(ABC):
             match = re.search(matcher['regex'], line)
             if match:
                 matches_list.append(match.group(1))
-        vim.command("let g:" + matcher['vg_name'] + " = %s" % matches_list)
+        Config().get()["variables"][matcher["variable_name"]] = matches_list
 
     def __run_pre_processors(self, lines):
         for processor in self.pre_processors:

@@ -34,14 +34,11 @@ class Vgdb(object):
         except Exception as ex:
             print("error in Vgdb.start_gdb(): " + ex)
 
-    def run_config_command_for_buffer(self, command, buffer_name):
+    def run_config_command(self, command, buffer_name=''):
         self.config_command.run_config_command(command, buffer_name)
-
-    def run_config_command(self, command):
-        self.config_command.run_config_command(command)
 
     def display_disassembly(self):
         pass
         #self.get_set_entrypoint()
-        self.run_config_command_for_buffer("list_breakpoints", "vg_breakpoints")
-        self.run_config_command_for_buffer("disassemble", 'vg_disassembly')
+        self.run_config_command("list_breakpoints", "vg_breakpoints")
+        self.run_config_command("disassemble", 'vg_disassembly')

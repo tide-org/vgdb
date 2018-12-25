@@ -96,6 +96,7 @@ variables:
     remote_target: 0
     remote_address: 'localhost:9999'
     connect_to_remote: 1
+    breakpoints:
 
 events:
     before_spawn:
@@ -123,11 +124,12 @@ settings:
         default_input_buffer_variable: 'g:vg_query_result'
         base_filter: 'vg_base'
         load_on_start: 'vg_disassembly'
-        stack_buffers_by_default: true
+        stack_buffers_by_default: 1
         stack_buffer_window_width: 60
+        open_buffers_on_startup: 1
     process:
         ttl_stream_timeout: 0.08
-        run_command_on_startup: false
+        run_command_on_startup: 0
         command_to_run_on_startup: 'bin/dev-up'
         command_on_startup_log_file: 'vgdb_startup.log'
         main_process_name: 'gdb'

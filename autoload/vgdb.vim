@@ -23,8 +23,9 @@ function! vgdb#call_bootstrap_functions()
 endfunction
 
 function! vgdb#call_on_startup_functions()
-    if g:vg_open_buffers_on_startup | call vg_display#open_startup_buffers() | endif
-    if g:vg_run_command_on_startup | execute '!nohup ' . g:vg_command_to_run_on_startup . ' </dev/null >/dev/null 2>&1 &' | endif
+    let l:open_buffers_on_startup = g:vg_config_dictionary['settings']['buffers']['open_buffers_on_startup']
+    if l:open_buffers_on_startup | call vg_display#open_startup_buffers() | endif
+    if g:vg_config_dictionary['settings']['process']['run_command_on_startup'] | execute '!nohup ' . g:vg_config_dictionary['settings']['process']['command_to_run_on_startup'] . ' </dev/null >/dev/null 2>&1 &' | endif
 endfunction
 
 function! vgdb#run_startup_commands(position)

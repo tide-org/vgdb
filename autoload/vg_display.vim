@@ -31,7 +31,7 @@ endfunction
 
 function! vg_display#set_python_command_from_process_command(command, buffer_name)
     if len(a:command) > 0
-        return 'vgdb.run_config_command_for_buffer("' . a:command . '", "'. a:buffer_name .'")'
+        return 'vgdb.run_config_command("' . a:command . '", "'. a:buffer_name .'")'
     endif
     return ''
 endfunction
