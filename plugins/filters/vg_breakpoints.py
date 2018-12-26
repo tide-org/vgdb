@@ -3,7 +3,7 @@ from filter_predicate_base import filter_predicate_base
 class vg_breakpoints(filter_predicate_base):
 
     @property
-    def line_matchers(self):
+    def line_matchers_post(self):
         return [
             {
                 'variable_name': 'breakpoints',

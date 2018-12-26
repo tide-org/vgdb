@@ -26,11 +26,22 @@ commands:
     display_disassembly:
         steps:
             - action: 'run_config_command'
-              name: 'get_set_entrypoint'
-            - action: 'run_config_command'
               name: 'list_breakpoints'
             - action: 'run_config_command'
               name: 'disassemble'
+            - action: 'run_config_command'
+              name: 'disassemble_range'
+              when: 'no_program_counter == 1'
+    disassemble_range:
+        steps:
+            - action: 'create_interpolated_string'
+              variable_name: 'disassemble_range_command'
+              value: 'disassemble {0}, {0}+{1}'
+              args:
+                  - 'current_frame_address'
+                  - 'disassemble_frame_range'
+            - action: 'run_command_string'
+              variable_name: 'disassemble_range_command'
     disassemble:
         steps:
             - action: 'run_command'
@@ -113,6 +124,8 @@ variables:
     connect_to_remote: 1
     breakpoints:
     registers_cache:
+    no_program_counter: 0
+    disassemble_frame_range: 256
 
 events:
     before_spawn:
@@ -139,12 +152,14 @@ settings:
     buffers:
         default_input_buffer_variable: 'g:vg_query_result'
         base_filter: 'vg_base'
+        error_filter: 'vg_error'
+        error_input_variable: 'error_result'
         load_on_start: 'vg_disassembly'
         stack_buffers_by_default: 1
         stack_buffer_window_width: 60
         open_buffers_on_startup: 1
     process:
-        ttl_stream_timeout: 0.08
+        ttl_stream_timeout: 0.09
         run_command_on_startup: 0
         command_to_run_on_startup: 'bin/dev-up'
         command_on_startup_log_file: 'vgdb_startup.log'

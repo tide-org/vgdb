@@ -5,7 +5,7 @@ class vg_disassembly(filter_predicate_base):
     @property
     def excluded_lines(self):
         return [
-            'Dump of assembler code for',
+            'Dump of assembler code',
             'End of assembler dump.'
         ]
 
@@ -21,3 +21,14 @@ class vg_disassembly(filter_predicate_base):
 
     def trim_trailing_whitespace(self, line):
         return line.rstrip()
+
+    @property
+    def line_matchers_pre(self):
+        return [
+            {
+                'variable_name': 'no_program_counter',
+                'regex': 'No function contains program counter for selected frame',
+                'type': 'bool',
+                'description': 'specifies whether the program counter can be determined'
+            },
+        ]

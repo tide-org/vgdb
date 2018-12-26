@@ -38,6 +38,7 @@ class CommandHandler:
         self.end_of_output_regex = self.process_settings["end_of_output_regex"]
         self.ttl_stream_timeout = self.process_settings["ttl_stream_timeout"]
         self.base_buffer_filter = self.config_settings["buffers"]["base_filter"]
+        self.error_buffer_filter = self.config_settings["buffers"]["error_filter"]
 
     def set_process_path(self):
         if self.process_settings["find_full_process_name"]:
@@ -75,10 +76,17 @@ class CommandHandler:
     def get_filtered_output(self, buffer_name=''):
         buffer_string = self.seek_to_end_of_tty()
         Log.write_to_log(buffer_string)
+        lines = Filter.call_filter_class(buffer_string, self.error_buffer_filter)
+        self.add_lines_to_error_buffer(lines)
         lines = Filter.call_filter_class(buffer_string, self.base_buffer_filter)
         if buffer_name != '':
             lines = Filter.filter_lines_for_buffer(lines, buffer_name)
         return lines
+
+    def add_lines_to_error_buffer(self, lines):
+        if lines:
+            error_buffer_variable = Config().get()["settings"]['buffers']['error_input_variable']
+            Config().get()["variables"][error_buffer_variable] = lines
 
     def seek_to_end_of_tty(self, timeout=None):
         if not timeout:

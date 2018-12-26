@@ -7,8 +7,9 @@ from config import Config
 class filter_predicate_base(ABC):
 
     def __init__(self, lines):
+        self.__get_set_matches(lines, self.line_matchers_pre)
         self.processed_lines = self.__process_lines(lines)
-        self.__get_set_matches(self.processed_lines)
+        self.__get_set_matches(self.processed_lines, self.line_matchers_post)
 
     def __process_lines(self, lines):
         lines = self.__run_pre_processors(lines)
@@ -39,10 +40,22 @@ class filter_predicate_base(ABC):
             lines = single_formatter
         return lines
 
-    def __get_set_matches(self, lines):
-        for matcher in self.line_matchers:
-            if matcher['type'].lower() == 'array':
+    def __get_set_matches(self, lines, line_matchers):
+        for matcher in line_matchers:
+            matcher_type = matcher['type'].lower()
+            if matcher_type == 'array':
                 self.__iterate_lines_for_array_match(lines, matcher)
+            elif matcher_type == 'bool':
+                self.__iterate_lines_for_bool_match(lines, matcher)
+
+    def __iterate_lines_for_bool_match(self, lines, matcher):
+        matches_list = []
+        regex = re.compile(matcher['regex'])
+        for line in lines:
+            match = re.search(matcher['regex'], line)
+            if match:
+                Config().get()["variables"][matcher["variable_name"]] = 1
+                return
 
     def __iterate_lines_for_array_match(self, lines, matcher):
         matches_list = []
@@ -74,7 +87,11 @@ class filter_predicate_base(ABC):
         return []
 
     @property
-    def line_matchers(self):
+    def line_matchers_pre(self):
+        return []
+
+    @property
+    def line_matchers_post(self):
         return []
 
     @property

@@ -37,9 +37,3 @@ class Vgdb(object):
 
     def run_config_command(self, command, buffer_name=''):
         self.config_command.run_config_command(command, buffer_name)
-
-    def display_disassembly(self):
-        pass
-        #self.get_set_entrypoint()
-        self.run_config_command("list_breakpoints", "vg_breakpoints")
-        self.run_config_command("disassemble", 'vg_disassembly')
