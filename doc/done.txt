@@ -84,4 +84,12 @@
 [x] refactor step, break, run, etc. to be generic and in config template
 [x] create command plugin architecture - e.g. run to entrypoint, command events - eg stepi
 [x] refactor command_handler move post-command logic into separate class (check_set_remote) into command_processing (events) plugin path overrides for after_spawn and after_command
+[x] create actions pluggable and have built-in actions as well as functions plugins path
+[x] implement error condition handling from output stream
+[x] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694) - sort of done - could be better though
+[x] wire up all the config yaml functions
+[n] delineate buffer startup commands vs refresh commands . e.g. disassemble calling info file each time - maybe later
+[x] step into disassembly code properly (when there are calls)
+[x] create a 'when' config option for running extra commands conditionally
+[x] add scripting plugin support
 [x] refactor vg_display into smaller classes

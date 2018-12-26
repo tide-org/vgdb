@@ -1,26 +1,22 @@
-[x] create actions pluggable and have built-in actions as well as functions plugins path
-[x] implement error condition handling from output stream
-[ ] delineate buffer startup commands vs refresh commands . e.g. disassemble calling info file each time
-[x] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694) - sort of done - could be better though
+[ ] open new tabs/buffers as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
+[ ] create command for graceful shutdown of vgdb
+[ ] add ability to set a breakpoint from the current line of code/disassembly
+[ ] add editable variables/settings screen buffer
 [ ] make a runnable vimrunner test for registers window
+[ ] add edit register values functionality
 [ ] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
 [ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer
-[ ] create a deterministic actions mapping feature (e.g. tree view or DOT graph)
+[ ] create a deterministic actions mapping feature (e.g. DOT graph)
+[ ] add xserver to docker-compose containers to make tests self-contained
 [ ] make buffers only update when set in config with 'update_buffers'
-[x] wire up all the config yaml functions
 [ ] document event steps: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
 [ ] document all step types
 [ ] create schematics of modules of app and workflows
 [ ] get pyyaml working correctly from autoload/lib path
-[ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
 [ ] optimise calls to get breakpoints only when required (adding/removing)
 [ ] implement command on startup log file (use pexpect)
-[ ] create command for graceful shutdown of vgdb
-[ ] add ability to set a breakpoint from the current line of code/disassembly
 [ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
-[ ] refresh breakpoints between steps on vg_disassembly
-[ ] create a 'when' config option for running extra commands conditionally
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
 [ ] add gdb error/warning buffer view and update with step
 [ ] add local variables view buffer and update with step
@@ -29,7 +25,6 @@
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
 [ ] add ability to scan for all source files for a binary
 [ ] add ability to list all source files as tabs or using NerdTree
-[ ] add editable settings screen buffer
 [ ] add highlight for changed memory values between operations
 [ ] use vim event loop for `BufUnload` when closing `vg_` buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
 [ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint addressi, current address)
@@ -39,14 +34,11 @@
 [ ] add thread view buffer and update with step
 [ ] add debugging source functionality and open source files if present (start with .s files)
 [ ] add shortcut keys for debugging
-[ ] add edit register values functionality
 [ ] add edit memory values functionality
 [ ] add edit variable values functionality
 [ ] add documentation
 [ ] add gdb supported higher level languages support
 [ ] add goto definition functionality
 [ ] add interpreted languages support where possible
-[ ] add scripting plugin support
 [ ] add llvm support
 [ ] add other process support (e.g. ssh, terminals, log streams, etc)
-[ ] add xserver to docker-compose containers to make tests self-contained
