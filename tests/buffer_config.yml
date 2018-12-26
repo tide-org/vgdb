@@ -8,7 +8,7 @@ buffers:
         on_startup: true
         diff:
             show_diff: true
-            buffer_input_cache_variable: 'g:vg_registers_cache'
+            buffer_input_cache_variable: 'registers_cache'
     vg_breakpoints:
         command: 'list_breakpoints'
     vg_session_log:
@@ -111,6 +111,7 @@ variables:
     remote_address: 'localhost:9999'
     connect_to_remote: 1
     breakpoints:
+    registers_cache:
 
 events:
     before_spawn:

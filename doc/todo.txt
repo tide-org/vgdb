@@ -1,5 +1,6 @@
-[ ] move disassembly.vim into plugins or python where possible
-[ ] investigate buffer_name stuff in vgdb.py - why is it used?
+[x] refactor diff code to separate vg_diff.vim
+[x] investigate buffer_name stuff in vgdb.py - why is it used? - can now use for an initial buffer or force to buffer
+[n] move disassembly.vim into plugins or python where possible - not doing (for now)
 [ ] create actions pluggable and have built-in actions as well as functions plugins path
 [ ] make a runnable vimrunner test for registers window
 [ ] create a vgdb variables builtin buffer
