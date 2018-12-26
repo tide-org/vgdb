@@ -13,8 +13,12 @@ class vg_disassembly(filter_predicate_base):
     def line_formatters(self):
         return [
             self.remove_first_three_chars,
-            self.trim_trailing_whitespace
+            self.trim_trailing_whitespace,
+            self.add_left_margin
         ]
+
+    def add_left_margin(self, line):
+        return "    " + line
 
     def remove_first_three_chars(self, line):
         return line[3:]

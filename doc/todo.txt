@@ -18,10 +18,13 @@
 [ ] implement command on startup log file (use pexpect)
 [ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
+[ ] harden all config file yaml input to prevent errors on missing values
+[ ] add ability to create split yaml files that are joined up
 [ ] add gdb error/warning buffer view and update with step
 [ ] add local variables view buffer and update with step
 [ ] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
 [ ] make stacking/abutting buffer-specific
+[ ] create 'internal' section of config_dictionary for internal variables, etc.
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
 [ ] add ability to scan for all source files for a binary
 [ ] add ability to list all source files as tabs or using NerdTree
