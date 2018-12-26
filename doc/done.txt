@@ -75,3 +75,13 @@
 [x] refactor out most vim global vars
 [x] refactor vg_config_buffers to use dict
 [x] refactor vg_display code for disassemble into separate file/class
+[x] refactor diff code to separate vg_diff.vim
+[x] investigate buffer_name stuff in vgdb.py - why is it used? - can now use for an initial buffer or force to buffer
+[n] move disassembly.vim into plugins or python where possible - not doing (for now)
+[x] refactor Vgdis into config file
+[n] make calls to run config command call back to vim to give option to update buffers as well (or call update_buffers from python) - not required as is run after last config command anyway
+[x] refactor disassembly to be generic and in config template
+[x] refactor step, break, run, etc. to be generic and in config template
+[x] create command plugin architecture - e.g. run to entrypoint, command events - eg stepi
+[x] refactor command_handler move post-command logic into separate class (check_set_remote) into command_processing (events) plugin path overrides for after_spawn and after_command
+[x] refactor vg_display into smaller classes

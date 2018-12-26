@@ -1,32 +1,23 @@
-[x] refactor diff code to separate vg_diff.vim
-[x] investigate buffer_name stuff in vgdb.py - why is it used? - can now use for an initial buffer or force to buffer
-[n] move disassembly.vim into plugins or python where possible - not doing (for now)
 [ ] create actions pluggable and have built-in actions as well as functions plugins path
 [ ] make a runnable vimrunner test for registers window
 [ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer
-[ ] refactor Vgdis into config file
 [ ] create a deterministic actions mapping feature (e.g. tree view or DOT graph)
-[ ] make calls to run config command call back to vim to give option to update buffers as well (or call update_buffers from python)
 [ ] make buffers only update when set in config with 'update_buffers'
 [ ] wire up all the config yaml functions
 [ ] document event steps: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
 [ ] document all step types
 [ ] create schematics of modules of app and workflows
 [ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
-[ ] gey pyyaml working correctly from autoload/lib path
+[ ] get pyyaml working correctly from autoload/lib path
 [ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
-[ ] refactor disassembly to be generic and in config template
-[ ] refactor step, break, run, etc. to be generic and in config template
-[ ] create command plugin architecture - e.g. run to entrypoint, command events - eg stepi
 [ ] optimise calls to get breakpoints only when required (adding/removing)
-[ ] refactor command_handler move post-command logic into separate class (check_set_remote) into command_processing (events) plugin path overrides for after_spawn and after_command
-[ ] refactor vg_display into smaller classes
 [ ] implement command on startup log file (use pexpect)
 [ ] create command for graceful shutdown of vgdb
 [ ] add ability to set a breakpoint from the current line of code/disassembly
 [ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
 [ ] refresh breakpoints between steps on vg_disassembly
+[ ] create a 'when' config option for running extra commands conditionally
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
 [ ] add gdb error/warning buffer view and update with step
 [ ] add local variables view buffer and update with step
