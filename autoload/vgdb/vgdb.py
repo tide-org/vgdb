@@ -29,7 +29,8 @@ class Vgdb(object):
     def start_gdb(self, commands):
         try:
             self.startup_commands = commands
-            self.cmd_hnd = CommandHandler(commands)
+            self.cmd_hnd = CommandHandler()
+            self.cmd_hnd.initialise(commands)
             self.config_command.set_command_handler(self.cmd_hnd)
         except Exception as ex:
             print("error in Vgdb.start_gdb(): " + ex)

@@ -1,14 +1,14 @@
-[ ] create actions pluggable and have built-in actions as well as functions plugins path
+[x] create actions pluggable and have built-in actions as well as functions plugins path
+[ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
 [ ] make a runnable vimrunner test for registers window
 [ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer
 [ ] create a deterministic actions mapping feature (e.g. tree view or DOT graph)
 [ ] make buffers only update when set in config with 'update_buffers'
-[ ] wire up all the config yaml functions
+[x] wire up all the config yaml functions
 [ ] document event steps: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
 [ ] document all step types
 [ ] create schematics of modules of app and workflows
-[ ] handle case where disassemble does not know the end address of a section of assembly - 'No function contains program counter for selected frame.' - see (https://stackoverflow.com/questions/8201025/no-function-contains-program-counter-for-selected-frame/16629694)
 [ ] get pyyaml working correctly from autoload/lib path
 [ ] step into disassembly code properly (when there are calls) and open new tabs as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
 [ ] optimise calls to get breakpoints only when required (adding/removing)

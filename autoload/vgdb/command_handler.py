@@ -7,11 +7,16 @@ import importlib
 import filter as Filter
 import log as Log
 from config import Config
+from singleton import singleton
 import plugin_helpers as Plugin
 
-class CommandHandler(object):
+@singleton
+class CommandHandler:
 
-    def __init__(self, startup_commands):
+    def __init__(self):
+        pass
+
+    def initialise(self, startup_commands):
         self.get_config_settings()
         self.set_process_path()
         self.spawn_child_process(startup_commands)

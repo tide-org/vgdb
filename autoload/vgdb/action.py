@@ -7,10 +7,12 @@ from os.path import isfile, join
 
 actions_list = []
 
-def run_action(action_dict, action_name):
+def run_action(action_name, args_list):
     get_actions_list()
     if action_name.lower() in actions_list:
-        call_action_class(action_dict, action_name)
+        return call_action_class(action_name, args_list)
+    else:
+        print("action: " + action_name + " is not a valid action")
 
 def get_actions_list():
     if len(actions_list) == 0:
@@ -21,9 +23,9 @@ def get_actions_list():
             if action_file[-3:].lower() == ".py" and action_file.lower() != "__init__.py":
                 actions_list.append(action_file[:-3])
 
-def call_action_class(action_dict, action_name):
+def call_action_class(action_name, args_list):
     action_module = "actions." + action_name
     action = importlib.import_module(action_module)
     action = getattr(sys.modules[action_module], action_name)
-    action(action_dict)
-    action.run()
+    action_result = action().run(*args_list)
+    return action_result
