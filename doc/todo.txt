@@ -1,10 +1,15 @@
+[x] create command for graceful shutdown of vgdb
+[x] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
 [ ] open new tabs/buffers as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
-[ ] create command for graceful shutdown of vgdb
-[ ] add ability to set a breakpoint from the current line of code/disassembly
+[ ] make disassembly range static until refresh - currently changing every instruction
+[ ] create 'internal' section of config_dictionary for internal variables, etc.
+[ ] refactor buffer_input vars into 'internal' config_dictionary section
+[ ] add ability to set a breakpoint/piet from the current line of code/disassembly
+[ ] add shortcut keys for debugging
+[ ] create a yaml config template file for displaying all options
 [ ] add editable variables/settings screen buffer
 [ ] make a runnable vimrunner test for registers window
 [ ] add edit register values functionality
-[x] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
 [ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer
 [ ] create a deterministic actions mapping feature (e.g. DOT graph)
@@ -24,7 +29,7 @@
 [ ] add local variables view buffer and update with step
 [ ] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
 [ ] make stacking/abutting buffer-specific
-[ ] create 'internal' section of config_dictionary for internal variables, etc.
+[ ] add a variable logging framework with verbosity and area options
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
 [ ] add ability to scan for all source files for a binary
 [ ] add ability to list all source files as tabs or using NerdTree
@@ -36,7 +41,6 @@
 [ ] add call stack view buffer and update with step (only if symbols loaded)
 [ ] add thread view buffer and update with step
 [ ] add debugging source functionality and open source files if present (start with .s files)
-[ ] add shortcut keys for debugging
 [ ] add edit memory values functionality
 [ ] add edit variable values functionality
 [ ] add documentation

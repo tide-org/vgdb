@@ -15,6 +15,12 @@ function! vgdb#start_gdb(...)
     endtry
 endfunction
 
+function! vgdb#stop_gdb(...)
+    call vg_buffer#close_all_buffers()
+    execute g:vg_py . ' vgdb.stop_gdb()'
+    execute g:vg_py . ' del vgdb'
+endfunction
+
 function! vgdb#call_bootstrap_functions()
     call vg_globals#source_globals()
     if vg_validate#dependency_check() | return 1 | endif

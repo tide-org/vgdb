@@ -30,6 +30,9 @@ class CommandHandler:
         args = [startup_commands, lines]
         self.run_event_functions("after_spawn", args)
 
+    def close_command_handler(self):
+        del self.child
+
     def get_config_settings(self):
         self.child = None
         self.config_settings = Config().get()["settings"]

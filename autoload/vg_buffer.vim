@@ -2,6 +2,16 @@ if !exists('g:vg_loaded')
     runtime! plugin/vgdb.vim
 endif
 
+function! vg_buffer#close_all_buffers()
+    let l:buffer_numbers = filter(range(1,bufnr('$')), 'bufexists(v:val)')
+    for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
+        let l:buffer_number = bufnr(l:buffer_name)
+        if index(l:buffer_numbers, l:buffer_number) != -1
+            execute 'bwipeout ' . l:buffer_number
+        endif
+    endfor
+endfunction
+
 function! vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split(buffer_name, ...)
     let a:syntax = get(a:, 1, '')
     if vg_buffer#window_by_bufname(a:buffer_name, 1) == -1

@@ -35,5 +35,10 @@ class Vgdb(object):
         except Exception as ex:
             print("error in Vgdb.start_gdb(): " + ex)
 
+    def stop_gdb(self):
+        self.cmd_hnd.close_command_handler()
+        del self.cmd_hnd
+        del self.config_command
+
     def run_config_command(self, command, buffer_name=''):
         self.config_command.run_config_command(command, buffer_name)

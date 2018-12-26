@@ -6,3 +6,4 @@ command! -nargs=? -complete=shellcmd Vgdis              Vgdisplaybuff 'vg_disass
 command! -nargs=? -complete=shellcmd VgRunConfigCommand call vgdb#run_config_command(<q-args>)
 command! -nargs=? -complete=shellcmd Vgcont             call vgdb#run_continue(<q-args>)
 command! -nargs=? -complete=shellcmd Vgdisplaybuff      call vg_display#display_buffer(<q-args>)
+command! -nargs=? -complete=shellcmd VgClose            call vgdb#stop_gdb(<q-args>)
