@@ -65,7 +65,8 @@ commands:
             - action: 'run_config_command'
               name: 'continue'
             - action: 'run_vim_function'
-              function_name: 'vgdb#functions#run_to_entrypoint#was_successful'
+              function_file: 'run_to_entrypoint.vim'
+              function_name: 'run_to_entrypoint#was_successful'
     get_set_entrypoint:
         steps:
             - action: 'run_command_with_match'

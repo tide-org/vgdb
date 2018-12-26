@@ -73,7 +73,12 @@ class ConfigCommand(object):
             Config().get()["variables"][try_set_var] = match_result
 
     def run_vim_function(self, command_item, buffer_name=''):
+        function_file = command_item["function_file"]
         function_name = command_item["function_name"]
+        functions_path = Config().get()["settings"]["plugins"]["functions_path"]
+        function_file_path = os.path.join(functions_path, function_file)
+        print("ffp: " + function_file_path)
+        vim.command("source " + function_file_path)
         vim_command = "call " + function_name + "()"
         vim.command(vim_command)
 
