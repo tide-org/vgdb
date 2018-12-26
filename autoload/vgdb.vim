@@ -19,6 +19,8 @@ function! vgdb#stop_gdb(...)
     call vg_buffer#close_all_buffers()
     execute g:vg_py . ' vgdb.stop_gdb()'
     execute g:vg_py . ' del vgdb'
+    unlet g:vg_loaded
+    unlet g:vg_config_dictionary
 endfunction
 
 function! vgdb#call_bootstrap_functions()
@@ -29,17 +31,21 @@ function! vgdb#call_bootstrap_functions()
 endfunction
 
 function! vgdb#call_on_startup_functions()
-    let l:open_buffers_on_startup = g:vg_config_dictionary['settings']['buffers']['open_buffers_on_startup']
-    if l:open_buffers_on_startup | call vg_display#open_startup_buffers() | endif
-    if g:vg_config_dictionary['settings']['process']['run_command_on_startup'] | execute '!nohup ' . g:vg_config_dictionary['settings']['process']['command_to_run_on_startup'] . ' </dev/null >/dev/null 2>&1 &' | endif
+    if has_key(g:vg_config_dictionary, "settings")
+        let l:open_buffers_on_startup = g:vg_config_dictionary['settings']['buffers']['open_buffers_on_startup']
+        if l:open_buffers_on_startup | call vg_display#open_startup_buffers() | endif
+        if g:vg_config_dictionary['settings']['process']['run_command_on_startup'] | execute '!nohup ' . g:vg_config_dictionary['settings']['process']['command_to_run_on_startup'] . ' </dev/null >/dev/null 2>&1 &' | endif
+    endif
 endfunction
 
 function! vgdb#run_startup_commands(position)
-    let l:startup_commands = g:vg_config_dictionary["events"][a:position . "_startup"]
-    if type(l:startup_commands) == 3
-        for l:startup_command in l:startup_commands
-            call vgdb#run_config_command(l:startup_command)
-        endfor
+    if has_key(g:vg_config_dictionary, "events")
+        let l:startup_commands = g:vg_config_dictionary["events"][a:position . "_startup"]
+        if type(l:startup_commands) == 3
+            for l:startup_command in l:startup_commands
+                call vgdb#run_config_command(l:startup_command)
+            endfor
+        endif
     endif
 endfunction
 

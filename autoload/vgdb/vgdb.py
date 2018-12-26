@@ -1,6 +1,6 @@
 import os
-import inspect
 import sys
+import inspect
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 ptyprocessdir = os.path.join(currentdir, "../lib/ptyprocess")
@@ -11,13 +11,7 @@ sys.path.insert(0, ptyprocessdir)
 sys.path.insert(0, pexpectdir)
 sys.path.insert(0, pyyamldir)
 
-import pexpect
-
-import vim
-import re
-
 from command_handler import CommandHandler
-from config import Config
 from config_command import ConfigCommand
 
 class Vgdb(object):
