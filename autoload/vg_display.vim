@@ -20,7 +20,7 @@ function! vg_display#get_buffer_command(buffer_config)
 endfunction
 
 function! vg_display#check_update_config_buffers()
-    for l:buffer_name in g:vg_config_buffers
+    for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
         if vg_buffer#window_by_bufname(l:buffer_name) != -1
             call vg_display#display_buffer(l:buffer_name)
         endif
@@ -42,7 +42,7 @@ endfunction
 
 function! vg_display#is_scrolling_buffer(buffer_name)
     if has_key(g:vg_config_dictionary['buffers'][a:buffer_name], 'scrolling_buffer')
-        if g:vg_config_dictionary['buffers'][a:buffer_name]['scrolling_buffer'] ==? 'true'
+        if vg_display#is_value_true(g:vg_config_dictionary['buffers'][a:buffer_name]['scrolling_buffer'])
             return 1
         endif
     endif
@@ -50,8 +50,10 @@ function! vg_display#is_scrolling_buffer(buffer_name)
 endfunction
 
 function! vg_display#open_startup_buffers()
-    for l:buffer_name in g:vg_config_startup_buffers
-        call vg_display#display_buffer(l:buffer_name)
+    for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
+        if vg_display#is_value_true(get(g:vg_config_dictionary["buffers"][l:buffer_name], "on_startup", ""))
+            call vg_display#display_buffer(l:buffer_name)
+        endif
     endfor
 endfunction
 
@@ -93,25 +95,20 @@ function! vg_display#default_display_buffer(buffer_name, python_command, ...)
     let l:language = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'language', "")
     let l:clear_buffer = vg_display#get_clear_buffer(a:buffer_name)
     let l:buffer_input_variable = vg_display#get_buffer_input_variable(a:buffer_name)
-
     if l:primary_window
         call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split(a:buffer_name, l:language)
     else
         call vg_buffer#create_split(a:buffer_name)
     endif
-
     call vg_display#check_run_python_command(a:python_command)
     call vg_display#write_array_to_buffer(a:buffer_name, l:buffer_input_variable, l:clear_buffer)
     call vg_diff#check_do_buffer_diff(a:buffer_name)
     call vg_display#check_do_scroll_to_end(a:scrolling_buffer)
-
     if l:primary_window
         call vg_primary_window#update_highlight_lines(a:buffer_name)
         call vg_primary_window#update_piets(a:buffer_name)
     endif
-
     exec l:current_window_num . 'wincmd w'
-
 endfunction
 
 function! vg_display#check_do_scroll_to_end(scrolling_buffer)

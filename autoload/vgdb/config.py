@@ -25,14 +25,20 @@ class Config:
                 config = yaml.load(ymlstring)
                 self.__config_dictionary = ActionableDict(config, self.callback_set_vim_key_value)
                 self.__set_vim_globals()
-                self.__set_vim_buffer_config()
 
     @staticmethod
     def callback_set_vim_key_value(parent_keys, value):
         let_string = "let g:vg_config_dictionary"
         for key in parent_keys:
             let_string += "['" + key + "']"
-        string_value = str(value).replace("True", "'True'").replace("False", "'False'").replace("None", "'None'").replace(": False", ": 'False'").replace(": True", ": 'True'").replace(": None", ": 'None'")
+        string_value = str(value).replace(
+                "True", "'True'").replace(
+                "False", "'False'").replace(
+                "None", "'None'").replace(
+                ": False", ": 'False'").replace(
+                ": True", ": 'True'").replace(
+                ": None", ": 'None'")
+
         if isinstance(value, str):
             string_value = "'" + string_value + "'"
         let_string += " = " + string_value
@@ -49,11 +55,3 @@ class Config:
     def __set_vim_globals(self):
         config_string = self.__string_replace_for_vim(self.__config_dictionary)
         vim.command("let g:vg_config_dictionary = " + config_string)
-
-    def __set_vim_buffer_config(self):
-        for buffer_item in self.__config_dictionary["buffers"]:
-            vim.command("let g:vg_config_buffers = add(g:vg_config_buffers, '" + buffer_item + "')")
-            if "on_startup" in self.__config_dictionary["buffers"][buffer_item]:
-                if self.__config_dictionary["buffers"][buffer_item]["on_startup"] == True:
-                    vim.command("let g:vg_config_startup_buffers = add(g:vg_config_startup_buffers, '" + buffer_item + "')")
-

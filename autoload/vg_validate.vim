@@ -23,8 +23,9 @@ function! vg_validate#dependency_check()
 endfunction
 
 function! vg_validate#validate_startup_buffer_names()
-    for l:buffer_name in g:vg_config_startup_buffers
-        if index(g:vg_config_buffers, l:buffer_name) == -1
+    let l:config_buffers = keys(g:vg_config_dictionary["buffers"])
+    for l:buffer_name in l:config_buffers
+        if index(l:config_buffers, l:buffer_name) == -1
             echoerr "Error: buffer " . l:buffer_name . " is not a valid buffer in g:vg_startup_buffers"
             return 1
         endif

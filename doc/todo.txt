@@ -4,7 +4,7 @@
 [ ] add editable variables/settings screen buffer
 [ ] make a runnable vimrunner test for registers window
 [ ] add edit register values functionality
-[ ] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
+[x] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
 [ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer
 [ ] create a deterministic actions mapping feature (e.g. DOT graph)
