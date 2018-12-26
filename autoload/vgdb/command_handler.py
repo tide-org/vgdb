@@ -18,12 +18,12 @@ class CommandHandler(object):
 
     def spawn_child_process(self, startup_commands):
         args = [startup_commands]
-        self.run_position_something_functions("before_spawn", args)
+        self.run_event_functions("before_spawn", args)
         self.child = pexpect.spawnu(self.process_path + self.process_settings["main_process_default_arguments"] + startup_commands)
         self.child.expect(self.end_of_output_regex)
         lines = self.get_filtered_output()
         args = [startup_commands, lines]
-        self.run_position_something_functions("after_spawn", args)
+        self.run_event_functions("after_spawn", args)
 
     def get_config_settings(self):
         self.child = None
@@ -43,18 +43,18 @@ class CommandHandler(object):
     def run_command(self, command, buffer_name=''):
         try:
             args_list = [command, buffer_name]
-            self.run_position_something_functions("before_command", args_list)
+            self.run_event_functions("before_command", args_list)
             self.child.sendline(command)
             self.child.expect(self.end_of_output_regex)
             lines = self.get_filtered_output(buffer_name)
             args_list = [command, buffer_name, lines]
-            self.run_position_something_functions("after_command", args_list)
+            self.run_event_functions("after_command", args_list)
             return lines
         except Exception as ex:
             print("error in CommandHandler.run_command(): " + ex)
 
-    def run_position_something_functions(self, position_something, args_list):
-        functions = Config().get()["events"][position_something]
+    def run_event_functions(self, event, args_list):
+        functions = Config().get()["events"][event]
         if functions:
             for function in functions:
                 function_file = function["function_file"]

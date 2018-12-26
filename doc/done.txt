@@ -71,3 +71,7 @@
 [x] make 'vim_function' step
 [x] make 'command_with_match' step
 [x] make variables in config at startup
+[x] move vg_display diasssembly code to commands config
+[x] refactor out most vim global vars
+[x] refactor vg_config_buffers to use dict
+[x] refactor vg_display code for disassemble into separate file/class

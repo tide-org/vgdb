@@ -52,9 +52,17 @@ class ConfigCommand(object):
             elif command_action == 'run_command_string':
                 return self.run_command_string(command_item, buffer_name)
             elif command_action == 'run_command':
-                return self.cmd_hnd.run_command(command_item['command'], buffer_name)
+                return self.run_command(command_item, buffer_name)
             elif command_action == 'run_vim_function':
                 return self.run_vim_function(command_item)
+        else:
+            print("invalid command action: " + command_action)
+
+    def run_command(self, command_item, buffer_name=''):
+        config_command_buffer_name = command_item.get("buffer_name", '')
+        if config_command_buffer_name != '':
+            buffer_name = config_command_buffer_name
+        return self.cmd_hnd.run_command(command_item['command'], buffer_name)
 
     def run_command_with_match(self, command_item, buffer_name=''):
         command_item_command = command_item["command"]

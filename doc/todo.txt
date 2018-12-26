@@ -1,9 +1,7 @@
-[ ] move vg_display diasssembly code to commands config and functions plugins
+[ ] move disassembly.vim into plugins or python where possible
+[ ] investigate buffer_name stuff in vgdb.py - why is it used?
 [ ] create actions pluggable and have built-in actions as well as functions plugins path
 [ ] make a runnable vimrunner test for registers window
-[x] refactor out most vim global vars
-[x] refactor vg_config_buffers to use dict
-[x] refactor vg_display code for disassemble into separate file/class
 [ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer
 [ ] refactor Vgdis into config file
