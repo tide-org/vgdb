@@ -144,6 +144,10 @@ commands:
               match: '0x[0-9a-f]{2,16}'
               try_set: 'current_frame_address'
         update_buffers: true
+    run_user_command:
+        steps:
+            - action: 'run_command_string'
+              variable_name: 'user_input_args'
 
 variables:
     current_frame_address:

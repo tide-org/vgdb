@@ -10,7 +10,6 @@ import action as Action
 @singleton
 class ConfigCommand(object):
 
-    variable_dictionary = {}
     cmd_hnd = None
 
     def __init__(self):
@@ -20,8 +19,15 @@ class ConfigCommand(object):
         self.cmd_hnd = command_handler
 
     def run_config_command(self, command, buffer_name=''):
+        split_command = command.split(' ')
+        command_args = []
+        if len(split_command) > 1:
+            command = split_command[0]
+            command_args = split_command[1:]
         if self.is_command_in_config(command):
             commands_list = Config().get()["commands"][command]["steps"]
+            if len(command_args) > 0:
+                Config().get()["variables"]["user_input_args"] = " ".join(command_args)
             for command_item in commands_list:
                 when_condition = command_item.get("when", '')
                 ok_to_run = True

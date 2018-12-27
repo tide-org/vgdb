@@ -50,7 +50,7 @@ function! vgdb#run_startup_commands(position)
 endfunction
 
 function! vgdb#run_config_command(...)
-    let command = get(a:000, 0, '')
+    let l:command = join(a:000, ' ')
     try
         execute g:vg_py . ' vgdb.run_config_command("' . l:command . '")'
         echom "config command ran successfully: " . l:command
@@ -61,7 +61,12 @@ function! vgdb#run_config_command(...)
 endfunction
 
 function! vgdb#check_update_buffers(command)
-    let l:should_update = get(g:vg_config_dictionary["commands"][a:command], "update_buffer", 1)
+    if a:command =~ " "
+        let l:command_buffer = split(a:command, " ")[0]
+    else
+        let l:command_buffer = a:command
+    endif
+    let l:should_update = get(g:vg_config_dictionary["commands"][l:command_buffer], "update_buffer", 1)
     if vg_helpers#is_value_true(l:should_update)
         call vg_display#update_buffers()
     endif
