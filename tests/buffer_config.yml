@@ -13,7 +13,7 @@ buffers:
         command: 'list_breakpoints'
     vg_session_log:
         scrolling_buffer: true
-        on_startup: true
+        on_startup: false
     vg_disassembly:
         command: 'display_disassembly'
         primary_window: true

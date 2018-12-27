@@ -1,6 +1,6 @@
 [x] create command for graceful shutdown of vgdb
 [x] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
-[ ] open new tabs/buffers as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
+[ ] create memory buffer
 [ ] make disassembly range static until refresh - currently changing every instruction
 [ ] create 'internal' section of config_dictionary for internal variables, etc.
 [ ] refactor buffer_input vars into 'internal' config_dictionary section
@@ -23,6 +23,7 @@
 [ ] implement command on startup log file (use pexpect)
 [ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
+[ ] open new tabs/buffers as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
 [ ] harden all config file yaml input to prevent errors on missing values
 [ ] add ability to create split yaml files that are joined up
 [ ] add gdb error/warning buffer view and update with step

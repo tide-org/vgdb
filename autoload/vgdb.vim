@@ -52,10 +52,17 @@ endfunction
 function! vgdb#run_config_command(...)
     let command = get(a:000, 0, '')
     try
-        execute g:vg_py . ' vgdb.run_config_command("' . command . '")'
-        echom "config command ran successfully: " . command
-        call vg_display#update_buffers()
+        execute g:vg_py . ' vgdb.run_config_command("' . l:command . '")'
+        echom "config command ran successfully: " . l:command
+        call vgdb#check_update_buffers(l:command)
     catch a:exception
-        echohl WarningMsg | echomsg "An error occurred in vgdb#run_config_command: " . command . ", " . a:exception | echohl None
+        echohl WarningMsg | echomsg "An error occurred in vgdb#run_config_command: " . l:command . ", " . a:exception | echohl None
     endtry
+endfunction
+
+function! vgdb#check_update_buffers(command)
+    let l:should_update = get(g:vg_config_dictionary["commands"][a:command], "update_buffer", 1)
+    if vg_helpers#is_value_true(l:should_update)
+        call vg_display#update_buffers()
+    endif
 endfunction

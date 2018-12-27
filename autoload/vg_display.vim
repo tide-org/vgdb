@@ -42,7 +42,7 @@ endfunction
 
 function! vg_display#is_scrolling_buffer(buffer_name)
     if has_key(g:vg_config_dictionary['buffers'][a:buffer_name], 'scrolling_buffer')
-        if vg_display#is_value_true(g:vg_config_dictionary['buffers'][a:buffer_name]['scrolling_buffer'])
+        if vg_helpers#is_value_true(g:vg_config_dictionary['buffers'][a:buffer_name]['scrolling_buffer'])
             return 1
         endif
     endif
@@ -51,7 +51,7 @@ endfunction
 
 function! vg_display#open_startup_buffers()
     for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
-        if vg_display#is_value_true(get(g:vg_config_dictionary["buffers"][l:buffer_name], "on_startup", ""))
+        if vg_helpers#is_value_true(get(g:vg_config_dictionary["buffers"][l:buffer_name], "on_startup", ""))
             call vg_display#display_buffer(l:buffer_name)
         endif
     endfor
@@ -75,23 +75,11 @@ function! vg_display#is_session_log_buffer(buffer_name)
     return 0
 endfunction
 
-function! vg_display#is_value_true(test_value)
-    let l:to_test = substitute(tolower(string(a:test_value)), "'", '', 'g')
-    let l:true_list = [ "true", "1", "yes", "y" ]
-    for l:true_item in l:true_list
-        if l:true_item ==? l:to_test
-           return 1
-        endif
-    endfor
-    return 0
-endfunction
-
-
 function! vg_display#default_display_buffer(buffer_name, python_command, ...)
     let a:scrolling_buffer = get(a:, 1, 0)
     let l:current_window_num = winnr()
     let l:primary_window = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'primary_window', 0)
-    let l:primary_window = vg_display#is_value_true(l:primary_window)
+    let l:primary_window = vg_helpers#is_value_true(l:primary_window)
     let l:language = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'language', "")
     let l:clear_buffer = vg_display#get_clear_buffer(a:buffer_name)
     let l:buffer_input_variable = vg_display#get_buffer_input_variable(a:buffer_name)
