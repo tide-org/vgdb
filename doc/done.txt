@@ -99,3 +99,5 @@
 [x] add a debug action
 [x] add a set variable option
 [x] make disassembly range static until refresh - currently changing every instruction
+[x] allow (fix) running ad-hoc commands
+[x] add ability to set a breakpoint from vim terminal
