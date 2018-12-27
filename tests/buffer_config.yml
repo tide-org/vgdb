@@ -1,19 +1,24 @@
 ---
 
 buffers:
+
     vg_watchpoints:
         command: 'list_watchpoints'
+
     vg_registers:
         command: 'list_registers'
         on_startup: false
         diff:
             show_diff: true
             buffer_input_cache_variable: 'registers_cache'
+
     vg_breakpoints:
         command: 'list_breakpoints'
+
     vg_session_log:
         scrolling_buffer: true
         on_startup: true
+
     vg_disassembly:
         command: 'display_disassembly'
         primary_window: true
@@ -21,6 +26,7 @@ buffers:
         highlight_line_variable: 'current_frame_address'
         piet_match_array_variable: 'breakpoints'
         on_startup: false
+
     vg_memory:
         command: 'list_memory'
         on_startup: false
@@ -31,125 +37,159 @@ buffers:
 commands:
     list_memory:
         steps:
-            - action: 'run_command'
-              command: 'x/40x $rsp'
+
+            - run_command:
+                  command: 'x/40x $rsp'
 
     display_disassembly:
         steps:
-            - action: 'run_config_command'
-              name: 'list_breakpoints'
-            - action: 'run_config_command'
-              name: 'disassemble'
+
+            - run_config_command:
+                name: 'list_breakpoints'
+
+            - run_config_command:
+                name: 'disassemble'
               when: no_program_counter == 0
-            - action: 'run_config_command'
-              name: 'run_disassembly_in_range'
+
+            - run_config_command:
+                name: 'run_disassembly_in_range'
               when: no_program_counter == 1
 
     run_disassembly_in_range:
         steps:
-            - action: 'run_python_function'
-              function_file: 'hex_helpers.py'
-              function_name: 'check_address_in_range'
-              input_args:
+
+            - run_python_function:
+                function_file: 'hex_helpers.py'
+                function_name: 'check_address_in_range'
+                input_args:
                   current_address: 'current_frame_address'
                   base_address: 'base_disassembly_address'
                   address_range: 'disassemble_frame_range'
-              set_on_return: 'disassemble_is_in_range'
+                set_on_return: 'disassemble_is_in_range'
               when: base_disassembly_address != None
-            - action: 'create_interpolated_string'
-              variable_name: 'base_disassembly_address'
-              value: '{0}'
-              args:
+
+            - create_interpolated_string:
+                variable_name: 'base_disassembly_address'
+                value: '{0}'
+                args:
                   - 'current_frame_address'
               when: disassemble_is_in_range == 0
-            - action: 'create_interpolated_string'
-              variable_name: 'disassemble_range_command'
-              value: 'disassemble {0}, {0}+{1}'
-              args:
+
+            - create_interpolated_string:
+                variable_name: 'disassemble_range_command'
+                value: 'disassemble {0}, {0}+{1}'
+                args:
                   - 'base_disassembly_address'
                   - 'disassemble_frame_range'
               when: disassemble_is_in_range == 0
-            - action: 'run_command_string'
-              variable_name: 'disassemble_range_command'
-              buffer_name: 'vg_disassembly'
+
+            - run_command_string:
+                variable_name: 'disassemble_range_command'
+                buffer_name: 'vg_disassembly'
 
     disassemble:
         steps:
-            - action: 'run_command'
-              command: 'disassemble'
-              buffer_name: 'vg_disassembly'
+
+            - run_command:
+                command: 'disassemble'
+                buffer_name: 'vg_disassembly'
+
     list_breakpoints:
         steps:
-            - action: 'run_command'
-              command: 'info breakpoints'
-              buffer_name: 'vg_breakpoints'
+
+            - run_command:
+                command: 'info breakpoints'
+                buffer_name: 'vg_breakpoints'
+
     list_watchpoints:
         steps:
-            - action: 'run_command'
-              command: 'info watchpoints'
-              buffer_name: 'vg_watchpoints'
+
+            - run_command:
+                command: 'info watchpoints'
+                buffer_name: 'vg_watchpoints'
+
     list_registers:
         steps:
-            - action: 'run_command'
-              command: 'info registers'
-              buffer_name: 'vg_registers'
+
+            - run_command:
+                command: 'info registers'
+                buffer_name: 'vg_registers'
+
     run_to_entrypoint:
         steps:
-            - action: 'run_config_command'
-              name: 'get_set_entrypoint'
-            - action: 'create_interpolated_string'
-              variable_name: 'breakpoint_command'
-              value: 'break *{0}'
-              args:
-                - 'app_entrypoint'
-            - action: 'run_command_string'
-              variable_name: 'breakpoint_command'
-            - action: 'run_config_command'
-              name: 'continue'
-            - action: 'run_vim_function'
-              function_file: 'run_to_entrypoint.vim'
-              function_name: 'run_to_entrypoint#was_successful'
+
+            - run_config_command:
+                name: 'get_set_entrypoint'
+
+            - create_interpolated_string:
+                variable_name: 'breakpoint_command'
+                value: 'break *{0}'
+                args:
+                  - 'app_entrypoint'
+
+            - run_command_string:
+                variable_name: 'breakpoint_command'
+
+            - run_config_command:
+                name: 'continue'
+
+            - run_vim_function:
+                function_file: 'run_to_entrypoint.vim'
+                function_name: 'run_to_entrypoint#was_successful'
+
     get_set_entrypoint:
         steps:
-            - action: 'run_command_with_match'
-              command: 'info file'
-              match: '(?<=Entry point: )0x[0-9a-f]{2,16}'
-              try_set: 'app_entrypoint'
-            - action: 'run_python_function'
-              function_file: 'hex_helpers.py'
-              function_name: 'pad_hexadecimal_to_64bit'
-              input_args:
+
+            - run_command_with_match:
+                command: 'info file'
+                match: '(?<=Entry point: )0x[0-9a-f]{2,16}'
+                try_set: 'app_entrypoint'
+
+            - run_python_function:
+                function_file: 'hex_helpers.py'
+                function_name: 'pad_hexadecimal_to_64bit'
+                input_args:
                   hex_string: 'app_entrypoint'
-              set_on_return: 'app_entrypoint'
+                set_on_return: 'app_entrypoint'
+
     connect_to_remote:
         steps:
-            - action: 'create_interpolated_string'
-              variable_name: 'target_remote_command'
-              value: 'target remote {0}'
-              args:
+
+            - create_interpolated_string:
+                variable_name: 'target_remote_command'
+                value: 'target remote {0}'
+                args:
                   - 'remote_address'
-            - action: 'run_command_string'
-              variable_name: 'target_remote_command'
+
+            - run_command_string:
+                variable_name: 'target_remote_command'
+
     stepi:
         steps:
-            - action: 'run_command_with_match'
-              command: 'stepi'
-              match: '0x[0-9a-f]{2,16}'
-              try_set: 'current_frame_address'
+
+            - run_command_with_match:
+                command: 'stepi'
+                match: '0x[0-9a-f]{2,16}'
+                try_set: 'current_frame_address'
         update_buffers: true
+
     continue:
         steps:
-            - action: 'run_command_with_match'
-              command: 'continue'
-              match: '0x[0-9a-f]{2,16}'
-              try_set: 'current_frame_address'
+
+            - run_command_with_match:
+                command: 'continue'
+                match: '0x[0-9a-f]{2,16}'
+                try_set: 'current_frame_address'
         update_buffers: true
+
     run_user_command:
         steps:
-            - action: 'run_command_string'
-              variable_name: 'user_input_args'
+
+            - run_command_string:
+                variable_name: 'user_input_args'
 
 variables:
+
     current_frame_address:
     app_entrypoint:
     binary_loaded: 0
@@ -167,6 +207,7 @@ variables:
     disassemble_range_command:
 
 events:
+
     before_spawn:
     after_spawn:
     before_startup:
@@ -183,11 +224,13 @@ events:
     after_buffer_update:
 
 settings:
+
     logging:
         use_session_log_file: true
         session_log_filename: 'vgdb_session.log'
         session_buffer_name: 'vg_session_log'
         buffer_input_variable: 'g:vg_full_query_result'
+
     buffers:
         default_input_buffer_variable: 'g:vg_query_result'
         base_filter: 'vg_base'
@@ -197,6 +240,7 @@ settings:
         stack_buffers_by_default: 1
         stack_buffer_window_width: 60
         open_buffers_on_startup: 1
+
     process:
         ttl_stream_timeout: 0.09
         run_command_on_startup: 0
@@ -206,6 +250,7 @@ settings:
         main_process_default_arguments: ' -q --interpreter=mi2 '
         find_full_process_name: 'true'
         end_of_output_regex: '\(gdb\)'
+
     plugins:
         actions_path: "./plugins/actions"
         filters_path: "./plugins/filters"

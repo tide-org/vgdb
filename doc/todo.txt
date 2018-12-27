@@ -1,5 +1,5 @@
-[ ] remove action: from config - all actions to use indentation
-[ ] make buffers have their own query result variables (in python dict)
+[x] remove action: from config - all actions to use indentation
+[ ] make all buffers have their own query result variables (in python dict)
 [ ] add ability to set one variable from another
 [ ] create 'internal' section of config_dictionary for internal variables, session logs, etc.
 [ ] refactor buffer_input vars into 'buffer_variables' config_dictionary section
