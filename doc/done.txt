@@ -98,3 +98,4 @@
 [x] create memory buffer
 [x] add a debug action
 [x] add a set variable option
+[x] make disassembly range static until refresh - currently changing every instruction

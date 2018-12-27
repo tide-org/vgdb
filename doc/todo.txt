@@ -1,14 +1,21 @@
 [ ] allow (fix) running ad-hoc commands
-[ ] make disassembly range static until refresh - currently changing every instruction
+[ ] remove action: from config - all actions to use indentation
+[ ] make buffers have their own query result variables (in python dict)
+[ ] add ability to set one variable from another
 [ ] create 'internal' section of config_dictionary for internal variables, session logs, etc.
 [ ] refactor buffer_input vars into 'internal' config_dictionary section
+[ ] add ability to set a breakpoint from vim terminal
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] create a cache variables config section
 [ ] add shortcut keys for debugging
-[ ] create a yaml config template file for displaying all options
+[ ] speed up diff, breakpoints and piets (currently very slow)
+[ ] allow primary window to be started on_startup withour errors
+[ ] create a yaml config template file for displaying all options - to become part of the hellp docs
+[ ] investigate and implement readthedocs.com into build pipeline - and start writing
 [ ] add editable variables/settings screen buffer
 [ ] make a runnable vimrunner test for registers window - requires getting gdb to run in a third container
 [ ] add edit register values functionality
+[ ] get working with higher level C code
 [ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer
 [ ] create a deterministic actions mapping feature (e.g. DOT graph)

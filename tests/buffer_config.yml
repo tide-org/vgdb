@@ -5,7 +5,7 @@ buffers:
         command: 'list_watchpoints'
     vg_registers:
         command: 'list_registers'
-        on_startup: true
+        on_startup: false
         diff:
             show_diff: true
             buffer_input_cache_variable: 'registers_cache'
@@ -13,7 +13,7 @@ buffers:
         command: 'list_breakpoints'
     vg_session_log:
         scrolling_buffer: true
-        on_startup: false
+        on_startup: true
     vg_disassembly:
         command: 'display_disassembly'
         primary_window: true
@@ -23,7 +23,7 @@ buffers:
         on_startup: false
     vg_memory:
         command: 'list_memory'
-        on_startup: true
+        on_startup: false
         diff:
             show_diff: true
             buffer_input_cache_variable: 'memory_cache'
@@ -42,57 +42,36 @@ commands:
               name: 'disassemble'
               when: no_program_counter == 0
             - action: 'run_config_command'
-              name: 'check_set_address_in_range'
+              name: 'run_disassembly_in_range'
               when: no_program_counter == 1
 
-    check_set_address_in_range:
+    run_disassembly_in_range:
         steps:
-            - action: 'run_config_command'
-              name: 'set_base_disassembly_address'
-              when: base_disassembly_address == None
             - action: 'run_python_function'
-              function_file: 'string_helpers.py'
+              function_file: 'hex_helpers.py'
               function_name: 'check_address_in_range'
               input_args:
                   current_address: 'current_frame_address'
-                  address_range: 'disassemble_frame_range'
                   base_address: 'base_disassembly_address'
-              set_on_return: 'disassemble_in_range'
-            - action: 'run_config_command'
-              name: 'set_disassemble_range'
-              when: disassemble_in_range == 0
-            - action: 'run_config_command'
-              name: 'disassemble_range'
-              when: disassemble_in_range == 1
-
-    set_base_disassembly_address:
-        steps:
+                  address_range: 'disassemble_frame_range'
+              set_on_return: 'disassemble_is_in_range'
+              when: base_disassembly_address != None
             - action: 'create_interpolated_string'
               variable_name: 'base_disassembly_address'
               value: '{0}'
               args:
                   - 'current_frame_address'
-
-    set_disassemble_range:
-        steps:
-            - action: 'print_debug'
-              msg: "in set_disassemble_range"
+              when: disassemble_is_in_range == 0
             - action: 'create_interpolated_string'
               variable_name: 'disassemble_range_command'
               value: 'disassemble {0}, {0}+{1}'
               args:
                   - 'base_disassembly_address'
                   - 'disassemble_frame_range'
-            - action: 'set_var'
-              name: 'disassemble_in_range'
-              value: 1
-
-    disassemble_range:
-        steps:
-            - action: 'print_debug'
-              msg: "in disassemble_range"
+              when: disassemble_is_in_range == 0
             - action: 'run_command_string'
               variable_name: 'disassemble_range_command'
+              buffer_name: 'vg_disassembly'
 
     disassemble:
         steps:
@@ -137,7 +116,7 @@ commands:
               match: '(?<=Entry point: )0x[0-9a-f]{2,16}'
               try_set: 'app_entrypoint'
             - action: 'run_python_function'
-              function_file: 'string_helpers.py'
+              function_file: 'hex_helpers.py'
               function_name: 'pad_hexadecimal_to_64bit'
               input_args:
                   hex_string: 'app_entrypoint'
@@ -178,7 +157,7 @@ variables:
     registers_cache:
     memory_cache:
     no_program_counter: 0
-    disassemble_in_range: 0
+    disassemble_is_in_range: 0
     disassemble_frame_range: 256
     base_disassembly_address:
     disassemble_range_command:
