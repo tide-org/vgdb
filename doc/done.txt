@@ -93,3 +93,8 @@
 [x] create a 'when' config option for running extra commands conditionally
 [x] add scripting plugin support
 [x] refactor vg_display into smaller classes
+[x] create command for graceful shutdown of vgdb
+[x] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
+[x] create memory buffer
+[x] add a debug action
+[x] add a set variable option
