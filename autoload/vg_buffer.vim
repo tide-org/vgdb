@@ -12,14 +12,19 @@ function! vg_buffer#close_all_buffers()
     endfor
 endfunction
 
-function! vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split(buffer_name, ...)
-    let a:syntax = get(a:, 1, '')
-    if vg_buffer#window_by_bufname(a:buffer_name, 1) == -1
-        if vg_buffer#switch_to_empty_buffer() == -1
-            call vg_buffer#create_split(a:buffer_name, a:syntax, 1)
-        else
-            call vg_buffer#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
-        endif
+function! vg_buffer#switch_to_buffer(buffer_name, ...)
+    let a:primary_window = get(a:, 1, 0)
+    let a:syntax = get(a:, 2, '')
+    if a:primary_window
+       if vg_buffer#window_by_bufname(a:buffer_name, 1) == -1
+           if vg_buffer#switch_to_empty_buffer() == -1
+               call vg_buffer#create_split(a:buffer_name, a:syntax, 1)
+           else
+               call vg_buffer#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
+           endif
+       endif
+    else
+        call vg_buffer#create_split(a:buffer_name, a:syntax)
     endif
 endfunction
 

@@ -83,11 +83,7 @@ function! vg_display#default_display_buffer(buffer_name, python_command, ...)
     let l:language = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'language', "")
     let l:clear_buffer = vg_display#get_clear_buffer(a:buffer_name)
     let l:buffer_input_variable = vg_display#get_buffer_input_variable(a:buffer_name)
-    if l:primary_window
-        call vg_buffer#switch_to_existing_buffer_or_set_empty_buffer_or_split(a:buffer_name, l:language)
-    else
-        call vg_buffer#create_split(a:buffer_name)
-    endif
+    call vg_buffer#switch_to_buffer(a:buffer_name, l:primary_window, l:language)
     call vg_display#check_run_python_command(a:python_command)
     call vg_display#write_array_to_buffer(a:buffer_name, l:buffer_input_variable, l:clear_buffer)
     call vg_diff#check_do_buffer_diff(a:buffer_name)

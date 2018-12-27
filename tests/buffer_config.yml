@@ -33,25 +33,67 @@ commands:
         steps:
             - action: 'run_command'
               command: 'x/40x $rsp'
+
     display_disassembly:
         steps:
             - action: 'run_config_command'
               name: 'list_breakpoints'
             - action: 'run_config_command'
               name: 'disassemble'
+              when: no_program_counter == 0
+            - action: 'run_config_command'
+              name: 'check_set_address_in_range'
+              when: no_program_counter == 1
+
+    check_set_address_in_range:
+        steps:
+            - action: 'run_config_command'
+              name: 'set_base_disassembly_address'
+              when: base_disassembly_address == None
+            - action: 'run_python_function'
+              function_file: 'string_helpers.py'
+              function_name: 'check_address_in_range'
+              input_args:
+                  current_address: 'current_frame_address'
+                  address_range: 'disassemble_frame_range'
+                  base_address: 'base_disassembly_address'
+              set_on_return: 'disassemble_in_range'
+            - action: 'run_config_command'
+              name: 'set_disassemble_range'
+              when: disassemble_in_range == 0
             - action: 'run_config_command'
               name: 'disassemble_range'
-              when: no_program_counter == 1
-    disassemble_range:
+              when: disassemble_in_range == 1
+
+    set_base_disassembly_address:
         steps:
+            - action: 'create_interpolated_string'
+              variable_name: 'base_disassembly_address'
+              value: '{0}'
+              args:
+                  - 'current_frame_address'
+
+    set_disassemble_range:
+        steps:
+            - action: 'print_debug'
+              msg: "in set_disassemble_range"
             - action: 'create_interpolated_string'
               variable_name: 'disassemble_range_command'
               value: 'disassemble {0}, {0}+{1}'
               args:
-                  - 'current_frame_address'
+                  - 'base_disassembly_address'
                   - 'disassemble_frame_range'
+            - action: 'set_var'
+              name: 'disassemble_in_range'
+              value: 1
+
+    disassemble_range:
+        steps:
+            - action: 'print_debug'
+              msg: "in disassemble_range"
             - action: 'run_command_string'
               variable_name: 'disassemble_range_command'
+
     disassemble:
         steps:
             - action: 'run_command'
@@ -136,7 +178,10 @@ variables:
     registers_cache:
     memory_cache:
     no_program_counter: 0
+    disassemble_in_range: 0
     disassemble_frame_range: 256
+    base_disassembly_address:
+    disassemble_range_command:
 
 events:
     before_spawn:

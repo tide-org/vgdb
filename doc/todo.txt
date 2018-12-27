@@ -1,15 +1,17 @@
 [x] create command for graceful shutdown of vgdb
 [x] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
 [x] create memory buffer
+[ ] add a debug action
 [ ] allow (fix) running ad-hoc commands
 [ ] make disassembly range static until refresh - currently changing every instruction
-[ ] create 'internal' section of config_dictionary for internal variables, etc.
+[ ] create 'internal' section of config_dictionary for internal variables, session logs, etc.
 [ ] refactor buffer_input vars into 'internal' config_dictionary section
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
+[ ] create a cache variables config section
 [ ] add shortcut keys for debugging
 [ ] create a yaml config template file for displaying all options
 [ ] add editable variables/settings screen buffer
-[ ] make a runnable vimrunner test for registers window
+[ ] make a runnable vimrunner test for registers window - requires getting gdb to run in a third container
 [ ] add edit register values functionality
 [ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer

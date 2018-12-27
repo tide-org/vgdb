@@ -11,12 +11,9 @@ Vimrunner::RSpec.configure do |config|
   config.start_vim do
     vim = Vimrunner::Server.new(:executable => "/usr/local/bin/vim").start
 
-    # Or, start a GUI instance:
-    # vim = Vimrunner.start_gvim
-
     # Setup your plugin in the Vim instance
     plugin_path = File.expand_path('../..', __FILE__)
-    vim.add_plugin(plugin_path, 'plugin/my_plugin.vim')
+    vim.add_plugin(plugin_path, 'plugin/vgdb.vim')
 
     # The returned value is the Client available in the tests.
     vim
