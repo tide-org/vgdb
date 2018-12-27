@@ -21,8 +21,18 @@ buffers:
         highlight_line_variable: 'current_frame_address'
         piet_match_array_variable: 'breakpoints'
         on_startup: false
+    vg_memory:
+        command: 'list_memory'
+        on_startup: true
+        diff:
+            show_diff: true
+            buffer_input_cache_variable: 'memory_cache'
 
 commands:
+    list_memory:
+        steps:
+            - action: 'run_command'
+              command: 'x/40x $rsp'
     display_disassembly:
         steps:
             - action: 'run_config_command'
@@ -124,6 +134,7 @@ variables:
     connect_to_remote: 1
     breakpoints:
     registers_cache:
+    memory_cache:
     no_program_counter: 0
     disassemble_frame_range: 256
 

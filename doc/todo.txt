@@ -1,6 +1,7 @@
 [x] create command for graceful shutdown of vgdb
 [x] refactor vim code to use config_dictionary['buffers'] instead of vg_config_buffers
-[ ] create memory buffer
+[x] create memory buffer
+[ ] allow (fix) running ad-hoc commands
 [ ] make disassembly range static until refresh - currently changing every instruction
 [ ] create 'internal' section of config_dictionary for internal variables, etc.
 [ ] refactor buffer_input vars into 'internal' config_dictionary section
