@@ -107,4 +107,6 @@
 [x] create 'internal' section of config_dictionary for internal variables, session logs, etc.
 [x] refactor buffer_input vars into 'buffer_variables' config_dictionary section under internal
 [x] create a cache variables config section
+[x] add ability to set one variable from another
+[x] add variable substitution to set_var command
 [x] fix diff (vg_registers)

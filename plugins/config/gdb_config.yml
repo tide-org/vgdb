@@ -69,19 +69,14 @@ commands:
                 set_on_return: 'disassemble_is_in_range'
               when: base_disassembly_address != None
 
-            - create_interpolated_string:
-                variable_name: 'base_disassembly_address'
-                value: '{0}'
-                args:
-                  - 'current_frame_address'
+            - set_var:
+                name: 'base_disassembly_address'
+                value: '{{ current_frame_address }}'
               when: disassemble_is_in_range == 0
 
-            - create_interpolated_string:
-                variable_name: 'disassemble_range_command'
-                value: 'disassemble {0}, {0}+{1}'
-                args:
-                  - 'base_disassembly_address'
-                  - 'disassemble_frame_range'
+            - set_var:
+                name: 'disassemble_range_command'
+                value: 'disassemble {{ base_disassembly_address }}, {{ base_disassembly_address }}+{{ disassemble_frame_range }}'
               when: disassemble_is_in_range == 0
 
             - run_command_string:
