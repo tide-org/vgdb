@@ -12,5 +12,13 @@ class run_vim_function(action_predicate_base):
         functions_path = Config().get()["settings"]["plugins"]["functions_path"]
         function_file_path = os.path.join(functions_path, function_file)
         vim.command("source " + function_file_path)
-        vim_command = "call " + function_name + "()"
+        kwargs = self.get_interpolated_args(command_item)
+        vim_command = "call " + function_name + "(" + str(kwargs) + ")"
         vim.command(vim_command)
+
+    def get_interpolated_args(self, command_item):
+        input_args = command_item.get("input_args", {})
+        interpolated_input_args = {}
+        for key, value in input_args.items():
+            interpolated_input_args[key] = Config().get()["variables"][value]
+        return interpolated_input_args

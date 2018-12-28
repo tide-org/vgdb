@@ -1,7 +1,7 @@
 [x] make Vgdisplaybuf vg_registers split to correct window (was working)
 [ ] speed up diff, breakpoints and piets (currently very slow)
-[ ] allow list_breakpoints command to be run before disassembly in config - currently stuffing up piets or display depending on order
 [ ] refactor breakpoints and piets to use python
+[ ] allow list_breakpoints command to be run before disassembly in config - currently stuffing up piets or display depending on order
 [ ] optimise calls to get breakpoints only when required (adding/removing)
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] add shortcut keys for debugging
