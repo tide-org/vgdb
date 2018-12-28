@@ -126,9 +126,11 @@ endfunction
 
 function! vg_buffer#first_window_by_valid_buffers()
     for buffer_name in keys(g:vg_config_dictionary["buffers"])
-        let l:window_number = vg_buffer#window_by_bufname(buffer_name)
-        if l:window_number != -1
-            return window_number
+       if !vg_helpers#is_value_true(get(g:vg_config_dictionary["buffers"][l:buffer_name], "primary_window", 0))
+           let l:window_number = vg_buffer#window_by_bufname(buffer_name)
+           if l:window_number != -1
+               return window_number
+           endif
         endif
     endfor
     return -1
