@@ -110,3 +110,4 @@
 [x] add ability to set one variable from another
 [x] add variable substitution to set_var command
 [x] fix diff (vg_registers)
+[x] make buffers only update when set in config with 'update_buffers'

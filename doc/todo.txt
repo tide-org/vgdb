@@ -2,6 +2,7 @@
 [ ] allow list_breakpoints command to be run before disassembly in config - currently stuffing up piets or display depending on order
 [ ] speed up diff, breakpoints and piets (currently very slow)
 [ ] refactor breakpoints and piets to use python
+[ ] optimise calls to get breakpoints only when required (adding/removing)
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] add shortcut keys for debugging
 [ ] add the option of adding a name key to commands
@@ -9,27 +10,26 @@
 [ ] create a yaml merge function
 [ ] create a yaml defaults file to merge first ( to prevent defaults missing causing errors )
 [ ] create a yaml config template file for displaying all options - to become part of the help docs
-[ ] add the ability to patch up disassemblies to a single buffer when switching to range
+[ ] add the ability to patch up disassemblies to a single buffer when switching to range - maybe sort list as well
+[ ] open new tabs/buffers as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible
 [ ] investigate and implement readthedocs.com into build pipeline - and start writing
+[ ] create a vgdb variables builtin buffer
 [ ] add editable variables/settings screen buffer
 [ ] make a runnable vimrunner test for registers window - requires getting gdb to run in a third container
 [ ] add edit register values functionality
 [ ] get working with higher level C code
-[ ] create a vgdb variables builtin buffer
 [ ] create a vgdb internals debugging builtin buffer
 [ ] create a deterministic actions mapping feature (e.g. DOT graph)
 [ ] add xserver to docker-compose containers to make tests self-contained
-[ ] make buffers only update when set in config with 'update_buffers'
 [ ] document event steps: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
 [ ] document all step types
 [ ] create schematics of modules of app and workflows
 [ ] get pyyaml working correctly from autoload/lib path
-[ ] optimise calls to get breakpoints only when required (adding/removing)
 [ ] implement command on startup log file (use pexpect)
 [ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
 [ ] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.)
-[ ] open new tabs/buffers as new disassembly is added. To use x/i $rip (as per https://stackoverflow.com/questions/1902901/show-current-assembly-instruction-in-gdb)
+[ ] add update_on_commands list for buffers
 [ ] harden all config file yaml input to prevent errors on missing values
 [ ] add ability to create split yaml files that are joined up
 [ ] add gdb error/warning buffer view and update with step
