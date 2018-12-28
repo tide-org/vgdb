@@ -11,8 +11,8 @@ class print_debug(action_predicate_base):
         interpolated_message = self.interpolate_variables(msg)
         print_buffer_name = command_item.get("buffer_name", 0)
         if print_buffer_name:
-            print("buffer name: " + buffer_name)
-        print(str(interpolated_message))
+            print("print_debug - buffer name: " + buffer_name)
+        print("print_debug - " + str(interpolated_message))
 
     def interpolate_variables(self, msg):
         variable_names = Config().get()["variables"].keys()

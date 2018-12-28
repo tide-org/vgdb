@@ -12,7 +12,7 @@ def run_action(action_name, args_list):
     if action_name.lower() in actions_list:
         return call_action_class(action_name, args_list)
     else:
-        print("action: " + action_name + " is not a valid action")
+        print("error: action: " + action_name + " is not a valid action")
 
 def get_actions_list():
     if len(actions_list) == 0:
@@ -22,6 +22,7 @@ def get_actions_list():
         for action_file in action_files:
             if action_file[-3:].lower() == ".py" and action_file.lower() != "__init__.py":
                 actions_list.append(action_file[:-3])
+    return actions_list
 
 def call_action_class(action_name, args_list):
     action_module = "actions." + action_name
