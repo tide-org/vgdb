@@ -64,9 +64,9 @@ commands:
                 function_file: 'hex_helpers.py'
                 function_name: 'check_address_in_range'
                 input_args:
-                  current_address: 'current_frame_address'
-                  base_address: 'base_disassembly_address'
-                  address_range: 'disassemble_frame_range'
+                  current_address: '{{ current_frame_address }}'
+                  base_address: '{{ base_disassembly_address }}'
+                  address_range: '{{ disassemble_frame_range }}'
                 set_on_return: 'disassemble_is_in_range'
               when: base_disassembly_address != None
 
@@ -147,7 +147,7 @@ commands:
                 function_file: 'hex_helpers.py'
                 function_name: 'pad_hexadecimal_to_64bit'
                 input_args:
-                  hex_string: 'app_entrypoint'
+                  hex_string: '{{ app_entrypoint }}'
                 set_on_return: 'app_entrypoint'
 
     connect_to_remote:

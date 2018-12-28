@@ -1,4 +1,8 @@
 [x] make Vgdisplaybuf vg_registers split to correct window (was working)
+[x] allow both strings and variables as input_args for vim and python
+[ ] add after events to buffers
+[ ] move diff, bp, piets to plugins/functions path
+[ ] look into reusable plugins repo
 [ ] speed up diff, breakpoints and piets (currently very slow)
 [ ] refactor breakpoints and piets to use python
 [ ] allow list_breakpoints command to be run before disassembly in config - currently stuffing up piets or display depending on order

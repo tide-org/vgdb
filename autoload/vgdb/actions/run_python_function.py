@@ -17,9 +17,22 @@ class run_python_function(action_predicate_base):
         function_module_name = function_file.replace(".py", "")
         function_module = importlib.import_module(function_module_name)
         function = getattr(sys.modules[function_module_name], function_name)
-        interpolated_input_args = {}
-        for key, value in input_args.items():
-            interpolated_input_args[key] = Config().get()["variables"][value]
+        interpolated_input_args = self.get_interpolated_args(command_item)
         function_result = function(**interpolated_input_args)
         if set_on_return:
             Config().get()["variables"][set_on_return] = function_result
+
+    def interpolate_variables(self, msg):
+        variable_names = Config().get()["variables"].keys()
+        for variable in variable_names:
+            moustache_variable = "{{ " + variable + " }}"
+            if moustache_variable in msg:
+                msg = msg.replace(moustache_variable, str(Config().get()["variables"][variable]))
+        return msg
+
+    def get_interpolated_args(self, command_item):
+        input_args = command_item.get("input_args", {})
+        interpolated_input_args = {}
+        for key, value in input_args.items():
+            interpolated_input_args[key] = self.interpolate_variables(value)
+        return interpolated_input_args
