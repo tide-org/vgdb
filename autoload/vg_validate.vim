@@ -27,7 +27,7 @@ function! vg_validate#validate_startup_buffer_names()
         let l:config_buffers = keys(g:vg_config_dictionary["buffers"])
         for l:buffer_name in l:config_buffers
             if index(l:config_buffers, l:buffer_name) == -1
-                echoerr "Error: buffer " . l:buffer_name . " is not a valid buffer in g:vg_startup_buffers"
+                echoerr "Error: buffer " . l:buffer_name . " is not a valid buffer"
                 return 1
             endif
         endfor

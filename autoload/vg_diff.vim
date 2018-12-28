@@ -4,7 +4,7 @@ endif
 
 function! vg_diff#check_do_buffer_diff(buffer_name)
     if vg_diff#is_diff_buffer(a:buffer_name)
-        let l:buffer_input_value = vg_diff#get_buffer_input_value(a:buffer_name)
+        let l:buffer_input_value = g:vg_config_dictionary["internal"]["buffer_caches"][a:buffer_name]
         let l:buffer_input_cache_variable_name = vg_diff#get_buffer_input_cache_variable_name(a:buffer_name)
         let l:buffer_input_cache_value = vg_diff#get_buffer_input_cache_value(a:buffer_name)
         execute "sign unplace * file=" . expand("%:p")
@@ -39,16 +39,6 @@ function! vg_diff#get_buffer_input_cache_variable_name(buffer_name)
         return get(l:buffer_config['diff'], 'buffer_input_cache_variable', '')
     endif
     return ''
-endfunction
-
-function! vg_diff#get_buffer_input_value(buffer_name)
-    if vg_display#is_session_log_buffer(a:buffer_name)
-        let l:input_variable_name = g:vg_config_dictionary['settings']['logging']['buffer_input_variable']
-    else
-        let l:input_variable_name =  g:vg_config_dictionary['settings']['buffers']['default_input_buffer_variable']
-    endif
-    execute "let l:local_buffer_input_value = " . l:input_variable_name
-    return l:local_buffer_input_value
 endfunction
 
 function! vg_diff#is_diff_buffer(buffer_name)

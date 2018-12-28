@@ -89,7 +89,7 @@ class CommandHandler:
     def add_lines_to_error_buffer(self, lines):
         if lines:
             error_buffer_variable = Config().get()["settings"]['buffers']['error_input_variable']
-            Config().get()["variables"][error_buffer_variable] = lines
+            Config().get()["internal"]["buffer_caches"][error_buffer_variable] = lines
 
     def seek_to_end_of_tty(self, timeout=None):
         if not timeout:
@@ -101,15 +101,3 @@ class CommandHandler:
         except:
             pass
         return buffer_string
-
-    def run_command_get_match(self, command, regex_match):
-        lines = self.run_command(command)
-        return self.get_match(regex_match, lines)
-
-    def get_match(self, regex_match, lines):
-        match_string = None
-        for line in lines:
-            if re.search(regex_match, line):
-                match = re.search(regex_match, line)
-                match_string = match.group()
-        return match_string

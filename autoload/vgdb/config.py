@@ -1,6 +1,7 @@
 import yaml
 import vim
 import os
+import re
 import codecs
 from singleton import singleton
 from actionable_dict import ActionableDict
@@ -25,6 +26,7 @@ class Config:
                 config = yaml.load(ymlstring)
                 self.__config_dictionary = ActionableDict(config, self.callback_set_vim_key_value)
                 self.__set_vim_globals()
+                self.__set_internals()
 
     @staticmethod
     def callback_set_vim_key_value(parent_keys, value):
@@ -37,15 +39,18 @@ class Config:
                 "None", "'None'").replace(
                 ": False", ": 'False'").replace(
                 ": True", ": 'True'").replace(
-                ": None", ": 'None'")
-
+                ": None", ": 'None'").replace(
+                "\\\'", "\\\'\'")
         if isinstance(value, str):
             string_value = "'" + string_value + "'"
         let_string += " = " + string_value
         vim.command(let_string)
 
     def __string_replace_for_vim(self, string_to_replace):
-        return str(string_to_replace).replace(": False", ": 'False'").replace(": True", ": 'True'").replace(": None", ": 'None'")
+        return str(string_to_replace).replace(
+                ": False", ": 'False'").replace(
+                ": True", ": 'True'").replace(
+                ": None", ": 'None'")
 
     def __get_full_template_location(self):
         template_location = vim.eval("g:vg_config_location")
@@ -55,3 +60,7 @@ class Config:
     def __set_vim_globals(self):
         config_string = self.__string_replace_for_vim(self.__config_dictionary)
         vim.command("let g:vg_config_dictionary = " + config_string)
+
+    def __set_internals(self):
+        session_log_buffer = self.__config_dictionary["settings"]["logging"]["session_buffer_name"]
+        self.__config_dictionary["internal"] = {"buffer_caches": { session_log_buffer: [] }, "variables": {}}

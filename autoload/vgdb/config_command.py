@@ -14,7 +14,7 @@ class ConfigCommand(object):
     metadata_dict_keys = [ 'when' ]
 
     def __init__(self):
-        self.default_input_buffer_variable = Config().get()["settings"]["buffers"]["default_input_buffer_variable"]
+        pass
 
     def set_command_handler(self, command_handler):
         self.cmd_hnd = command_handler
@@ -38,12 +38,16 @@ class ConfigCommand(object):
 
     def run_config_command_action(self, config_command_item, buffer_name):
         lines = []
-        vim.command("let " + self.default_input_buffer_variable + " = []")
+        if buffer_name == '':
+            internal_buffer_name = 'default'
+        else:
+            internal_buffer_name = buffer_name
+        Config().get()["internal"]["buffer_caches"][internal_buffer_name] = []
         command_action_name = list(config_command_item.keys())[0].lower()
         command_action = config_command_item[command_action_name]
         lines = Action.run_action(command_action_name, [command_action, buffer_name])
         if lines:
-            self.add_lines_to_input_buffer(lines)
+            self.add_lines_to_input_buffer(lines, internal_buffer_name)
 
     def check_remove_metadata_keys(self, config_command_item):
         new_dict = config_command_item
@@ -75,10 +79,9 @@ class ConfigCommand(object):
                 when_condition = when_condition.replace(variable, str(Config().get()["variables"][variable]))
         return when_condition
 
-    def add_lines_to_input_buffer(self, lines):
+    def add_lines_to_input_buffer(self, lines, internal_buffer_name):
         if lines:
-            for line in lines:
-                vim.command("call add(" + self.default_input_buffer_variable + ", '" + line + "' )")
+            Config().get()["internal"]["buffer_caches"][internal_buffer_name] = lines
 
     def is_command_in_config(self, command):
         commands_list = Config().get()["commands"].keys()

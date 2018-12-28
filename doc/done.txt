@@ -101,3 +101,10 @@
 [x] make disassembly range static until refresh - currently changing every instruction
 [x] allow (fix) running ad-hoc commands
 [x] add ability to set a breakpoint from vim terminal
+[x] remove action: from config - all actions to use indentation
+[x] add timestamp option to logs
+[x] make all buffers have their own query result variables (in python dict) - diff, session_log, and each variable
+[x] create 'internal' section of config_dictionary for internal variables, session logs, etc.
+[x] refactor buffer_input vars into 'buffer_variables' config_dictionary section under internal
+[x] create a cache variables config section
+[x] fix diff (vg_registers)

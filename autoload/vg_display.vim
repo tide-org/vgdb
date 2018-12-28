@@ -82,16 +82,13 @@ function! vg_display#default_display_buffer(buffer_name, python_command, ...)
     let l:primary_window = vg_helpers#is_value_true(l:primary_window)
     let l:language = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'language', "")
     let l:clear_buffer = vg_display#get_clear_buffer(a:buffer_name)
-    let l:buffer_input_variable = vg_display#get_buffer_input_variable(a:buffer_name)
     call vg_buffer#switch_to_buffer(a:buffer_name, l:primary_window, l:language)
     call vg_display#check_run_python_command(a:python_command)
-    call vg_display#write_array_to_buffer(a:buffer_name, l:buffer_input_variable, l:clear_buffer)
+    call vg_display#write_array_to_buffer(a:buffer_name, l:clear_buffer)
     call vg_diff#check_do_buffer_diff(a:buffer_name)
     call vg_display#check_do_scroll_to_end(a:scrolling_buffer)
-    if l:primary_window
-        call vg_primary_window#update_highlight_lines(a:buffer_name)
-        call vg_primary_window#update_piets(a:buffer_name)
-    endif
+    call vg_primary_window#update_highlight_lines(a:buffer_name)
+    call vg_primary_window#update_piets(a:buffer_name)
     exec l:current_window_num . 'wincmd w'
 endfunction
 
@@ -114,18 +111,12 @@ function! vg_display#get_clear_buffer(buffer_name)
     return 1
 endfunction
 
-function! vg_display#write_array_to_buffer(buffer_name, array_name, ...)
+function! vg_display#write_array_to_buffer(buffer_name, ...)
     let a:clear_buffer = get(a:, 1, 1)
+    let l:array_cache = g:vg_config_dictionary["internal"]["buffer_caches"][a:buffer_name]
     call vg_buffer#window_by_bufname(a:buffer_name, 1)
     setlocal modifiable
     if a:clear_buffer | silent! 1,$delete _ | endif
-    execute "silent! call setline('.', " . a:array_name . '))'
+    silent! call setline('.', l:array_cache)
     setlocal nomodifiable
-endfunction
-
-function! vg_display#get_buffer_input_variable(buffer_name)
-    if vg_display#is_session_log_buffer(a:buffer_name)
-        return g:vg_config_dictionary['settings']['logging']['buffer_input_variable']
-    endif
-    return g:vg_config_dictionary['settings']['buffers']['default_input_buffer_variable']
 endfunction
