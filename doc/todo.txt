@@ -1,4 +1,5 @@
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
+[ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] standardise event calling in config events: vs buffer_name.events:
 [n] speed up diff, breakpoints and piets (currently very slow) - to do later
 [ ] refactor breakpoints and piets to use python
@@ -41,6 +42,7 @@
 [ ] add ability to list all source files as tabs or using NerdTree
 [ ] add highlight for changed memory values between operations
 [ ] use vim event loop for `BufUnload` when closing `vg_` buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
+[ ] create a docker image with vgdb working in for demonstrating
 [ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint addressi, current address)
 [ ] add segments view buffer ( no update with step)
 [ ] add sections view buffer ( no update with step)

@@ -8,7 +8,7 @@ function! vg_display#display_buffer(buffer_name)
         if has_key(g:vg_config_dictionary['buffers'], l:stripped_buffer_name)
             call vg_display#default_display_buffer_run_command(l:stripped_buffer_name)
          else
-             echo "unable to find buffer in config: " . l:stripped_buffer_name
+             echo "error: unable to find buffer in config: " . l:stripped_buffer_name
              echo "buffers: " . join(keys(g:vg_config_dictionary['buffers']), ",")
          endif
     endif

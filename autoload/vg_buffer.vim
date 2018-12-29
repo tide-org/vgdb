@@ -16,15 +16,19 @@ function! vg_buffer#switch_to_buffer(buffer_name, ...)
     let a:primary_window = get(a:, 1, 0)
     let a:syntax = get(a:, 2, '')
     if a:primary_window
-       if vg_buffer#window_by_bufname(a:buffer_name, 1) == -1
-           if vg_buffer#switch_to_empty_buffer() == -1
-               call vg_buffer#create_split(a:buffer_name, a:syntax, 1)
-           else
-               call vg_buffer#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
-           endif
-       endif
+       call vg_buffer#switch_to_primary_window(a:buffer_name, a:syntax)
     else
         call vg_buffer#create_split(a:buffer_name, a:syntax)
+    endif
+endfunction
+
+function! vg_buffer#switch_to_primary_window(buffer_name, syntax)
+    if vg_buffer#window_by_bufname(a:buffer_name, 1) == -1
+        if vg_buffer#switch_to_empty_buffer() == -1
+            call vg_buffer#create_split(a:buffer_name, a:syntax, 1)
+        else
+            call vg_buffer#set_current_buffer_for_vgdb(a:buffer_name, a:syntax)
+        endif
     endif
 endfunction
 
@@ -70,14 +74,10 @@ endfunction
 
 function! vg_buffer#split_windows_for_existing_or_new(existing_window)
     let l:window_width = g:vg_config_dictionary['settings']['buffers']['stack_buffer_window_width']
-    let l:stack_buffers = g:vg_config_dictionary['settings']['buffers']['stack_buffers_by_default']
-    if l:stack_buffers
-        if a:existing_window != -1
-            execute a:existing_window . 'wincmd w'
-            new
-        else
-            exec l:window_width . 'vnew'
-        endif
+    let l:stack_buffers = vg_helpers#is_value_true(g:vg_config_dictionary['settings']['buffers']['stack_buffers_by_default'])
+    if l:stack_buffers &&  a:existing_window != -1
+         execute a:existing_window . 'wincmd w'
+         new
     else
         exec l:window_width . 'vnew'
     endif

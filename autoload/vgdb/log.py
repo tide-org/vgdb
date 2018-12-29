@@ -20,4 +20,3 @@ def write_to_log(log_string):
         full_cache.append("--- {0} ---".format(datetime.datetime.utcnow()))
     full_cache.extend(log_lines)
     Config().get()["internal"]["buffer_caches"][session_buffer_name] = full_cache
-    vim.command("call vg_display#check_update_buffer('" + session_buffer_name + "')")
