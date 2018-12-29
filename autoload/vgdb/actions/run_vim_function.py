@@ -25,7 +25,7 @@ class run_vim_function(action_predicate_base):
         return msg
 
     def get_interpolated_args(self, command_item):
-        input_args = command_item.get("input_args", {})
+        input_args = command_item.get("event_input_args", {})
         interpolated_input_args = {}
         for key, value in input_args.items():
             interpolated_input_args[key] = self.interpolate_variables(value)

@@ -7,34 +7,64 @@ buffers:
 
     vg_registers:
         command: 'list_registers'
-        on_startup: false
-        diff:
-            show_diff: true
-            buffer_input_cache_variable: 'registers_cache'
+        on_startup: true
+        events:
+            after_command:
+                - command: 'do_buffer_diff'
+                  input_args:
+                    buffer_cache_variable: 'registers_cache'
 
     vg_breakpoints:
         command: 'list_breakpoints'
 
     vg_session_log:
         scrolling_buffer: true
-        on_startup: true
+        on_startup: false
 
     vg_disassembly:
         command: 'display_disassembly'
         primary_window: true
         language: 'asm'
-        highlight_line_variable: 'current_frame_address'
         piet_match_array_variable: 'breakpoints'
         on_startup: true
+        events:
+            after_command:
+                - command: 'set_piets'
+                  input_args:
+                    piet_match_array_variable: 'breakpoints'
+                - command: 'set_highlight_line'
+                  input_args:
+                    highlight_line_variable: 'current_frame_address'
 
     vg_memory:
         command: 'list_memory'
-        on_startup: false
-        diff:
-            show_diff: true
-            buffer_input_cache_variable: 'memory_cache'
+        on_startup: true
+        events:
+            after_command:
+                - command: 'do_buffer_diff'
+                  input_args:
+                    buffer_cache_variable: 'memory_cache'
 
 commands:
+
+    set_piets:
+        steps:
+            - run_vim_function:
+                function_file: 'buffer_piets.vim'
+                function_name: 'buffer_piets#set_piets'
+
+    set_highlight_line:
+        steps:
+            - run_vim_function:
+                function_file: 'buffer_breakpoint.vim'
+                function_name: 'buffer_breakpoint#set_highlight_line'
+
+    do_buffer_diff:
+        steps:
+            - run_vim_function:
+                function_file: 'buffer_diff.vim'
+                function_name: 'buffer_diff#check_do_buffer_diff'
+
     list_memory:
         steps:
 

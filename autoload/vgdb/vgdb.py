@@ -34,5 +34,5 @@ class Vgdb(object):
         del self.cmd_hnd
         del self.config_command
 
-    def run_config_command(self, command, buffer_name=''):
-        self.config_command.run_config_command(command, buffer_name)
+    def run_config_command(self, command, buffer_name='', event_input_args=''):
+        self.config_command.run_config_command(command, buffer_name, event_input_args)

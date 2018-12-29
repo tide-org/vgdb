@@ -111,3 +111,14 @@
 [x] add variable substitution to set_var command
 [x] fix diff (vg_registers)
 [x] make buffers only update when set in config with 'update_buffers'
+[x] make Vgdisplaybuf vg_registers split to correct window (was working)
+[x] allow both strings and variables as input_args for vim and python
+[x] add after events to buffers
+[x] move diff to plugins/functions path
+[x] bp, piets to plugins/functions path
+[n] look into reusable plugins repo - maybe later
+[x] allow primary window to be started on_startup withour error
+[x] create a vgdb internals debugging builtin buffer
+[n] create a circular file/path visulalisation graph showing commit changes over time and descriptions (not doing as part of this)
+[n] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.) - not needed - over optimisation (see Knuth)
+[n] optimise calls to get breakpoints only when required (adding/removing) - same
