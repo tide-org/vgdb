@@ -39,7 +39,9 @@ function! vg_buffer_do#write_array_to_buffer(buffer_name, ...)
     let l:array_cache = g:vg_config_dictionary["internal"]["buffer_caches"][a:buffer_name]
     call vg_buffer_find#find_window_by_bufname(a:buffer_name, 1)
     setlocal modifiable
-    if a:clear_buffer | silent! 1,$delete _ | endif
+    if a:clear_buffer
+        silent! 1,$delete _
+    endif
     silent! call setline('.', l:array_cache)
     setlocal nomodifiable
 endfunction
