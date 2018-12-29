@@ -33,3 +33,19 @@ function! vg_buffer_do#set_buffer_for_vgdb(buffer_name, ...)
     exec 'setlocal syntax=' . a:syntax
     silent exec 'file ' . a:buffer_name
 endfunction
+
+function! vg_buffer_do#write_array_to_buffer(buffer_name, ...)
+    let a:clear_buffer = get(a:, 1, 1)
+    let l:array_cache = g:vg_config_dictionary["internal"]["buffer_caches"][a:buffer_name]
+    call vg_buffer_find#find_window_by_bufname(a:buffer_name, 1)
+    setlocal modifiable
+    if a:clear_buffer | silent! 1,$delete _ | endif
+    silent! call setline('.', l:array_cache)
+    setlocal nomodifiable
+endfunction
+
+function! vg_buffer_do#check_do_scroll_to_end(scrolling_buffer)
+    if a:scrolling_buffer
+        execute 'normal! G'
+    endif
+endfunction

@@ -50,6 +50,6 @@ function! vg_buffer#split_windows_for_existing_or_new(existing_window)
          execute a:existing_window . 'wincmd w'
          new
     else
-        exec l:window_width . 'vnew'
+        execute l:window_width . 'vnew'
     endif
 endfunction
