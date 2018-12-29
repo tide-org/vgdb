@@ -1,10 +1,10 @@
 [ ] refactor to allow multiple loggers error, session_log, other, etc.
+[ ] use vader.vim for tests and install python3
 [ ] add a timer refresh config option - useful for streaming logs
 [ ] use async functions for events
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] standardise event calling in config events: vs buffer_name.events:
-[n] speed up diff, breakpoints and piets (currently very slow) - to do later
 [ ] refactor breakpoints and piets to use python
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible
 [ ] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order

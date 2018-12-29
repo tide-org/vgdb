@@ -10,13 +10,13 @@ services:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile-vim
-    working_dir: /work
+    working_dir: /root/.vim/plugin/vgdb
     environment:
       - "IN_DOCKER=YES"
       - "DISPLAY=${HOST_IP}:0"
       - "QT_X11_NO_MITSHM=1"
     volumes:
-      - ..:/work
+      - ..:/root/.vim/plugin/vgdb
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
   test-gdbserver:
     hostname: test-gdbserver

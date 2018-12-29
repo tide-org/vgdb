@@ -3,7 +3,9 @@
 unset BUNDLE_PATH
 unset BUNDLE_BIN
 
-cd /work/tests/vimrunner
+BASE_PATH=/root/.gvim/plugin/vgdb
+
+cd $BASE_PATH/tests/vimrunner
 
 bundle install
 
@@ -11,6 +13,6 @@ gem build vimrunner.gemspec
 
 gem install vimrunner-0.3.4.gem
 
-cd /work/tests
+cd $BASE_PATH/tests
 
 rspec spec/test_buffers.rb
