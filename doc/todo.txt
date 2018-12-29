@@ -1,3 +1,5 @@
+[ ] refactor to allow multiple loggers
+[ ] add a timer refresh config option - useful for streaming logs
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] standardise event calling in config events: vs buffer_name.events:
@@ -57,3 +59,6 @@
 [ ] add interpreted languages support where possible
 [ ] add llvm support
 [ ] add other process support (e.g. ssh, terminals, log streams, etc)
+[ ] allow different configs to be called from vim terminal
+[ ] componentise python config to allw use on multiple editors
+[ ] create a product website
