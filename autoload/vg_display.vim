@@ -83,23 +83,24 @@ function! vg_display#default_display_buffer(buffer_name, ...)
     let l:language = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'language', "")
     let l:clear_buffer = vg_display#get_clear_buffer(a:buffer_name)
     call vg_buffer#switch_to_buffer(a:buffer_name, l:is_primary_window, l:language)
+    call vg_display#run_config_events(a:buffer_name, 'before_command')
     call vg_display#check_run_python_command(l:python_command)
     call vg_display#write_array_to_buffer(a:buffer_name, l:clear_buffer)
     call vg_display#run_config_events(a:buffer_name, 'after_command')
     call vg_display#check_do_scroll_to_end(a:scrolling_buffer)
-    " TODO: remove these
-    "call vg_primary_window#update_highlight_lines(a:buffer_name)
-    "call vg_primary_window#update_piets(a:buffer_name)
     exec l:current_window_num . 'wincmd w'
 endfunction
 
 function! vg_display#run_config_events(buffer_name, event_name)
-    let l:event_commands = g:vg_config_dictionary["buffers"][a:buffer_name]["events"][a:event_name]
-    for l:event_command in l:event_commands
-        let l:event_command_name = l:event_command["command"]
-        let l:python_command = vg_display#get_python_command_for_event(l:event_command_name, a:buffer_name, a:event_name)
-        call vg_display#check_run_python_command(l:python_command)
-    endfor
+    let l:has_events = has_key(g:vg_config_dictionary["buffers"][a:buffer_name], "events")
+    if l:has_events
+        let l:event_commands = get(g:vg_config_dictionary["buffers"][a:buffer_name]["events"], a:event_name, [])
+        for l:event_command in l:event_commands
+            let l:event_command_name = l:event_command["command"]
+            let l:python_command = vg_display#get_python_command_for_event(l:event_command_name, a:buffer_name, a:event_name)
+            call vg_display#check_run_python_command(l:python_command)
+        endfor
+    endif
 endfunction
 
 function! vg_display#get_python_command_for_event(command_name, buffer_name, event_name)

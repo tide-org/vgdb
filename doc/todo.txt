@@ -1,5 +1,6 @@
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
-[ ] speed up diff, breakpoints and piets (currently very slow)
+[ ] standardise event calling in config events: vs buffer_name.events:
+[n] speed up diff, breakpoints and piets (currently very slow) - to do later
 [ ] refactor breakpoints and piets to use python
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible
 [ ] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order
@@ -15,11 +16,14 @@
 [ ] create a vgdb variables builtin buffer
 [ ] add editable variables/settings screen buffer
 [ ] make a runnable vimrunner test for registers window - requires getting gdb to run in a third container
-[ ] add edit register values functionality
+[ ] create tests for config_command buffers, actions and events
+[ ] add edit register values functionality - do from run_command first
 [ ] get working with higher level C code
+[ ] add a variable logging framework with verbosity and area options
 [ ] create a deterministic actions mapping feature (e.g. DOT graph)
 [ ] add xserver to docker-compose containers to make tests self-contained
 [ ] document event steps: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
+[ ] define the nomenclature of the objects used for documenting - actions, commands, config_commands, events, etc.
 [ ] document all action types
 [ ] create schematics of modules of app and workflows
 [ ] get pyyaml working correctly from autoload/lib path
@@ -32,7 +36,6 @@
 [ ] add local variables view buffer and update with step
 [ ] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
 [ ] make stacking/abutting buffer-specific
-[ ] add a variable logging framework with verbosity and area options
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers
 [ ] add ability to scan for all source files for a binary
 [ ] add ability to list all source files as tabs or using NerdTree
