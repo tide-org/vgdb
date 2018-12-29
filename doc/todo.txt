@@ -1,4 +1,4 @@
-[ ] move scroll to plugins/functions path
+[ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] speed up diff, breakpoints and piets (currently very slow)
 [ ] refactor breakpoints and piets to use python
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible

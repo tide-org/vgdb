@@ -122,3 +122,4 @@
 [n] create a circular file/path visulalisation graph showing commit changes over time and descriptions (not doing as part of this)
 [n] add option to only update registers and memory buffers when relevant commands have been run (step, stepi, continue, run, etc.) - not needed - over optimisation (see Knuth)
 [n] optimise calls to get breakpoints only when required (adding/removing) - same
+[n] move scroll to plugins/functions path - not doing as is a part of vg_session_log

@@ -25,7 +25,6 @@ buffers:
         command: 'display_disassembly'
         primary_window: true
         language: 'asm'
-        piet_match_array_variable: 'breakpoints'
         on_startup: true
         events:
             after_command:
