@@ -6,6 +6,7 @@ import importlib
 import sys
 import plugin_helpers as Plugins
 import action as Action
+import config_command_user as ccu
 
 @singleton
 class ConfigCommand(object):
@@ -21,9 +22,9 @@ class ConfigCommand(object):
         self.cmd_hnd = command_handler
 
     def run_config_command(self, command, buffer_name='', event_input_args_name=''):
-        (base_command, command_args) = self.check_split_command(command)
+        (base_command, command_args) = ccu.check_split_command(command)
         if self.is_command_in_config(base_command):
-            self.set_user_input_args(command_args)
+            ccu.set_user_input_args(command_args)
             config_command_list = Config().get()["commands"][base_command]["steps"]
             for config_command_item in config_command_list:
                 command_action_name_set = set(config_command_item.keys()) & set(Action.actions_list)
@@ -64,12 +65,6 @@ class ConfigCommand(object):
                 when_condition = when_condition.replace(variable, config_variable)
         return when_condition
 
-    def check_split_command(self, command):
-        split_command = command.split(' ')
-        if len(split_command) > 1:
-            return (split_command[0], split_command[1:])
-        return (command, [])
-
     def run_config_command_action(self, command_action_name, command_action, buffer_name):
         lines = []
         if not Config().get()["internal"]["buffer_caches"].get(buffer_name, None):
@@ -82,15 +77,6 @@ class ConfigCommand(object):
             else:
                 internal_buffer_name = buffer_name
             self.add_lines_to_input_buffer(lines, internal_buffer_name)
-
-    def remove_meta_dict_key(self, original_dict, dict_key):
-        new_dict = dict(original_dict)
-        del new_dict[dict_key]
-        return new_dict
-
-    def set_user_input_args(self, command_args):
-        if len(command_args) > 0:
-            Config().get()["variables"]["user_input_args"] = " ".join(command_args)
 
     def add_lines_to_input_buffer(self, lines, internal_buffer_name):
         if lines:
