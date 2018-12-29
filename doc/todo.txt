@@ -60,5 +60,7 @@
 [ ] add llvm support
 [ ] add other process support (e.g. ssh, terminals, log streams, etc)
 [ ] allow different configs to be called from vim terminal
+[ ] allow plugins from different languages - e.g. ruby, C, elixir, scala, .net, etc.
+[ ] integrate support for .net
 [ ] componentise python config to allw use on multiple editors
 [ ] create a product website
