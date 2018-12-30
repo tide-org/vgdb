@@ -16,8 +16,9 @@ class run_command_with_match(action_predicate_base):
 
     def get_match(self, regex_match, lines):
         match_string = None
-        for line in lines:
-            if re.search(regex_match, line):
-                match = re.search(regex_match, line)
-                match_string = match.group()
+        if lines:
+            for line in lines:
+                if re.search(regex_match, line):
+                    match = re.search(regex_match, line)
+                    match_string = match.group()
         return match_string

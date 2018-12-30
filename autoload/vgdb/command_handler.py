@@ -22,13 +22,17 @@ class CommandHandler:
         self.spawn_child_process(startup_commands)
 
     def spawn_child_process(self, startup_commands):
-        args = [startup_commands]
-        self.run_event_functions("before_spawn", args)
-        self.child = pexpect.spawnu(self.process_path + self.process_settings["main_process_default_arguments"] + startup_commands)
-        self.child.expect(self.end_of_output_regex)
-        lines = self.get_filtered_output()
-        args = [startup_commands, lines]
-        self.run_event_functions("after_spawn", args)
+        try:
+            args = [startup_commands]
+            self.run_event_functions("before_spawn", args)
+            self.child = pexpect.spawnu(self.process_path + self.process_settings["main_process_default_arguments"] + startup_commands)
+            self.child.expect(self.end_of_output_regex)
+            lines = self.get_filtered_output()
+            args = [startup_commands, lines]
+            self.run_event_functions("after_spawn", args)
+        except Exception as ex:
+            print("error in command_handler.spawn_child_process(): " + str(ex))
+            print(traceback.format_exc())
 
     def close_command_handler(self):
         del self.child
@@ -48,6 +52,8 @@ class CommandHandler:
             self.process_path = shutil.which(self.main_process_name)
         else:
             self.process_path = self.main_process_name
+        if not self.process_path:
+            raise RuntimeError("error: unable to specify a process name for pexpect")
 
     def run_command(self, command, buffer_name=''):
         try:

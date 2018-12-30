@@ -30,6 +30,9 @@ services:
       - "9999"
     ports:
       - "9999:9999"
+    environment:
+      - BINARY_TO_RUN
     volumes:
       - ..:/work
+      - ${BINARY_LOCATION}:/binaries
     command: /work/scripts/start-server

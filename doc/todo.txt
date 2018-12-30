@@ -1,3 +1,7 @@
+[x] get dependencies working inside docker - python3 vim support, gdb, etc
+[x] add error checking , do some defensive null checking
+[ ] get app working in docker container
+[ ] allow source config file to work from any path
 [ ] refactor to allow multiple loggers error, session_log, other, etc.
 [ ] use vader.vim for tests and install python3
 [ ] add a timer refresh config option - useful for streaming logs

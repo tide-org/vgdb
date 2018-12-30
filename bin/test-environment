@@ -2,12 +2,29 @@
 
 set -x
 
-cd $(dirname $0)/../docker
+# Usage: bin/dev-up <path of binary to run>
+#
+# note: on MacOS, coreutils must be installed. e.g. `brew install creutils`
+#       on CentOS, you may need to run `yum install coreutils`
 
-HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+cd $(dirname $0)/..
 
-xhost + ${HOST_IP}
+if [ -z $1 ];
+then
+    BINARY_TO_RUN=hello_linux
+    BINARY_LOCATION=../tests/binaries
+else
+    BINARY_LOCATION_RELATIVE=$(dirname "$1")
+    BINARY_LOCATION=$(realpath ${BINARY_LOCATION_RELATIVE})
+    BINARY_TO_RUN=$(basename "$1")
+fi
 
-docker-compose -f docker-compose-test.yml down --remove-orphans
-docker-compose -f docker-compose-test.yml build
-HOST_IP=${HOST_IP} docker-compose -f docker-compose-test.yml run --rm --service-ports test-vim "${@-sh}"
+echo "binary to run: " $BINARY_TO_RUN
+echo "relative binary location: " $RELATIVE_BINARY_LOCATION
+echo "binary location: " $BINARY_LOCATION
+
+docker-compose -f docker/docker-compose-test.yml down
+docker-compose -f docker/docker-compose-test.yml build
+BINARY_TO_RUN=${BINARY_TO_RUN} BINARY_LOCATION=${BINARY_LOCATION} docker-compose -f docker/docker-compose-test.yml up -d --build --force-recreate test-gdbserver
+docker-compose -f docker/docker-compose-test.yml run --rm --service-ports test-vim "${@-sh}"
+#docker-compose -f docker/docker-compose-test.yml run --build --force-recreate test-vim "${@-sh}"

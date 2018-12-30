@@ -1,6 +1,7 @@
 import os
 import sys
 import inspect
+import traceback
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 ptyprocessdir = os.path.join(currentdir, "../lib/ptyprocess")
@@ -28,6 +29,7 @@ class Vgdb(object):
             self.config_command.set_command_handler(self.cmd_hnd)
         except Exception as ex:
             print("error in Vgdb.start_gdb(): " + str(ex))
+            print(traceback.format_exc())
 
     def stop_gdb(self):
         self.cmd_hnd.close_command_handler()
