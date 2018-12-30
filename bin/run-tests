@@ -2,4 +2,4 @@
 
 cd $(dirname $0)/.
 
-./test-environment /work/scripts/run-tests
+./test-environment /root/.vim/plugin/vgdb/scripts/run-tests

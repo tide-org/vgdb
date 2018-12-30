@@ -5,7 +5,7 @@ import inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 ptyprocessdir = os.path.join(currentdir, "../lib/ptyprocess")
 pexpectdir = os.path.join(currentdir, "../lib/pexpect")
-pyyamldir = os.path.join(currentdir, "../lib/pyyaml")
+pyyamldir = os.path.join(currentdir, "../lib/pyyaml/lib3")
 sys.path.insert(0, currentdir)
 sys.path.insert(0, ptyprocessdir)
 sys.path.insert(0, pexpectdir)
@@ -27,7 +27,7 @@ class Vgdb(object):
             self.cmd_hnd.initialise(commands)
             self.config_command.set_command_handler(self.cmd_hnd)
         except Exception as ex:
-            print("error in Vgdb.start_gdb(): " + ex)
+            print("error in Vgdb.start_gdb(): " + str(ex))
 
     def stop_gdb(self):
         self.cmd_hnd.close_command_handler()

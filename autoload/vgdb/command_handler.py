@@ -60,7 +60,7 @@ class CommandHandler:
             self.run_event_functions("after_command", args_list)
             return lines
         except Exception as ex:
-            print("error in CommandHandler.run_command(): " + ex)
+            print("error in CommandHandler.run_command(): " + str(ex))
 
     def run_event_functions(self, event, args_list):
         functions = Config().get()["events"][event]
