@@ -124,3 +124,5 @@
 [n] optimise calls to get breakpoints only when required (adding/removing) - same
 [n] move scroll to plugins/functions path - not doing as is a part of vg_session_log
 [n] speed up diff, breakpoints and piets (currently very slow) - to do later
+[x] get dependencies working inside docker - python3 vim support, gdb, etc
+[x] add error checking , do some defensive null checking

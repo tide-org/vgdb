@@ -1,5 +1,5 @@
-[x] get dependencies working inside docker - python3 vim support, gdb, etc
-[x] add error checking , do some defensive null checking
+[ ] fix single quote errors with docker container run
+[ ] use regex for more precise string replacements in config.py vim config_dictionary updates
 [ ] get app working in docker container
 [ ] allow source config file to work from any path
 [ ] refactor to allow multiple loggers error, session_log, other, etc.
