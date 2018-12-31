@@ -127,3 +127,4 @@
 [x] get dependencies working inside docker - python3 vim support, gdb, etc
 [x] add error checking , do some defensive null checking
 [x] fix single quote errors with docker container run
+[x] get app working in docker container
