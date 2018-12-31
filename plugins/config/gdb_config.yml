@@ -222,8 +222,8 @@ variables:
     binary_loaded: 0
     symbols_loaded: 0
     remote_target: 0
-    #remote_address: 'test-gdbserver:9999' # for docker
-    remote_address: 'localhost:9999'
+    remote_address: 'test-gdbserver:9999' # for docker
+    #remote_address: 'localhost:9999'
     connect_to_remote: 1
     breakpoints:
     registers_cache:

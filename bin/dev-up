@@ -4,7 +4,7 @@ set -x
 
 # Usage: bin/dev-up <path of binary to run>
 #
-# note: on MacOS, coreutils must be installed. e.g. `brew install creutils`
+# note: on MacOS, coreutils must be installed. e.g. `brew install coreutils`
 #       on CentOS, you may need to run `yum install coreutils`
 
 cd $(dirname $0)/..

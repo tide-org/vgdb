@@ -11,10 +11,6 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile-vim
     working_dir: /root/.vim/plugin/vgdb
-    environment:
-      - "IN_DOCKER=YES"
-      - "DISPLAY=${HOST_IP}:0"
-      - "QT_X11_NO_MITSHM=1"
     volumes:
       - ..:/root/.vim/plugin/vgdb
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
