@@ -2,6 +2,7 @@
 [ ] use vader.vim for tests and install python3
 [ ] use regex for more precise string replacements in config.py vim config_dictionary updates
 [ ] allow source config file to work from any path
+[ ] integrate jinja2 for variable and string substitution/manipulation
 [ ] refactor to allow multiple loggers error, session_log, other, etc.
 [ ] add a timer refresh config option - useful for streaming logs
 [ ] use async functions for events
