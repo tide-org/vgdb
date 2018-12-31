@@ -1,1 +1,0 @@
-runtime projects/ruby.vim

@@ -1,7 +1,0 @@
-Gemfile.lock
-tags
-pkg/*
-doc/*
-tmp/*
-coverage/*
-*[*\.]gem
