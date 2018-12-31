@@ -1,4 +1,4 @@
-[ ] fix single quote errors with docker container run
+[ ] fix other py to vim parsing errors between py 3.6 and 3.7 in config.py
 [ ] use regex for more precise string replacements in config.py vim config_dictionary updates
 [ ] get app working in docker container
 [ ] allow source config file to work from any path

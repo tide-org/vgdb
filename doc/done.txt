@@ -126,3 +126,4 @@
 [n] speed up diff, breakpoints and piets (currently very slow) - to do later
 [x] get dependencies working inside docker - python3 vim support, gdb, etc
 [x] add error checking , do some defensive null checking
+[x] fix single quote errors with docker container run
