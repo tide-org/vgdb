@@ -40,14 +40,8 @@ class Config:
                 "None", "'None'").replace(
                 ": False", ": 'False'").replace(
                 ": True", ": 'True'").replace(
-                ": None", ": 'None'")
-        if sys.version_info[0] == 3:
-            if sys.version_info[1] == 6:
-                string_value = string_value.replace("\\\'", "'\'\'")
-            elif sys.version_info[1] == 7:
-                string_value = string_value.replace("\\\'", "\\\'\'")
-            else:
-                raise RuntimeException("error: python version needs to be either 3.6 of 3.7")
+                ": None", ": 'None'").replace(
+                "\\\'", "\\\'\'")
         if isinstance(value, str):
             string_value = "'" + string_value + "'"
         let_string += " = " + string_value

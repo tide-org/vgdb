@@ -1,10 +1,15 @@
 [ ] fix other py to vim parsing errors between py 3.6 and 3.7 in config.py
 [ ] use vader.vim for tests and install python3
 [ ] use regex for more precise string replacements in config.py vim config_dictionary updates
+[ ] make highlight line colour configurable
+[ ] make diff lines configurable
+[ ] fix vg_registers in docker container
+[ ] add proper error handling to eval() when conditions
 [ ] allow source config file to work from any path
 [ ] integrate jinja2 for variable and string substitution/manipulation
 [ ] refactor to allow multiple loggers error, session_log, other, etc.
 [ ] add a timer refresh config option - useful for streaming logs
+[ ] add travisCI build pipeline
 [ ] use async functions for events
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
