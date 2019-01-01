@@ -1,5 +1,3 @@
-[x] fix other py to vim parsing errors between py 3.6 and 3.7 in config.py
-[ ] use vader.vim for tests and install python3
 [ ] use regex for more precise string replacements in config.py vim config_dictionary updates
 [ ] make highlight line colour configurable
 [ ] make diff lines configurable

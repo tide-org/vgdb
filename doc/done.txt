@@ -128,3 +128,5 @@
 [x] add error checking , do some defensive null checking
 [x] fix single quote errors with docker container run
 [x] get app working in docker container
+[x] fix other py to vim parsing errors between py 3.6 and 3.7 in config.py
+[x] use vader.vim for tests and install python3
