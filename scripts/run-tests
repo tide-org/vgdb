@@ -1,18 +1,6 @@
 #! /bin/bash
 
-unset BUNDLE_PATH
-unset BUNDLE_BIN
+TEST_FILENAME=vader_tests.log
 
-BASE_PATH=/root/.vim/plugin/vgdb
-
-cd $BASE_PATH/tests/vimrunner
-
-bundle install
-
-gem build vimrunner.gemspec
-
-gem install vimrunner-0.3.4.gem
-
-cd $BASE_PATH/tests
-
-rspec spec/test_buffers.rb
+vim -c 'Vader! ./tests/vader_tests/*' > /dev/null 2> $TEST_FILENAME
+cat $TEST_FILENAME

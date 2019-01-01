@@ -1,0 +1,32 @@
+Execute (test that we get a memory dump correctly):
+  Vgdb
+  b vg_memory
+
+Expect:
+  0x7fffffffed80:    0x00000001    0x00000000    0xffffef26    0x00007fff
+  0x7fffffffed90:    0x00000000    0x00000000    0xffffef3c    0x00007fff
+  0x7fffffffeda0:    0xffffef56    0x00007fff    0xffffef6e    0x00007fff
+  0x7fffffffedb0:    0xffffef76    0x00007fff    0xffffef81    0x00007fff
+  0x7fffffffedc0:    0xffffef96    0x00007fff    0xffffefd8    0x00007fff
+  0x7fffffffedd0:    0x00000000    0x00000000    0x00000021    0x00000000
+  0x7fffffffede0:    0xf7ffa000    0x00007fff    0x00000010    0x00000000
+  0x7fffffffedf0:    0x9f8bfbff    0x00000000    0x00000006    0x00000000
+  0x7fffffffee00:    0x00001000    0x00000000    0x00000011    0x00000000
+  0x7fffffffee10:    0x00000064    0x00000000    0x00000003    0x00000000
+
+Execute (test that we get a disassembly correctly):
+  b vg_disassembly
+
+Expect:
+      0x0000000000400430 <+0>:    xor    %ebp,%ebp
+      0x0000000000400432 <+2>:    mov    %rdx,%r9
+      0x0000000000400435 <+5>:    pop    %rsi
+      0x0000000000400436 <+6>:    mov    %rsp,%rdx
+      0x0000000000400439 <+9>:    and    $0xfffffffffffffff0,%rsp
+      0x000000000040043d <+13>:    push   %rax
+      0x000000000040043e <+14>:    push   %rsp
+      0x000000000040043f <+15>:    mov    $0x4005b0,%r8
+      0x0000000000400446 <+22>:    mov    $0x400540,%rcx
+      0x000000000040044d <+29>:    mov    $0x400526,%rdi
+      0x0000000000400454 <+36>:    callq  0x400410 <__libc_start_main@plt>
+      0x0000000000400459 <+41>:    hlt

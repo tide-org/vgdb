@@ -1,20 +1,5 @@
 FROM ubuntu:bionic
 
-# install git
-RUN \
-    apt-get update && \
-    apt-get install -y git
-
-# install vim dependencies
-RUN \
-    apt-get update && \
-    apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
-    libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-    libcairo2-dev libx11-dev libxpm-dev libxt-dev
-
-# clone vim
-RUN git clone --depth 1 https://github.com/vim/vim /root/vim
-
 # install python, ruby and vim
 RUN \
     apt-get update && \
@@ -23,7 +8,7 @@ RUN \
     apt-get autoremove -y && \
     apt-get clean
 
-# link yo python 3.7
+# link to python 3.7
 RUN rm /usr/bin/python && ln -s /usr/bin/python3.7 /usr/bin/python
 
 RUN gem install rspec

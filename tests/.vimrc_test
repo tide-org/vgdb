@@ -1,0 +1,5 @@
+filetype off
+set rtp+=~/.vim/plugin/vader.vim
+set rtp+=~/.vim/plugin/vgdb
+filetype plugin indent on
+syntax enable
