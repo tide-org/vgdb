@@ -3,6 +3,7 @@ import vim
 import shutil
 import sys
 import re
+import traceback
 import importlib
 import filter as Filter
 import log as Log

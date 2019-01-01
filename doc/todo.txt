@@ -28,7 +28,7 @@
 [ ] add editable variables/settings screen buffer
 [ ] make a runnable vimrunner test for registers window - requires getting gdb to run in a third container
 [ ] create tests for config_command buffers, actions and events
-[ ] add edit register values functionality - do from run_command first
+[ ] add edit register values functionality - do from run_command first (as in VgEdit register eax 0x00000034)
 [ ] get working with higher level C code
 [ ] add a variable logging framework with verbosity and area options
 [ ] create a deterministic actions mapping feature (e.g. DOT graph)
