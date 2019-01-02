@@ -148,21 +148,23 @@ commands:
             - run_config_command:
                 name: 'get_set_entrypoint'
 
-            - create_interpolated_string:
-                variable_name: 'breakpoint_command'
-                value: 'break *{0}'
-                args:
-                  - 'app_entrypoint'
+            - set_var:
+                name: 'breakpoint_command'
+                value: 'break *{{ app_entrypoint }}'
+              when: app_entrypoint != None
 
             - run_command_string:
                 variable_name: 'breakpoint_command'
+              when: app_entrypoint != None
 
             - run_config_command:
                 name: 'continue'
+              when: app_entrypoint != None
 
             - run_vim_function:
                 function_file: 'run_to_entrypoint.vim'
                 function_name: 'run_to_entrypoint#was_successful'
+              when: app_entrypoint != None
 
     get_set_entrypoint:
         steps:
@@ -178,6 +180,7 @@ commands:
                 input_args:
                   hex_string: '{{ app_entrypoint }}'
                 set_on_return: 'app_entrypoint'
+              when: app_entrypoint != None
 
     connect_to_remote:
         steps:
@@ -215,6 +218,13 @@ commands:
             - run_command_string:
                 variable_name: 'user_input_args'
 
+    set_highlight_for_breakpoint:
+        steps:
+
+            - run_vim_function:
+                function_file: 'set_highlight.vim'
+                function_name: 'set_highlight#for_breakpoint_and_diff'
+
 variables:
 
     current_frame_address:
@@ -222,8 +232,8 @@ variables:
     binary_loaded: 0
     symbols_loaded: 0
     remote_target: 0
-    remote_address: 'test-gdbserver:9999' # for docker
-    #remote_address: 'localhost:9999'
+    #remote_address: 'test-gdbserver:9999' # for docker
+    remote_address: 'localhost:9999'
     connect_to_remote: 1
     breakpoints:
     registers_cache:
@@ -233,6 +243,8 @@ variables:
     disassemble_frame_range: 256
     base_disassembly_address:
     disassemble_range_command:
+    breakpoint_highlight_color: 'darkred'
+    diff_highlight_color: 'darkred'
 
 events:
 
@@ -240,6 +252,7 @@ events:
     after_spawn:
     before_startup:
     after_startup:
+        - 'set_highlight_for_breakpoint'
         - 'connect_to_remote'
         - 'run_to_entrypoint'
     before_config_command:

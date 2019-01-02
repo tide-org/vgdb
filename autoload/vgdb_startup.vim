@@ -27,7 +27,7 @@ endfunction
 
 function! vgdb_startup#run_startup_commands(position)
     if has_key(g:vg_config_dictionary, "events")
-        let l:startup_commands = g:vg_config_dictionary["events"][a:position . "_startup"]
+        let l:startup_commands = get(g:vg_config_dictionary["events"], a:position . "_startup", [])
         if type(l:startup_commands) == 3
             for l:startup_command in l:startup_commands
                 call vgdb#run_config_command(l:startup_command)

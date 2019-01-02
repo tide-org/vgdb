@@ -10,7 +10,7 @@ function! buffer_breakpoint#set_highlight_line(...)
        for l:line in g:vg_config_dictionary["internal"]["buffer_caches"][l:buffer_name]
            if l:line =~ l:line_to_match
               execute "sign unplace 2"
-              execute "sign place 2 line=" . l:line_counter . " name=wholeline file=" . expand("%:p")
+              execute "sign place 2 line=" . l:line_counter . " name=wholeline_breakpoint file=" . expand("%:p")
               return
            endif
            let l:line_counter +=1

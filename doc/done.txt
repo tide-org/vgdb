@@ -130,3 +130,9 @@
 [x] get app working in docker container
 [x] fix other py to vim parsing errors between py 3.6 and 3.7 in config.py
 [x] use vader.vim for tests and install python3
+[x] fix again for macos and keep working with docker - was ok
+[x] fix string error with 0x00000000000000ne - when timeout occurs
+[n] test and get working for before spawn events - not so easy - holding off on
+[x] migrate highlight colour to config file
+[x] make highlight line colour configurable
+[x] make diff line colours configurable

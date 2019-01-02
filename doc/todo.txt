@@ -1,11 +1,9 @@
 [ ] use regex for more precise string replacements in config.py vim config_dictionary updates
-[ ] make highlight line colour configurable
-[ ] make diff lines configurable
 [ ] fix vg_registers in docker container
 [ ] add proper error handling to eval() when conditions
 [ ] allow source config file to work from any path
 [ ] integrate jinja2 for variable and string substitution/manipulation
-[ ] refactor to allow multiple loggers error, session_log, other, etc.
+[ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
 [ ] add a timer refresh config option - useful for streaming logs
 [ ] add travisCI build pipeline
 [ ] use async functions for events

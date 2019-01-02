@@ -10,7 +10,7 @@ function! buffer_diff#check_do_buffer_diff(...)
         for l:line in l:current_buffer
             if l:line !=? l:cache_buffer[l:line_index]
                 let l:line_number = l:line_index + 1
-                execute "sign place 3 line=" . l:line_number . " name=wholeline file=" . expand("%:p")
+                execute "sign place 3 line=" . l:line_number . " name=wholeline_diff file=" . expand("%:p")
             endif
             let l:line_index += 1
         endfor
