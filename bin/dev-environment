@@ -11,7 +11,7 @@ cleanup() {
     exit
 }
 
-trap cleanup INT TERM
+trap cleanup INT TERM EXIT
 
 cd $(dirname $0)/../docker
 
