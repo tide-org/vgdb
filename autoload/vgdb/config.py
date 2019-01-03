@@ -6,6 +6,7 @@ import sys
 import codecs
 from singleton import singleton
 from actionable_dict import ActionableDict
+import path_helpers as Ph
 
 @singleton
 class Config:
@@ -55,7 +56,8 @@ class Config:
 
     def __get_full_template_location(self):
         template_location = vim.eval("g:vg_config_location")
-        full_template_location =  os.path.join(os.getcwd(), template_location)
+        base_path = Ph.get_vgdb_base_path()
+        full_template_location =  os.path.join(base_path, template_location)
         return full_template_location
 
     def __set_vim_globals(self):

@@ -1,5 +1,4 @@
 [ ] fix vg_registers in docker container
-[ ] allow source config file to work from any path
 [ ] integrate jinja2 for variable and string substitution/manipulation
 [ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
 [ ] add a timer refresh config option - useful for streaming logs

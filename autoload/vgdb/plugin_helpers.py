@@ -1,6 +1,7 @@
 import os
 from os.path import abspath
 from config import Config
+import path_helpers as Ph
 
 valid_plugin_names = ['filters', 'actions', 'functions']
 
@@ -11,9 +12,8 @@ def resolve_plugin_path(plugin_name):
     start_path = Config().get()["settings"]["plugins"][plugin_settings]
     if os.path.isdir(start_path):
         return abspath(start_path)
-    script_path = os.path.dirname(os.path.realpath(__file__))
-    vgdb_path = os.path.join(script_path, "/../..")
-    filters_path = os.path.join(vgdb_path, start_path)
+    base_path = Ph.get_vgdb_base_path()
+    filters_path = os.path.join(base_path, start_path)
     if os.path.isdir(filters_path):
         return abspath(filters_path)
     raise RuntimeError("error: could not resolve " + plugin_settings + ": " + start_path)

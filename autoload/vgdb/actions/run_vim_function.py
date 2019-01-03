@@ -3,6 +3,7 @@ import os
 from config import Config
 import plugin_helpers as Plugins
 from action_predicate_base import action_predicate_base
+import plugin_helpers as Plh
 
 class run_vim_function(action_predicate_base):
 
@@ -10,7 +11,8 @@ class run_vim_function(action_predicate_base):
         function_file = command_item["function_file"]
         function_name = command_item["function_name"]
         functions_path = Config().get()["settings"]["plugins"]["functions_path"]
-        function_file_path = os.path.join(functions_path, function_file)
+        resolved_functions_path = Plh.resolve_plugin_path("functions")
+        function_file_path = os.path.join(resolved_functions_path, function_file)
         vim.command("source " + function_file_path)
         kwargs = self.get_interpolated_args(command_item)
         vim_command = "call " + function_name + "(" + str(kwargs) + ")"
