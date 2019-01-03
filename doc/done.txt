@@ -136,3 +136,5 @@
 [x] migrate highlight colour to config file
 [x] make highlight line colour configurable
 [x] make diff line colours configurable
+[n] use regex for more precise string replacements in config.py vim config_dictionary updates - not doing as per https://stackoverflow.com/questions/5668947/use-pythons-string-replace-vs-re-sub
+[x] add proper error handling to eval() when conditions

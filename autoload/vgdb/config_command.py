@@ -51,7 +51,10 @@ class ConfigCommand(object):
         when_condition = config_command_item.get("when", '')
         if when_condition:
             processed_when_condition = self.process_when_condition(when_condition)
-            eval_when_condition = eval(processed_when_condition)
+            try:
+                eval_when_condition = eval(processed_when_condition)
+            except SyntaxError:
+                return False
             return eval_when_condition
         return True
 
