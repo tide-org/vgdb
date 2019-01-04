@@ -34,6 +34,7 @@ echo "binary location: " $BINARY_LOCATION
 
 docker-compose -f docker/docker-compose-test.yml down
 docker-compose -f docker/docker-compose-test.yml build
+
 BINARY_TO_RUN=${BINARY_TO_RUN} BINARY_LOCATION=${BINARY_LOCATION} docker-compose -f docker/docker-compose-test.yml up -d --force-recreate test-gdbserver
 BINARY_TO_RUN=${BINARY_TO_RUN} BINARY_LOCATION=${BINARY_LOCATION} docker-compose -f docker/docker-compose-test.yml run --rm --service-ports test-vim "${@-sh}"
 

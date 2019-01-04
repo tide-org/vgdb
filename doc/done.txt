@@ -139,3 +139,9 @@
 [n] use regex for more precise string replacements in config.py vim config_dictionary updates - not doing as per https://stackoverflow.com/questions/5668947/use-pythons-string-replace-vs-re-sub
 [x] add proper error handling to eval() when conditions
 [x] allow source config file to work from any path
+[x] make a runnable vimrunner test for registers window - requires getting gdb to run in a third container - tests working in container
+[x] add xserver to docker-compose containers to make tests self-contained - not required as using Vader now
+[x] add highlight for changed memory values between operations - using diff this works
+[x] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
+[x] create a docker image with vgdb working in for demonstrating - test containers do this
+[n] refactor breakpoints and piets setting to use python (may be faster) - maybe later not important right now
