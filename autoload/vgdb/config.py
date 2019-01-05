@@ -21,7 +21,7 @@ class Config:
         return self.__config_dictionary
 
     def set(self, force=False):
-        if force or self.__config_dictionary == None:
+        if force or not self.__config_dictionary:
             full_template_location = self.__get_full_template_location()
             with codecs.open(full_template_location, encoding='utf-8') as ymlfile:
                 ymlstring = ymlfile.read()

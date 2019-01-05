@@ -6,9 +6,6 @@ class run_command_string(action_predicate_base):
 
     def run(self, command_item, buffer_name=''):
         variable_name = command_item['variable_name']
-        variable_value = Config().get()["variables"][variable_name]
-        if variable_value == None:
-            return
-        else:
-            result = CommandHandler().run_command(variable_value, buffer_name)
-        return result
+        variable_value = Config().get()["variables"].get(variable_name, None)
+        if variable_value:
+            return CommandHandler().run_command(variable_value, buffer_name)
