@@ -185,11 +185,9 @@ commands:
     connect_to_remote:
         steps:
 
-            - create_interpolated_string:
-                variable_name: 'target_remote_command'
-                value: 'target remote {0}'
-                args:
-                  - 'remote_address'
+            - set_var:
+                name: 'target_remote_command'
+                value: 'target remote {{ remote_address }}'
 
             - run_command_string:
                 variable_name: 'target_remote_command'
@@ -224,6 +222,13 @@ commands:
             - run_vim_function:
                 function_file: 'set_highlight.vim'
                 function_name: 'set_highlight#for_breakpoint_and_diff'
+
+    check_set_remote:
+        steps:
+
+            - run_python_function:
+                function_file: 'after_command.py'
+                function_name: 'check_set_remote'
 
 variables:
 

@@ -1,4 +1,6 @@
 [ ] integrate jinja2 for variable and string substitution/manipulation - good example here - https://github.com/wilvk/jinja/blob/master/examples/basic/test_loop_filter.py
+[ ] add proper cross-cutting logging for command_handler, config_command, et al.
+[ ] refactor command handler to call config_command for events (e.g. get_set_remote)
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] create a vgdb variables builtin buffer
 [ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
