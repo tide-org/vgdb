@@ -71,10 +71,15 @@ class ConfigCommand(object):
         return when_condition
 
     def run_config_command_action(self, command_action_name, command_action, buffer_name):
-        lines = []
+        self.initialise_buffer(buffer_name)
+        lines = Action.run_action(command_action_name, [command_action, buffer_name])
+        self.set_buffer_lines(lines, buffer_name, command_action_name, command_action)
+
+    def initialise_buffer(self, buffer_name):
         if buffer_name not in Config().get()["internal"]["buffer_caches"]:
             Config().get()["internal"]["buffer_caches"][buffer_name] = []
-        lines = Action.run_action(command_action_name, [command_action, buffer_name])
+
+    def set_buffer_lines(self, lines, buffer_name, command_action_name, command_action):
         if lines:
             if buffer_name == '':
                 lines.insert(0, "no buffer name. command_action_name: " + command_action_name + " command_action: " + str(command_action) )
