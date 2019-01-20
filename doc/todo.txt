@@ -8,6 +8,7 @@
 [ ] create a yaml defaults file to merge first ( to prevent defaults missing causing errors )
 [ ] add a timer refresh config option - useful for streaming logs
 [ ] add travisCI build pipeline
+[ ] extrapolate pexpect as interchangeable with other libraries and define functionality from config (e.g. for streams/logs/apis, etc. )
 [ ] use async functions for events
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] standardise event calling in config events: vs buffer_name.events:
