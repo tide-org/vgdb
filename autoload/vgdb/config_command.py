@@ -72,6 +72,8 @@ class ConfigCommand(object):
 
     def run_config_command_action(self, command_action_name, command_action, buffer_name):
         self.initialise_buffer(buffer_name)
+        print("command_action_name: " + command_action_name)
+        print("command_action: " + str(command_action))
         lines = Action.run_action(command_action_name, [command_action, buffer_name])
         self.set_buffer_lines(lines, buffer_name, command_action_name, command_action)
 

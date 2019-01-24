@@ -4,6 +4,7 @@ from config import Config
 import plugin_helpers as Plugins
 from action_predicate_base import action_predicate_base
 import plugin_helpers as Plh
+import interpolate as Interpolate
 
 class run_vim_function(action_predicate_base):
 
@@ -18,17 +19,9 @@ class run_vim_function(action_predicate_base):
         vim_command = "call " + function_name + "(" + str(kwargs) + ")"
         vim.command(vim_command)
 
-    def interpolate_variables(self, msg):
-        variable_names = Config().get()["variables"].keys()
-        for variable in variable_names:
-            moustache_variable = "{{ " + variable + " }}"
-            if moustache_variable in msg:
-                msg = msg.replace(moustache_variable, str(Config().get()["variables"][variable]))
-        return msg
-
     def get_interpolated_args(self, command_item):
         input_args = command_item.get("event_input_args", {})
         interpolated_input_args = {}
         for key, value in input_args.items():
-            interpolated_input_args[key] = self.interpolate_variables(value)
+            interpolated_input_args[key] = Interpolate.interpolate_variables(value)
         return interpolated_input_args
