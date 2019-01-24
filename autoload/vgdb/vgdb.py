@@ -7,12 +7,14 @@ currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentfram
 ptyprocessdir = os.path.join(currentdir, "../lib/ptyprocess")
 pexpectdir = os.path.join(currentdir, "../lib/pexpect")
 pyyamldir = os.path.join(currentdir, "../lib/pyyaml/lib3")
-jinjadir = os.path.join(currentdir, "../lib/jinja/jinja2")
+jinjadir = os.path.join(currentdir, "../lib/jinja")
+markupsafedir = os.path.join(currentdir, "../lib/markupsafe/src")
 sys.path.insert(0, currentdir)
 sys.path.insert(0, ptyprocessdir)
 sys.path.insert(0, pexpectdir)
 sys.path.insert(0, pyyamldir)
 sys.path.insert(0, jinjadir)
+sys.path.insert(0, markupsafedir)
 
 from command_handler import CommandHandler
 from config_command import ConfigCommand
