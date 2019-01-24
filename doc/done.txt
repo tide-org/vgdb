@@ -145,3 +145,4 @@
 [x] add memory view buffers and update with step (requires variables for number, format, variable/register, etc.)
 [x] create a docker image with vgdb working in for demonstrating - test containers do this
 [n] refactor breakpoints and piets setting to use python (may be faster) - maybe later not important right now
+[x] integrate jinja2 for variable and string substitution/manipulation - good example here - https://github.com/wilvk/jinja/blob/master/examples/basic/test_loop_filter.py

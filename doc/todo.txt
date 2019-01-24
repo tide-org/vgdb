@@ -1,4 +1,3 @@
-[ ] integrate jinja2 for variable and string substitution/manipulation - good example here - https://github.com/wilvk/jinja/blob/master/examples/basic/test_loop_filter.py
 [ ] add proper cross-cutting logging for command_handler, config_command, et al.
 [ ] refactor command handler to call config_command for events (e.g. get_set_remote)
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
@@ -15,11 +14,11 @@
 [ ] convert all dictionary retrieves to get() python and vimscript
 [ ] harden all config file yaml input to prevent errors on missing values
 [ ] remove events: options where not possible (e.g. before startup Vgdb() has not been initialised yet)
-[ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible
+[ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g
 [ ] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order - requires investigating buffer cache order and precedence
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] add shortcut keys for debugging - to config
-[ ] add the option of adding a name: key to commands
+[ ] add the option of adding a name: key to commands (like ansible)
 [ ] create a yaml config template file for displaying all options - to become part of the help docs
 [ ] add the ability to patch up disassemblies to a single buffer when switching to range - maybe sort list as well
 [ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
