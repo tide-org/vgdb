@@ -283,7 +283,7 @@ settings:
         error_input_variable: 'error_result'
         load_on_start: 'vg_disassembly'
         stack_buffers_by_default: 1
-        stack_buffer_window_width: 60
+        stack_buffer_window_width: 80
         open_buffers_on_startup: 1
 
     process:
@@ -300,3 +300,14 @@ settings:
         actions_path: "./plugins/actions"
         filters_path: "./plugins/filters"
         functions_path: "./plugins/functions"
+
+    debugging:
+        debug_command_handler: false
+        debug_config_commands: false
+        debug_actions: false
+        debug_events: false
+        debug_filters: false
+        debug_variables: false
+        log_to_file: false
+        log_to_stdout: false
+        log_filename: 'vgdb_debug.log'
