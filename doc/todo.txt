@@ -1,11 +1,10 @@
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] standardise event calling in config events: vs buffer_name.events:
-[x] remove events: options where not possible (e.g. before startup Vgdb() has not been initialised yet), and where not used
+[ ] fix piets not showing for breakpoints
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] create tests for config_command buffers, actions and events
 [ ] add proper cross-cutting logging for command_handler, config_command, et al.
 [ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
-[ ] refactor command handler to call config_command for events (e.g. get_set_remote)
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] create a yaml merge function
 [ ] create a yaml defaults file to merge first ( to prevent defaults missing causing errors )

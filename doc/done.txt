@@ -147,3 +147,5 @@
 [n] refactor breakpoints and piets setting to use python (may be faster) - maybe later not important right now
 [x] integrate jinja2 for variable and string substitution/manipulation - good example here - https://github.com/wilvk/jinja/blob/master/examples/basic/test_loop_filter.py
 [n] extrapolate pexpect as interchangeable with other libraries and define functionality from config (e.g. for streams/logs/apis, etc. )
+[x] remove events: options where not possible (e.g. before startup Vgdb() has not been initialised yet), and where not used
+[x] refactor command handler to call config_command for events (e.g. get_set_remote)
