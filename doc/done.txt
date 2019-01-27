@@ -146,3 +146,4 @@
 [x] create a docker image with vgdb working in for demonstrating - test containers do this
 [n] refactor breakpoints and piets setting to use python (may be faster) - maybe later not important right now
 [x] integrate jinja2 for variable and string substitution/manipulation - good example here - https://github.com/wilvk/jinja/blob/master/examples/basic/test_loop_filter.py
+[n] extrapolate pexpect as interchangeable with other libraries and define functionality from config (e.g. for streams/logs/apis, etc. )

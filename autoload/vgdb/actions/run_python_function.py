@@ -7,7 +7,7 @@ import interpolate as Interpolate
 
 class run_python_function(action_predicate_base):
 
-    def run(self, command_item, buffer_name=''):
+    def run(self, command_item, buffer_name='', command_args={}):
         function_file = command_item["function_file"]
         function_name = command_item["function_name"]
         input_args = command_item.get("input_args", {})
@@ -19,6 +19,8 @@ class run_python_function(action_predicate_base):
         function_module = importlib.import_module(function_module_name)
         function = getattr(sys.modules[function_module_name], function_name)
         interpolated_input_args = self.get_interpolated_args(command_item)
+        if command_args:
+            interpolated_input_args["command_args"] = command_args
         function_result = function(**interpolated_input_args)
         if set_on_return:
             Config().get()["variables"][set_on_return] = function_result

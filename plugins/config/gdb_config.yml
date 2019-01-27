@@ -30,10 +30,10 @@ buffers:
             after_command:
                 - command: 'set_piets'
                   input_args:
-                    piet_match_array_variable: 'breakpoints'
+                      piet_match_array_variable: 'breakpoints'
                 - command: 'set_highlight_line'
                   input_args:
-                    highlight_line_variable: 'current_frame_address'
+                      highlight_line_variable: 'current_frame_address'
 
     vg_memory:
         command: 'list_memory'
@@ -42,7 +42,7 @@ buffers:
             after_command:
                 - command: 'do_buffer_diff'
                   input_args:
-                    buffer_cache_variable: 'memory_cache'
+                      buffer_cache_variable: 'memory_cache'
 
 commands:
 
@@ -227,7 +227,7 @@ commands:
         steps:
 
             - run_python_function:
-                function_file: 'after_command.py'
+                function_file: 'check_set_remote.py'
                 function_name: 'check_set_remote'
 
 variables:
@@ -253,21 +253,14 @@ variables:
 
 events:
 
-    before_spawn:
-    after_spawn:
     before_startup:
     after_startup:
         - 'set_highlight_for_breakpoint'
         - 'connect_to_remote'
         - 'run_to_entrypoint'
-    before_config_command:
-    after_config_command:
     before_command:
     after_command:
-        - function_file: 'after_command.py'
-          function_name: 'check_set_remote'
-    before_buffer_update:
-    after_buffer_update:
+        - 'check_set_remote'
 
 settings:
 

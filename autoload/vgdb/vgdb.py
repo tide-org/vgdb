@@ -21,16 +21,12 @@ from config_command import ConfigCommand
 
 class Vgdb(object):
 
-    def __init__(self):
-        self.cmd_hnd = None
-        self.config_command = ConfigCommand()
-
     def start_gdb(self, commands):
         try:
             self.startup_commands = commands
             self.cmd_hnd = CommandHandler()
             self.cmd_hnd.initialise(commands)
-            self.config_command.set_command_handler(self.cmd_hnd)
+            ConfigCommand().set_command_handler(self.cmd_hnd)
         except Exception as ex:
             print("error in Vgdb.start_gdb(): " + str(ex))
             print(traceback.format_exc())
@@ -38,7 +34,6 @@ class Vgdb(object):
     def stop_gdb(self):
         self.cmd_hnd.close_command_handler()
         del self.cmd_hnd
-        del self.config_command
 
     def run_config_command(self, command, buffer_name='', event_input_args=''):
-        self.config_command.run_config_command(command, buffer_name, event_input_args)
+        ConfigCommand().run_config_command(command, buffer_name, event_input_args)

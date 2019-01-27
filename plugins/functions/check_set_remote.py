@@ -1,11 +1,11 @@
 import vim
 from config import Config
 
-def check_set_remote(command, buffer_name, lines):
-    if 'target remote' in command.lower():
+def check_set_remote(command_args):
+    if 'target remote' in command_args["process_command"].lower():
         binary_loaded = False
         no_symbols_found = False
-        for line in lines:
+        for line in command_args["lines"]:
             if 'Reading symbols from' in line:
                 binary_loaded = True
             if '(no debugging symbols found)' in line:

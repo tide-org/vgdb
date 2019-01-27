@@ -1,4 +1,6 @@
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
+[ ] standardise event calling in config events: vs buffer_name.events:
+[x] remove events: options where not possible (e.g. before startup Vgdb() has not been initialised yet), and where not used
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] create tests for config_command buffers, actions and events
 [ ] add proper cross-cutting logging for command_handler, config_command, et al.
@@ -10,9 +12,6 @@
 [ ] add a timer refresh config option - useful for streaming logs
 [ ] use async functions for events
 [ ] add travisCI build pipeline
-[ ] extrapolate pexpect as interchangeable with other libraries and define functionality from config (e.g. for streams/logs/apis, etc. )
-[ ] standardise event calling in config events: vs buffer_name.events:
-[ ] remove events: options where not possible (e.g. before startup Vgdb() has not been initialised yet)
 [ ] convert all dictionary retrieves to get() python and vimscript - or create a safe get function
 [ ] harden all config file yaml input to prevent errors on missing values
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g

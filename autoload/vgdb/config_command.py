@@ -20,7 +20,7 @@ class ConfigCommand(object):
     def set_command_handler(self, command_handler):
         self.cmd_hnd = command_handler
 
-    def run_config_command(self, command, buffer_name='', event_input_args_name=''):
+    def run_config_command(self, command, buffer_name='', event_input_args_name='', args_dict={}):
         (base_command, command_args) = ccu.check_split_command(command)
         if self.is_command_in_config(base_command):
             ccu.set_user_input_args(command_args)
@@ -29,9 +29,9 @@ class ConfigCommand(object):
                 command_action_name_set = set(config_command_item.keys()) & set(Action.actions_list)
                 if len(command_action_name_set) == 1:
                     command_action_name = list(command_action_name_set)[0]
-                    self.check_run_command_action(command_action_name, config_command_item, command, buffer_name, event_input_args_name)
+                    self.check_run_command_action(command_action_name, config_command_item, command, buffer_name, event_input_args_name, args_dict)
 
-    def check_run_command_action(self, command_action_name, config_command_item, command, buffer_name, event_input_args_name):
+    def check_run_command_action(self, command_action_name, config_command_item, command, buffer_name, event_input_args_name, args_dict):
         command_action = config_command_item[command_action_name]
         updated_command_action = command_action.copy()
         event_input_args = self.get_event_input_args(command, buffer_name, event_input_args_name)
@@ -39,7 +39,7 @@ class ConfigCommand(object):
             updated_command_action["event_input_args"] = event_input_args
         ok_to_run = self.check_ok_to_run(config_command_item)
         if ok_to_run:
-            self.run_config_command_action(command_action_name, updated_command_action, buffer_name)
+            self.run_config_command_action(command_action_name, updated_command_action, buffer_name, args_dict)
 
     def get_event_input_args(self, command, buffer_name, event_input_args_name):
         if command and buffer_name and event_input_args_name:
@@ -70,11 +70,12 @@ class ConfigCommand(object):
                 when_condition = when_condition.replace(variable, config_variable)
         return when_condition
 
-    def run_config_command_action(self, command_action_name, command_action, buffer_name):
+    def run_config_command_action(self, command_action_name, command_action, buffer_name, args_dict={}):
         self.initialise_buffer(buffer_name)
-        print("command_action_name: " + command_action_name)
-        print("command_action: " + str(command_action))
-        lines = Action.run_action(command_action_name, [command_action, buffer_name])
+        passed_args_dict = {'command_item': command_action, 'buffer_name': buffer_name}
+        if args_dict:
+            passed_args_dict["command_args"] = args_dict
+        lines = Action.run_action(command_action_name, passed_args_dict)
         self.set_buffer_lines(lines, buffer_name, command_action_name, command_action)
 
     def initialise_buffer(self, buffer_name):
