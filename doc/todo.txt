@@ -3,11 +3,11 @@
 [ ] fix piets not showing for breakpoints
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] create tests for config_command buffers, actions and events
-[ ] add proper cross-cutting logging for command_handler, config_command, et al.
+[ ] add proper cross-cutting logging for command_handler, config_command, et al. - see https://stackoverflow.com/questions/12356713/aspect-oriented-programming-aop-in-python and https://python-aspectlib.readthedocs.io/en/latest/examples.html#debugging
 [ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
-[ ] add the option of adding a name: key to commands (like ansible)
 [ ] create a yaml merge function
 [ ] create a yaml defaults file to merge first ( to prevent defaults missing causing errors )
+[ ] add the option of adding a name: key to commands (like ansible)
 [ ] add a timer refresh config option - useful for streaming logs
 [ ] use async functions for events
 [ ] add travisCI build pipeline
@@ -23,6 +23,7 @@
 [ ] create a vgdb variables builtin buffer
 [ ] option to open new window splits as new disassembly is added.
 [ ] investigate and implement readthedocs.com into build pipeline - and start writing
+[ ] document process flow through classes for commands and events - command_handler, config_command, action, run, etc.
 [ ] add editable variables/settings screen buffer
 [ ] add edit register values functionality - do from run_command first (as in VgEdit register eax 0x00000034)
 [ ] get working with higher level C code
@@ -32,7 +33,6 @@
 [ ] define the nomenclature of the objects used for documenting - actions, commands, config_commands, events, etc.
 [ ] document all action types
 [ ] create schematics of modules of app and workflows
-[ ] get pyyaml working correctly from autoload/lib path
 [ ] implement command on startup log file (use pexpect)
 [ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
 [ ] add update_on_commands list for buffers
@@ -43,7 +43,6 @@
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
 [ ] add ability to scan for all source files for a binary
 [ ] add ability to list all source files as tabs or using NerdTree
-[ ] use vim event loop for `BufUnload` when closing `vg_` buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
 [ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint addressi, current address)
 [ ] add segments view buffer ( no update with step)
 [ ] add sections view buffer ( no update with step)
