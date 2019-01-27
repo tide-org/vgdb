@@ -3,6 +3,7 @@
 [ ] fix piets not showing for breakpoints
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] create tests for config_command buffers, actions and events
+[ ] test and add better support for local binaries (not remote)
 [ ] add proper cross-cutting logging for command_handler, config_command, et al. - see https://stackoverflow.com/questions/12356713/aspect-oriented-programming-aop-in-python and https://python-aspectlib.readthedocs.io/en/latest/examples.html#debugging
 [ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
 [ ] create a yaml merge function
