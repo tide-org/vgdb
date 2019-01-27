@@ -4,6 +4,7 @@ import sys
 import os
 from os import listdir
 from os.path import isfile, join
+from pathlib import Path
 
 actions_list = []
 
@@ -20,8 +21,8 @@ def get_actions_list():
         actions_path = os.path.join(script_path, "actions")
         action_files = [f for f in listdir(actions_path) if isfile(join(actions_path, f))]
         for action_file in action_files:
-            if action_file[-3:].lower() == ".py" and action_file.lower() != "__init__.py":
-                actions_list.append(action_file[:-3])
+            if Path(action_file).suffix.lower() == ".py" and action_file.lower() != "__init__.py":
+                actions_list.append(Path(action_file).stem)
     return actions_list
 
 def call_action_class(action_name, args_dict):
