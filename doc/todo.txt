@@ -1,41 +1,54 @@
+Yaml:
 [ ] create a yaml merge function
 [ ] create a yaml defaults file to merge first ( to prevent defaults missing causing errors )
+[ ] add ability to create split yaml files that are joined up
+[ ] add the option of adding a name: key to commands (like ansible)
+
+Tests/refactoring:
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] fix piets not showing for breakpoints
+[ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] create tests for config_command buffers, actions and events
+[ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
+
+Features:
 [ ] test and add better support for local binaries (not remote)
-[ ] add proper cross-cutting logging for command_handler, config_command, et al. - see https://stackoverflow.com/questions/12356713/aspect-oriented-programming-aop-in-python and https://python-aspectlib.readthedocs.io/en/latest/examples.html#debugging
-[ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
-[ ] add the option of adding a name: key to commands (like ansible)
-[ ] add a timer refresh config option - useful for streaming logs
-[ ] use async functions for events
-[ ] add travisCI build pipeline
-[ ] convert all dictionary retrieves to get() python and vimscript - or create a safe get function
-[ ] harden all config file yaml input to prevent errors on missing values
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g
-[ ] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order - requires investigating buffer cache order and precedence
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] add shortcut keys for debugging - to config
-[ ] create a yaml config template file for displaying all options - to become part of the help docs
+[ ] add a timer refresh config option - useful for streaming logs
+[ ] use async functions for events
+[ ] convert all dictionary retrieves to get() python and vimscript - or create a safe get function
+[ ] harden all config file yaml input to prevent errors on missing values
+
+Logging:
+[ ] add proper cross-cutting logging for command_handler, config_command, et al. - see https://stackoverflow.com/questions/12356713/aspect-oriented-programming-aop-in-python and https://python-aspectlib.readthedocs.io/en/latest/examples.html#debugging
+[ ] add a variable logging framework with verbosity and area options
+[ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
+
+Disassembly:
 [ ] add the ability to patch up disassemblies to a single buffer when switching to range - maybe sort list as well
-[ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
 [ ] option to open new window splits as new disassembly is added.
+[ ] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order - requires investigating buffer cache order and precedence
+
+Docs:
+[ ] add documentation
 [ ] investigate and implement readthedocs.com into build pipeline - and start writing
 [ ] document process flow through classes for commands and events - command_handler, config_command, action, run, etc.
+[ ] add travisCI build pipeline
+[ ] create a yaml config template file for displaying all options - to become part of the help docs
+[ ] create a deterministic actions mapping feature (e.g. DOT graph)
+[ ] document event steps: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
+[ ] document all action types
+[ ] define the nomenclature of the objects used for documenting - actions, commands, config_commands, events, etc.
+[ ] create schematics of modules of app and workflows
+
 [ ] add editable variables/settings screen buffer
 [ ] add edit register values functionality - do from run_command first (as in VgEdit register eax 0x00000034)
 [ ] get working with higher level C code
-[ ] add a variable logging framework with verbosity and area options
-[ ] create a deterministic actions mapping feature (e.g. DOT graph)
-[ ] document event steps: before_spawn, after_spawn, before_command, after_command, before_config_command, after_config_command, before_buffer_update, after_buffer_update
-[ ] define the nomenclature of the objects used for documenting - actions, commands, config_commands, events, etc.
-[ ] document all action types
-[ ] create schematics of modules of app and workflows
 [ ] implement command on startup log file (use pexpect)
-[ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
 [ ] add update_on_commands list for buffers
-[ ] add ability to create split yaml files that are joined up
 [ ] add gdb error/warning buffer view and update with step
 [ ] add local variables view buffer and update with step
 [ ] make stacking/abutting buffer-specific
@@ -50,7 +63,6 @@
 [ ] add debugging source functionality and open source files if present (start with .s files)
 [ ] add edit memory values functionality
 [ ] add edit variable values functionality
-[ ] add documentation
 [ ] add gdb supported higher level languages support
 [ ] add goto definition functionality
 [ ] add interpreted languages support where possible
