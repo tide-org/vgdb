@@ -9,4 +9,3 @@ def check_split_command(command):
 def set_user_input_args(command_args):
     if len(command_args) > 0:
         Config().get()["variables"]["user_input_args"] = " ".join(command_args)
-
