@@ -151,3 +151,5 @@
 [x] refactor command handler to call config_command for events (e.g. get_set_remote)
 [x] get pyyaml working correctly from autoload/lib path
 [n] use vim event loop for `BufUnload` when closing `vg_` buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
+[n] standardise event calling in config events: vs buffer_name.events:
+[n] create a vgdb variables builtin buffer
