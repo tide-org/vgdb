@@ -1,0 +1,6 @@
+---
+
+variables:
+
+    #remote_address: 'test-gdbserver:9999' # for docker
+    remote_address: 'localhost:9999'

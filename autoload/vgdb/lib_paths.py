@@ -7,7 +7,8 @@ lib_paths = [
                 'pexpect',
                 'pyyaml/lib3',
                 'jinja',
-                'markupsafe/src'
+                'markupsafe/src',
+                'yamlreader/src/main/python'
             ]
 
 lib_base_path = "../lib"

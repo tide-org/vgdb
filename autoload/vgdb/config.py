@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import codecs
+from yamlreader import yaml_load
 from singleton import singleton
 from actionable_dict import ActionableDict
 import path_helpers as Ph
@@ -23,12 +24,14 @@ class Config:
     def set(self, force=False):
         if force or not self.__config_dictionary:
             full_template_location = self.__get_full_template_location()
-            with codecs.open(full_template_location, encoding='utf-8') as ymlfile:
-                ymlstring = ymlfile.read()
-                config = yaml.load(ymlstring)
-                self.__config_dictionary = ActionableDict(config, self.callback_set_vim_key_value)
-                self.__set_vim_globals()
-                self.__set_internals()
+            config = self.get_all_configs(full_template_location)
+            self.__config_dictionary = ActionableDict(config, self.callback_set_vim_key_value)
+            self.__set_vim_globals()
+            self.__set_internals()
+
+    def get_all_configs(self, full_template_location):
+        config = yaml_load(full_template_location)
+        return config
 
     @staticmethod
     def callback_set_vim_key_value(parent_keys, value):

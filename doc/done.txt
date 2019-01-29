@@ -153,3 +153,6 @@
 [n] use vim event loop for `BufUnload` when closing `vg_` buffers to prevent using bwipeout when fetching data (https://www.ibm.com/developerworks/library/l-vim-script-5/index.html)
 [n] standardise event calling in config events: vs buffer_name.events:
 [n] create a vgdb variables builtin buffer
+[x] create a yaml merge function
+[n] create a yaml defaults file to merge first ( to prevent defaults missing causing errors )
+[y] add ability to create split yaml files that are joined up
