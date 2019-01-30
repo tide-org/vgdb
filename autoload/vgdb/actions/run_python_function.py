@@ -2,10 +2,10 @@ import sys
 from config import Config
 import plugin_helpers as Plugins
 import importlib
-from action_predicate_base import action_predicate_base
+from action_base import action_base
 import interpolate as Interpolate
 
-class run_python_function(action_predicate_base):
+class run_python_function(action_base):
 
     def run(self, command_item, buffer_name='', command_args={}):
         function_file = command_item["function_file"]

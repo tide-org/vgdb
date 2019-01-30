@@ -1,9 +1,9 @@
 import re
 from config import Config
 from command_handler import CommandHandler
-from action_predicate_base import action_predicate_base
+from action_base import action_base
 
-class run_command_with_match(action_predicate_base):
+class run_command_with_match(action_base):
 
     def run(self, command_item, buffer_name=''):
         command_item_command = command_item["command"]

@@ -2,11 +2,11 @@ import vim
 import os
 from config import Config
 import plugin_helpers as Plugins
-from action_predicate_base import action_predicate_base
+from action_base import action_base
 import plugin_helpers as Plh
 import interpolate as Interpolate
 
-class run_vim_function(action_predicate_base):
+class run_vim_function(action_base):
 
     def run(self, command_item, buffer_name=''):
         function_file = command_item["function_file"]
