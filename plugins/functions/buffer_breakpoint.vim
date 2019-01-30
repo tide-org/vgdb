@@ -13,7 +13,7 @@ function! buffer_breakpoint#set_highlight_line(...)
               execute "sign place 2 line=" . l:line_counter . " name=wholeline_breakpoint file=" . expand("%:p")
               return
            endif
-           let l:line_counter +=1
+           let l:line_counter += 1
        endfor
    endif
 endfunction
