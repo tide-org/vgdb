@@ -8,7 +8,8 @@ lib_paths = [
                 'pyyaml/lib3',
                 'jinja',
                 'markupsafe/src',
-                'yamlreader/src/main/python'
+                'yamlreader/src/main/python',
+                'six'
             ]
 
 lib_base_path = "../lib"

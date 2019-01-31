@@ -1,7 +1,9 @@
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] fix piets not showing for breakpoints
-[ ] set remote_target correctly for docker tests
+[ ] make logging filters configurable from yaml file - in command_handler.get_filtered_output
+[ ] standardise all python classes with __ for private methods
+[ ] add error handling to all class methods - where appropriate
 [ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] create tests for config_command buffers, actions and events

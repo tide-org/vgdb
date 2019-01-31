@@ -69,4 +69,4 @@ class Config:
 
     def __set_internals(self):
         session_log_buffer = self.__config_dictionary["settings"]["logging"]["session_buffer_name"]
-        self.__config_dictionary["internal"] = {"buffer_caches": { session_log_buffer: [] }, "variables": {}}
+        self.__config_dictionary["internal"] = { "buffer_caches": { session_log_buffer: [] }, "variables": {} }

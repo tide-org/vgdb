@@ -15,6 +15,7 @@ services:
       - ..:/root/.vim/plugin/vgdb
       - ../tests/vader.vim:/root/.vim/plugin/vader.vim
       - ../tests/.vimrc_test:/root/.vimrc
+      - ../tests/gdb_vars_remote_address.yaml:/root/.vim/plugin/vgdb/plugins/config/gdb_vars_remote_address.yaml
   test-gdbserver:
     hostname: test-gdbserver
     build:

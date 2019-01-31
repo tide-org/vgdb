@@ -1,0 +1,5 @@
+---
+
+variables:
+
+    remote_address: 'test-gdbserver:9999'
