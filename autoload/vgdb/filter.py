@@ -16,7 +16,7 @@ def filter_lines_for_buffer(lines, buffer_name):
     return lines
 
 def get_filtered_buffers_list():
-    if len(filtered_buffers_list) == 0:
+    if not filtered_buffers_list:
         filters_path = plugins.resolve_plugin_path('filters')
         sys.path.insert(0, filters_path)
         filter_files = [f for f in listdir(filters_path) if isfile(join(filters_path, f))]

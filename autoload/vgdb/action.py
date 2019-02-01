@@ -16,7 +16,7 @@ def run_action(action_name, args_dict):
         print("error: action: " + action_name + " is not a valid action")
 
 def get_actions_list():
-    if len(actions_list) == 0:
+    if not actions_list:
         script_path = os.path.dirname(os.path.realpath(__file__))
         actions_path = os.path.join(script_path, "actions")
         action_files = [f for f in listdir(actions_path) if isfile(join(actions_path, f))]

@@ -56,10 +56,8 @@ class CommandHandler:
             print("error in CommandHandler.run_command(): " + str(ex))
 
     def run_event_commands(self, event, process_command, buffer_name, lines=[]):
-        commands = Config().get()["events"][event]
-        if commands:
-            for command in commands:
-                ConfigCommand().run_config_command(command, buffer_name, args_dict={'process_command': process_command, 'lines': lines})
+        for command in (Config().get()["events"][event] or []):
+            ConfigCommand().run_config_command(command, buffer_name, args_dict={'process_command': process_command, 'lines': lines})
 
     def get_filtered_output(self, buffer_name=''):
         buffer_string = self.seek_to_end_of_tty()
