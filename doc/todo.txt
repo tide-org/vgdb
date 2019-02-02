@@ -1,4 +1,3 @@
-[ ] fix piets not showing for breakpoints
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] refactor out command args logic into separate class to pass between static classes
 [ ] get a basic c hello world app debugging correctly

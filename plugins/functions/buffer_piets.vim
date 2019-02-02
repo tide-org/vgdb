@@ -1,7 +1,7 @@
 function! buffer_piets#set_piets(...)
    let l:event_args = get(a:, 1, {})
-   let l:piet_match_array_variable = get(l:event_args, "piet_match_array_variable", 0)
-   if l:piet_match_array_variable
+   let l:piet_match_array_variable = get(l:event_args, "piet_match_array_variable", '')
+   if l:piet_match_array_variable != ''
       let l:buffer_name = @%
       if l:piet_match_array_variable != ''
           let l:piet_match_list = g:vg_config_dictionary["variables"][l:piet_match_array_variable]

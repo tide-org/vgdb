@@ -157,3 +157,4 @@
 [n] create a yaml defaults file to merge first ( to prevent defaults missing causing errors )
 [y] add ability to create split yaml files that are joined up
 [x] set remote_target correctly for docker tests
+[x] fix piets not showing for breakpoints
