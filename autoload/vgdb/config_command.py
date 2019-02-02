@@ -6,7 +6,7 @@ import importlib
 import sys
 import plugin_helpers as Plugins
 import action as Action
-import config_command_user as ccu
+import config_command_user as Ccu
 
 @singleton
 class ConfigCommand(object):
@@ -21,9 +21,9 @@ class ConfigCommand(object):
         self.cmd_hnd = command_handler
 
     def run_config_command(self, command, buffer_name='', event_input_args_name='', args_dict={}):
-        (base_command, command_args) = ccu.check_split_command(command)
+        (base_command, command_args) = Ccu.check_split_command(command)
         if self.is_command_in_config(base_command):
-            ccu.set_user_input_args(command_args)
+            Ccu.set_user_input_args(command_args)
             config_command_list = Config().get()["commands"][base_command]["steps"]
             for config_command_item in config_command_list:
                 command_action_name_set = set(config_command_item.keys()) & set(Action.actions_list)
