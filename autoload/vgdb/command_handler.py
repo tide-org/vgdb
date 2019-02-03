@@ -11,6 +11,7 @@ from config import Config
 from singleton import singleton
 import plugin_helpers as Plugin
 from config_command import ConfigCommand
+from config_command_item import ConfigCommandItem
 
 @singleton
 class CommandHandler:
@@ -57,7 +58,11 @@ class CommandHandler:
 
     def run_event_commands(self, event, process_command, buffer_name, lines=[]):
         for command in (Config().get()["events"][event] or []):
-            ConfigCommand().run_config_command(command, buffer_name, args_dict={'process_command': process_command, 'lines': lines})
+            cci = ConfigCommandItem()
+            cci.command = command
+            cci.buffer_name = buffer_name
+            cci.args_dict = args_dict={ 'process_command': process_command, 'lines': lines }
+            ConfigCommand().run_config_command(cci)
 
     def get_filtered_output(self, buffer_name=''):
         buffer_string = self.seek_to_end_of_tty()

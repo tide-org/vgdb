@@ -1,4 +1,5 @@
 [ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
+[ ] create test for vg_python#get_python_command_for_event
 [ ] refactor out command args logic into separate class to pass between static classes
 [ ] get a basic c hello world app debugging correctly
 [ ] add window affinity for buffer breaks - e.g. top. bottom, left, right, top-left, etc.
