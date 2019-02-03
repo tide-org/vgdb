@@ -1,10 +1,6 @@
 import vim
 from singleton import singleton
 from config import Config
-import os
-import importlib
-import sys
-import plugin_helpers as Plugins
 import action as Action
 from config_command_item import ConfigCommandItem
 
@@ -13,19 +9,20 @@ class ConfigCommand(object):
 
     metadata_dict_keys = [ 'when' ]
 
-    def __init__(self):
-        Action.get_actions_list()
-
     def run_config_command(self, cci):
         for command_action in cci.command_action_list:
-            print("cal:" + str(cci.command_action_list))
-            if self.is_ok_to_run(command_action):
+            command_action_type = next(iter(command_action))
+            command_action_value = next(iter(command_action.values()))
+            if self.is_ok_to_run(command_action_value):
                 self.initialise_buffer(cci.buffer_name)
-                action_args_dict = {'command_item': command_action, 'buffer_name': cci.buffer_name}
+                action_args_dict = {
+                        'command_item': command_action_value,
+                        'buffer_name': cci.buffer_name
+                }
                 if cci.args_dict:
                     action_args_dict["command_args"] = cci.args_dict
-                lines = Action.run_action(cci.base_command, action_args_dict)
-                self.set_buffer_lines(lines, cci.buffer_name, cci.base_command, command_action)
+                lines = Action.run_action(command_action_type, action_args_dict)
+                self.set_buffer_lines(lines, cci.buffer_name, command_action_type, command_action)
 
     def is_ok_to_run(self, command_action):
         when_condition = command_action.get("when", '')

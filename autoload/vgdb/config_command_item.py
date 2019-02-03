@@ -3,6 +3,9 @@ import action as Action
 
 class ConfigCommandItem(object):
 
+    def __init__(self):
+        Action.get_actions_list()
+
     _command = ''
 
     @property
