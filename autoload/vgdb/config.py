@@ -35,27 +35,33 @@ class Config:
 
     @staticmethod
     def callback_set_vim_key_value(parent_keys, value):
+        replacement_dictionary = {
+            "True":    "'True'",
+            "False":   "'False'",
+            "None":    "'None'",
+            ": False": ": 'False'",
+            ": True":  ": 'True'",
+            ": None":  ": 'None'",
+            "\\\'":    "\\\'\'" }
         let_string = "let g:vg_config_dictionary"
+        string_value = value
         for key in parent_keys:
             let_string += "['" + key + "']"
-        string_value = str(value).replace(
-                "True", "'True'").replace(
-                "False", "'False'").replace(
-                "None", "'None'").replace(
-                ": False", ": 'False'").replace(
-                ": True", ": 'True'").replace(
-                ": None", ": 'None'").replace(
-                "\\\'", "\\\'\'")
+        for match, replacement in replacement_dictionary.items():
+            string_value = str(string_value).replace(match, replacement)
         if isinstance(value, str):
             string_value = "'" + string_value + "'"
         let_string += " = " + string_value
         vim.command(let_string)
 
-    def __string_replace_for_vim(self, string_to_replace):
-        return str(string_to_replace).replace(
-                ": False", ": 'False'").replace(
-                ": True", ": 'True'").replace(
-                ": None", ": 'None'")
+    def __string_replace_for_vim(self, string_value):
+        replacement_dictionary = {
+                ": False": ": 'False'",
+                ": True": ": 'True'",
+                ": None": ": 'None'" }
+        for match, replacement in replacement_dictionary.items():
+            string_value = str(string_value).replace(match, replacement)
+        return string_value
 
     def __get_full_template_location(self):
         template_location = vim.eval("g:vg_config_location")
