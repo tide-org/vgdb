@@ -17,15 +17,15 @@ class ConfigCommand(object):
         Action.get_actions_list()
 
     def run_config_command(self, cci):
-        for command_action_name in cci.command_action_names:
-            command_action = cci.command_action_list[command_action_name]
+        for command_action in cci.command_action_list:
+            print("cal:" + str(cci.command_action_list))
             if self.is_ok_to_run(command_action):
                 self.initialise_buffer(cci.buffer_name)
                 action_args_dict = {'command_item': command_action, 'buffer_name': cci.buffer_name}
                 if cci.args_dict:
                     action_args_dict["command_args"] = cci.args_dict
-                lines = Action.run_action(command_action_name, action_args_dict)
-                self.set_buffer_lines(lines, cci.buffer_name, command_action_name, command_action)
+                lines = Action.run_action(cci.base_command, action_args_dict)
+                self.set_buffer_lines(lines, cci.buffer_name, cci.base_command, command_action)
 
     def is_ok_to_run(self, command_action):
         when_condition = command_action.get("when", '')

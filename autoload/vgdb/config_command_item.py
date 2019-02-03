@@ -22,10 +22,11 @@ class ConfigCommandItem(object):
 
     @property
     def command_action_list(self):
-        cal = Config().get()["commands"][self.base_command]["steps"]
+        cal = list(Config().get()["commands"][self.base_command]["steps"])
+        print("cci cal:" + str(cal))
+        print("bc:" + str(self.base_command))
         ucal = []
-        for command_action_name in self.command_action_names:
-            command_action = cal[command_action_name]
+        for command_action in cal:
             updated_command_action = command_action.copy()
             event_input_args = self.__get_event_input_args(self.command, self.buffer_name, self.event_input_args_name)
             if event_input_args:
