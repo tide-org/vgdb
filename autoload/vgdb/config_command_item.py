@@ -1,5 +1,6 @@
 from config import Config
 import action as Action
+import traceback
 
 class ConfigCommandItem(object):
 
@@ -7,6 +8,8 @@ class ConfigCommandItem(object):
         Action.get_actions_list()
 
     _command = ''
+
+    _event_input_args = {}
 
     base_command = ''
 
@@ -18,12 +21,19 @@ class ConfigCommandItem(object):
 
     buffer_name = ''
 
-    event_input_args = ''
+    @property
+    def event_input_args(self):
+        print("event_input_args get")
+        return self._event_input_args
+
+    @event_input_args.setter
+    def event_input_args(self, value):
+        print("event_input_args set")
+        self._event_input_args = value
 
     event_input_args_name = ''
 
     args_dict = {}
-
 
     @property
     def command(self):
@@ -46,10 +56,13 @@ class ConfigCommandItem(object):
         ucal = []
         for command_action in cal:
             updated_command_action = command_action.copy()
-            event_input_args = self.__get_event_input_args(self.command, self.buffer_name, self.event_input_args_name)
+            event_input_args = self.__get_event_input_args()
+            print("EIA:" + str(event_input_args))
             if event_input_args:
+                self.event_input_args = event_input_args
                 updated_command_action["event_input_args"] = event_input_args
             ucal.append(updated_command_action)
+        print("UCAL: " + str(ucal))
         return ucal
 
     @property
@@ -61,12 +74,12 @@ class ConfigCommandItem(object):
                 command_action_names.append(list(command_action_name_set)[0])
         return command_action_names
 
-    def __get_event_input_args(self, command, buffer_name, event_input_args_name):
-        if command and buffer_name and event_input_args_name:
+    def __get_event_input_args(self):
+        if self.base_command and self.buffer_name and self.event_input_args_name:
            args_dict = {}
-           event_command_list = Config().get()["buffers"][buffer_name]["events"][event_input_args_name]
+           event_command_list = Config().get()["buffers"][self.buffer_name]["events"][self.event_input_args_name]
            for event_command in event_command_list:
-               if event_command["command"] == command:
+               if event_command["command"] == self.base_command:
                    return event_command["input_args"]
 
     def __set_config_for_user_command_args(self):

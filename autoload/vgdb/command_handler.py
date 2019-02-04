@@ -56,12 +56,15 @@ class CommandHandler:
         except Exception as ex:
             print("error in CommandHandler.run_command(): " + str(ex))
 
-    def run_event_commands(self, event, process_command, buffer_name, lines=[]):
-        for command in (Config().get()["events"][event] or []):
+    def run_event_commands(self, event_name, process_command, buffer_name, lines=[]):
+        print("HERE1")
+        for command in (Config().get()["events"][event_name] or []):
+            print("HERE2")
             cci = ConfigCommandItem()
             cci.command = command
             cci.buffer_name = buffer_name
             cci.args_dict = args_dict={ 'process_command': process_command, 'lines': lines }
+            print("HERE3")
             ConfigCommand().run_config_command(cci)
 
     def get_filtered_output(self, buffer_name=''):

@@ -10,20 +10,38 @@ class ConfigCommand(object):
     metadata_dict_keys = [ 'when' ]
 
     def run_config_command(self, cci):
+        print("HERE4")
         cci.print_properties()
+        print("HERE5")
         for command_action in cci.command_action_list:
+            print("CA: " + str(command_action))
+            print("HERE6")
             command_action_type = next(iter(command_action))
             command_action_value = next(iter(command_action.values()))
+            print("CAT: " + str(command_action_type))
+            print("CAV: " + str(command_action_value))
             if self.is_ok_to_run(command_action_value):
+                print("HERE7")
                 self.initialise_buffer(cci.buffer_name)
-                action_args_dict = {
-                        'command_item': command_action_value,
-                        'buffer_name': cci.buffer_name
+                print("HERE8")
+                action_args = {
+                        "command_item": command_action,
+                        "buffer_name": cci.buffer_name
                 }
+                #command_action["command_item"] = command_action_value
+                #command_action["command_name"] = cci.base_command
+                #command_action["buffer_name"] = cci.buffer_name
+                #command_action["command_args"] = cci.args_dict
                 if cci.args_dict:
-                    action_args_dict["command_args"] = cci.args_dict
-                lines = Action.run_action(command_action_type, action_args_dict)
+                    print("HERE9")
+                    action_args["command_args"] = cci.args_dict
+                print("HERE10")
+                print("ActionArgs: " + str(action_args))
+                lines = Action.run_action(command_action_type, action_args)
+                print("HERE11")
                 self.set_buffer_lines(lines, cci.buffer_name, command_action_type, command_action)
+                print("HERE12")
+        cci.print_properties()
 
     def is_ok_to_run(self, command_action):
         when_condition = command_action.get("when", '')
