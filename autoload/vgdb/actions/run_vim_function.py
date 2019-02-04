@@ -9,7 +9,6 @@ import interpolate as Interpolate
 class run_vim_function(action_base):
 
     def run(self, command_item, buffer_name=''):
-        print("CI: " + str(command_item))
         function_file = command_item["function_file"]
         function_name = command_item["function_name"]
         functions_path = Config().get()["settings"]["plugins"]["functions_path"]

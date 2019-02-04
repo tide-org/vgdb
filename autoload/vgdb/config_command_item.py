@@ -23,12 +23,10 @@ class ConfigCommandItem(object):
 
     @property
     def event_input_args(self):
-        print("event_input_args get")
         return self._event_input_args
 
     @event_input_args.setter
     def event_input_args(self, value):
-        print("event_input_args set")
         self._event_input_args = value
 
     event_input_args_name = ''
@@ -57,12 +55,10 @@ class ConfigCommandItem(object):
         for command_action in cal:
             updated_command_action = command_action.copy()
             event_input_args = self.__get_event_input_args()
-            print("EIA:" + str(event_input_args))
             if event_input_args:
                 self.event_input_args = event_input_args
                 updated_command_action["event_input_args"] = event_input_args
             ucal.append(updated_command_action)
-        print("UCAL: " + str(ucal))
         return ucal
 
     @property
@@ -102,5 +98,3 @@ class ConfigCommandItem(object):
         print("  event_input_args:      " + str(self.event_input_args))
         print("  event_input_args_name: " + str(self.event_input_args_name))
         print("  args_dict:             " + str(self.args_dict))
-
-

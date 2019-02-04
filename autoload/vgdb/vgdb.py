@@ -27,14 +27,8 @@ class Vgdb(object):
         del self.cmd_hnd
 
     def run_config_command(self, command, buffer_name='', event_input_args_name=''):
-        print("HEREA")
         config_command_item = ConfigCommandItem()
-        print("HEREB")
         config_command_item.command = command
-        print("HEREC")
         config_command_item.buffer_name = buffer_name
-        print("HERED")
         config_command_item.event_input_args_name = event_input_args_name
-        print("HEREE")
         ConfigCommand().run_config_command(config_command_item)
-        print("HEREE")
