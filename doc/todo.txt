@@ -1,6 +1,6 @@
-[ ] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [ ] create test for vg_python#get_python_command_for_event
-[ ] refactor out command args logic into separate class to pass between static classes
+[ ] modify run_vim_function so it doesn't need to specify the file as well as the full function name
+[ ] make all config_command_item fields @properties and clean up unused fields
 [ ] get a basic c hello world app debugging correctly
 [ ] add window affinity for buffer breaks - e.g. top. bottom, left, right, top-left, etc.
 [ ] make logging filters configurable from yaml file - in command_handler.get_filtered_output

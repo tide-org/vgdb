@@ -1,6 +1,5 @@
 from config import Config
 import action as Action
-import traceback
 
 class ConfigCommandItem(object):
 

@@ -158,3 +158,5 @@
 [y] add ability to create split yaml files that are joined up
 [x] set remote_target correctly for docker tests
 [x] fix piets not showing for breakpoints
+[x] split command_handler into separate smaller classes for events, spawn/tty, filtering
+[x] refactor out command args logic into separate class to pass between static classes
