@@ -10,6 +10,7 @@ class ConfigCommand(object):
     metadata_dict_keys = [ 'when' ]
 
     def run_config_command(self, cci):
+        cci.print_properties()
         for command_action in cci.command_action_list:
             command_action_type = next(iter(command_action))
             command_action_value = next(iter(command_action.values()))

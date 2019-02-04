@@ -8,6 +8,23 @@ class ConfigCommandItem(object):
 
     _command = ''
 
+    base_command = ''
+
+    user_command_args = []
+
+    command_action_name = ''
+
+    config_command_item = {}
+
+    buffer_name = ''
+
+    event_input_args = ''
+
+    event_input_args_name = ''
+
+    args_dict = {}
+
+
     @property
     def command(self):
         return self._command
@@ -26,8 +43,6 @@ class ConfigCommandItem(object):
     @property
     def command_action_list(self):
         cal = list(Config().get()["commands"][self.base_command]["steps"])
-        print("cci cal:" + str(cal))
-        print("bc:" + str(self.base_command))
         ucal = []
         for command_action in cal:
             updated_command_action = command_action.copy()
@@ -36,14 +51,6 @@ class ConfigCommandItem(object):
                 updated_command_action["event_input_args"] = event_input_args
             ucal.append(updated_command_action)
         return ucal
-
-    def __get_event_input_args(self, command, buffer_name, event_input_args_name):
-        if command and buffer_name and event_input_args_name:
-           args_dict = {}
-           event_command_list = Config().get()["buffers"][buffer_name]["events"][event_input_args_name]
-           for event_command in event_command_list:
-               if event_command["command"] == command:
-                   return event_command["input_args"]
 
     @property
     def command_action_names(self):
@@ -54,21 +61,13 @@ class ConfigCommandItem(object):
                 command_action_names.append(list(command_action_name_set)[0])
         return command_action_names
 
-    base_command = ''
-
-    user_command_args = []
-
-    command_action_name = ''
-
-    config_command_item = {}
-
-    buffer_name = ''
-
-    event_input_args = ''
-
-    event_input_args_name = ''
-
-    args_dict = {}
+    def __get_event_input_args(self, command, buffer_name, event_input_args_name):
+        if command and buffer_name and event_input_args_name:
+           args_dict = {}
+           event_command_list = Config().get()["buffers"][buffer_name]["events"][event_input_args_name]
+           for event_command in event_command_list:
+               if event_command["command"] == command:
+                   return event_command["input_args"]
 
     def __set_config_for_user_command_args(self):
         if len(self.user_command_args) > 0:
@@ -78,3 +77,17 @@ class ConfigCommandItem(object):
         commands_list = Config().get()["commands"].keys()
         if not self.base_command in commands_list:
             raise RuntimeError("error: command " + self.base_command + " does not exist in config")
+
+    def print_properties(self):
+        print("ConfigCommandItem properties:")
+        print("  command:               " + str(self.command))
+        print("  base_command:          " + str(self.base_command))
+        print("  user_commands:         " + str(self.user_command_args))
+        print("  command_action_name:   " + str(self.command_action_name))
+        print("  config_command_item:   " + str(self.config_command_item))
+        print("  buffer_name:           " + str(self.buffer_name))
+        print("  event_input_args:      " + str(self.event_input_args))
+        print("  event_input_args_name: " + str(self.event_input_args_name))
+        print("  args_dict:             " + str(self.args_dict))
+
+
