@@ -1,6 +1,6 @@
 import sys
 from config import Config
-import plugin_helpers as Plugins
+import path_helpers as PathHelpers
 import importlib
 from action_base import action_base
 import interpolate as Interpolate
@@ -12,7 +12,7 @@ class run_python_function(action_base):
         function_name = command_item["function_name"]
         input_args = command_item.get("input_args", {})
         set_on_return = command_item.get("set_on_return", None)
-        functions_path = Plugins.resolve_plugin_path('functions')
+        functions_path = PathHelpers.resolve_plugin_path('functions')
         if functions_path not in sys.path:
             sys.path.insert(0, functions_path)
         function_module_name = function_file.replace(".py", "")

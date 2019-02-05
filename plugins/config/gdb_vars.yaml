@@ -1,7 +1,6 @@
 ---
 
 variables:
-
     current_frame_address: ''
     app_entrypoint:
     binary_loaded: 0

@@ -1,18 +1,17 @@
 import vim
 import os
 from config import Config
-import plugin_helpers as Plugins
 from action_base import action_base
-import plugin_helpers as Plh
+import path_helpers as PathHelpers
 import interpolate as Interpolate
 
 class run_vim_function(action_base):
 
     def run(self, command_item, buffer_name=''):
-        function_file = command_item["function_file"]
         function_name = command_item["function_name"]
+        function_file = function_name.split('#')[0] + ".vim"
         functions_path = Config().get()["settings"]["plugins"]["functions_path"]
-        resolved_functions_path = Plh.resolve_plugin_path("functions")
+        resolved_functions_path = PathHelpers.resolve_plugin_path("functions")
         function_file_path = os.path.join(resolved_functions_path, function_file)
         vim.command("source " + function_file_path)
         kwargs = self.get_interpolated_args(command_item)

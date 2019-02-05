@@ -1,7 +1,6 @@
 ---
 
 events:
-
     before_startup:
     after_startup:
         - 'set_highlight_for_breakpoint'

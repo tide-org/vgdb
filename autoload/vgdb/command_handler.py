@@ -9,7 +9,7 @@ import filter as Filter
 import log as Log
 from config import Config
 from singleton import singleton
-import plugin_helpers as Plugin
+import path_helpers as PathHelpers
 from config_command import ConfigCommand
 from config_command_item import ConfigCommandItem
 

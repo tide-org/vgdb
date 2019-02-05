@@ -1,7 +1,4 @@
-import vim
-import os
 from config import Config
-import plugin_helpers as Plugins
 from action_base import action_base
 import interpolate as Interpolate
 

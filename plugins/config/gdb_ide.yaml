@@ -1,0 +1,19 @@
+---
+
+commands:
+    do_buffer_diff:
+        steps:
+            - run_vim_function:
+                function_name: 'buffer_diff#check_do_buffer_diff'
+    set_piets:
+        steps:
+            - run_vim_function:
+                function_name: 'buffer_piets#set_piets'
+    set_highlight_line:
+        steps:
+            - run_vim_function:
+                function_name: 'buffer_breakpoint#set_highlight_line'
+    set_highlight_for_breakpoint:
+        steps:
+            - run_vim_function:
+                function_name: 'set_highlight#for_breakpoint_and_diff'

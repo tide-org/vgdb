@@ -1,11 +1,10 @@
-import vim
 import importlib
 import sys
 import os
 from os import listdir
 from os.path import isfile, join
 from config import Config
-import plugin_helpers as plugins
+import path_helpers as PathHelpers
 
 filtered_buffers_list = []
 
@@ -17,7 +16,7 @@ def filter_lines_for_buffer(lines, buffer_name):
 
 def __get_filtered_buffers_list():
     if not filtered_buffers_list:
-        filters_path = plugins.resolve_plugin_path('filters')
+        filters_path = PathHelpers.resolve_plugin_path('filters')
         sys.path.insert(0, filters_path)
         filter_files = [f for f in listdir(filters_path) if isfile(join(filters_path, f))]
         for filter_file in filter_files:

@@ -166,3 +166,6 @@
 [n] option to open new window splits as new disassembly is added.
 [x] standardise all python classes with __ for private methods
 [n] convert all dictionary retrieves to get() python and vimscript - or create a safe get function
+[x] merge path_helpers and plugin_helpers
+[x] modify run_vim_function so it doesn't need to specify the file as well as the full function name
+[x] split ide config into separate config file from disassembly

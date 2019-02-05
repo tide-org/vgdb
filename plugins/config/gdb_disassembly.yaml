@@ -1,7 +1,6 @@
 ---
 
 buffers:
-
     vg_disassembly:
         command: 'display_disassembly'
         primary_window: true
@@ -17,44 +16,20 @@ buffers:
                       highlight_line_variable: 'current_frame_address'
 
 commands:
-
-    do_buffer_diff:
-        steps:
-            - run_vim_function:
-                function_file: 'buffer_diff.vim'
-                function_name: 'buffer_diff#check_do_buffer_diff'
-
-    set_piets:
-        steps:
-            - run_vim_function:
-                function_file: 'buffer_piets.vim'
-                function_name: 'buffer_piets#set_piets'
-
-    set_highlight_line:
-        steps:
-            - run_vim_function:
-                function_file: 'buffer_breakpoint.vim'
-                function_name: 'buffer_breakpoint#set_highlight_line'
-
     display_disassembly:
         steps:
-
             - run_config_command:
                 name: 'list_breakpoints'
                 buffer_name: 'vg_breakpoints'
                 when: app_entrypoint != None
-
             - run_config_command:
                 name: 'disassemble'
               when: no_program_counter == 0 and app_entrypoint != None
-
             - run_config_command:
                 name: 'run_disassembly_in_range'
               when: no_program_counter == 1 and app_entrypoint != None
-
     run_disassembly_in_range:
         steps:
-
             - run_python_function:
                 function_file: 'hex_helpers.py'
                 function_name: 'check_address_in_range'
@@ -64,56 +39,38 @@ commands:
                   address_range: '{{ disassemble_frame_range }}'
                 set_on_return: 'disassemble_is_in_range'
               when: base_disassembly_address != None
-
             - set_var:
                 name: 'base_disassembly_address'
                 value: '{{ current_frame_address }}'
               when: disassemble_is_in_range == 0 and current_frame_address != None
-
             - set_var:
                 name: 'disassemble_range_command'
                 value: 'disassemble {{ base_disassembly_address }}, {{ base_disassembly_address }}+{{ disassemble_frame_range }}'
               when: disassemble_is_in_range == 0 and base_disassembly_address != None
-
             - run_command_string:
                 variable_name: 'disassemble_range_command'
                 buffer_name: 'vg_disassembly'
               when: disassemble_range_command != None and current_frame_address != None
-
     disassemble:
         steps:
-
             - run_command:
                 command: 'disassemble'
                 buffer_name: 'vg_disassembly'
-
     stepi:
         steps:
-
             - run_command_with_match:
                 command: 'stepi'
                 match: '0x[0-9a-f]{2,16}'
                 try_set: 'current_frame_address'
         update_buffers: true
-
     continue:
         steps:
-
             - run_command_with_match:
                 command: 'continue'
                 match: '0x[0-9a-f]{2,16}'
                 try_set: 'current_frame_address'
         update_buffers: true
-
     run_user_command:
         steps:
-
             - run_command_string:
                 variable_name: 'user_input_args'
-
-    set_highlight_for_breakpoint:
-        steps:
-
-            - run_vim_function:
-                function_file: 'set_highlight.vim'
-                function_name: 'set_highlight#for_breakpoint_and_diff'
