@@ -18,8 +18,7 @@ class run_python_function(action_base):
 
     def run(self, command_item, buffer_name='', command_args={}):
         self.__set_locals(command_item, buffer_name, command_args)
-        if self._functions_path not in sys.path:
-            sys.path.insert(0, self._functions_path)
+        self.__set_functions_path()
         function_module_name = self._function_file.replace(".py", "")
         function_module = importlib.import_module(function_module_name)
         function = getattr(sys.modules[function_module_name], self._function_name)
@@ -29,6 +28,10 @@ class run_python_function(action_base):
         function_result = function(**interpolated_input_args)
         if self._set_on_return:
             Config().get()["variables"][self._set_on_return] = function_result
+
+    def __set_functions_path(self):
+        if self._functions_path not in sys.path:
+            sys.path.insert(0, self._functions_path)
 
     def __set_locals(self, command_item, buffer_name, command_args):
         self._command_item = command_item
