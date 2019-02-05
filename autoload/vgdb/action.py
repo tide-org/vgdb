@@ -12,7 +12,7 @@ def run_action(action_name, args_dict):
     if action_name.lower() in actions_list:
         return __call_action_class(action_name, args_dict)
     else:
-        print("error: action: " + action_name + " is not a valid action")
+        raise TypeError("error: action: " + action_name + " is not a valid action")
 
 def get_actions_list():
     if not actions_list:

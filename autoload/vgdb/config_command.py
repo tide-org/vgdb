@@ -12,7 +12,7 @@ class ConfigCommand(object):
         for command_action in cci.command_action_list:
             if command_action.is_ok_to_run():
                 self.__initialise_buffer(cci.buffer_name)
-                action_args = command_action.get_action_args(cci.buffer_name, cci.args_dict)
+                action_args = command_action.get_action_args()
                 lines = Action.run_action(command_action.type, action_args)
                 self.__set_buffer_lines(lines, cci, command_action)
 

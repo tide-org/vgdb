@@ -4,8 +4,14 @@ class CommandAction(object):
 
     _command_action = {}
 
-    def __init__(self, value):
-        self._command_action = value
+    _buffer_name = ''
+
+    _args_dict = {}
+
+    def __init__(self, command_action, buffer_name, args_dict):
+        self._command_action = command_action
+        self._buffer_name = buffer_name
+        self._args_dict = args_dict
 
     @property
     def command_action(self):
@@ -29,17 +35,17 @@ class CommandAction(object):
             return eval_when_condition
         return True
 
-    def get_action_args(self, buffer_name, args_dict):
+    def get_action_args(self):
         command_action_value = next(iter(self._command_action.values()))
         event_input_args = self._command_action.get("event_input_args", "")
         action_args = {
             "command_item": command_action_value,
-            "buffer_name": buffer_name
+            "buffer_name": self._buffer_name
         }
         if event_input_args:
             action_args["command_item"]["event_input_args"] = event_input_args
-        if args_dict:
-            action_args["command_args"] = args_dict
+        if self._args_dict:
+            action_args["command_args"] = self._args_dict
         return action_args
 
     def __get_when_condition(self):
