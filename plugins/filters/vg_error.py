@@ -5,20 +5,20 @@ class vg_error(filter_predicate_base):
     @property
     def line_formatters(self):
         return [
-                self.keep_return_values,
-                self.remove_unescaped_characters
-            ]
+            self.keep_return_values,
+            self.remove_unescaped_characters
+        ]
 
     def keep_return_values(self, line):
         if line.startswith('&"'):
             return line.lstrip('&"')[:-4]
 
     def remove_unescaped_characters(self, line):
-        return line.replace("\r","").replace("'", "''").replace("\\t", "    ")
+        return line.replace("\r", "").replace("'", "''").replace("\\t", "    ")
 
     @property
     def pre_processors(self):
-        return [ self.split_to_array_by_newline_char ]
+        return [self.split_to_array_by_newline_char]
 
     @property
     def line_matchers_post(self):

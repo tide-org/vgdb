@@ -1,13 +1,11 @@
 ---
 
 settings:
-
     logging:
         use_session_log_file: true
         session_log_filename: 'vgdb_session.log'
         session_buffer_name: 'vg_session_log'
         add_timestamp: true
-
     buffers:
         base_filter: 'vg_base'
         error_filter: 'vg_error'
@@ -16,7 +14,6 @@ settings:
         stack_buffers_by_default: 1
         stack_buffer_window_width: 80
         open_buffers_on_startup: 1
-
     process:
         ttl_stream_timeout: 0.08
         run_command_on_startup: 0
@@ -26,12 +23,10 @@ settings:
         main_process_default_arguments: ' -q --interpreter=mi2 '
         find_full_process_name: 'true'
         end_of_output_regex: '\(gdb\)'
-
     plugins:
         actions_path: "./plugins/actions"
         filters_path: "./plugins/filters"
         functions_path: "./plugins/functions"
-
     debugging:
         debug_command_handler: false
         debug_config_commands: false

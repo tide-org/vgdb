@@ -1,3 +1,4 @@
+[ ] fix broken vader test
 [ ] get a basic c hello world app debugging correctly
 [ ] get working with higher level C code
 [ ] add error handling to all class methods - where appropriate

@@ -14,4 +14,3 @@ def check_address_in_range(current_address, address_range, base_address):
     if decimal_current_address >= decimal_max_address or decimal_current_address < decimal_base_address:
         return 0
     return 1
-

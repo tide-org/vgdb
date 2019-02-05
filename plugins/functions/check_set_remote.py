@@ -12,7 +12,7 @@ def check_set_remote(command_args):
                 no_symbols_found = True
                 binary_loaded = True
         symbols_loaded = not no_symbols_found
-        if symbols_loaded == True and binary_loaded == False:
+        if symbols_loaded and not binary_loaded:
             symbols_loaded = False
         Config().get()['variables']['remote_target'] = 1
         Config().get()['variables']['binary_loaded'] = int(binary_loaded)
