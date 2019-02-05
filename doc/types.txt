@@ -1,0 +1,19 @@
+The config file has a set of config commands that make up a config_command_item.
+
+these config commands have a series of steps, or config_command_actions, or just command_actions.
+
+Each command_action has a type (as per the /actions path.
+
+A command_action is a single step in a config_command_item.
+
+A command_action that runs against the process is just a command.
+
+relationship is:
+
+config - command - action
+
+---
+
+buffers may have one or more filter
+
+filters can apply to all output or just one buffer

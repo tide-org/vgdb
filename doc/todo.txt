@@ -1,4 +1,3 @@
-[ ] create test for vg_python#get_python_command_for_event
 [ ] modify run_vim_function so it doesn't need to specify the file as well as the full function name
 [ ] make all config_command_item fields @properties and clean up unused fields
 [ ] get a basic c hello world app debugging correctly

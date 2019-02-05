@@ -1,5 +1,6 @@
 from config import Config
 import action as Action
+from command_action import CommandAction
 
 class ConfigCommandItem(object):
 
@@ -57,7 +58,7 @@ class ConfigCommandItem(object):
             if event_input_args:
                 self.event_input_args = event_input_args
                 updated_command_action["event_input_args"] = event_input_args
-            ucal.append(updated_command_action)
+            ucal.append(CommandAction(updated_command_action))
         return ucal
 
     @property
@@ -97,3 +98,4 @@ class ConfigCommandItem(object):
         print("  event_input_args:      " + str(self.event_input_args))
         print("  event_input_args_name: " + str(self.event_input_args_name))
         print("  args_dict:             " + str(self.args_dict))
+
