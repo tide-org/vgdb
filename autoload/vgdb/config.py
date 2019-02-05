@@ -42,7 +42,8 @@ class Config:
             ": False": ": 'False'",
             ": True":  ": 'True'",
             ": None":  ": 'None'",
-            "\\\'":    "\\\'\'" }
+            "\\\'":    "\\\'\'"
+        }
         let_string = "let g:vg_config_dictionary"
         string_value = value
         for key in parent_keys:
@@ -56,9 +57,10 @@ class Config:
 
     def __string_replace_for_vim(self, string_value):
         replacement_dictionary = {
-                ": False": ": 'False'",
-                ": True": ": 'True'",
-                ": None": ": 'None'" }
+            ": False": ": 'False'",
+            ": True": ": 'True'",
+            ": None": ": 'None'"
+        }
         for match, replacement in replacement_dictionary.items():
             string_value = str(string_value).replace(match, replacement)
         return string_value
@@ -66,7 +68,7 @@ class Config:
     def __get_full_template_location(self):
         template_location = vim.eval("g:vg_config_location")
         base_path = Ph.get_vgdb_base_path()
-        full_template_location =  os.path.join(base_path, template_location)
+        full_template_location = os.path.join(base_path, template_location)
         return full_template_location
 
     def __set_vim_globals(self):

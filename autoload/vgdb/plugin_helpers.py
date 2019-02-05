@@ -4,10 +4,10 @@ from config import Config
 import path_helpers as Ph
 
 valid_plugin_names = [
-                'filters',
-                'actions',
-                'functions'
-            ]
+    'filters',
+    'actions',
+    'functions'
+]
 
 def resolve_plugin_path(plugin_name):
     validate_plugin_name(plugin_name)

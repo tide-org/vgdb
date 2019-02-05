@@ -161,4 +161,8 @@
 [x] split command_handler into separate smaller classes for events, spawn/tty, filtering
 [x] refactor out command args logic into separate class to pass between static classes
 [n] create test for vg_python#get_python_command_for_event
+[x] make all config_command_item fields @properties and clean up unused fields
 [x] refactor command action into separate class
+[n] option to open new window splits as new disassembly is added.
+[x] standardise all python classes with __ for private methods
+[n] convert all dictionary retrieves to get() python and vimscript - or create a safe get function

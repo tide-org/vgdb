@@ -1,22 +1,21 @@
 import filter as Filter
 import datetime
-import vim
 from config import Config
 
-logging_settings = Config().get()["settings"]["logging"]
-use_session_log_file = logging_settings["use_session_log_file"]
-session_log_filename = logging_settings["session_log_filename"]
-session_buffer_name = logging_settings["session_buffer_name"]
+LOGGING_SETTINGS = Config().get()["settings"]["logging"]
+USE_SESSION_LOG_FILE = LOGGING_SETTINGS["use_session_log_file"]
+SESSION_LOG_FILENAME = LOGGING_SETTINGS["session_log_filename"]
+SESSION_BUFFER_NAME = LOGGING_SETTINGS["session_buffer_name"]
 
-if use_session_log_file:
-    log_file_handle = open(session_log_filename, "w+")
+if USE_SESSION_LOG_FILE:
+    LOG_FILE_HANDLE = open(SESSION_LOG_FILENAME, "w+")
 
 def write_to_log(log_string):
-    if use_session_log_file:
-        log_file_handle.write(log_string)
-    log_lines = Filter.call_filter_class(log_string, session_buffer_name)
-    full_cache = Config().get()["internal"]["buffer_caches"][session_buffer_name]
+    if USE_SESSION_LOG_FILE:
+        LOG_FILE_HANDLE.write(log_string)
+    log_lines = Filter.call_filter_class(log_string, SESSION_BUFFER_NAME)
+    full_cache = Config().get()["internal"]["buffer_caches"][SESSION_BUFFER_NAME]
     if Config().get()["settings"]["logging"]["add_timestamp"]:
         full_cache.append("--- {0} ---".format(datetime.datetime.utcnow()))
     full_cache.extend(log_lines)
-    Config().get()["internal"]["buffer_caches"][session_buffer_name] = full_cache
+    Config().get()["internal"]["buffer_caches"][SESSION_BUFFER_NAME] = full_cache

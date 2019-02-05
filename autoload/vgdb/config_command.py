@@ -1,9 +1,7 @@
-import vim
 from singleton import singleton
 from config import Config
 import action as Action
 from config_command_item import ConfigCommandItem
-import command_action as Ca
 
 @singleton
 class ConfigCommand(object):
