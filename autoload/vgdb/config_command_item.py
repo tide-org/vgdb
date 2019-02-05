@@ -1,5 +1,4 @@
 from config import Config
-import action as Action
 from command_action import CommandAction
 
 class ConfigCommandItem(object):
@@ -17,9 +16,6 @@ class ConfigCommandItem(object):
     _args_dict = {}
 
     _user_command_args = []
-
-    def __init__(self):
-        Action.get_actions_list()
 
     @property
     def base_command(self):
