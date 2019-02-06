@@ -14,6 +14,13 @@ def filter_lines_for_buffer(lines, buffer_name):
         lines = call_filter_class(lines, buffer_name)
     return lines
 
+def call_filter_class(lines, filter_name):
+    __get_filtered_buffers_list()
+    buffer_filter = importlib.import_module(filter_name)
+    buffer_filter = getattr(sys.modules[filter_name], filter_name)
+    processor = buffer_filter(lines)
+    return processor.processed_lines
+
 def __get_filtered_buffers_list():
     if not filtered_buffers_list:
         filters_path = PathHelpers.resolve_plugin_path('filters')
@@ -22,10 +29,3 @@ def __get_filtered_buffers_list():
         for filter_file in filter_files:
             if filter_file[-3:].lower() == ".py" and filter_file.lower() != "__init__.py":
                 filtered_buffers_list.append(filter_file[:-3])
-
-def call_filter_class(lines, filter_name):
-    __get_filtered_buffers_list()
-    buffer_filter = importlib.import_module(filter_name)
-    buffer_filter = getattr(sys.modules[filter_name], filter_name)
-    processor = buffer_filter(lines)
-    return processor.processed_lines
