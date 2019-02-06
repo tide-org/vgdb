@@ -1,13 +1,10 @@
-import shutil
 import traceback
-import pexpect
-import filter as Filter
-import log as Log
 from config import Config
 from singleton import singleton
 from config_command import ConfigCommand
 from config_command_item import ConfigCommandItem
 from command_process import CommandProcess
+from command_output import CommandOutput
 
 @singleton
 class CommandHandler:
@@ -20,7 +17,7 @@ class CommandHandler:
     def spawn_process(self, startup_commands):
         try:
             self._command_process.spawn_process(startup_commands)
-            self.__get_and_handle_filtered_output()
+            self.__get_output_and_handle_filtering()
         except Exception as ex:
             print("error in command_handler.spawn_child_process(): " + str(ex) + "\n" + traceback.format_exc())
 
@@ -28,7 +25,7 @@ class CommandHandler:
         try:
             self.__run_event_commands("before_command", command, buffer_name)
             self._command_process.send_command_to_process(command)
-            lines = self.__get_and_handle_filtered_output(buffer_name)
+            lines = self.__get_output_and_handle_filtering(buffer_name)
             self.__run_event_commands("after_command", command, buffer_name, lines)
             return lines
         except Exception as ex:
@@ -42,27 +39,9 @@ class CommandHandler:
             cci = ConfigCommandItem()
             cci.command = command
             cci.buffer_name = buffer_name
-            cci.args_dict = {'process_command': process_command, 'lines': lines}
+            cci.args_dict = {'process_command': process_command, 'lines': lines, 'event_name': event_name}
             ConfigCommand().run_config_command(cci)
 
-    def __get_and_handle_filtered_output(self, buffer_name=''):
+    def __get_output_and_handle_filtering(self, buffer_name=''):
         output_string = self._command_process.seek_to_end_of_tty()
-        Log.write_to_log(output_string)
-        self.__handle_output_for_errors(output_string)
-        lines = self.__handle_output_for_buffers(output_string, buffer_name)
-        return lines
-
-    def __handle_output_for_buffers(self, output_string, buffer_name):
-        lines = Filter.call_filter_class(output_string, self._config_settings["buffers"]["base_filter_name"])
-        if buffer_name:
-            lines = Filter.filter_lines_for_buffer(lines, buffer_name)
-        return lines
-
-    def __handle_output_for_errors(self, output_string):
-        lines = Filter.call_filter_class(output_string, self._config_settings["buffers"]["error_filter_name"])
-        self.__add_lines_to_error_buffer(lines)
-
-    def __add_lines_to_error_buffer(self, lines):
-        if lines:
-            error_buffer_variable = Config().get()["settings"]['buffers']['error_input_variable']
-            Config().get()["internal"]["buffer_caches"][error_buffer_variable] = lines
+        return CommandOutput().handle_output_filtering(buffer_name, output_string)
