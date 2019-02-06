@@ -1,5 +1,5 @@
-import filter as Filter
 import datetime
+import filter as Filter
 from config import Config
 
 LOGGING_SETTINGS = Config().get()["settings"]["logging"]
