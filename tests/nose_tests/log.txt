@@ -1,0 +1,1 @@
+2019-02-06 04:45:12.852924 - test_logging_decorator.tuple.example_method(<test_logging_decorator.TestActionableDict object at 0x7f68750c5f28>, 'alpha', 'beta')
