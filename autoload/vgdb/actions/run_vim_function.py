@@ -6,19 +6,33 @@ import interpolate as Interpolate
 
 class run_vim_function(action_base):
 
+    _function_name = ''
+    _function_file = ''
+    _resolved_functions_path = ''
+    _function_file_path = ''
+    _kwargs = {}
+
     def run(self, command_item, buffer_name=''):
-        function_name = command_item["function_name"]
-        function_file = function_name.split('#')[0] + ".vim"
-        resolved_functions_path = PathHelpers.resolve_plugin_path("functions")
-        function_file_path = os.path.join(resolved_functions_path, function_file)
-        vim.command("source " + function_file_path)
-        kwargs = self.get_interpolated_args(command_item)
-        vim_command = "call " + function_name + "(" + str(kwargs) + ")"
+        self.__set_locals(command_item, buffer_name)
+        vim.command("source " + self._function_file_path)
+        self.__get_interpolated_args(self._command_item)
+        self.__run_vim_command()
+
+    def __run_vim_command(self):
+        vim_command = "call " + self._function_name + "(" + str(self._kwargs) + ")"
         vim.command(vim_command)
 
-    def get_interpolated_args(self, command_item):
+    def __set_locals(self, command_item, buffer_name):
+        self._command_item = command_item
+        self._buffer_name = buffer_name
+        self._function_name = self._command_item["function_name"]
+        self._function_file = self._function_name.split('#')[0] + ".vim"
+        self._resolved_functions_path = PathHelpers.resolve_plugin_path("functions")
+        self._function_file_path = os.path.join(self._resolved_functions_path, self._function_file)
+
+    def __get_interpolated_args(self, command_item):
         input_args = command_item.get("event_input_args", {})
         interpolated_input_args = {}
         for key, value in input_args.items():
             interpolated_input_args[key] = Interpolate.interpolate_variables(value)
-        return interpolated_input_args
+        self._kwargs = interpolated_input_args
