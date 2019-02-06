@@ -1,6 +1,6 @@
 import traceback
-from config import Config
 from singleton import singleton
+from config import Config
 from config_command import ConfigCommand
 from config_command_item import ConfigCommandItem
 from command_process import CommandProcess

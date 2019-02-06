@@ -13,7 +13,7 @@ if USE_SESSION_LOG_FILE:
 def write_to_log(log_string):
     if USE_SESSION_LOG_FILE:
         LOG_FILE_HANDLE.write(log_string)
-    log_lines = Filter.call_filter_class(log_string, SESSION_BUFFER_NAME)
+    log_lines = Filter.filter_string(log_string, SESSION_BUFFER_NAME)
     full_cache = Config().get()["internal"]["buffer_caches"][SESSION_BUFFER_NAME]
     if Config().get()["settings"]["logging"]["add_timestamp"]:
         full_cache.append("--- {0} ---".format(datetime.datetime.utcnow()))

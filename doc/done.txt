@@ -169,4 +169,5 @@
 [x] merge path_helpers and plugin_helpers
 [x] modify run_vim_function so it doesn't need to specify the file as well as the full function name
 [x] split ide config into separate config file from disassembly
+[x] refactor command_handler
 [x] refactor command_action to have buffer name and args_dict passed in at initialisation

@@ -14,13 +14,13 @@ class CommandOutput:
         return self.__handle_output_for_buffers(output_string, buffer_name)
 
     def __handle_output_for_buffers(self, output_string, buffer_name):
-        lines = Filter.call_filter_class(output_string, Config().get()["settings"]["buffers"]["base_filter_name"])
+        lines = Filter.filter_string(output_string, Config().get()["settings"]["buffers"]["base_filter_name"])
         if buffer_name:
             lines = Filter.filter_lines_for_buffer(lines, buffer_name)
         return lines
 
     def __handle_output_for_errors(self, output_string):
-        lines = Filter.call_filter_class(output_string, Config().get()["settings"]["buffers"]["error_filter_name"])
+        lines = Filter.filter_string(output_string, Config().get()["settings"]["buffers"]["error_filter_name"])
         self.__add_lines_to_error_buffer(lines)
 
     def __add_lines_to_error_buffer(self, lines):
