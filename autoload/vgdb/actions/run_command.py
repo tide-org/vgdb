@@ -1,5 +1,4 @@
 from action_base import action_base
-from config_command import ConfigCommand
 from command_handler import CommandHandler
 
 class run_command(action_base):
@@ -9,4 +8,3 @@ class run_command(action_base):
         if config_command_buffer_name != '':
             buffer_name = config_command_buffer_name
         return CommandHandler().run_command(command_item['command'], buffer_name)
-

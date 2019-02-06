@@ -1,6 +1,3 @@
-import vim
-import os
-from config import Config
 from action_base import action_base
 import interpolate as Interpolate
 
@@ -13,5 +10,3 @@ class print_debug(action_base):
         if print_buffer_name:
             print("print_debug - buffer name: " + buffer_name)
         print("print_debug - " + str(interpolated_message))
-
-

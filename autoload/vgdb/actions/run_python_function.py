@@ -43,7 +43,7 @@ class run_python_function(action_base):
     def __set_function_module_locals(self):
         self._function_module = importlib.import_module(self._function_module_name)
         self._function = getattr(sys.modules[self._function_module_name], self._function_name)
-        self._interpolated_input_args = self.get_interpolated_args(self._command_item)
+        self._interpolated_input_args = self.__get_interpolated_args(self._command_item)
 
     def __set_locals(self, command_item, buffer_name, command_args):
         self._command_item = command_item
@@ -56,7 +56,7 @@ class run_python_function(action_base):
         self._functions_path = PathHelpers.resolve_plugin_path('functions')
         self._function_module_name = self._function_file.replace(".py", "")
 
-    def get_interpolated_args(self, command_item):
+    def __get_interpolated_args(self, command_item):
         input_args = command_item.get("input_args", {})
         interpolated_input_args = {}
         for key, value in input_args.items():
