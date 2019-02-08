@@ -34,6 +34,6 @@ settings:
         debug_events: false
         debug_filters: false
         debug_variables: false
-        log_to_file: false
+        log_to_file: true
         log_to_stdout: false
-        log_filename: 'vgdb_debug.log'
+        log_filename: '/tests/vgdb_debug.log'

@@ -21,7 +21,7 @@ def get_actions_list():
         action_files = [f for f in listdir(actions_path) if isfile(join(actions_path, f))]
         for action_file in action_files:
             if Path(action_file).suffix.lower() == ".py" and action_file.lower() != "__init__.py":
-                actions_list.append(Path(action_file).stem)
+                actions_list.append(Path(action_file).stem.lower())
     return actions_list
 
 def __call_action_class(action_name, args_dict):

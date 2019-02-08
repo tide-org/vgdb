@@ -1,5 +1,4 @@
 import yaml
-import vim
 import os
 import re
 import sys
@@ -8,6 +7,7 @@ from yamlreader import yaml_load
 from singleton import singleton
 from actionable_dict import ActionableDict
 import path_helpers as Ph
+import vim
 
 @singleton
 class Config:

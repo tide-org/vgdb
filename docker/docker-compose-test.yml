@@ -13,9 +13,10 @@ services:
     working_dir: /root/.vim/plugin/vgdb
     volumes:
       - ..:/root/.vim/plugin/vgdb
-      - ../tests/vader.vim:/root/.vim/plugin/vader.vim
-      - ../tests/.vimrc_test:/root/.vimrc
-      - ../tests/gdb_vars_remote_address.yaml:/root/.vim/plugin/vgdb/plugins/config/gdb_vars_remote_address.yaml
+      - ../tests/docker_volume_files/vader.vim:/root/.vim/plugin/vader.vim
+      - ../tests/docker_volume_files/.vimrc_test:/root/.vimrc
+      - ../tests/docker_volume_files/gdb_vars_remote_address.yaml:/root/.vim/plugin/vgdb/plugins/config/gdb_vars_remote_address.yaml
+      - ../tests/docker_volume_files/gdb_debug_log_settings.yaml:/root/.vim/plugin/vgdb/plugins/config/gdb_debug_log_settings.yaml
   test-gdbserver:
     hostname: test-gdbserver
     build:

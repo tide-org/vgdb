@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 import re
-import vim
-import sys
 from config import Config
 
 class filter_predicate_base(ABC):
@@ -19,7 +17,6 @@ class filter_predicate_base(ABC):
         return lines
 
     def __check_for_excluded(self, lines):
-        result = []
         for line in lines:
             for excluded_line in self.excluded_lines:
                 if excluded_line in line:
@@ -27,7 +24,6 @@ class filter_predicate_base(ABC):
         return lines
 
     def __run_formatters(self, lines):
-        result = []
         for formatter in self.line_formatters:
             single_formatter = []
             for line in lines:
@@ -49,7 +45,6 @@ class filter_predicate_base(ABC):
                 self.__iterate_lines_for_bool_match(lines, matcher)
 
     def __iterate_lines_for_bool_match(self, lines, matcher):
-        matches_list = []
         regex = re.compile(matcher['regex'])
         for line in lines:
             match = re.search(matcher['regex'], line)
@@ -59,7 +54,6 @@ class filter_predicate_base(ABC):
 
     def __iterate_lines_for_array_match(self, lines, matcher):
         matches_list = []
-        regex = re.compile(matcher['regex'])
         for line in lines:
             match = re.search(matcher['regex'], line)
             if match:

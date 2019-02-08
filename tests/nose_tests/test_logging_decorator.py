@@ -5,6 +5,11 @@ from nose import with_setup
 from nose.tools import nottest
 from logging_decorator import logging
 
+class Config(object):
+
+    def get(self):
+        return { "settings": { "debugging": { "log_to_file": True, "log_filename": "/test/vgdb_test.log" } } }
+
 class TestActionableDict():
 
     @classmethod

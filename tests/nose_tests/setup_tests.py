@@ -12,3 +12,4 @@ sys.path.insert(0, vgdb_dir)
 sys.path.insert(0, vgdb_actions_dir)
 sys.path.insert(0, vgdb_filters_dir)
 sys.path.insert(0, vgdb_functions_dir)
+import lib_paths

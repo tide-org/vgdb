@@ -1,4 +1,6 @@
 [ ] implement debugging output
+[ ] create a wrapper for multiple editors
+[ ] fix broken disassembly output showing too many lines initially
 [ ] fix broken vader test
 [ ] get a basic c hello world app debugging correctly
 [ ] get working with higher level C code
