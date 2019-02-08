@@ -1,6 +1,8 @@
 ---
 
 settings:
+    editor:
+        name: 'vim'
     logging:
         use_session_log_file: true
         session_log_filename: 'vgdb_session.log'
