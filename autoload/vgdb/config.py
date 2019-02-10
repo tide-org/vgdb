@@ -1,14 +1,9 @@
-import yaml
 import os
-import re
-import sys
-import codecs
 from yamlreader import yaml_load
 from singleton import singleton
 from actionable_dict import ActionableDict
 import path_helpers as Ph
 from editor_wrapper import EditorWrapper
-import vim
 
 @singleton
 class Config:

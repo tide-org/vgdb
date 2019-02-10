@@ -1,4 +1,8 @@
-import vim
+try:
+    import vim
+except:
+    pass
+
 from editor_base import editor_base
 
 class vim81(editor_base):

@@ -1,5 +1,5 @@
 [ ] implement debugging output
-[ ] implement config vloume for docker python tests
+[ ] implement config volume for docker python tests
 [ ] abstract class caller into separate class - used in action, editor_wrapper, filter, etc.
 [ ] fix broken disassembly output showing too many lines initially
 [ ] fix broken vader test

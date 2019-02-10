@@ -10,5 +10,5 @@ services:
     tmpfs: /tests
     volumes:
       - ..:/work
-      - ../tests/docker_volume_files/gdb_debug_log_settings.yaml:/root/.vim/plugin/vgdb/plugins/config/gdb_debug_log_settings.yaml
-
+      - ../tests/docker_volume_files/gdb_debug_log_settings.yaml:/work/plugins/config/gdb_debug_log_settings.yaml
+      - ../tests/docker_volume_files/gdb_settings_editor_name.yaml:/work/plugins/config/gdb_settings_editor_name.yaml

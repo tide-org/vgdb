@@ -1,4 +1,3 @@
-import vim
 from editor_base import editor_base
 
 class test_mock(editor_base):
