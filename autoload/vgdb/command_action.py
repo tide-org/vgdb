@@ -3,9 +3,7 @@ from config import Config
 class CommandAction(object):
 
     _command_action = {}
-
     _buffer_name = ''
-
     _args_dict = {}
 
     def __init__(self, command_action, buffer_name, args_dict):

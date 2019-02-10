@@ -4,17 +4,11 @@ from command_action import CommandAction
 class ConfigCommandItem(object):
 
     _command = ''
-
     _event_input_args = {}
-
     _base_command = ''
-
     _buffer_name = ''
-
     _event_input_args_name = ''
-
     _args_dict = {}
-
     _user_command_args = []
 
     @property

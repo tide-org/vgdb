@@ -1,9 +1,7 @@
 import os
 import sys
 import inspect
-
 sys.path.insert(0, os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
-
 import traceback
 import lib_paths
 from command_handler import CommandHandler
@@ -11,6 +9,9 @@ from config_command import ConfigCommand
 from config_command_item import ConfigCommandItem
 
 class Vgdb(object):
+
+    startup_commands = ''
+    cmd_hnd = None
 
     def start_gdb(self, commands):
         try:

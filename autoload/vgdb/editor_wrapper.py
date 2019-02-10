@@ -4,14 +4,11 @@ import os
 from os import listdir
 from os.path import isfile, join
 from pathlib import Path
-from editor_base import editor_base
 
 class EditorWrapper(object):
 
     _editor_name = None
-
     _editor_object = None
-
     _editors_list = []
 
     def __init__(self, editor_name):

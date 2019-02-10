@@ -2,8 +2,6 @@ import shutil
 import traceback
 import pexpect
 from config import Config
-from singleton import singleton
-from config_command import ConfigCommand
 
 class CommandProcess:
 

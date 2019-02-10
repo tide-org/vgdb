@@ -9,7 +9,6 @@ from editor_wrapper import EditorWrapper
 class Config:
 
     _config_dictionary = None
-
     _editor_wrapper = None
 
     def __initialise_objects(self):

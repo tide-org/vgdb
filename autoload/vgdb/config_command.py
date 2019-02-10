@@ -1,12 +1,9 @@
 from singleton import singleton
 from config import Config
 import action as Action
-from config_command_item import ConfigCommandItem
 
 @singleton
 class ConfigCommand(object):
-
-    metadata_dict_keys = [ 'when' ]
 
     def run_config_command(self, cci):
         for command_action in cci.command_action_list:

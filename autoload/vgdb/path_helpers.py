@@ -1,10 +1,11 @@
 import os
 from os.path import abspath
 
-valid_plugin_names = [
+VALID_PLUGIN_NAMES = [
     'filters',
     'actions',
-    'functions'
+    'functions',
+    'editor_wrappers'
 ]
 
 def resolve_plugin_path(plugin_name):
@@ -18,7 +19,7 @@ def resolve_plugin_path(plugin_name):
     raise RuntimeError("error: could not resolve " + plugin_name + ": " + start_path)
 
 def validate_plugin_name(plugin_name):
-    if plugin_name not in valid_plugin_names:
+    if plugin_name not in VALID_PLUGIN_NAMES:
         raise RuntimeError("error: plugin name: " + plugin_name + " is invalid")
 
 def get_start_path(plugin_name):
