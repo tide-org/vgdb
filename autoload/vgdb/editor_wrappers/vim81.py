@@ -39,6 +39,3 @@ class vim81(editor_base):
         for match, replacement in self._replacement_dictionary.items():
             string_value = str(string_value).replace(match, replacement)
         return string_value
-
-    def get_config_location(self):
-        return vim.eval("g:vg_config_location")
