@@ -11,7 +11,6 @@ class CommandHandler:
 
     def __init__(self):
         self._child = None
-        self._config_settings = Config().get()["settings"]
         self._command_process = CommandProcess()
 
     def spawn_process(self, startup_commands):

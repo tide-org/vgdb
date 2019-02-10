@@ -1,16 +1,12 @@
 import vim
 from editor_base import editor_base
 
-class vim(editor_base):
+class vim81(editor_base):
 
     _replacement_dictionary = {
         "True":    "'True'",
         "False":   "'False'",
-        "None":    "'None'",
-        ": False": ": 'False'",
-        ": True":  ": 'True'",
         ": None":  ": 'None'",
-        "\\\'":    "\\\'\'"
     }
 
     @staticmethod
@@ -36,7 +32,7 @@ class vim(editor_base):
         vim.command(let_string)
 
     def set_editor_dictionary(self, config_dictionary):
-        config_string = self.__string_replace_for_vim(config_dictionary)
+        config_string = self.__string_replace_for_vim(self, config_dictionary)
         vim.command("let g:vg_config_dictionary = " + config_string)
 
     def __string_replace_for_vim(self, string_value):
