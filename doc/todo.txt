@@ -1,4 +1,5 @@
 [ ] implement debugging options specified in config settings yaml
+[ ] implement json output for debug logging
 [ ] add option to delete debug file at startup
 [ ] abstract class caller into separate class - used in action, editor_wrapper, filter, etc.
 [ ] fix broken disassembly output showing too many lines initially
