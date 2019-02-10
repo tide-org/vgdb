@@ -1,5 +1,7 @@
 from config import Config
+from logging_decorator import logging
 
+@logging
 class CommandAction(object):
 
     _command_action = {}

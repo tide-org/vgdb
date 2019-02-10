@@ -1,5 +1,3 @@
-import shutil
-import traceback
 import filter as Filter
 import log as Log
 from config import Config

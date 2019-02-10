@@ -173,4 +173,6 @@
 [x] create a wrapper for multiple editors
 [x] remove vim config_location and place in a yaml file
 [x] create a test mock editor for testing
+[x] implement debugging output
+[x] implement config volume for docker python tests
 [x] refactor command_action to have buffer name and args_dict passed in at initialisation
