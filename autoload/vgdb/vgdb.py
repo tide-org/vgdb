@@ -7,24 +7,26 @@ import lib_paths
 from command_handler import CommandHandler
 from config_command import ConfigCommand
 from config_command_item import ConfigCommandItem
+from logging_decorator import logging
 
+@logging
 class Vgdb(object):
 
-    startup_commands = ''
-    cmd_hnd = None
+    _startup_commands = ''
+    _command_handler = None
 
     def start_gdb(self, commands):
         try:
-            self.startup_commands = commands
-            self.cmd_hnd = CommandHandler()
-            self.cmd_hnd.spawn_process(commands)
+            self._startup_commands = commands
+            self._command_handler = CommandHandler()
+            self._command_handler.spawn_process(commands)
         except Exception as ex:
             print("error in Vgdb.start_gdb(): " + str(ex))
             print(traceback.format_exc())
 
     def stop_gdb(self):
-        self.cmd_hnd.close_command_handler()
-        del self.cmd_hnd
+        self._command_handler.close_command_handler()
+        del self._command_handler
 
     def run_config_command(self, command, buffer_name='', event_input_args_name=''):
         config_command_item = ConfigCommandItem()

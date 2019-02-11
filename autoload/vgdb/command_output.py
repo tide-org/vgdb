@@ -2,7 +2,9 @@ import filter as Filter
 import log as Log
 from config import Config
 from singleton import singleton
+from logging_decorator import logging
 
+@logging
 @singleton
 class CommandOutput:
 

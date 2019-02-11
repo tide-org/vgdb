@@ -28,10 +28,12 @@ settings:
         filters_path: "./plugins/filters"
         functions_path: "./plugins/functions"
     debugging:
+        debug_command_action: True
         debug_command_handler: False
-        debug_config_commands: False
-        debug_actions: True
-        debug_events: False
-        debug_filters: False
-        debug_variables: False
+        debug_command_output: False
+        debug_config_command: False
+        debug_vgdb: False
+        #        debug_events: False
+        #        debug_filters: False
+        #        debug_variables: False
         log_to_stdout: False

@@ -5,7 +5,9 @@ from config_command import ConfigCommand
 from config_command_item import ConfigCommandItem
 from command_process import CommandProcess
 from command_output import CommandOutput
+from logging_decorator import logging
 
+@logging
 @singleton
 class CommandHandler:
 

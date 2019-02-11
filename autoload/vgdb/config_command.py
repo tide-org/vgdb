@@ -1,7 +1,9 @@
 from singleton import singleton
 from config import Config
 import action as Action
+from logging_decorator import logging
 
+@logging
 @singleton
 class ConfigCommand(object):
 
