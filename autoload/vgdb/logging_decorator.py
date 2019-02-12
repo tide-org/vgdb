@@ -1,6 +1,12 @@
 import datetime
 import inspect
 from config import Config
+import config_source as Cs
+
+def __get_debug_settings():
+    return Cs.CONFIG_OBJECT["settings"]["debugging"].keys()
+
+DEBUG_KEYS = __get_debug_settings()
 
 def logging(func):
 
@@ -11,11 +17,10 @@ def logging(func):
             return '{}.{}'.format(func.__module__, func.__name__)
 
     def wrapper(*args, **kwargs):
-        if Config().get()["settings"]["debugging"]["log_to_file"]:
-            filename = Config().get()["settings"]["debugging"]["log_filename"]
+        if Cs.CONFIG_OBJECT["settings"]["debugging"]["log_to_file"]:
+            filename = Cs.CONFIG_OBJECT["settings"]["debugging"]["log_filename"]
             object_name = get_object_name(func, args)
-            debug_keys = Config().get()["settings"]["debugging"].keys()
-            for debug_key in debug_keys:
+            for debug_key in DEBUG_KEYS:
                 if debug_key.startswith('debug_'):
                     temp_key = debug_key.replace('debug_', '')
                     debug_this_object = Config().get()["settings"]["debugging"][debug_key]
