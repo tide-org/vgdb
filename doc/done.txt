@@ -177,3 +177,4 @@
 [x] implement config volume for docker python tests
 [x] implement debugging options specified in config settings yaml
 [x] refactor command_action to have buffer name and args_dict passed in at initialisation
+[x] fix broken disassembly output showing too many lines initially

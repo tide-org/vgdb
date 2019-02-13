@@ -3,7 +3,6 @@
 [ ] implement json output for debug logging
 [ ] add option to overwrite debug file at startup
 [ ] abstract class caller into separate class - used in action, editor_wrapper, filter, etc.
-[ ] fix broken disassembly output showing too many lines initially
 [ ] fix broken vader test
 [ ] get a basic c hello world app debugging correctly
 [ ] get working with higher level C code

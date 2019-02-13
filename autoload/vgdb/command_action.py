@@ -49,8 +49,7 @@ class CommandAction(object):
         return action_args
 
     def __get_when_condition(self):
-        command_action_value = next(iter(self._command_action.values()))
-        return command_action_value.get("when", '')
+        return self._command_action.get("when", '')
 
     def __process_when_condition(self, when_condition):
         variable_names = Config().get()["variables"].keys()
