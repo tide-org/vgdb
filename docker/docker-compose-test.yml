@@ -11,6 +11,7 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile-vim
     working_dir: /root/.vim/plugin/vgdb
+    tmpfs: /tests
     volumes:
       - ..:/root/.vim/plugin/vgdb
       - ../tests/docker_volume_files/vader.vim:/root/.vim/plugin/vader.vim

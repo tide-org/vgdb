@@ -1,9 +1,7 @@
-[ ] create module to read from config without instantiating Config so logging_decorator can log all classes
 [ ] fix static instances not showing in debug log correctly
 [ ] implement json output for debug logging
 [ ] add option to overwrite debug file at startup
 [ ] abstract class caller into separate class - used in action, editor_wrapper, filter, etc.
-[ ] fix broken vader test
 [ ] get a basic c hello world app debugging correctly
 [ ] get working with higher level C code
 [ ] add error handling to all class methods - where appropriate
