@@ -1,12 +1,16 @@
+import os
 import datetime
 import inspect
 from config import Config
 import config_source as Cs
 
-def __get_debug_settings():
-    return Cs.CONFIG_OBJECT["settings"]["debugging"].keys()
+DEBUG_KEYS = Cs.CONFIG_OBJECT["settings"]["debugging"].keys()
+LOG_FILENAME = Cs.CONFIG_OBJECT["settings"]["debugging"]["log_filename"]
 
-DEBUG_KEYS = __get_debug_settings()
+try:
+    os.remove(LOG_FILENAME)
+except OSError:
+    pass
 
 def logging(func):
 
@@ -18,7 +22,6 @@ def logging(func):
 
     def wrapper(*args, **kwargs):
         if Cs.CONFIG_OBJECT["settings"]["debugging"]["log_to_file"]:
-            filename = Cs.CONFIG_OBJECT["settings"]["debugging"]["log_filename"]
             object_name = get_object_name(func, args)
             for debug_key in DEBUG_KEYS:
                 if debug_key.startswith('debug_'):
@@ -27,7 +30,7 @@ def logging(func):
                     if not debug_this_object and (temp_key in func.__module__):
                         return
 
-            with open(filename, 'a+') as file_handle:
+            with open(LOG_FILENAME, 'a+') as file_handle:
                 if object_name == 'singleton.getinstance':
                     object_name = str(func)
                 file_handle.write(str(datetime.datetime.utcnow()) + " - START - OBJECT: " + object_name + " -- " + str(inspect.getargspec(func)[0]) + " -- ")
@@ -45,4 +48,3 @@ def logging(func):
         return func_result
 
     return wrapper
-

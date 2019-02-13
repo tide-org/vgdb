@@ -179,4 +179,5 @@
 [x] refactor command_action to have buffer name and args_dict passed in at initialisation
 [x] fix broken vader test
 [x] create module to read from config without instantiating Config so logging_decorator can log all classes
+[x] add option to overwrite debug file at startup - not as option though, deletes always
 [x] fix broken disassembly output showing too many lines initially
