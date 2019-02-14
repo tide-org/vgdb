@@ -4,7 +4,6 @@ import pexpect
 from config import Config
 from logging_decorator import logging
 
-@logging
 class CommandProcess:
 
     @logging

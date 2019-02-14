@@ -2,7 +2,6 @@ from config import Config
 from command_action import CommandAction
 from logging_decorator import logging
 
-@logging
 class ConfigCommandItem(object):
 
     _command = ''
