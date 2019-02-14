@@ -1,4 +1,5 @@
-[ ] add decorator to all class functions (except class itself and have an exclusion list
+[ ] add decorator to all class functions automatically (except class itself and have an exclusion list
+[ ] add exception handling to logging
 [ ] abstract class caller into separate class - used in action, editor_wrapper, filter, etc.
 [ ] get a basic c hello world app debugging correctly
 [ ] get working with higher level C code
