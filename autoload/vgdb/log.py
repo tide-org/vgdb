@@ -1,6 +1,7 @@
 import datetime
 import filter as Filter
 from config import Config
+from logging_decorator import logging
 
 LOGGING_SETTINGS = Config().get()["settings"]["logging"]
 USE_SESSION_LOG_FILE = LOGGING_SETTINGS["use_session_log_file"]
@@ -10,6 +11,7 @@ SESSION_BUFFER_NAME = LOGGING_SETTINGS["session_buffer_name"]
 if USE_SESSION_LOG_FILE:
     LOG_FILE_HANDLE = open(SESSION_LOG_FILENAME, "w+")
 
+@logging
 def write_to_log(log_string):
     if USE_SESSION_LOG_FILE:
         LOG_FILE_HANDLE.write(log_string)

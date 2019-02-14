@@ -23,7 +23,7 @@ def logging(func):
                 if debug_key.startswith('debug_'):
                     temp_key = debug_key.replace('debug_', '')
                     debug_this_object = DEBUG_SETTINGS[debug_key]
-                    if not debug_this_object and (temp_key in func.__module__):
+                    if not debug_this_object and (temp_key.lower() == func.__module__.lower()):
                         return 0
             return 1
 
@@ -35,7 +35,7 @@ def logging(func):
             write_object["func_object"] = str(func)
             write_object["func_signature"] = str(inspect.signature(func))
             if args:
-                write_object["func_args"] = str(args)
+                write_object["func_args"] = str(list(args))
             if kwargs:
                 write_object["func_kwargs"] = str(kwargs)
 
@@ -45,6 +45,7 @@ def logging(func):
             write_object = {}
             write_object["timestamp_utc"] = str(datetime.datetime.utcnow())
             write_object["func_point"] = "end"
+            write_object["func_module"] = func.__module__
             write_object["func_object"] = str(func)
             write_object["func_result"] = str(func_result)
             return write_object
@@ -53,11 +54,7 @@ def logging(func):
             start_write_object = get_start_write_object()
             func_result = func(*args, **kwargs)
             end_write_object = get_end_write_object(func_result)
-
-            if func.__module__ != "singleton":
-                json_string = json.dumps(start_write_object) + json.dumps(end_write_object)
-            else:
-                json_string = json.dumps(end_write_object)
+            json_string = json.dumps(end_write_object)
 
             with open(LOG_FILENAME, 'a+') as file_handle:
                 file_handle.write(json_string)

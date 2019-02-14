@@ -4,9 +4,11 @@ import os
 from os import listdir
 from os.path import isfile, join
 from pathlib import Path
+from logging_decorator import logging
 
 actions_list = []
 
+@logging
 def run_action(action_name, args_dict):
     get_actions_list()
     if action_name.lower() in actions_list:
@@ -14,6 +16,7 @@ def run_action(action_name, args_dict):
     else:
         raise TypeError("error: action: " + action_name + " is not a valid action")
 
+@logging
 def get_actions_list():
     if not actions_list:
         script_path = os.path.dirname(os.path.realpath(__file__))
@@ -24,6 +27,7 @@ def get_actions_list():
                 actions_list.append(Path(action_file).stem.lower())
     return actions_list
 
+@logging
 def __call_action_class(action_name, args_dict):
     action_module = "actions." + action_name
     action = importlib.import_module(action_module)

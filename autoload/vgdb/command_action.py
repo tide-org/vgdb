@@ -14,14 +14,17 @@ class CommandAction(object):
         self._args_dict = args_dict
 
     @property
+    @logging
     def command_action(self):
         return self._command_action
 
     @command_action.setter
+    @logging
     def command_action(self, value):
         self._command_action = value
 
     @property
+    @logging
     def type(self):
         return next(iter(self._command_action))
 
