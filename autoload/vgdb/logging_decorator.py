@@ -4,8 +4,10 @@ import inspect
 from config import Config
 import config_source as Cs
 
-DEBUG_KEYS = Cs.CONFIG_OBJECT["settings"]["debugging"].keys()
-LOG_FILENAME = Cs.CONFIG_OBJECT["settings"]["debugging"]["log_filename"]
+DEBUG_SETTINGS = Cs.CONFIG_OBJECT["settings"]["debugging"]
+DEBUG_KEYS = DEBUG_SETTINGS.keys()
+LOG_FILENAME = DEBUG_SETTINGS["log_filename"]
+LOG_TO_FILE = DEBUG_SETTINGS["log_to_file"]
 
 try:
     os.remove(LOG_FILENAME)
@@ -21,12 +23,12 @@ def logging(func):
             return '{}.{}'.format(func.__module__, func.__name__)
 
     def wrapper(*args, **kwargs):
-        if Cs.CONFIG_OBJECT["settings"]["debugging"]["log_to_file"]:
+        if LOG_TO_FILE:
             object_name = get_object_name(func, args)
             for debug_key in DEBUG_KEYS:
                 if debug_key.startswith('debug_'):
                     temp_key = debug_key.replace('debug_', '')
-                    debug_this_object = Config().get()["settings"]["debugging"][debug_key]
+                    debug_this_object = DEBUG_SETTINGS[debug_key]
                     if not debug_this_object and (temp_key in func.__module__):
                         return
 
