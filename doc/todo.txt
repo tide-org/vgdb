@@ -1,3 +1,4 @@
+[ ] fix up config settings logging correctly
 [ ] abstract class caller into separate class - used in action, editor_wrapper, filter, etc.
 [ ] get a basic c hello world app debugging correctly
 [ ] get working with higher level C code

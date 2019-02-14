@@ -31,8 +31,8 @@ def logging(func):
             write_object = {}
             write_object["timestamp_utc"] = str(datetime.datetime.utcnow())
             write_object["func_point"] = "start"
+            write_object["func_module"] = func.__module__
             write_object["func_object"] = str(func)
-            write_object["func_name"] = func.__name__
             write_object["func_signature"] = str(inspect.signature(func))
             if args:
                 write_object["func_args"] = str(args)

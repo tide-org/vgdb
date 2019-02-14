@@ -33,7 +33,4 @@ settings:
         debug_command_output: False
         debug_config_command: False
         debug_vgdb: False
-        #        debug_events: False
-        #        debug_filters: False
-        #        debug_variables: False
         log_to_stdout: False
