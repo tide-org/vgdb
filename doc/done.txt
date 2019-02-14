@@ -181,3 +181,5 @@
 [x] create module to read from config without instantiating Config so logging_decorator can log all classes
 [x] add option to overwrite debug file at startup - not as option though, deletes always
 [x] fix broken disassembly output showing too many lines initially
+[x] fix static instances not showing in debug log correctly
+[x] implement json output for debug logging - look into this - https://logmatic.io/blog/python-logging-with-json-steroids/ 

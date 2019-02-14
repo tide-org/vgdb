@@ -1,6 +1,8 @@
 from config import Config
 from command_action import CommandAction
+from logging_decorator import logging
 
+@logging
 class ConfigCommandItem(object):
 
     _command = ''
@@ -12,50 +14,62 @@ class ConfigCommandItem(object):
     _user_command_args = []
 
     @property
+    @logging
     def base_command(self):
         return self._base_command
 
     @property
+    @logging
     def user_command_args(self):
         return self._user_command_args
 
     @property
+    @logging
     def buffer_name(self):
         return self._buffer_name
 
     @buffer_name.setter
+    @logging
     def buffer_name(self, value):
         self._buffer_name = value
 
     @property
+    @logging
     def event_input_args(self):
         return self._event_input_args
 
     @event_input_args.setter
+    @logging
     def event_input_args(self, value):
         self._event_input_args = value
 
     @property
+    @logging
     def event_input_args_name(self):
         return self._event_input_args_name
 
     @event_input_args_name.setter
+    @logging
     def event_input_args_name(self, value):
         self._event_input_args_name = value
 
     @property
+    @logging
     def args_dict(self):
         return self._args_dict
 
     @args_dict.setter
+    @logging
     def args_dict(self, value):
         self._args_dict = value
 
     @property
+    @logging
     def command(self):
         return self._command
 
     @command.setter
+    @logging
     def command(self, value):
         split_command = value.split(' ')
         if len(split_command) > 1:
@@ -67,6 +81,7 @@ class ConfigCommandItem(object):
         self.__set_config_for_user_command_args()
 
     @property
+    @logging
     def command_action_list(self):
         cal = list(Config().get()["commands"][self.base_command]["steps"])
         ucal = []
@@ -79,6 +94,7 @@ class ConfigCommandItem(object):
             ucal.append(CommandAction(updated_command_action, self._buffer_name, self._args_dict))
         return ucal
 
+    @logging
     def __get_event_input_args(self):
         if self._base_command and self.buffer_name and self.event_input_args_name:
            args_dict = {}
@@ -87,21 +103,13 @@ class ConfigCommandItem(object):
                if event_command["command"] == self.base_command:
                    return event_command["input_args"]
 
+    @logging
     def __set_config_for_user_command_args(self):
         if len(self._user_command_args) > 0:
             Config().get()["variables"]["user_input_args"] = " ".join(self._user_command_args)
 
+    @logging
     def __validate_command(self):
         commands_list = Config().get()["commands"].keys()
         if not self._base_command in commands_list:
             raise RuntimeError("error: command " + self._base_command + " does not exist in config")
-
-    def print_properties(self):
-        print("ConfigCommandItem properties:")
-        print("  command:               " + str(self.command))
-        print("  base_command:          " + str(self.base_command))
-        print("  user_commands:         " + str(self.user_command_args))
-        print("  buffer_name:           " + str(self.buffer_name))
-        print("  event_input_args:      " + str(self.event_input_args))
-        print("  event_input_args_name: " + str(self.event_input_args_name))
-        print("  args_dict:             " + str(self.args_dict))

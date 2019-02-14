@@ -1,13 +1,13 @@
 from config import Config
 from logging_decorator import logging
 
-@logging
 class CommandAction(object):
 
     _command_action = {}
     _buffer_name = ''
     _args_dict = {}
 
+    @logging
     def __init__(self, command_action, buffer_name, args_dict):
         self._command_action = command_action
         self._buffer_name = buffer_name
@@ -25,6 +25,7 @@ class CommandAction(object):
     def type(self):
         return next(iter(self._command_action))
 
+    @logging
     def is_ok_to_run(self):
         when_condition = self.__get_when_condition()
         if when_condition:
@@ -35,6 +36,7 @@ class CommandAction(object):
             return eval_when_condition
         return True
 
+    @logging
     def get_action_args(self):
         command_action_value = next(iter(self._command_action.values()))
         event_input_args = self._command_action.get("event_input_args", "")
@@ -48,9 +50,11 @@ class CommandAction(object):
             action_args["command_args"] = self._args_dict
         return action_args
 
+    @logging
     def __get_when_condition(self):
         return self._command_action.get("when", '')
 
+    @logging
     def __process_when_condition(self, when_condition):
         variable_names = Config().get()["variables"].keys()
         for variable in variable_names:
