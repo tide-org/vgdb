@@ -185,4 +185,11 @@
 [x] fix up config settings logging correctly
 [x] add decorator to all class functions automatically (except class itself and have an exclusion list - done at class level and wrapps individual functions for modules.
 [n] add exception handling to logging - todo later
+[x] refactor config_source - not needed, written that way deliberately
 [x] implement json output for debug logging - look into this - https://logmatic.io/blog/python-logging-with-json-steroids/ 
+[x] abstract class caller into separate class - used in action, editor_wrapper, filter, etc. - no need - all used slightly differently
+[n] add error handling to all class methods - where appropriate - can do in decorator - to do later
+[x] make logging filters configurable from yaml file - in command_handler.get_filtered_output
+[x] add proper cross-cutting logging for command_handler, config_command, et al. - see https://stackoverflow.com/questions/12356713/aspect-oriented-programming-aop-in-python and https://python-aspectlib.readthedocs.io/en/latest/examples.html#debugging
+[x] add a settings.debug section to config
+[x] add a variable logging framework with verbosity and area options - sort of done

@@ -16,12 +16,8 @@ class vim81(editor_base):
     @staticmethod
     def set_dictionary_value(parent_keys, value):
         replacement_dictionary = {
-            "True":    "'True'",
-            "False":   "'False'",
-            "None":    "'None'",
-            ": False": ": 'False'",
-            ": True":  ": 'True'",
-            ": None":  ": 'None'",
+            "True":    "'True'",    "False":   "'False'",    "None":    "'None'",
+            ": False": ": 'False'", ": True":  ": 'True'",   ": None":  ": 'None'",
             "\\\'":    "\\\'\'"
         }
         let_string = "let g:vg_config_dictionary"

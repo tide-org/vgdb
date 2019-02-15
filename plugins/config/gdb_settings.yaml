@@ -28,7 +28,7 @@ settings:
         filters_path: "./plugins/filters"
         functions_path: "./plugins/functions"
     debugging:
-        debug_action: True
+        debug_action: False
         debug_command_action: False
         debug_command_handler: False
         debug_command_output: False

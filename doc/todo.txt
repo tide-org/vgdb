@@ -1,13 +1,7 @@
-[ ] refactor config_source
-[ ] abstract class caller into separate class - used in action, editor_wrapper, filter, etc.
 [ ] get a basic c hello world app debugging correctly
 [ ] get working with higher level C code
-[ ] add error handling to all class methods - where appropriate - can do in decorator
 [ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
-[ ] make logging filters configurable from yaml file - in command_handler.get_filtered_output
-[ ] add proper cross-cutting logging for command_handler, config_command, et al. - see https://stackoverflow.com/questions/12356713/aspect-oriented-programming-aop-in-python and https://python-aspectlib.readthedocs.io/en/latest/examples.html#debugging
-[ ] add a variable logging framework with verbosity and area options
-[ ] refactor to allow multiple loggers error, session_log, other, etc. - add a settings.debug section to config
+[ ] refactor to allow multiple loggers error, session_log, other, etc.
 [ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] create tests for config_command buffers, actions and events
 [ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
