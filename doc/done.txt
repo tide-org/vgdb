@@ -183,4 +183,6 @@
 [x] fix broken disassembly output showing too many lines initially
 [x] fix static instances not showing in debug log correctly
 [x] fix up config settings logging correctly
+[x] add decorator to all class functions automatically (except class itself and have an exclusion list - done at class level and wrapps individual functions for modules.
+[n] add exception handling to logging - todo later
 [x] implement json output for debug logging - look into this - https://logmatic.io/blog/python-logging-with-json-steroids/ 

@@ -4,9 +4,9 @@ import action as Action
 from logging_decorator import logging
 
 @singleton
+@logging
 class ConfigCommand(object):
 
-    @logging
     def run_config_command(self, cci):
         for command_action in cci.command_action_list:
             if command_action.is_ok_to_run():
@@ -15,12 +15,10 @@ class ConfigCommand(object):
                 lines = Action.run_action(command_action.type, action_args)
                 self.__set_buffer_lines(lines, cci, command_action)
 
-    @logging
     def __initialise_buffer(self, buffer_name):
         if buffer_name not in Config().get()["internal"]["buffer_caches"]:
             Config().get()["internal"]["buffer_caches"][buffer_name] = []
 
-    @logging
     def __set_buffer_lines(self, lines, cci, command_action):
         if lines:
             if not cci.buffer_name:

@@ -2,6 +2,7 @@ import os
 import datetime
 import inspect
 import json
+import types
 import config_source as Cs
 
 DEBUG_SETTINGS = Cs.CONFIG_OBJECT["settings"]["debugging"]
@@ -14,6 +15,26 @@ try:
 except OSError:
     pass
 
+def make_class_decorator(function_decorator):
+
+    def class_decorator(cls):
+
+        def is_function(attr_value):
+            return hasattr(attr_value, '__call__') and isinstance(attr_value,types.FunctionType)
+
+        if is_function(cls):
+            return function_decorator(cls)
+
+        for attr_name in dir(cls):
+            attr_value = getattr(cls, attr_name)
+            if is_function(attr_value):
+                setattr(cls, attr_name, function_decorator(attr_value))
+
+        return cls
+
+    return class_decorator
+
+@make_class_decorator
 def logging(func):
 
     def wrapper(*args, **kwargs):
@@ -54,7 +75,8 @@ def logging(func):
             start_write_object = get_start_write_object()
             func_result = func(*args, **kwargs)
             end_write_object = get_end_write_object(func_result)
-            json_string = json.dumps(end_write_object)
+            json_string = json.dumps(start_write_object)
+            json_string += json.dumps(end_write_object)
 
             with open(LOG_FILENAME, 'a+') as file_handle:
                 file_handle.write(json_string)
