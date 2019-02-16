@@ -1,0 +1,50 @@
+getting the line and file of the current breakpoint
+
+e.g.
+
+(gdb) info line
+Line 9 of "hello.c" starts at address 0x40054d <main+39> and ends at 0x40054f.
+
+setting a breakpoint based on file name and line number:
+
+e.g.
+
+gdb> break /Full/path/to/service.cpp:45
+
+
+getting a list of all variables in current context:
+
+e.g.
+
+info locals
+
+
+getting a list of all functions:
+
+e.g.
+
+info functions
+
+can take regex:
+
+e.g.
+
+info functions regex
+
+getting all global/local variables:
+
+info variables
+
+getting all variables on the stack frame:
+
+info args
+
+
+links on variables:
+
+https://stackoverflow.com/questions/6261392/printing-all-global-variables-local-variables
+
+https://sourceware.org/gdb/onlinedocs/gdb/Variables.html
+
+
+
