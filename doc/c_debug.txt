@@ -104,4 +104,8 @@ https://sourceware.org/gdb/onlinedocs/gdb/Source-Path.html
 You can configure a default source path substitution rule by configuring GDB with the ‘--with-relocated-sources=dir’ option. The dir should be the name of a directory under GDB’s configured prefix (set with ‘--prefix’ or ‘--exec-prefix’), and directory names in debug information under dir will be adjusted automatically if the installed GDB is moved to a new location. This is useful if GDB, libraries or executables with debug information and corresponding source code are being moved together.
 
 
+# Startup process:
+
+
+
 

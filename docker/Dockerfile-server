@@ -14,3 +14,4 @@ RUN apt-get -y install vim-common
 RUN apt-get -y install libbfd-dev
 RUN apt-get -y install binutils-multiarch-dev
 RUN apt-get -y install libcapstone-dev
+RUN apt-get -y install bash-completion
