@@ -1,0 +1,15 @@
+---
+
+buffers:
+    vg_session_log:
+        scrolling_buffer: true
+        on_startup: false
+    vg_breakpoints:
+        command: 'list_breakpoints'
+
+commands:
+    list_breakpoints:
+        steps:
+            - run_command:
+                command: 'info breakpoints'
+                buffer_name: 'vg_breakpoints'

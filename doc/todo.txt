@@ -1,4 +1,6 @@
 [ ] get a basic c hello world app debugging correctly
+[ ] allow config location to be specified as an environment variable
+[ ] make plugins/filters/functions paths be relative to the config path location
 [ ] get working with higher level C code
 [ ] add ability to scan for all source files for a binary
 [ ] allow plugins from different languages - e.g. ruby, C, elixir, scala, .net, etc.
@@ -28,6 +30,7 @@
 [ ] make stacking/abutting buffer-specific
 [ ] add window affinity for buffer breaks - e.g. top. bottom, left, right, top-left, etc.
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
+[ ] add a backtrace buffer window (bt in gdb)
 [ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint addressi, current address)
 [ ] add segments view buffer ( no update with step)
 [ ] add sections view buffer ( no update with step)

@@ -1,3 +1,6 @@
+ref: https://sourceware.org/gdb/onlinedocs/gdb/Symbols.html
+
+
 getting the line and file of the current breakpoint
 
 e.g.
@@ -45,6 +48,60 @@ links on variables:
 https://stackoverflow.com/questions/6261392/printing-all-global-variables-local-variables
 
 https://sourceware.org/gdb/onlinedocs/gdb/Variables.html
+
+
+specifying source directories:
+
+https://sourceware.org/gdb/onlinedocs/gdb/Source-Path.html
+
+
+backtrace also has line numbers:
+
+e.g.
+
+backtrace full
+
+also useful for getting source info:
+
+at current breakpoint:
+
+info source
+
+and
+
+all source files:
+
+info sources
+
+
+get symbols for a file:
+
+e.g.
+
+maint print symbols -source main.c
+
+a good way to separate external libraries to linked files:
+
+maint info symtabs
+
+the objfile will match the binary being debugged for locally linked files
+
+get a list of lines in each file that breakpoints can be set at:
+
+for all source files:
+
+maint info line-table
+
+or for just one file:
+
+maint info line-table main.c
+
+
+setting source paths:
+
+https://sourceware.org/gdb/onlinedocs/gdb/Source-Path.html
+
+You can configure a default source path substitution rule by configuring GDB with the ‘--with-relocated-sources=dir’ option. The dir should be the name of a directory under GDB’s configured prefix (set with ‘--prefix’ or ‘--exec-prefix’), and directory names in debug information under dir will be adjusted automatically if the installed GDB is moved to a new location. This is useful if GDB, libraries or executables with debug information and corresponding source code are being moved together.
 
 
 
