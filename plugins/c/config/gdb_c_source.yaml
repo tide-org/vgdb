@@ -23,20 +23,8 @@ commands:
               when: no_program_counter == 0 and app_entrypoint != None
     list_source:
         steps:
-            - run_command:
-                command: 'disassemble'
-                buffer_name: 'vg_c_source'
-    stepi:
-        steps:
             - run_command_with_match:
-                command: 'stepi'
-                match: '0x[0-9a-f]{2,16}'
-                try_set: 'current_frame_address'
-        update_buffers: true
-    continue:
-        steps:
-            - run_command_with_match:
-                command: 'continue'
-                match: '0x[0-9a-f]{2,16}'
-                try_set: 'current_frame_address'
+                command: 'info source'
+                match: 'Located in (.*)$'
+                try_set: 'current_source_path'
         update_buffers: true

@@ -1,0 +1,7 @@
+---
+
+events:
+    before_startup:
+    after_startup:
+    before_command:
+    after_command:

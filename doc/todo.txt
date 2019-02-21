@@ -1,10 +1,16 @@
 [ ] get a basic c hello world app debugging correctly
+[ ] write some small tutorials on how to do things with the config files and filters/functions
+[ ] investigate whether filter functionality can be added to the config yaml
+[ ] change settings.plugins.<paths> to be relative to the current config path or absolute
+[ ] look into adding a loggers section to the config for system log, errors and anything else to be logged at discretion
 [ ] allow config location to be specified as an environment variable
 [ ] make plugins/filters/functions paths be relative to the config path location
 [ ] get working with higher level C code
 [ ] add ability to scan for all source files for a binary
 [ ] allow plugins from different languages - e.g. ruby, C, elixir, scala, .net, etc.
 [ ] fix failing tests
+[ ] look into moving (or having as an alternative) filters into config using jinja2
+[ ] allow specifying actions from a config plugins path
 [ ] add ability to list all source files as tabs or using NerdTree
 [ ] add debugging source functionality and open the source files if present (start with .s files)
 [ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations

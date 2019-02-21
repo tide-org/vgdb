@@ -1,0 +1,4 @@
+---
+
+variables:
+    remote_address: 'localhost:9999'
