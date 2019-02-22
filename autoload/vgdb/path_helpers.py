@@ -23,9 +23,9 @@ def validate_plugin_name(plugin_name):
         raise RuntimeError("error: plugin name: " + plugin_name + " is invalid")
 
 def get_start_path(plugin_name):
-    from config import Config
+    import config_source as Cs
     plugin_settings = plugin_name + "_path"
-    return Config().get()["settings"]["plugins"][plugin_settings]
+    return Cs.CONFIG_OBJECT["settings"]["plugins"][plugin_settings]
 
 def get_filters_path(start_path):
     base_path = get_vgdb_base_path()

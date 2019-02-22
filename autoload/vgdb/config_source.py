@@ -5,21 +5,23 @@ from yamlreader import yaml_load
 
 def __get_config_location_from_environment_variable():
     config_location = os.environ.get("VGDB_CONFIG_LOCATION")
-    print("config_location: " + str(config_location))
-    if os.path.isdir(config_location):
-        return abspath(config_location)
-    base_path = Ph.get_python_scripts_base_path()
-    path_from_scripts = os.path.join(base_path, config_location)
-    if os.path.isdir(path_from_scripts):
-        return abspath(path_from_scripts)
+    if config_location:
+        if os.path.isdir(config_location):
+            return abspath(config_location)
+        base_path = Ph.get_python_scripts_base_path()
+        path_from_scripts = os.path.join(base_path, config_location)
+        if path_from_scripts and os.path.isdir(path_from_scripts):
+            return abspath(path_from_scripts)
 
 def __get_config_location_from_default_location_file():
     base_path = Ph.get_python_scripts_base_path()
     config_location_location = os.path.join(base_path, "config_location.yaml")
     location_config = yaml_load(config_location_location)
     config_location = location_config["config_location"]
-    if os.path.isdir(config_location):
-        return abspath(config_location)
+    if config_location:
+        full_config_location = os.path.join(base_path, config_location)
+        if os.path.isdir(full_config_location):
+            return abspath(full_config_location)
 
 def __get_config_location():
     environment_config_path = __get_config_location_from_environment_variable()

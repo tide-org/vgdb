@@ -1,10 +1,7 @@
 [ ] get a basic c hello world app debugging correctly
 [ ] write some small tutorials on how to do things with the config files and filters/functions
 [ ] investigate whether filter functionality can be added to the config yaml
-[ ] change settings.plugins.<paths> to be relative to the current config path or absolute
 [ ] look into adding a loggers section to the config for system log, errors and anything else to be logged at discretion
-[ ] allow config location to be specified as an environment variable
-[ ] make plugins/filters/functions paths be relative to the config path location
 [ ] get working with higher level C code
 [ ] add ability to scan for all source files for a binary
 [ ] allow plugins from different languages - e.g. ruby, C, elixir, scala, .net, etc.
