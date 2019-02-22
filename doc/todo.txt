@@ -1,5 +1,5 @@
-[ ] get a basic c hello world app debugging correctly
 [ ] write some small tutorials on how to do things with the config files and filters/functions
+[ ] get a basic c hello world app debugging correctly
 [ ] investigate whether filter functionality can be added to the config yaml
 [ ] look into adding a loggers section to the config for system log, errors and anything else to be logged at discretion
 [ ] get working with higher level C code

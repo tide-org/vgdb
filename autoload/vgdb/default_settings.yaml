@@ -25,12 +25,8 @@ settings:
         main_process_default_arguments: ' -q --interpreter=mi2 '
         find_full_process_name: 'true'
         end_of_output_regex: '\(gdb\)'
-    plugins:
-        actions_path: "../actions"
-        filters_path: "../filters"
-        functions_path: "../functions"
     debugging:
-        log_to_file: true
+        log_to_file: False
         log_filename: 'vgdb_debug.log'
         debug_action: False
         debug_command_action: False
