@@ -46,7 +46,7 @@ endfunction
 function! vg_buffer#split_windows_for_existing_or_new(existing_window)
     let l:window_width = g:vg_config_dictionary['settings']['buffers']['stack_buffer_window_width']
     let l:stack_buffers = vg_helpers#is_value_true(g:vg_config_dictionary['settings']['buffers']['stack_buffers_by_default'])
-    if l:stack_buffers &&  a:existing_window != -1
+    if l:stack_buffers && a:existing_window != -1
          execute a:existing_window . 'wincmd w'
          new
     else

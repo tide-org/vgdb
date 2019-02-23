@@ -25,5 +25,5 @@ class CommandOutput:
 
     def __add_lines_to_error_buffer(self, lines):
         if lines:
-            error_buffer_variable = Config().get()["settings"]['buffers']['error_input_variable']
-            Config().get()["internal"]["buffer_caches"][error_buffer_variable] = lines
+            error_buffer_name = Config().get()["settings"]['buffers']['error_buffer_name']
+            Config().get()["internal"]["buffer_caches"][error_buffer_name] = lines

@@ -2,9 +2,9 @@
 
 settings:
     buffers:
-        base_filter_name: 'vg_base'
-        error_filter_name: 'vg_error'
-        error_input_variable: 'error_result'
+        base_filter_name: ''
+        error_filter_name: ''
+        error_buffer_name: 'error_result'
         stack_buffers_by_default: 1
         stack_buffer_window_width: 80
     debugging:
@@ -42,4 +42,4 @@ settings:
         main_process_name: 'bash'
         main_process_default_arguments: ''
         find_full_process_name: 'true'
-        end_of_output_regex: 'bash-3.2$'
+        end_of_output_regex: 'bash-3\.2\$'
