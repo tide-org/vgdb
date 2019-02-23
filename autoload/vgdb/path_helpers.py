@@ -16,6 +16,7 @@ def resolve_plugin_path(plugin_name):
     filters_path = get_filters_path(start_path)
     if os.path.isdir(filters_path):
         return abspath(filters_path)
+
     raise RuntimeError("error: could not resolve " + plugin_name + ": " + start_path)
 
 def validate_plugin_name(plugin_name):
@@ -28,12 +29,12 @@ def get_start_path(plugin_name):
     return Cs.CONFIG_OBJECT["settings"]["plugins"][plugin_settings]
 
 def get_filters_path(start_path):
-    base_path = get_vgdb_base_path()
+    base_path = get_python_scripts_base_path()
+    print("base path:" + base_path)
     return os.path.join(base_path, start_path)
 
 def get_vgdb_base_path():
-    script_dir = os.path.dirname(os.path.realpath(__file__))
-    join_paths = script_dir, "..", ".."
+    join_paths = get_python_scripts_base_path(), "..", ".."
     return os.path.join(*join_paths)
 
 def get_python_scripts_base_path():

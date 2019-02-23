@@ -1,10 +1,15 @@
 ---
 
 commands:
-    do_ls:
+    do_hello:
         steps:
             - run_command:
                 command: 'echo "hello world"'
+
+
+events:
+    after_startup:
+        - 'do_hello'
 
 buffers:
     vg_session_log:
@@ -14,7 +19,3 @@ settings:
     process:
         ttl_stream_timeout: 0.08
         main_process_name: 'bash'
-    plugins:
-        actions_path: "../actions"
-        filters_path: "../filters"
-        functions_path: "../functions"
