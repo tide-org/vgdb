@@ -195,4 +195,6 @@
 [x] change settings.plugins.<paths> to be relative to the current config path or absolute
 [x] allow config location to be specified as an environment variable - done - VGDB_CONFIG_LOCATION
 [x] make plugins/filters/functions paths be relative to the config path location
+[x] add a defaults yaml file so that full config doesn't need to be specified
+[x] move yaml files into a separate path
 [x] add a variable logging framework with verbosity and area options - sort of done

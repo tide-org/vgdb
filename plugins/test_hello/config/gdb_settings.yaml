@@ -4,7 +4,7 @@ commands:
     do_ls:
         steps:
             - run_command:
-                command: 'ls -alh'
+                command: 'echo "hello world"'
 
 buffers:
     vg_session_log:

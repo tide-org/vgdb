@@ -1,8 +1,7 @@
-[ ] write some small tutorials on how to do things with the config files and filters/functions
 [ ] get a basic c hello world app debugging correctly
+[ ] get working with higher level C code
 [ ] investigate whether filter functionality can be added to the config yaml
 [ ] look into adding a loggers section to the config for system log, errors and anything else to be logged at discretion
-[ ] get working with higher level C code
 [ ] add ability to scan for all source files for a binary
 [ ] allow plugins from different languages - e.g. ruby, C, elixir, scala, .net, etc.
 [ ] fix failing tests
