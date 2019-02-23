@@ -1,20 +1,15 @@
 [ ] get a basic c hello world app debugging correctly
+[ ] test and add better support for local binaries (not remote)
 [ ] get working with higher level C code
 [ ] add ability to scan for all source files for a binary
 [ ] allow plugins from different languages - e.g. ruby, C, elixir, scala, .net, etc.
-[ ] investigate whether filter functionality can be added to the config yaml
-[ ] look into moving (or having as an alternative) filters into config using jinja2
 [ ] fix failing tests
 [ ] have ability to have end_of_output_regex on a per-command level (would overwrite default)
 [ ] allow specifying actions from a config plugins path
 [ ] add ability to list all source files as tabs or using NerdTree
 [ ] add debugging source functionality and open the source files if present (start with .s files)
 [ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
-[ ] refactor to allow multiple loggers error, session_log, other, etc.
-[ ] create tests for command_handler to try to speed up pexpect calls/reads
 [ ] create tests for config_command buffers, actions and events
-[ ] determine best tty setting by testing (or fix not to catch exception on complete stream)
-[ ] test and add better support for local binaries (not remote)
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g - follow breakpoint option
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] add shortcut keys for debugging - to config
@@ -29,16 +24,9 @@
 [ ] implement command on startup log file (use pexpect)
 [ ] add update_on_commands list for buffers - buffers that are updated when specific commands are run (saves updating every time there is a command)
 [ ] add gdb error/warning buffer view and update with step
-[ ] add local variables view buffer and update with step
 [ ] make stacking/abutting buffer-specific
 [ ] add window affinity for buffer breaks - e.g. top. bottom, left, right, top-left, etc.
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
-[ ] add a backtrace buffer window (bt in gdb)
-[ ] add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint addressi, current address)
-[ ] add segments view buffer ( no update with step)
-[ ] add sections view buffer ( no update with step)
-[ ] add call stack view buffer and update with step (only if symbols loaded)
-[ ] add thread view buffer and update with step
 [ ] add edit memory values functionality
 [ ] add edit variable values functionality
 [ ] add gdb supported higher level languages support

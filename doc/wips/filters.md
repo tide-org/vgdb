@@ -9,3 +9,9 @@ buffer filters
 
 session_log filter
 
+
+how to implement a filter:
+
+filter sections:
+
+

@@ -198,4 +198,17 @@
 [x] add a defaults yaml file so that full config doesn't need to be specified
 [x] move yaml files into a separate path
 [n] look into adding a loggers section to the config for system log, errors and anything else to be logged at discretion
+[n] investigate whether filter functionality can be added to the config yaml - not doing - syntax for filtering text via jinja is overly complicated
+[n] look into moving (or having as an alternative) filters into config using jinja2
+[n] refactor to allow multiple loggers error, session_log, other, etc. - not doing - no need
+[n] determine best tty setting by testing (or fix not to catch exception on complete stream)
+[n] create tests for command_handler to try to speed up pexpect calls/reads
+[n] add a backtrace buffer window (bt in gdb)
+    add local variables view buffer and update with step
+    add a status view buffer and update with step (to show os, bitness, target, target status, entrypoint addressi, current address)
+    add segments view buffer ( no update with step)
+    add sections view buffer ( no update with step)
+    add call stack view buffer and update with step (only if symbols loaded)
+    add thread view buffer and update with step
+    (all one piece of work - may do later)
 [x] add a variable logging framework with verbosity and area options - sort of done
