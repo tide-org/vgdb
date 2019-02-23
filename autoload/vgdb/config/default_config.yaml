@@ -41,8 +41,8 @@ settings:
         command_on_startup_log_file: 'vgdb_startup.log'
         main_process_name: ''
         main_process_default_arguments: ''
-        find_full_process_name: 'true'
-        end_of_output_regex: 'bash-3\.2\$'
+        find_full_process_name: true
+        end_of_output_regex: ''
 
 buffers:
     vg_session_log:
