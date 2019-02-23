@@ -4,7 +4,7 @@ settings:
     buffers:
         base_filter_name: ''
         error_filter_name: ''
-        error_buffer_name: 'error_result'
+        error_buffer_name: ''
         stack_buffers_by_default: 1
         stack_buffer_window_width: 80
     debugging:
@@ -48,3 +48,9 @@ buffers:
     vg_session_log:
         scrolling_buffer: true
         on_startup: false
+
+events:
+    before_startup:
+    after_startup:
+    before_command:
+    after_command:

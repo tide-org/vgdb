@@ -36,7 +36,7 @@ class CommandHandler:
         self._command_process.close_command_process()
 
     def __run_event_commands(self, event_name, process_command, buffer_name, lines=[]):
-        for command in Config().get()["events"][event_name] or []:
+        for command in Config().get()["events"].get(event_name) or []:
             cci = ConfigCommandItem()
             cci.command = command
             cci.buffer_name = buffer_name
