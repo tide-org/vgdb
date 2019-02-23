@@ -1,12 +1,9 @@
 [ ] get a basic c hello world app debugging correctly
 [ ] get working with higher level C code
-
-[ ] investigate whether filter functionality can be added to the config yaml
-[ ] look into moving (or having as an alternative) filters into config using jinja2
-[ ] look into adding a loggers section to the config for system log, errors and anything else to be logged at discretion
-
 [ ] add ability to scan for all source files for a binary
 [ ] allow plugins from different languages - e.g. ruby, C, elixir, scala, .net, etc.
+[ ] investigate whether filter functionality can be added to the config yaml
+[ ] look into moving (or having as an alternative) filters into config using jinja2
 [ ] fix failing tests
 [ ] have ability to have end_of_output_regex on a per-command level (would overwrite default)
 [ ] allow specifying actions from a config plugins path

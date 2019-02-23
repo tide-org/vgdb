@@ -197,4 +197,5 @@
 [x] make plugins/filters/functions paths be relative to the config path location
 [x] add a defaults yaml file so that full config doesn't need to be specified
 [x] move yaml files into a separate path
+[n] look into adding a loggers section to the config for system log, errors and anything else to be logged at discretion
 [x] add a variable logging framework with verbosity and area options - sort of done
