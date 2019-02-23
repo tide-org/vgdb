@@ -39,7 +39,7 @@ settings:
         run_command_on_startup: 0
         command_to_run_on_startup: ''
         command_on_startup_log_file: 'vgdb_startup.log'
-        main_process_name: 'bash'
+        main_process_name: ''
         main_process_default_arguments: ''
         find_full_process_name: 'true'
         end_of_output_regex: 'bash-3\.2\$'
