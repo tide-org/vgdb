@@ -1,0 +1,22 @@
+---
+
+commands:
+    do_hello:
+        steps:
+            - run_command:
+                command: 'help'
+
+events:
+    after_startup:
+        - 'do_hello'
+
+buffers:
+    vg_session_log:
+        on_startup: true
+
+settings:
+    process:
+        ttl_stream_timeout: 0.08
+        main_process_name: 'gdb'
+        main_process_default_arguments: ' -q --interpreter=mi2 '
+        end_of_output_regex: '\(gdb\)'
