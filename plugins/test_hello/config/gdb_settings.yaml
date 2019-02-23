@@ -12,10 +12,8 @@ settings:
         base_filter_name: 'vg_base'
         error_filter_name: 'vg_error'
         error_input_variable: 'error_result'
-        load_on_start: 'vg_disassembly'
         stack_buffers_by_default: 1
         stack_buffer_window_width: 80
-        open_buffers_on_startup: 1
     process:
         ttl_stream_timeout: 0.08
         run_command_on_startup: 0

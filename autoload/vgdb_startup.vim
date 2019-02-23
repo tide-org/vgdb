@@ -15,10 +15,7 @@ endfunction
 
 function! vgdb_startup#call_on_startup_functions()
     if has_key(g:vg_config_dictionary, "settings")
-        let l:open_buffers_on_startup = vg_helpers#is_value_true(g:vg_config_dictionary['settings']['buffers']['open_buffers_on_startup'])
-        if l:open_buffers_on_startup
-            call vg_display#open_startup_buffers()
-        endif
+        call vg_display#open_startup_buffers()
         if g:vg_config_dictionary['settings']['process']['run_command_on_startup']
             execute '!nohup ' . g:vg_config_dictionary['settings']['process']['command_to_run_on_startup'] . ' </dev/null >/dev/null 2>&1 &'
         endif

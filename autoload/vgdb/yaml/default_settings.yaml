@@ -1,30 +1,12 @@
 ---
 
 settings:
-    editor:
-        name: 'vim81'
-    logging:
-        use_session_log_file: true
-        session_log_filename: 'vgdb_session.log'
-        session_buffer_name: 'vg_session_log'
-        add_timestamp: true
     buffers:
         base_filter_name: 'vg_base'
         error_filter_name: 'vg_error'
         error_input_variable: 'error_result'
-        load_on_start: 'vg_disassembly'
         stack_buffers_by_default: 1
         stack_buffer_window_width: 80
-        open_buffers_on_startup: 1
-    process:
-        ttl_stream_timeout: 0.08
-        run_command_on_startup: 0
-        command_to_run_on_startup: 'bin/dev-up'
-        command_on_startup_log_file: 'vgdb_startup.log'
-        main_process_name: 'gdb'
-        main_process_default_arguments: ' -q --interpreter=mi2 '
-        find_full_process_name: 'true'
-        end_of_output_regex: '\(gdb\)'
     debugging:
         log_to_file: False
         log_filename: 'vgdb_debug.log'
@@ -41,3 +23,23 @@ settings:
         debug_filter: False
         debug_interpolate: False
         debug_log: False
+    editor:
+        name: 'vim81'
+    logging:
+        use_session_log_file: true
+        session_log_filename: 'vgdb_session.log'
+        session_buffer_name: 'vg_session_log'
+        add_timestamp: true
+    plugins:
+        actions_path: "./actions"
+        filters_path: "./filters"
+        functions_path: "./functions"
+    process:
+        ttl_stream_timeout: 0.08
+        run_command_on_startup: 0
+        command_to_run_on_startup: ''
+        command_on_startup_log_file: 'vgdb_startup.log'
+        main_process_name: 'bash'
+        main_process_default_arguments: ''
+        find_full_process_name: 'true'
+        end_of_output_regex: 'bash-3.2$'

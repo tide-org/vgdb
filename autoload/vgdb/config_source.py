@@ -15,7 +15,7 @@ def __get_config_location_from_environment_variable():
 
 def __get_config_location_from_default_location_file():
     base_path = Ph.get_python_scripts_base_path()
-    config_location_location = os.path.join(base_path, "config_location.yaml")
+    config_location_location = os.path.join(base_path, "yaml", "config_location.yaml")
     location_config = yaml_load(config_location_location)
     config_location = location_config["config_location"]
     if config_location:
