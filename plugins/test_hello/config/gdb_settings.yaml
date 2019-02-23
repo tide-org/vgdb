@@ -1,32 +1,20 @@
 ---
 
+commands:
+    do_ls:
+        steps:
+            - run_command:
+                command: 'ls -alh'
+
+buffers:
+    vg_session_log:
+        on_startup: true
+
 settings:
     process:
         ttl_stream_timeout: 0.08
-        run_command_on_startup: 0
-        command_to_run_on_startup: 'bin/dev-up'
-        command_on_startup_log_file: 'vgdb_startup.log'
-        main_process_name: 'gdb'
-        main_process_default_arguments: ' -q --interpreter=mi2 '
-        find_full_process_name: 'true'
-        end_of_output_regex: '\(gdb\)'
+        main_process_name: 'bash'
     plugins:
         actions_path: "../actions"
         filters_path: "../filters"
         functions_path: "../functions"
-    debugging:
-        log_to_file: true
-        log_filename: 'vgdb_debug.log'
-        debug_action: False
-        debug_command_action: False
-        debug_command_handler: False
-        debug_command_output: False
-        debug_command_process: False
-        debug_config: False
-        debug_config_command: False
-        debug_config_command_item: False
-        debug_editor_wrapper: False
-        debug___main__: False
-        debug_filter: False
-        debug_interpolate: False
-        debug_log: False

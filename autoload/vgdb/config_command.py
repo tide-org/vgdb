@@ -22,7 +22,11 @@ class ConfigCommand(object):
     def __set_buffer_lines(self, lines, cci, command_action):
         if lines:
             if not cci.buffer_name:
-                lines.insert(0, "no buffer name. command_action_name: " + command_action.type + " command_action: " + str(command_action) )
+                error_line = "no buffer name. command_action_name: " + command_action.type + " command_action: " + str(command_action)
+                if isinstance(lines, str):
+                    lines += error_line
+                if isinstance(lines, list):
+                    lines.insert(0, error_line)
                 internal_buffer_name = 'default'
             else:
                 internal_buffer_name = cci.buffer_name
