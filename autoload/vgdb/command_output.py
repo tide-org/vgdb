@@ -14,16 +14,25 @@ class CommandOutput:
         return self.__handle_output_for_buffers(output_string, buffer_name)
 
     def __handle_output_for_buffers(self, output_string, buffer_name):
-        lines = Filter.filter_string(output_string, Config().get()["settings"]["buffers"]["base_filter_name"])
+        base_filter_name = Config().get()["settings"]["buffers"]["base_filter_name"]
+        if base_filter_name:
+            lines = Filter.filter_string(output_string, base_filter_name)
+        else:
+            lines = output_string
         if buffer_name:
             lines = Filter.filter_lines_for_buffer(lines, buffer_name)
         return lines
 
     def __handle_output_for_errors(self, output_string):
-        lines = Filter.filter_string(output_string, Config().get()["settings"]["buffers"]["error_filter_name"])
+        error_filter_name = Config().get()["settings"]["buffers"]["error_filter_name"]
+        if error_filter_name:
+            lines = Filter.filter_string(output_string, error_filter_name)
+        else:
+            lines = output_string
         self.__add_lines_to_error_buffer(lines)
 
     def __add_lines_to_error_buffer(self, lines):
         if lines:
             error_buffer_name = Config().get()["settings"]['buffers']['error_buffer_name']
-            Config().get()["internal"]["buffer_caches"][error_buffer_name] = lines
+            if error_buffer_name:
+                Config().get()["internal"]["buffer_caches"][error_buffer_name] = lines

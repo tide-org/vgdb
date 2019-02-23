@@ -32,8 +32,14 @@ def __get_config_location():
         return location_file_path
     raise RuntimeError("error: unable to find a matching path for the config. please either set the environment variable VGDB_CONFIG_LOCATION or specify in the file config_location.yaml")
 
+def __get_default_config():
+    base_path = Ph.get_python_scripts_base_path()
+    default_config = os.path.join(base_path, "yaml", "default_config.yaml")
+    return yaml_load(default_config)
+
 def __get_all_configs():
+    default_config = __get_default_config()
     full_template_location = __get_config_location()
-    return yaml_load(full_template_location)
+    return yaml_load(full_template_location, default_config)
 
 CONFIG_OBJECT = __get_all_configs()
