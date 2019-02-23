@@ -1,14 +1,14 @@
 ---
 
 commands:
-    do_hello:
+    load_file:
         steps:
             - run_command:
-                command: 'help'
+                command: 'file tests/binaries/c_test/c_test'
 
 events:
     after_startup:
-        - 'do_hello'
+        - 'load_file'
 
 buffers:
     vg_session_log:

@@ -135,3 +135,7 @@ maint info line-table main.c
 bash line to run test binary: bin/dev-environment ./tests/binaries/c_test/c_test
 
 
+# gdb version - needs to be 8.2.1
+
+
+
