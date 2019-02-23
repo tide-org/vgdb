@@ -3,8 +3,14 @@ from os.path import abspath
 import path_helpers as Ph
 from yamlreader import yaml_load
 
+_config_path = "config"
+_config_location_file = "config_location.yaml"
+_config_location_variable = "config_location"
+_config_defaults_file = "default_config.yaml"
+_config_environment_variable ="VGDB_CONFIG_LOCATION"
+
 def __get_config_location_from_environment_variable():
-    config_location = os.environ.get("VGDB_CONFIG_LOCATION")
+    config_location = os.environ.get(_config_environment_variable)
     if config_location:
         if os.path.isdir(config_location):
             return abspath(config_location)
@@ -15,9 +21,9 @@ def __get_config_location_from_environment_variable():
 
 def __get_config_location_from_default_location_file():
     base_path = Ph.get_python_scripts_base_path()
-    config_location_location = os.path.join(base_path, "yaml", "config_location.yaml")
+    config_location_location = os.path.join(base_path, _config_path, _config_location_file)
     location_config = yaml_load(config_location_location)
-    config_location = location_config["config_location"]
+    config_location = location_config[_config_location_variable]
     if config_location:
         full_config_location = os.path.join(base_path, config_location)
         if os.path.isdir(full_config_location):
@@ -34,7 +40,7 @@ def __get_config_location():
 
 def __get_default_config():
     base_path = Ph.get_python_scripts_base_path()
-    default_config = os.path.join(base_path, "yaml", "default_config.yaml")
+    default_config = os.path.join(base_path, _config_path, _config_defaults_file)
     return yaml_load(default_config)
 
 def __get_all_configs():

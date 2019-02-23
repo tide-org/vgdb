@@ -30,7 +30,6 @@ def get_start_path(plugin_name):
 
 def get_filters_path(start_path):
     base_path = get_python_scripts_base_path()
-    print("base path:" + base_path)
     return os.path.join(base_path, start_path)
 
 def get_vgdb_base_path():
