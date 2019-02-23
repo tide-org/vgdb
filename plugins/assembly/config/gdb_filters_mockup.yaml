@@ -1,0 +1,44 @@
+---
+
+filters:
+    vg_base:
+        line_formatters:
+            - "{% if line.startswith('~\"') %}{{ line.lstrip('~\"').rstrip('\r').rstrip('\"') }}{% endif %}"
+            - "{{ line.replace('\\r', '').replace('\'', '\'\'').replace('\t', '    ').replace('\n', '') }}"
+        pre_processors:
+            - "{{ line.split('\n') }}"
+    vg_breakpoints:
+        line_matchers_post:
+            - variable_name: 'breakpoints'
+              regex: '(0x[0-9a-f]{2,16})'
+              type: 'array'
+              description: 'match each address in the breakpoints output and place in an array'
+    vg_disassembly:
+        excluded_lines:
+            - 'Dump of assembler code'
+            - 'End of assembler dump.'
+        line_formatters:
+            - "{{ line[3:] }}"
+            - "{{ line.rstrip() }}"
+            - "{{ '    ' + line }}"
+        line_matchers_pre:
+            - variable_name: 'no_program_counter'
+              regex: 'No function contains program counter for selected frame'
+              type: 'bool'
+              description: 'specifies whether the program counter can be determined'
+    vg_error:
+        line_formatters:
+            - "{% line.startswith('&\"') %}{{ line.lstrip('&\"')[:-4] }}{% endif %}"
+            - "{{ line.replace('\r', '').replace('\'', '\'\'').replace('\t', '    ') }}"
+        pre_processors:
+            - "{{ line.split('\n') }}"
+        line_matchers_post:
+            - variable_name: 'no_program_counter',
+              regex: 'No function contains program counter for selected frame',
+              type: 'bool',
+              description: 'specifies whether the program counter can be determined'
+    vg_session_log:
+        line_formatters:
+            - "{{ line.replace('\\r', '').replace('\'', '\'\'').replace('\t', '    ').replace('\n', '') }}"
+        pre_processors:
+            - "{% if isinstance(lines, str)  %}{{ lines.split('\n') }}{% endif %}"
