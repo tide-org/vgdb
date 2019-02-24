@@ -7,13 +7,18 @@ commands:
                 command: 'file tests/binaries/c_test/c_test'
     info_source:
         steps:
+            - run_command:
+                command: 'list'
             - run_command_with_match:
-                command: 'info line 1'
-                match: 'Line \d+ of \\\"(.*)\\\" is at'
+                command: 'info source'
+                match: 'Located in (.*)\"$'
                 match_group: 1
                 try_set: 'current_filename'
             - print_debug:
                 msg: "current_filename: {{ current_filename }}"
+            - set_buffer:
+                buffer_name: 'vg_code'
+                file_name: "{{ current_filename }}"
 
 variables:
     current_filename: ''
@@ -25,6 +30,10 @@ events:
 buffers:
     vg_session_log:
         on_startup: true
+    vg_code:
+        on_startup: true
+        primary_window: true
+        language: 'c'
 
 settings:
     process:

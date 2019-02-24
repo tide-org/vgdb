@@ -8,3 +8,6 @@
 [ ] document all action types
 [ ] define the nomenclature of the objects used for documenting - actions, commands, config_commands, events, etc.
 [ ] create schematics of modules of app and workflows
+[ ] diagram workflows - e.g. on startup, after command, from buffers, buffers with events, from events, from commands with events
+
+
