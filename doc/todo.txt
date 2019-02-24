@@ -1,9 +1,8 @@
 [ ] get a basic c hello world app debugging correctly
-[ ] test and add better support for local binaries (not remote)
 [ ] get working with higher level C code
 [ ] add ability to scan for all source files for a binary
 [ ] make plugin paths work regardless of which path vim was started from
-[ ] allow plugins from different languages - e.g. ruby, C, elixir, scala, .net, etc.
+[ ] allow plugins from different languages - e.g. python, ruby, C, elixir, scala, .net, etc.
 [ ] fix failing tests
 [ ] have ability to have end_of_output_regex on a per-command level (would overwrite default)
 [ ] allow specifying actions from a config plugins path

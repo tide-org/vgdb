@@ -29,11 +29,12 @@ class run_command_with_match(action_base):
         self._command_item_command = self._command_item["command"]
         self._regex_match = self._command_item["match"]
         self._try_set_var = command_item.get("try_set", '')
+        self._match_group = command_item.get("match_group", 0)
 
     def __get_match(self):
         match_string = ''
         for line in (self._lines or []):
             if re.search(self._regex_match, line):
                 match = re.search(self._regex_match, line)
-                match_string = match.group()
+                match_string = match.group(int(self._match_group))
         self._match_result = match_string

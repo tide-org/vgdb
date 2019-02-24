@@ -5,6 +5,18 @@ commands:
         steps:
             - run_command:
                 command: 'file tests/binaries/c_test/c_test'
+    info_source:
+        steps:
+            - run_command_with_match:
+                command: 'info line 1'
+                match: 'Line \d+ of \\\"(.*)\\\" is at'
+                match_group: 1
+                try_set: 'current_filename'
+            - print_debug:
+                msg: "current_filename: {{ current_filename }}"
+
+variables:
+    current_filename: ''
 
 events:
     after_startup:

@@ -2,7 +2,7 @@
 
 settings:
     buffers:
-        base_filter_name: ''
+        base_filter_name: 'vg_base'
         error_filter_name: ''
         error_buffer_name: ''
         stack_buffers_by_default: 1
@@ -54,3 +54,5 @@ events:
     after_startup:
     before_command:
     after_command:
+
+variables:

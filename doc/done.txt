@@ -211,4 +211,6 @@
     add call stack view buffer and update with step (only if symbols loaded)
     add thread view buffer and update with step
     (all one piece of work - may do later)
+[x] add match group numbers to run_command_with_match
+[n] test and add better support for local binaries (not remote) - already present with gdb 8.2.1
 [x] add a variable logging framework with verbosity and area options - sort of done
