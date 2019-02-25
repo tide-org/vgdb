@@ -215,4 +215,5 @@
 [n] test and add better support for local binaries (not remote) - already present with gdb 8.2.1
 [x] add action for updating a buffer from a file
 [x] harden all config file yaml input to prevent errors on missing values - done with defaults yaml file
+[x] make plugin paths work regardless of which path vim was started from
 [x] add a variable logging framework with verbosity and area options - sort of done
