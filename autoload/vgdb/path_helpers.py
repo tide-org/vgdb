@@ -11,11 +11,9 @@ VALID_PLUGIN_NAMES = [
 def resolve_plugin_path(plugin_name):
     validate_plugin_name(plugin_name)
     start_path = get_start_path(plugin_name)
-    print("start_path: " + start_path)
     if os.path.isdir(start_path):
         return abspath(start_path)
     plugin_path = get_plugin_path(start_path)
-    print("plugin_path: " + plugin_path)
     if os.path.isdir(plugin_path):
         return abspath(plugin_path)
 
