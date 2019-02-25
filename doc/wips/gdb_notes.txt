@@ -14,3 +14,13 @@ http://tomszilagyi.github.io/2018/03/Remote-gdb-with-stl-pp
 
 brew install gdb --with-all-targets
 
+
+to switch:
+
+for remote:
+
+brew unlink gdb && brew link --overwrite gdb
+
+for local:
+
+brew unlink gdb_tim && brew link --overwrite gdb_tim
