@@ -2,10 +2,9 @@
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
 [ ] allow plugins from different languages - e.g. python, ruby, C, elixir, scala, .net, etc.
 [ ] fix failing tests
-[ ] have ability to have end_of_output_regex on a per-command level (would overwrite default)
+[ ] create more tests
+[ ] have ability to have end_of_output_regex on a per-command level (would overwrite default) - e.g. for ssh login etc.
 [ ] allow specifying actions from a config plugins path
-[ ] add ability to list all source files as tabs or using NerdTree
-[ ] add debugging source functionality and open the source files if present (start with .s files)
 [ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
 [ ] create tests for config_command buffers, actions and events
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g - follow breakpoint option
@@ -17,22 +16,16 @@
 [ ] add the ability to patch up disassemblies to a single buffer when switching to range - maybe sort list as well
 [ ] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order - requires investigating buffer cache order and precedence
 [ ] add the option of adding a name: key to commands (like ansible)
-[ ] add editable variables/settings screen buffer
-[ ] add edit register values functionality - do from run_command first (as in VgEdit register eax 0x00000034)
 [ ] implement command on startup log file (use pexpect)
-[ ] add update_on_commands list for buffers - buffers that are updated when specific commands are run (saves updating every time there is a command)
-[ ] add gdb error/warning buffer view and update with step
 [ ] make stacking/abutting buffer-specific
 [ ] add window affinity for buffer breaks - e.g. top. bottom, left, right, top-left, etc.
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
-[ ] add edit memory values functionality
-[ ] add edit variable values functionality
-[ ] add gdb supported higher level languages support
 [ ] add goto definition functionality
 [ ] add interpreted languages support where possible
 [ ] add llvm support
 [ ] add other process support (e.g. ssh, terminals, log streams, etc)
-[ ] allow different configs to be called from vim terminal
+[ ] allow different configs to be called from vim command line
 [ ] componentise python config to allow use on multiple editors
+[ ] update/create readme.md file
 [ ] create a product website
 [ ] promote it as an app

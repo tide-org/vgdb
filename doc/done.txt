@@ -210,6 +210,8 @@
     add sections view buffer ( no update with step)
     add call stack view buffer and update with step (only if symbols loaded)
     add thread view buffer and update with step
+    add edit memory values functionality
+    add edit variable values functionality
     (all one piece of work - may do later)
 [x] add match group numbers to run_command_with_match
 [n] test and add better support for local binaries (not remote) - already present with gdb 8.2.1
@@ -219,4 +221,11 @@
 [x] get a basic c hello world app debugging correctly - done! - :Vgdb, then :VgRunConfigCommand set_breakpoint, :VgRunConfigCommand run, :VgRunConfigCommand step
 [x] get working with higher level C code
 [x] add ability to scan for all source files for a binary
+[x] add debugging source functionality and open the source files if present (start with .s files)
+[n] add editable variables/settings screen buffer
+[n] add edit register values functionality - do from run_command first (as in VgEdit register eax 0x00000034) - not yet
+[n] add update_on_commands list for buffers - buffers that are updated when specific commands are run (saves updating every time there is a command) - there are workarounds for this currently
+[x] add gdb supported higher level languages support
+[n] add ability to list all source files as tabs or using NerdTree
+[n] add gdb error/warning buffer view and update with step
 [x] add a variable logging framework with verbosity and area options - sort of done
