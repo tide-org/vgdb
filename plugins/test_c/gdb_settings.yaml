@@ -36,10 +36,14 @@ commands:
         steps:
             - run_command:
                 command: 'run'
+            - run_config_command:
+                name: 'info_source'
     step:
         steps:
             - run_command:
                 command: 'step'
+            - run_config_command:
+                name: 'info_source'
     set_highlight_for_breakpoint:
         steps:
             - run_vim_function:
