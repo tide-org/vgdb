@@ -19,13 +19,42 @@ commands:
             - set_buffer:
                 buffer_name: 'vg_code'
                 file_name: "{{ current_filename }}"
+    set_breakpoint:
+        steps:
+            - run_command:
+                command: 'b 6'
+    run:
+        steps:
+            - run_command:
+                command: 'run'
+    step:
+        steps:
+            - run_command:
+                command: 'step'
+    set_highlight:
+        steps:
+            - run_command_with_match:
+                command: 'backtrace'
+                match: '\#0\s+.*\(\)\s.*:(\d+)'
+                match_group: 1
+                try_set: 'current_line_number'
+    set_highlight_line:
+        steps:
+            - run_vim_function:
+                function_name: 'buffer_breakpoint#set_highlight_line'
+    set_highlight_for_breakpoint:
+        steps:
+            - run_vim_function:
+                function_name: 'set_highlight#for_breakpoint_and_diff'
 
 variables:
     current_filename: ''
+    current_line_number: 0
 
 events:
     after_startup:
         - 'load_file'
+        - 'set_highlight_for_breakpoint'
 
 buffers:
     vg_session_log:
@@ -34,6 +63,11 @@ buffers:
         on_startup: true
         primary_window: true
         language: 'c'
+        events:
+            after_command:
+                - command: 'set_highlight_line'
+                  input_args:
+                      highlight_line_variable: 'current_line_number'
 
 settings:
     process:

@@ -45,7 +45,7 @@ def __get_default_config():
 
 def __get_all_configs():
     default_config = __get_default_config()
-    full_template_location = __get_config_location()
-    return yaml_load(full_template_location, default_config)
+    return yaml_load(FULL_CONFIG_LOCATION, default_config)
 
+FULL_CONFIG_LOCATION = __get_config_location()
 CONFIG_OBJECT = __get_all_configs()
