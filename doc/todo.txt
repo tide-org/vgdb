@@ -1,4 +1,5 @@
 [ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento
+[ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
 [ ] allow plugins from different languages - e.g. python, ruby, C, elixir, scala, .net, etc.
 [ ] fix failing tests
 [ ] have ability to have end_of_output_regex on a per-command level (would overwrite default)
