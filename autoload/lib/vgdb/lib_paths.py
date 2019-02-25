@@ -12,7 +12,7 @@ LIB_PATHS = [
     'six'
 ]
 
-LIB_BASE_PATH = "../lib"
+LIB_BASE_PATH = "../"
 
 for lib_path in LIB_PATHS:
     lib_dir = os.path.join(

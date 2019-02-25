@@ -1,7 +1,6 @@
 let s:initialised = 0
 let s:scriptdir = expand("<sfile>:h") . '/'
-let s:vgdbscriptdir = s:scriptdir . "vgdb/"
-let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
+let s:vgdbscriptdir = s:scriptdir . "lib/vgdb/"
 
 function! vg_validate#dependency_check()
     if s:initialised == 1 | return 0 | endif

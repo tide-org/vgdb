@@ -4,7 +4,7 @@ commands:
     load_file:
         steps:
             - run_command:
-                command: 'file tests/binaries/c_test/c_test'
+                command: 'file /Users/willvk/Source/wilvk/vgdb/tests/binaries/c_test/c_test'
     info_source:
         steps:
             - run_command:
