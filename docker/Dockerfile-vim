@@ -42,4 +42,6 @@ RUN cd /opt/vim_sources && \
     make  && \
     make install
 
+RUN apt-get update && apt-get install -y gdb
+
 RUN apt-get clean
