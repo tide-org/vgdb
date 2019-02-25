@@ -29,7 +29,6 @@ class CommandAction(object):
         when_condition = self.__get_when_condition()
         if when_condition:
             try:
-                print("when condition: " + str(when_condition))
                 eval_when_condition = eval(self.__process_when_condition(when_condition))
             except SyntaxError:
                 return False
@@ -55,11 +54,8 @@ class CommandAction(object):
     def __process_when_condition(self, when_condition):
         variable_names = Config().get()["variables"].keys()
         for variable in variable_names:
-            print("testing: " + str(variable))
             if variable in when_condition:
-                print("v in WC")
                 config_variable = str(Config().get()["variables"][variable])
-                print("CF var: " + str(config_variable))
                 if " " in config_variable or config_variable == '':
                     config_variable = "'" + config_variable + "'"
                 when_condition = when_condition.replace(variable, config_variable)
