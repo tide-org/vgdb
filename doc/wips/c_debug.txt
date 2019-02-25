@@ -138,4 +138,26 @@ bash line to run test binary: bin/dev-environment ./tests/binaries/c_test/c_test
 # gdb version - needs to be 8.2.1
 
 
+## Working config at:
+
+plugins/test_c
+
+start:
+
+:Vgdb
+
+set breakpoint to line 6:
+
+:VgRunConfigCommand set_breakpoint
+
+run to breakpoint:
+
+:VgRunConfigCommand run
+
+step through lines:
+
+:VgRunConfigCommand step
+
+
+
 
