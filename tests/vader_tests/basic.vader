@@ -1,6 +1,6 @@
 Execute (test that we get a disassembly correctly):
   :Vgdb
-  :b vg_disassembly
+  :sbuffer vg_disassembly
 
 Expect:
       0x0000000000400430 <+0>:    xor    %ebp,%ebp
@@ -15,4 +15,33 @@ Expect:
       0x000000000040044d <+29>:    mov    $0x400526,%rdi
       0x0000000000400454 <+36>:    callq  0x400410 <__libc_start_main@plt>
       0x0000000000400459 <+41>:    hlt
+
+Execute (test that we get a memory output correctly):
+  :sbuffer vg_registers
+
+Expect:
+  rax            0x1c                28
+  rbx            0x0                 0
+  rcx            0x7fffffffed98      140737488350616
+  rdx            0x7ffff7de7ab0      140737351940784
+  rsi            0x1                 1
+  rdi            0x7ffff7ffe168      140737354129768
+  rbp            0x0                 0x0
+  rsp            0x7fffffffed80      0x7fffffffed80
+  r8             0x7ffff7ffe6f8      140737354131192
+  r9             0x0                 0
+  r10            0x3d                61
+  r11            0x7ffff7b95300      140737349505792
+  r12            0x400430            4195376
+  r13            0x7fffffffed80      140737488350592
+  r14            0x0                 0
+  r15            0x0                 0
+  rip            0x400430            0x400430 <_start>
+  eflags         0x206               [ PF IF ]
+  cs             0x33                51
+  ss             0x2b                43
+  ds             0x0                 0
+  es             0x0                 0
+  fs             0x0                 0
+  gs             0x0                 0
 

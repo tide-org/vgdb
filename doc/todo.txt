@@ -1,4 +1,3 @@
-[ ] fix failing tests
 [ ] create more tests
 [ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento
 [ ] add the option of adding a name: key to commands (like ansible)
