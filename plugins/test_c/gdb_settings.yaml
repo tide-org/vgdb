@@ -4,7 +4,7 @@ commands:
     load_file:
         steps:
             - run_command:
-                command: 'file tests/binaries/c_test/c_test'
+                command: 'file /Users/willvk/Source/wilvk/vgdb/tests/binaries/c_test/c_test'
     info_source:
         steps:
             - run_command:
@@ -14,8 +14,6 @@ commands:
                 match: 'Located in (.*)\"$'
                 match_group: 1
                 try_set: 'current_filename'
-            - print_debug:
-                msg: "current_filename: {{ current_filename }}"
             - set_buffer:
                 buffer_name: 'vg_code'
                 file_name: "{{ current_filename }}"

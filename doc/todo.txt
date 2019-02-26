@@ -20,6 +20,7 @@
 [ ] add llvm support
 [ ] add other process support (e.g. ssh, terminals, log streams, etc)
 [ ] allow different configs to be called from vim command line
+[ ] test on linux
 [ ] update/create readme.md file
 [ ] create a product website
 [ ] promote it as an app
