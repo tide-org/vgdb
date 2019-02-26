@@ -16,7 +16,6 @@ def resolve_plugin_path(plugin_name):
     plugin_path = get_plugin_path(start_path)
     if os.path.isdir(plugin_path):
         return abspath(plugin_path)
-
     raise RuntimeError("error: could not resolve " + plugin_name + ": " + start_path)
 
 def validate_plugin_name(plugin_name):

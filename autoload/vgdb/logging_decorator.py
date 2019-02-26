@@ -20,7 +20,7 @@ def make_class_decorator(function_decorator):
     def class_decorator(cls):
 
         def is_function(attr_value):
-            return hasattr(attr_value, '__call__') and isinstance(attr_value,types.FunctionType)
+            return hasattr(attr_value, '__call__') and isinstance(attr_value, types.FunctionType)
 
         if is_function(cls):
             return function_decorator(cls)
@@ -45,8 +45,8 @@ def logging(func):
                     temp_key = debug_key.replace('debug_', '')
                     debug_this_object = DEBUG_SETTINGS[debug_key]
                     if not debug_this_object and (temp_key.lower() == func.__module__.lower()):
-                        return 0
-            return 1
+                        return False
+            return True
 
         def get_start_write_object():
             write_object = {}
@@ -59,7 +59,6 @@ def logging(func):
                 write_object["func_args"] = str(list(args))
             if kwargs:
                 write_object["func_kwargs"] = str(kwargs)
-
             return write_object
 
         def get_end_write_object(func_result):
@@ -77,7 +76,6 @@ def logging(func):
             end_write_object = get_end_write_object(func_result)
             json_string = json.dumps(start_write_object)
             json_string += json.dumps(end_write_object)
-
             with open(LOG_FILENAME, 'a+') as file_handle:
                 file_handle.write(json_string)
             return func_result
