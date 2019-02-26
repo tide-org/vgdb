@@ -232,4 +232,8 @@
 [n] allow plugins from different languages - e.g. python, ruby, C, elixir, scala, .net, etc. - too vague
 [x] fix failing tests
 [n] have ability to have end_of_output_regex on a per-command level (would overwrite default) - e.g. for ssh login etc. - not yet, no required use case atm
+[x] create more tests - vader and nose - later
 [x] add a variable logging framework with verbosity and area options - sort of done
+[n] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations - seems to be ok
+[n] add the ability to patch up disassemblies to a single buffer when switching to range - maybe sort list as well - not now - more useful to do languages support atm
+[n] use async functions for events (if necessary) - not doing - would warp reality as i know it

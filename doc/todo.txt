@@ -1,18 +1,17 @@
-[ ] create more tests
+[ ] fix up C example config - piet breakpoints, local variables
 [ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
-[ ] add interpreted languages support for python
+[ ] cleanup plugin/commands.vim
+[ ] add language support for python
 [ ] allow specifying actions from a config plugins path
-[ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
 [ ] create tests for config_command buffers, actions and events
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g - follow breakpoint option
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
-[ ] add shortcut keys for debugging - to config
-[ ] add a timer refresh config option - useful for streaming logs and sampling
-[ ] use async functions for events (if necessary)
+[ ] componentise python config to allow use on multiple editors - texpect - as a pip package that installs all dependencies
+[ ] add shortcut keys for debugging - to vimrc and document as an example
+[ ] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)
 [ ] standardise all editor-specific calls from python to use the editor_wrapper (e.g. actions/set_buffer)
-[ ] add the ability to patch up disassemblies to a single buffer when switching to range - maybe sort list as well
 [ ] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order - requires investigating buffer cache order and precedence
 [ ] implement command on startup log file (use pexpect)
 [ ] make stacking/abutting buffer-specific
@@ -21,7 +20,6 @@
 [ ] add llvm support
 [ ] add other process support (e.g. ssh, terminals, log streams, etc)
 [ ] allow different configs to be called from vim command line
-[ ] componentise python config to allow use on multiple editors - texpect
 [ ] update/create readme.md file
 [ ] create a product website
 [ ] promote it as an app
