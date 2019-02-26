@@ -26,12 +26,12 @@ function! vg_buffer_find#find_current_window_number()
 endfunction
 
 function! vg_buffer_find#find_window_by_bufname(bufname, ...)
-    let a:switch_window = get(a:, 1, 0)
+    let l:switch_window = get(a:, 1, 0)
     let l:bufmap = map(range(1, winnr('$')), '[bufname(winbufnr(v:val)), v:val]')
     let l:filtered_map = filter(l:bufmap, 'v:val[0] =~ a:bufname')
     if len(l:filtered_map) > 0
         let l:found_window = filtered_map[0][1]
-        if a:switch_window
+        if l:switch_window
             execute l:found_window . 'wincmd w'
         endif
         return l:found_window

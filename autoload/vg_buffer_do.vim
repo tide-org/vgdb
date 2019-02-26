@@ -22,7 +22,7 @@ function! vg_buffer_do#remove_unlisted_buffers()
 endfunction
 
 function! vg_buffer_do#set_buffer_for_vgdb(buffer_name, ...)
-    let a:syntax = get(a:, 1, '')
+    let l:syntax = get(a:, 1, '')
     setlocal buftype=nofile
     setlocal nonumber
     setlocal foldcolumn=0
@@ -30,16 +30,16 @@ function! vg_buffer_do#set_buffer_for_vgdb(buffer_name, ...)
     setlocal noswapfile
     setlocal bufhidden=delete
     setlocal nomodifiable
-    exec 'setlocal syntax=' . a:syntax
+    exec 'setlocal syntax=' . l:syntax
     silent exec 'file ' . a:buffer_name
 endfunction
 
 function! vg_buffer_do#write_array_to_buffer(buffer_name, ...)
-    let a:clear_buffer = get(a:, 1, 1)
+    let l:clear_buffer = get(a:, 1, 1)
     let l:array_cache = get(g:vg_config_dictionary["internal"]["buffer_caches"], a:buffer_name, "")
     call vg_buffer_find#find_window_by_bufname(a:buffer_name, 1)
     setlocal modifiable
-    if a:clear_buffer
+    if l:clear_buffer
         silent! 1,$delete _
     endif
     silent! call setline('.', l:array_cache)
