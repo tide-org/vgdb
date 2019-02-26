@@ -231,4 +231,5 @@
 [n] add goto definition functionality - there are already plugins for this
 [n] allow plugins from different languages - e.g. python, ruby, C, elixir, scala, .net, etc. - too vague
 [x] fix failing tests
+[n] have ability to have end_of_output_regex on a per-command level (would overwrite default) - e.g. for ssh login etc. - not yet, no required use case atm
 [x] add a variable logging framework with verbosity and area options - sort of done

@@ -16,7 +16,6 @@ commands:
                 name: 'continue'
               when: app_entrypoint != None
             - run_vim_function:
-                function_file: 'run_to_entrypoint.vim'
                 function_name: 'run_to_entrypoint#was_successful'
               when: app_entrypoint != None
     get_set_entrypoint:

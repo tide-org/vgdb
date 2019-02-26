@@ -3,7 +3,6 @@
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
 [ ] add interpreted languages support for python
-[ ] have ability to have end_of_output_regex on a per-command level (would overwrite default) - e.g. for ssh login etc.
 [ ] allow specifying actions from a config plugins path
 [ ] fix vg_registers in docker container - need to split on "\n", not \r but join lines and remove start and end ~ quotations
 [ ] create tests for config_command buffers, actions and events

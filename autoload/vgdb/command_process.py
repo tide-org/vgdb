@@ -15,7 +15,10 @@ class CommandProcess:
 
     def spawn_process(self, startup_commands):
         try:
-            self._child = pexpect.spawnu(self._process_path + self._config_settings["process"]["main_process_default_arguments"] + " " + startup_commands)
+            self._child = pexpect.spawnu(
+                self._process_path +
+                self._config_settings["process"]["main_process_default_arguments"] + " " +
+                startup_commands)
             self._child.expect(self._config_settings["process"]["end_of_output_regex"])
         except Exception as ex:
             print("error in command_handler.spawn_child_process(): " + str(ex) + "\n" + traceback.format_exc())
