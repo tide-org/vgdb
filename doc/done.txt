@@ -238,4 +238,6 @@
 [n] add the ability to patch up disassemblies to a single buffer when switching to range - maybe sort list as well - not now - more useful to do languages support atm
 [n] use async functions for events (if necessary) - not doing - would warp reality as i know it
 [x] add option to show line numbers for a buffer
+[n] add option for buffer to be a filename and editable (but only when not debugging) - won't do yet - would be a bit messy
+[n] create tests for config_command buffers, actions and events - not doing now - todo once py code is in separate repo
 [x] cleanup plugin/commands.vim

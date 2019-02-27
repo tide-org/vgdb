@@ -1,14 +1,13 @@
 [ ] fix up C example config - piet breakpoints, local variables buffer
-[ ] add option for buffer to be a filename and editable (but only when not debugging)
-[ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento
+[ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento - for actions, config, filters, editor_wrappers, etc.
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
+[ ] componentise python config to allow use on multiple editors - texpect - as a pip package that installs all dependencies
 [ ] add language support for python
+[ ] create an option to allow buffers to be created from templates using jinja2 - e.g. a status window for C debugging.
 [ ] allow specifying actions from a config plugins path
-[ ] create tests for config_command buffers, actions and events
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g - follow breakpoint option
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
-[ ] componentise python config to allow use on multiple editors - texpect - as a pip package that installs all dependencies
 [ ] add shortcut keys for debugging - to vimrc and document as an example
 [ ] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)
 [ ] standardise all editor-specific calls from python to use the editor_wrapper (e.g. actions/set_buffer)
