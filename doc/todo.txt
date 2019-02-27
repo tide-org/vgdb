@@ -1,5 +1,5 @@
 [ ] fix up C example config - piet breakpoints, local variables buffer
-[ ] add option to show line numbers for a buffer
+[ ] add option for buffer to be a filename and editable (but only when not debugging)
 [ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition

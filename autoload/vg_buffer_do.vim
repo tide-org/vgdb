@@ -21,16 +21,20 @@ function! vg_buffer_do#remove_unlisted_buffers()
     endfor
 endfunction
 
-function! vg_buffer_do#set_buffer_for_vgdb(buffer_name, ...)
-    let l:syntax = get(a:, 1, '')
+function! vg_buffer_do#set_buffer_for_vgdb(buffer_name, syntax, line_numbers)
     setlocal buftype=nofile
-    setlocal nonumber
+    echo "for buffer: " . a:buffer_name . " line numbers is set to: " . a:line_numbers
+    if a:line_numbers
+        setlocal number
+    else
+        setlocal nonumber
+    endif
     setlocal foldcolumn=0
     setlocal wrap
     setlocal noswapfile
     setlocal bufhidden=delete
     setlocal nomodifiable
-    exec 'setlocal syntax=' . l:syntax
+    exec 'setlocal syntax=' . a:syntax
     silent exec 'file ' . a:buffer_name
 endfunction
 

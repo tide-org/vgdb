@@ -62,6 +62,7 @@ buffers:
         on_startup: true
     vg_code:
         on_startup: true
+        line_numbers: true
         primary_window: true
         language: 'c'
         events:
