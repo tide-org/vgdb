@@ -1,6 +1,6 @@
 [ ] fix up C example config - piet breakpoints, local variables buffer
-[ ] add local variables buffer to C test
 [ ] add ability to display file in vg_code buffer
+[ ] add local variables buffer to C test
 [ ] add abillity to set breakpoints in multiple files - add breakpoint from filename
 [ ] create an option to allow buffers to be created from templates using jinja2 - e.g. a status window for C debugging.
 [ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento - for actions, config, filters, editor_wrappers, etc.

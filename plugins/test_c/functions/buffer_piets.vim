@@ -8,7 +8,6 @@ function! buffer_piets#set_piets(...)
       let l:current_filename = g:vg_config_dictionary["variables"][l:current_filename_variable]
       if len(l:piet_match_list) > 0
           for l:piet_match in l:piet_match_list
-              echo "piet_match: " . l:piet_match
               let l:match_tuple = split(l:piet_match, ":")
               if l:match_tuple[0] ==? fnamemodify(l:current_filename, ":t")
                   execute "sign place 3 line=" . l:match_tuple[1] . " name=piet file=" . expand("%:p")

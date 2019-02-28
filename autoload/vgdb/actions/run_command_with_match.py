@@ -20,7 +20,6 @@ class run_command_with_match(action_base):
         if self._try_set_var:
             self.__get_match()
         if self._try_set_array_var:
-            print("doing array match")
             self.__get_array_match()
         self.__try_set_variable()
 
@@ -53,10 +52,7 @@ class run_command_with_match(action_base):
     def __get_array_match(self):
         match_array = []
         for line in (self._lines or []):
-            print("checking line: " + line)
             if re.search(self._regex_match, line):
-                print("match!")
                 match = re.search(self._regex_match, line)
                 match_array.append(match.group(int(self._match_group)))
-        print("match_array: " + str(match_array))
         self._match_result = match_array
