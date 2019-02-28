@@ -4,6 +4,7 @@ function! buffer_piets#set_piets(...)
    let l:current_filename_variable = get(l:event_args, "current_filename_variable", '')
    if l:piet_match_array_variable != ''
       let l:buffer_name = @%
+      echo "buffer_name: " . l:buffer_name
       let l:piet_match_list = g:vg_config_dictionary["variables"][l:piet_match_array_variable]
       let l:current_filename = g:vg_config_dictionary["variables"][l:current_filename_variable]
       if len(l:piet_match_list) > 0

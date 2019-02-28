@@ -53,7 +53,7 @@ commands:
                 command: 'step'
             - run_config_command:
                 name: 'info_source'
-    set_highlight_for_breakpoint:
+    set_highlight_for_breakpoint_and_diff:
         steps:
             - run_vim_function:
                 function_name: 'set_highlight#for_breakpoint_and_diff'
@@ -78,7 +78,7 @@ variables:
 events:
     after_startup:
         - 'load_file'
-        - 'set_highlight_for_breakpoint'
+        - 'set_highlight_for_breakpoint_and_diff'
         - 'info_source'
 
 buffers:

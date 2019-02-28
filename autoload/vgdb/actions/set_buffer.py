@@ -10,11 +10,28 @@ class set_buffer(action_base):
     _calling_buffer_name = ''
     _buffer_name = ''
     _file_name = ''
+    _buffer_filename_variable = ''
+    _buffer_filename = ''
 
     def run(self, command_item, buffer_name=''):
         self.__set_locals(command_item, buffer_name)
-        self.__load_buffer_cache_from_file()
-        self.__run_vim_command()
+        if self._buffer_filename_variable:
+            self.__set_buffer_from_filename()
+        #self.__load_buffer_cache_from_file()
+        #self.__run_vim_command()
+
+    # TODO: this needs to be moved into the vim81 editor_wrapper class
+    def __set_buffer_from_filename(self):
+        mapped_file_buffers = Config().get()["internal"]["variables"].get("mapped_file_buffers", {})
+        if not mapped_file_buffers:
+            Config().get()["internal"]["variables"]["mapped_file_buffers"] = {}
+        buffer_window_number = mapped_file_buffers.get(self._buffer_name, '')
+        if not buffer_window_number:
+            buffer_window_number = vim.eval("vg_buffer_find#find_window_by_bufname('" + self._buffer_name + "', 1)")
+            Config().get()["internal"]["variables"]["mapped_file_buffers"][self._buffer_name] = buffer_window_number
+            vim.command("set buftype=")
+            vim.command("set modifiable")
+        vim.command("edit! " + self._buffer_filename)
 
     def __load_buffer_cache_from_file(self):
         if os.path.isfile(self._file_name):
@@ -34,3 +51,6 @@ class set_buffer(action_base):
         self._calling_buffer_name = buffer_name
         self._buffer_name = Interpolate.interpolate_variables(self._command_item["buffer_name"])
         self._file_name = Interpolate.interpolate_variables(self._command_item["file_name"])
+        self._buffer_filename_variable = Config().get()["buffers"][self._buffer_name].get('buffer_filename_variable', '')
+        if self._buffer_filename_variable:
+            self._buffer_filename = Config().get()["variables"].get(self._buffer_filename_variable, '')

@@ -27,10 +27,21 @@ endfunction
 
 function! vg_buffer_find#find_window_by_bufname(bufname, ...)
     let l:switch_window = get(a:, 1, 0)
+    let l:mapped_file_buffers = get(g:vg_config_dictionary["internal"]["variables"], "mapped_file_buffers", "")
+    if len(l:mapped_file_buffers) > 0
+       let l:file_buffer_window = get(l:mapped_file_buffers, a:bufname, '')
+       if len(l:file_buffer_window) > 0
+           if l:switch_window
+               execute l:file_buffer_window . 'wincmd w'
+           endif
+           return l:file_buffer_window
+       endif
+    endif
+
     let l:bufmap = map(range(1, winnr('$')), '[bufname(winbufnr(v:val)), v:val]')
-    let l:filtered_map = filter(l:bufmap, 'v:val[0] =~ a:bufname')
-    if len(l:filtered_map) > 0
-        let l:found_window = filtered_map[0][1]
+    let l:filtered_buffers_map = filter(l:bufmap, 'v:val[0] =~ a:bufname')
+    if len(l:filtered_buffers_map) > 0
+        let l:found_window = filtered_buffers_map[0][1]
         if l:switch_window
             execute l:found_window . 'wincmd w'
         endif

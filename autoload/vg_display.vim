@@ -5,7 +5,9 @@ endif
 function! vg_display#check_update_config_buffers()
     for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
         if vg_buffer_find#find_window_by_bufname(l:buffer_name) != -1
-            call vg_display#display_buffer(l:buffer_name)
+            "if len(get(g:vg_config_dictionary["buffers"][l:buffer_name], 'buffer_filename_variable', '')) == 0
+                call vg_display#display_buffer(l:buffer_name)
+            "endif
         endif
     endfor
 endfunction
