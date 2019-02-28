@@ -242,3 +242,4 @@
 [n] create tests for config_command buffers, actions and events - not doing now - todo once py code is in separate repo
 [x] cleanup plugin/commands.vim
 [x] add piets to C test
+[x] add ability to display file in vg_code buffer

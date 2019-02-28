@@ -37,7 +37,6 @@ function! vg_display#default_display_buffer(buffer_name)
     call vg_display#run_config_events(a:buffer_name, 'before_command')
     call vg_python#check_run_python_command(l:python_command)
     if !l:using_filename
-        echo "writing to buffer: " . a:buffer_name
         call vg_buffer_do#write_array_to_buffer(a:buffer_name, l:clear_buffer)
     endif
     call vg_display#run_config_events(a:buffer_name, 'after_command')
