@@ -69,6 +69,10 @@ commands:
                 event_input_args:
                     piet_match_array_variable: 'file_lines'
                     current_filename_variable: 'current_filename'
+    list_locals:
+        steps:
+            - run_command:
+                command: 'info locals'
 
 variables:
     current_filename: ''
@@ -84,6 +88,9 @@ events:
 buffers:
     vg_session_log:
         on_startup: true
+    vg_locals:
+        on_startup: true
+        command: 'list_locals'
     vg_code:
         on_startup: true
         line_numbers: true

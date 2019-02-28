@@ -243,3 +243,5 @@
 [x] cleanup plugin/commands.vim
 [x] add piets to C test
 [x] add ability to display file in vg_code buffer
+[x] fix up C example config - piet breakpoints, local variables buffer
+[x] add local variables buffer to C test
