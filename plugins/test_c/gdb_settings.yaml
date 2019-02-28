@@ -28,8 +28,11 @@ commands:
                 function_name: 'buffer_breakpoint#set_highlight_line'
     set_breakpoint:
         steps:
-            - run_command:
-                command: 'b 6'
+            - set_var:
+                name: 'breakpoint_command'
+                value: 'break {{ user_input_args }}'
+            - run_command_string:
+                variable_name: 'breakpoint_command'
     run:
         steps:
             - run_command:
