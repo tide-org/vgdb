@@ -5,9 +5,7 @@ endif
 function! vg_display#check_update_config_buffers()
     for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
         if vg_buffer_find#find_window_by_bufname(l:buffer_name) != -1
-            "if len(get(g:vg_config_dictionary["buffers"][l:buffer_name], 'buffer_filename_variable', '')) == 0
-                call vg_display#display_buffer(l:buffer_name)
-            "endif
+            call vg_display#display_buffer(l:buffer_name)
         endif
     endfor
 endfunction
@@ -34,10 +32,14 @@ function! vg_display#default_display_buffer(buffer_name)
     let l:language = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'language', "")
     let l:clear_buffer = !vg_display_is#is_session_log_buffer(a:buffer_name)
     let l:line_numbers = vg_display_is#is_buffer_using_line_numbers(a:buffer_name)
+    let l:using_filename = vg_display_is#is_buffer_using_filename(a:buffer_name)
     call vg_buffer#switch_to_buffer(a:buffer_name, l:is_primary_window, l:language, l:line_numbers)
     call vg_display#run_config_events(a:buffer_name, 'before_command')
     call vg_python#check_run_python_command(l:python_command)
-    call vg_buffer_do#write_array_to_buffer(a:buffer_name, l:clear_buffer)
+    if !l:using_filename
+        echo "writing to buffer: " . a:buffer_name
+        call vg_buffer_do#write_array_to_buffer(a:buffer_name, l:clear_buffer)
+    endif
     call vg_display#run_config_events(a:buffer_name, 'after_command')
     call vg_buffer_do#check_do_scroll_to_end(l:scrolling_buffer)
     exec l:current_window_num . 'wincmd w'

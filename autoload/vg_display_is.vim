@@ -26,3 +26,11 @@ function! vg_display_is#is_session_log_buffer(buffer_name)
     endif
     return 0
 endfunction
+
+function! vg_display_is#is_buffer_using_filename(buffer_name)
+    if has_key(g:vg_config_dictionary['buffers'][a:buffer_name], 'buffer_filename_variable')
+        return 1
+    endif
+    return 0
+endfunction
+

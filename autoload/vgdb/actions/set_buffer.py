@@ -17,8 +17,9 @@ class set_buffer(action_base):
         self.__set_locals(command_item, buffer_name)
         if self._buffer_filename_variable:
             self.__set_buffer_from_filename()
-        #self.__load_buffer_cache_from_file()
-        #self.__run_vim_command()
+        else:
+            self.__load_buffer_cache_from_file()
+            self.__run_vim_command()
 
     # TODO: this needs to be moved into the vim81 editor_wrapper class
     def __set_buffer_from_filename(self):
