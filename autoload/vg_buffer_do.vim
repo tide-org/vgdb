@@ -23,7 +23,6 @@ endfunction
 
 function! vg_buffer_do#set_buffer_for_vgdb(buffer_name, syntax, line_numbers)
     setlocal buftype=nofile
-    echo "for buffer: " . a:buffer_name . " line numbers is set to: " . a:line_numbers
     if a:line_numbers
         setlocal number
     else
@@ -34,8 +33,8 @@ function! vg_buffer_do#set_buffer_for_vgdb(buffer_name, syntax, line_numbers)
     setlocal noswapfile
     setlocal bufhidden=delete
     setlocal nomodifiable
-    exec 'setlocal syntax=' . a:syntax
-    silent exec 'file ' . a:buffer_name
+    execute 'setlocal syntax=' . a:syntax
+    silent execute 'file ' . a:buffer_name
 endfunction
 
 function! vg_buffer_do#write_array_to_buffer(buffer_name, ...)

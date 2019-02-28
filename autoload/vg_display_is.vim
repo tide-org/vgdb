@@ -12,11 +12,8 @@ function! vg_display_is#is_scrolling_buffer(buffer_name)
 endfunction
 
 function! vg_display_is#is_buffer_using_line_numbers(buffer_name)
-    echo "checking for buffer: " . a:buffer_name
     if has_key(g:vg_config_dictionary['buffers'][a:buffer_name], 'line_numbers')
-        echo "has key"
         if vg_helpers#is_value_true(g:vg_config_dictionary['buffers'][a:buffer_name]['line_numbers'])
-            echo "is true"
             return 1
         endif
     endif
