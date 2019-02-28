@@ -87,7 +87,7 @@ class ConfigCommandItem(object):
            event_command_list = Config().get()["buffers"][self.buffer_name]["events"][self.event_input_args_name]
            for event_command in event_command_list:
                if event_command["command"] == self.base_command:
-                   return event_command["input_args"]
+                   return event_command.get("input_args", [])
 
     def __set_config_for_user_command_args(self):
         if len(self._user_command_args) > 0:

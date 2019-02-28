@@ -1,10 +1,10 @@
 [ ] fix up C example config - piet breakpoints, local variables buffer
-[ ] add piets to C test
 [ ] add local variables buffer to C test
 [ ] add ability to display file in vg_code buffer
 [ ] add abillity to set breakpoints in multiple files - add breakpoint from filename
 [ ] create an option to allow buffers to be created from templates using jinja2 - e.g. a status window for C debugging.
 [ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento - for actions, config, filters, editor_wrappers, etc.
+[ ] make run_vim_command use input_args instead of event_input_args (as per run_python_command) - delineate the difference and settle on one (or document both and why)
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
 [ ] componentise python config to allow use on multiple editors - texpect - as a pip package that installs all dependencies

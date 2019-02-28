@@ -12,16 +12,24 @@ class run_command_with_match(action_base):
     _lines = []
     _match_result = ''
     _try_set_var = ''
+    _try_set_array_var = ''
 
     def run(self, command_item, buffer_name=''):
         self.__set_locals(command_item, buffer_name)
         self._lines = CommandHandler().run_command(self._command_item_command)
-        self.__get_match()
+        if self._try_set_var:
+            self.__get_match()
+        if self._try_set_array_var:
+            print("doing array match")
+            self.__get_array_match()
         self.__try_set_variable()
 
     def __try_set_variable(self):
-        if self._try_set_var and self._match_result:
-            Config().get()["variables"][self._try_set_var] = self._match_result
+        if self._match_result:
+            if self._try_set_var:
+                Config().get()["variables"][self._try_set_var] = self._match_result
+            if self._try_set_array_var:
+                Config().get()["variables"][self._try_set_array_var] = self._match_result
 
     def __set_locals(self, command_item, buffer_name):
         self._command_item = command_item
@@ -29,6 +37,9 @@ class run_command_with_match(action_base):
         self._command_item_command = self._command_item["command"]
         self._regex_match = self._command_item["match"]
         self._try_set_var = command_item.get("try_set", '')
+        self._try_set_array_var = command_item.get("try_set_array", '')
+        if self._try_set_var and self._try_set_array_var:
+            raise RuntimeError("error: both try_set and try_set_array have been set. please only set one.")
         self._match_group = command_item.get("match_group", 0)
 
     def __get_match(self):
@@ -38,3 +49,14 @@ class run_command_with_match(action_base):
                 match = re.search(self._regex_match, line)
                 match_string = match.group(int(self._match_group))
         self._match_result = match_string
+
+    def __get_array_match(self):
+        match_array = []
+        for line in (self._lines or []):
+            print("checking line: " + line)
+            if re.search(self._regex_match, line):
+                print("match!")
+                match = re.search(self._regex_match, line)
+                match_array.append(match.group(int(self._match_group)))
+        print("match_array: " + str(match_array))
+        self._match_result = match_array

@@ -26,6 +26,8 @@ commands:
         steps:
             - run_vim_function:
                 function_name: 'buffer_breakpoint#set_highlight_line'
+                event_input_args:
+                    highlight_line_variable: 'current_line_number'
     set_breakpoint:
         steps:
             - set_var:
@@ -33,6 +35,12 @@ commands:
                 value: 'break {{ user_input_args }}'
             - run_command_string:
                 variable_name: 'breakpoint_command'
+    continue:
+        steps:
+            - run_command:
+                command: 'continue'
+            - run_config_command:
+                name: 'info_source'
     run:
         steps:
             - run_command:
@@ -49,10 +57,23 @@ commands:
         steps:
             - run_vim_function:
                 function_name: 'set_highlight#for_breakpoint_and_diff'
+    set_piets:
+        steps:
+            - run_command_with_match:
+                command: 'info breakpoints'
+                match: '^~\"\d+\s+.*at\s(.*)\"$'
+                match_group: 1
+                try_set_array: 'file_lines'
+            - run_vim_function:
+                function_name: 'buffer_piets#set_piets'
+                event_input_args:
+                    piet_match_array_variable: 'file_lines'
+                    current_filename_variable: 'current_filename'
 
 variables:
     current_filename: ''
     current_line_number: 0
+    file_lines: []
 
 events:
     after_startup:
@@ -66,13 +87,13 @@ buffers:
     vg_code:
         on_startup: true
         line_numbers: true
+        buffer_filename_variable: 'current_filename'
         primary_window: true
         language: 'c'
         events:
             after_command:
+                - command: 'set_piets'
                 - command: 'set_highlight_line'
-                  input_args:
-                      highlight_line_variable: 'current_line_number'
 
 settings:
     process:
