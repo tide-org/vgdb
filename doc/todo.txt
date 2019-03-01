@@ -14,7 +14,6 @@
 [ ] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order - requires investigating buffer cache order and precedence
 [ ] implement command on startup log file (use pexpect)
 [ ] make stacking/abutting buffer-specific
-[ ] add window affinity for buffer breaks - e.g. top. bottom, left, right, top-left, etc.
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
 [ ] add llvm support
 [ ] add other process support (e.g. ssh, terminals, log streams, etc)

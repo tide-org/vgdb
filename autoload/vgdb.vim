@@ -6,7 +6,7 @@ function! vgdb#start_gdb(...)
     let command = get(a:000, 0, '')
     if vgdb_startup#call_bootstrap_functions()
         return 0
-endif
+    endif
     try
         call vgdb_startup#run_startup_commands('before')
         execute g:vg_py . ' vgdb = Vgdb()'
@@ -20,7 +20,7 @@ endif
 endfunction
 
 function! vgdb#stop_gdb(...)
-    call vg_buffer#close_all_buffers()
+    call vg_buffer_do#close_all_buffers()
     execute g:vg_py . ' vgdb.stop_gdb()'
     execute g:vg_py . ' del vgdb'
     unlet g:vg_loaded
