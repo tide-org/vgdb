@@ -21,7 +21,6 @@ class set_buffer(action_base):
             self.__load_buffer_cache_from_file()
             self.__run_vim_command()
 
-    # TODO: this needs to be moved into the vim81 editor_wrapper class
     def __set_buffer_from_filename(self):
         mapped_file_buffers = Config().get()["internal"]["variables"].get("mapped_file_buffers", {})
         if not mapped_file_buffers:
@@ -32,6 +31,7 @@ class set_buffer(action_base):
             Config().get()["internal"]["variables"]["mapped_file_buffers"][self._buffer_name] = buffer_window_number
             vim.command("set buftype=")
             vim.command("set modifiable")
+        vim.command(str(buffer_window_number) + "wincmd w")
         vim.command("edit! " + self._buffer_filename)
 
     def __load_buffer_cache_from_file(self):

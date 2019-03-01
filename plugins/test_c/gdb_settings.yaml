@@ -28,6 +28,20 @@ commands:
                 function_name: 'buffer_breakpoint#set_highlight_line'
                 event_input_args:
                     highlight_line_variable: 'current_line_number'
+    set_breakpoint_in_file:
+        steps:
+            - get_current_buffer_name:
+                set_variable: 'current_buffer_name'
+            - set_var:
+                name: 'breakpoint_command'
+                value: 'break {{ current_buffer_name }}:{{ user_input_args }}'
+            - run_command_string:
+                variable_name: 'breakpoint_command'
+            - run_command:
+                command: 'set_piets'
+                input_args:
+                    piet_match_array_variable: 'file_lines'
+                    current_filename_variable: 'current_buffer_name'
     set_breakpoint:
         steps:
             - set_var:
@@ -66,9 +80,6 @@ commands:
                 try_set_array: 'file_lines'
             - run_vim_function:
                 function_name: 'buffer_piets#set_piets'
-                event_input_args:
-                    piet_match_array_variable: 'file_lines'
-                    current_filename_variable: 'current_filename'
     list_locals:
         steps:
             - run_command:
@@ -78,6 +89,7 @@ variables:
     current_filename: ''
     current_line_number: 0
     file_lines: []
+    current_buffer_name: ''
 
 events:
     after_startup:
@@ -100,6 +112,9 @@ buffers:
         events:
             after_command:
                 - command: 'set_piets'
+                  input_args:
+                      piet_match_array_variable: 'file_lines'
+                      current_filename_variable: 'current_filename'
                 - command: 'set_highlight_line'
 
 settings:
