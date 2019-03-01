@@ -36,7 +36,7 @@ class set_buffer(action_base):
 
     def __switch_to_window_number_set_active_file(self):
         vim.command(str(self._buffer_window_number) + "wincmd w")
-        vim.command("edit! " + self._buffer_filename)
+        vim.command("silent edit! " + self._buffer_filename)
 
     def __set_buffer_from_filename(self):
         self.__try_get_buffer_window_number()
