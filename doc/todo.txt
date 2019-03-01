@@ -1,6 +1,8 @@
 [ ] allow plugins from more than one path location - eg - base, plugins(common), plugins(specific) - sort of like Magento - for actions, config, filters, editor_wrappers, etc.
   - start at texpect path - specified path - additional paths specified in config - then plugin paths in config
   - should make a path priority list then iterate each one and grab config, actions, functions, etc.
+  - do for: action.py, [functions, templates], editor_wrappers, filters, config.
+  - use a config setting to call back to a previous config and build up a chain. e.g. settings.plugins.pre_load_config - could point to a base set of config and files to load first.
 [ ] make run_vim_command use input_args instead of event_input_args (as per run_python_command) - delineate the difference and settle on one (or document both and why)
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition

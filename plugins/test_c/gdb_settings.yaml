@@ -37,8 +37,8 @@ commands:
                 value: 'break {{ current_buffer_name }}:{{ user_input_args }}'
             - run_command_string:
                 variable_name: 'breakpoint_command'
-            - run_command:
-                command: 'set_piets'
+            - run_config_command:
+                name: 'set_piets'
                 input_args:
                     piet_match_array_variable: 'file_lines'
                     current_filename_variable: 'current_buffer_name'
