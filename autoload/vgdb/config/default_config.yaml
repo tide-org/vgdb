@@ -34,6 +34,7 @@ settings:
         actions_path: "./actions"
         filters_path: "./filters"
         functions_path: "./functions"
+        templates_path: "./templates"
     process:
         ttl_stream_timeout: 0.08
         run_command_on_startup: 0

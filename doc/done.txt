@@ -248,3 +248,4 @@
 [x] add abillity to set breakpoints in multiple files - add breakpoint from filename
 [n] add window affinity for buffer breaks - e.g. top. bottom, left, right, top-left, etc. - nah, maybe later
 [x] fix buffer creating in new window when stepping through filename buffer. (e.g. start - bp - run - switch window - step - duplicate windows)
+[x] create an option to allow buffers to be created from templates using jinja2 - e.g. a status window for C debugging.

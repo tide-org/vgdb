@@ -5,7 +5,8 @@ VALID_PLUGIN_NAMES = [
     'filters',
     'actions',
     'functions',
-    'editor_wrappers'
+    'editor_wrappers',
+    'templates'
 ]
 
 def resolve_plugin_path(plugin_name):

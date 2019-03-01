@@ -84,6 +84,10 @@ commands:
         steps:
             - run_command:
                 command: 'info locals'
+    display_template:
+        steps:
+            - display_template:
+                filename: 'test_template.j2'
 
 variables:
     current_filename: ''
@@ -105,7 +109,7 @@ buffers:
         command: 'list_locals'
     vg_test_template:
         on_startup: true
-        template_file: 'test_template.j2'
+        command: 'display_template'
     vg_code:
         on_startup: true
         line_numbers: true
