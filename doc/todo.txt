@@ -3,6 +3,7 @@
   - should make a path priority list then iterate each one and grab config, actions, functions, etc.
   - do for: action.py, [functions, templates], editor_wrappers, filters, config.
   - use a config setting to call back to a previous config and build up a chain. e.g. settings.plugins.pre_load_config - could point to a base set of config and files to load first.
+[ ] get a golang app working from source and binary
 [ ] make run_vim_command use input_args instead of event_input_args (as per run_python_command) - delineate the difference and settle on one (or document both and why)
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
