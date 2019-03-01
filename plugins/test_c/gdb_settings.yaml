@@ -101,8 +101,11 @@ buffers:
     vg_session_log:
         on_startup: true
     vg_locals:
-        on_startup: true
+        on_startup: false
         command: 'list_locals'
+    vg_test_template:
+        on_startup: true
+        template_file: 'test_template.j2'
     vg_code:
         on_startup: true
         line_numbers: true
