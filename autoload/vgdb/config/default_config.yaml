@@ -31,10 +31,12 @@ settings:
         session_buffer_name: 'vg_session_log'
         add_timestamp: true
     plugins:
+        config_path: "./config"
         actions_path: "./actions"
         filters_path: "./filters"
         functions_path: "./functions"
         templates_path: "./templates"
+        editor_wrappers_path: "./editor_wrappers"
     process:
         ttl_stream_timeout: 0.08
         run_command_on_startup: 0

@@ -2,10 +2,11 @@ import os
 from os.path import abspath
 
 VALID_PLUGIN_NAMES = [
-    'filters',
     'actions',
-    'functions',
+    'config',
     'editor_wrappers',
+    'filters',
+    'functions',
     'templates'
 ]
 
