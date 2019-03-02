@@ -1,5 +1,6 @@
 import importlib
 import sys
+import os
 from os import listdir
 from os.path import isfile, join
 import path_helpers as Ph
@@ -24,6 +25,12 @@ def filter_string(lines, filter_name):
 
 @logging
 def __get_buffer_filter(filter_name):
+    filter_paths = Ph.get_paths_for_plugin('filters')
+    for filter_path in filter_paths:
+        test_file_path = os.path.join(filter_path, filter_name + ".py")
+        if os.path.isfile(test_file_path):
+            sys.path.insert(0, filter_path)
+            break
     importlib.import_module(filter_name)
     return getattr(sys.modules[filter_name], filter_name)
 
@@ -40,6 +47,7 @@ def __get_files_from_path():
     for filter_path in filter_paths:
         sys.path.insert(0, filter_path)
         all_filter_files.extend( [f for f in listdir(filter_path) if isfile(join(filter_path, f))] )
+    print("aff: " + str(all_filter_files))
     return all_filter_files
 
 @logging

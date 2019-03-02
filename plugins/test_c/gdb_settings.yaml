@@ -94,6 +94,7 @@ variables:
     current_line_number: 0
     file_lines: []
     current_buffer_name: ''
+    breakpoint_highlight_color: 'darkred'
 
 events:
     after_startup:
@@ -131,7 +132,6 @@ settings:
         main_process_default_arguments: ' -q --interpreter=mi2 '
         end_of_output_regex: '\(gdb\)'
     plugins:
-        config_path: '../test_config/config'
         filters_path: './filters'
         functions_path: './functions'
         templates_path: './templates'
