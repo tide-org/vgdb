@@ -256,3 +256,4 @@
   - use a config setting to call back to a previous config and build up a chain. e.g. settings.plugins.pre_load_config - could point to a base set of config and files to load first.
 [x] figure out why test_c/filters/vg_base.py is still required after config chaining.
 [n] (todo later) use arrays of files for filters, actions, functions, etc. to prevent lots of disk reads every time a command is run
+[x] allow specifying actions from a config plugins path - done - not tested

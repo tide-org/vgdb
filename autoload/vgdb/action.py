@@ -33,7 +33,6 @@ def run_action(action_name, args_dict):
 
 @logging
 def __call_action_class(action_name, args_dict):
-    #action_module = "actions." + action_name
     importlib.import_module(action_name)
     action = getattr(sys.modules[action_name], action_name)
     return action().run(**args_dict)
