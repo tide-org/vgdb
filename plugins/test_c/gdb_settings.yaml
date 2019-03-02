@@ -132,3 +132,6 @@ settings:
         end_of_output_regex: '\(gdb\)'
     plugins:
         config_path: '../test_config/config'
+        filters_path: './filters'
+        functions_path: './functions'
+        templates_path: './templates'

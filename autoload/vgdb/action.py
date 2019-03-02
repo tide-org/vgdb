@@ -5,13 +5,19 @@ from os import listdir
 from os.path import isfile, join
 from pathlib import Path
 from logging_decorator import logging
+import path_helpers as Ph
 
 @logging
 def __get_actions_list():
     actions_list = []
-    actions_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "actions")
-    action_files = [f for f in listdir(actions_path) if isfile(join(actions_path, f))]
-    for action_file in action_files:
+    all_action_files = []
+    actions_paths = Ph.get_paths_for_plugin("actions")
+    for actions_path in actions_paths:
+        action_files = [f for f in listdir(actions_path) if isfile(join(actions_path, f))]
+        if action_files:
+            sys.path.insert(0, actions_path)
+            all_action_files.extend(action_files)
+    for action_file in all_action_files:
         if Path(action_file).suffix.lower() == ".py" and action_file.lower() != "__init__.py":
             actions_list.append(Path(action_file).stem.lower())
     return actions_list
@@ -27,7 +33,7 @@ def run_action(action_name, args_dict):
 
 @logging
 def __call_action_class(action_name, args_dict):
-    action_module = "actions." + action_name
-    importlib.import_module(action_module)
-    action = getattr(sys.modules[action_module], action_name)
+    #action_module = "actions." + action_name
+    importlib.import_module(action_name)
+    action = getattr(sys.modules[action_name], action_name)
     return action().run(**args_dict)

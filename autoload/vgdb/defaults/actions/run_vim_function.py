@@ -1,14 +1,14 @@
 import os
 import vim
 from action_base import action_base
-import path_helpers as PathHelpers
+import path_helpers as Ph
 import interpolate as Interpolate
 
 class run_vim_function(action_base):
 
     _function_name = ''
     _function_file = ''
-    _resolved_functions_path = ''
+    _resolved_functions_paths = []
     _function_file_path = ''
     _kwargs = {}
 
@@ -27,8 +27,12 @@ class run_vim_function(action_base):
         self._buffer_name = buffer_name
         self._function_name = self._command_item["function_name"]
         self._function_file = self._function_name.split('#')[0] + ".vim"
-        self._resolved_functions_path = PathHelpers.resolve_plugin_path("functions")
-        self._function_file_path = os.path.join(self._resolved_functions_path, self._function_file)
+        self._resolved_functions_paths = Ph.get_paths_for_plugin("functions")
+        for functions_path in self._resolved_functions_paths:
+            test_file_path = os.path.join(functions_path, self._function_file)
+            if os.path.isfile(test_file_path):
+                self._function_file_path = test_file_path
+                break
 
     def __get_interpolated_args(self, command_item):
         input_args = command_item.get("event_input_args", {})

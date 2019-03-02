@@ -2,7 +2,7 @@ import importlib
 import sys
 from os import listdir
 from os.path import isfile, join
-import path_helpers as PathHelpers
+import path_helpers as Ph
 from logging_decorator import logging
 
 FILTERED_BUFFERS_LIST = []
@@ -35,9 +35,12 @@ def __get_filtered_buffers_list():
 
 @logging
 def __get_files_from_path():
-    filters_path = PathHelpers.resolve_plugin_path('filters')
-    sys.path.insert(0, filters_path)
-    return [f for f in listdir(filters_path) if isfile(join(filters_path, f))]
+    filter_paths = Ph.get_paths_for_plugin('filters')
+    all_filter_files = []
+    for filter_path in filter_paths:
+        sys.path.insert(0, filter_path)
+        all_filter_files.extend( [f for f in listdir(filter_path) if isfile(join(filter_path, f))] )
+    return all_filter_files
 
 @logging
 def __add_files_to_list(filter_files):

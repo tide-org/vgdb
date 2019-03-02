@@ -18,3 +18,9 @@ variables:
     disassemble_range_command: ''
     breakpoint_highlight_color: 'darkred'
     diff_highlight_color: 'darkred'
+
+settings:
+    plugins:
+        filters_path: '../filters'
+        functions_path: '../functions'
+
