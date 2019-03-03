@@ -14,7 +14,7 @@ def __get_actions_list():
     actions_paths = Ph.get_paths_for_plugin("actions")
     for actions_path in actions_paths:
         action_files = [f for f in listdir(actions_path) if isfile(join(actions_path, f))]
-        if action_files:
+        if action_files and actions_path not in sys.path:
             sys.path.insert(0, actions_path)
             all_action_files.extend(action_files)
     for action_file in all_action_files:

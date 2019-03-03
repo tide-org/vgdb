@@ -257,3 +257,4 @@
 [x] figure out why test_c/filters/vg_base.py is still required after config chaining.
 [n] (todo later) use arrays of files for filters, actions, functions, etc. to prevent lots of disk reads every time a command is run
 [x] allow specifying actions from a config plugins path - done - not tested
+[x] fix tests - add caching to all plugins

@@ -37,11 +37,12 @@ class EditorWrapper(object):
         if not self._editors_list:
             editor_wrapper_paths = Ph.get_paths_for_plugin("editor_wrappers")
             for editors_path in editor_wrapper_paths:
-                sys.path.insert(0, editors_path)
-                editor_files = [f for f in listdir(editors_path) if isfile(join(editors_path, f))]
-                for editor_file in editor_files:
-                    if Path(editor_file).suffix.lower() == ".py" and editor_file.lower() != "__init__.py":
-                        self._editors_list.append(Path(editor_file).stem.lower())
+                if editors_path not in sys.path:
+                    sys.path.insert(0, editors_path)
+                    editor_files = [f for f in listdir(editors_path) if isfile(join(editors_path, f))]
+                    for editor_file in editor_files:
+                        if Path(editor_file).suffix.lower() == ".py" and editor_file.lower() != "__init__.py":
+                            self._editors_list.append(Path(editor_file).stem.lower())
 
     def get_set_dictionary_value_callback(self):
         return self._editor_object.set_dictionary_value

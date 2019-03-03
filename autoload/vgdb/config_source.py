@@ -62,19 +62,10 @@ def __get_all_configs():
             full_config = yaml_load(config_path, full_config)
     return full_config
 
-def __get_config_path_from_settings(current_config):
-    if not current_config:
-        return ''
-    settings = current_config.get("settings", "")
-    if not settings:
-        return ''
-    plugins = settings.get("plugins", "")
-    if not plugins:
-        return ''
-    config_path = plugins.get("config_path", "")
-    if not config_path:
-        return ''
-    return config_path
+def __get_config_path_from_settings(config):
+    if config and config.get("settings") and config["settings"].get("plugins") and config["settings"]["plugins"].get("config_path"):
+        return config["settings"]["plugins"]["config_path"]
+    return ''
 
 def __get_all_config_locations():
     config_locations = []
@@ -97,9 +88,19 @@ def __get_all_config_locations():
     config_locations.append(__get_default_config_path())
     return config_locations[::-1]
 
+def __get_function_paths_and_add_to_sys_path():
+    import path_helpers as Ph
+    import sys
+    function_paths = Ph.get_paths_for_plugin("functions")
+    for function_path in function_paths:
+        if function_path not in sys.path:
+            sys.path.insert(0, function_path)
+    return function_paths
+
 FULL_CONFIG_LOCATION = __get_base_config_location()
 
 CONFIG_LOCATION_ARRAY = __get_all_config_locations()
 
 CONFIG_OBJECT = __get_all_configs()
 
+FUNCTIONS_LOCATION_ARRAY = __get_function_paths_and_add_to_sys_path()

@@ -1,7 +1,6 @@
 import sys
 import importlib
 from config import Config
-import path_helpers as Ph
 from action_base import action_base
 import interpolate as Interpolate
 
@@ -14,7 +13,6 @@ class run_python_function(action_base):
     _function_name = ''
     _input_args = {}
     _set_on_return = ''
-    _function_paths = []
     _function_module_name = ''
     _function_module = None
     _function = None
@@ -22,7 +20,6 @@ class run_python_function(action_base):
 
     def run(self, command_item, buffer_name='', command_args={}):
         self.__set_locals(command_item, buffer_name, command_args)
-        self.__set_functions_path()
         self.__set_function_module_locals()
         self.__update_command_args()
         self.__run_function_update_variable()
@@ -35,11 +32,6 @@ class run_python_function(action_base):
     def __update_command_args(self):
         if self._command_args:
             self._interpolated_input_args["command_args"] = self._command_args
-
-    def __set_functions_path(self):
-        for function_path in self._function_paths:
-            if function_path not in sys.path:
-                sys.path.insert(0, self._function_path)
 
     def __set_function_module_locals(self):
         self._function_module = importlib.import_module(self._function_module_name)
@@ -54,7 +46,6 @@ class run_python_function(action_base):
         self._function_name = self._command_item["function_name"]
         self._input_args = self._command_item.get("input_args", {})
         self._set_on_return = self._command_item.get("set_on_return", None)
-        self._function_paths = Ph.get_paths_for_plugin("functions")
         self._function_module_name = self._function_file.replace(".py", "")
 
     def __get_interpolated_args(self, command_item):
