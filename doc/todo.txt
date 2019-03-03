@@ -2,8 +2,9 @@
 [ ] make run_vim_command use input_args instead of event_input_args (as per run_python_command) - delineate the difference and settle on one (or document both and why)
 [ ] add the option of adding a name: key to commands (like ansible)
 [ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
+ -  also backtrace can return current filename and current line number.
 [ ] refactor any editor commands in actions (e.g. get_buffer) back to editor_wrapper for portability
-[ ] componentise python config to allow use on multiple editors - texpect - as a pip package that installs all dependencies
+[ ] componentise python config to allow use on multiple editors - texpect (or expectoids) - as a pip package that installs all dependencies
 [ ] add language support for python
 [ ] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g - follow breakpoint option
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
