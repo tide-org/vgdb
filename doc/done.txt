@@ -258,3 +258,4 @@
 [n] (todo later) use arrays of files for filters, actions, functions, etc. to prevent lots of disk reads every time a command is run
 [x] allow specifying actions from a config plugins path - done - not tested
 [x] fix tests - add caching to all plugins
+[l] add shell script function support (sort of like Ansible) args as a list on command line. Redirect stdout/stderr back as result. - maybe later
