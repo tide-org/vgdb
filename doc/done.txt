@@ -259,3 +259,4 @@
 [x] allow specifying actions from a config plugins path - done - not tested
 [x] fix tests - add caching to all plugins
 [l] add shell script function support (sort of like Ansible) args as a list on command line. Redirect stdout/stderr back as result. - maybe later
+[x] fix freezing on vgdb -> set breakpoint -> step -> step - done - deleted swap file ./tests/binaries/c_test/.helper.c.swp
