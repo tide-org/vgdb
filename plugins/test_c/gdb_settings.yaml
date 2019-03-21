@@ -22,6 +22,7 @@ commands:
                 match: '\#0\s+.*\(\)\s.*:(\d+)'
                 match_group: 1
                 try_set: 'current_line_number'
+                else_set: '0'
     set_highlight_line:
         steps:
             - run_vim_function:

@@ -1,12 +1,8 @@
-[ ] make highlight line disappear when no longer debugging (no backtrace)
 [ ] fix logging error when all classes selected for debugging
-[ ] figure out why freezing on vgruncommand run sometimes
-[ ] make an easy way of tracking/logging config actions
 [ ] get a golang app working from source and binary
+[ ] make an easy way of tracking/logging config actions
 [ ] make run_vim_command use input_args instead of event_input_args (as per run_python_command) - delineate the difference and settle on one (or document both and why)
 [ ] add the option of adding a name: key to commands (like ansible)
-[ ] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
- -  also backtrace can return current filename and current line number.
 [ ] refactor any editor commands in actions (e.g. get_buffer) back to editor_wrapper for portability
 [ ] componentise python config to allow use on multiple editors - texpect (or expectoids) - as a pip package that installs all dependencies
 [ ] add language support for python

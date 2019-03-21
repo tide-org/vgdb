@@ -13,6 +13,7 @@ class run_command_with_match(action_base):
     _match_result = ''
     _try_set_var = ''
     _try_set_array_var = ''
+    _else_set = ''
 
     def run(self, command_item, buffer_name=''):
         self.__set_locals(command_item, buffer_name)
@@ -36,6 +37,7 @@ class run_command_with_match(action_base):
         self._command_item_command = self._command_item["command"]
         self._regex_match = self._command_item["match"]
         self._try_set_var = command_item.get("try_set", '')
+        self._else_set = command_item.get("else_set", '')
         self._try_set_array_var = command_item.get("try_set_array", '')
         if self._try_set_var and self._try_set_array_var:
             raise RuntimeError("error: both try_set and try_set_array have been set. please only set one.")
@@ -48,6 +50,8 @@ class run_command_with_match(action_base):
                 match = re.search(self._regex_match, line)
                 match_string = match.group(int(self._match_group))
         self._match_result = match_string
+        if not self._match_result:
+            self._match_result = self._else_set
 
     def __get_array_match(self):
         match_array = []

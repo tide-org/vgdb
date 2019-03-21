@@ -260,3 +260,8 @@
 [x] fix tests - add caching to all plugins
 [l] add shell script function support (sort of like Ansible) args as a list on command line. Redirect stdout/stderr back as result. - maybe later
 [x] fix freezing on vgdb -> set breakpoint -> step -> step - done - deleted swap file ./tests/binaries/c_test/.helper.c.swp
+[x] make highlight line disappear when no longer debugging (no backtrace)
+[m] figure out why freezing on vgruncommand run sometimes - monitor
+ - steps: Vgdb -> set_breakpoint 6 -> run (freezes)
+[n] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
+ -  also backtrace can return current filename and current line number. maybe later
