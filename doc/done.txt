@@ -267,3 +267,6 @@
  -  also backtrace can return current filename and current line number. maybe later
 [x] get a golang app working from source and binary
 [x] fix logging error when all classes selected for debugging
+[x] make an easy way of tracking/logging config actions
+[n] make run_vim_command use input_args instead of event_input_args (as per run_python_command) - delineate the difference and settle on one (or document both and why) - not needed
+[x] add the abillity to scroll buffer to keep current breakpoint/highlight line visible - use vim :g - follow breakpoint option
