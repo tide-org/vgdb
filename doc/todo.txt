@@ -1,4 +1,3 @@
-[ ] fix logging error when all classes selected for debugging
 [ ] componentise python config to allow use on multiple editors - texpect (or expectoids) - as a pip package that installs all dependencies
 [ ] make an easy way of tracking/logging config actions
 [ ] make run_vim_command use input_args instead of event_input_args (as per run_python_command) - delineate the difference and settle on one (or document both and why)
