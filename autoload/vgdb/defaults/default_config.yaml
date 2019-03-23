@@ -8,6 +8,7 @@ settings:
         stack_buffers_by_default: 1
         stack_buffer_window_width: 80
     debugging:
+        print_actions: False
         log_to_file: False
         log_filename: 'vgdb_debug.log'
         debug_action: False

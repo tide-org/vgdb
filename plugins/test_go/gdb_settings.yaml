@@ -4,7 +4,7 @@ commands:
     load_file:
         steps:
             - run_command:
-                command: 'file /Users/willvk/Source/wilvk/vgdb/tests/binaries/c_test/c_test'
+                command: 'file ./tests/binaries/go_test/hello-world'
     info_source:
         steps:
             - run_command:
@@ -19,8 +19,8 @@ commands:
                 file_name: "{{ current_filename }}"
             - run_command_with_match:
                 command: 'backtrace'
-                match: '\#0\s+.*\(\)\s.*:(\d+)'
-                match_group: 1
+                match: '^~\"#0\s+.*at(.*):(\d+)\"$'
+                match_group: 2
                 try_set: 'current_line_number'
     set_highlight_line:
         steps:

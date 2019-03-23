@@ -265,3 +265,4 @@
  - steps: Vgdb -> set_breakpoint 6 -> run (freezes)
 [n] implement multiple variable matches per command - eg backtrace - gives number but want a variable for error condition
  -  also backtrace can return current filename and current line number. maybe later
+[x] get a golang app working from source and binary

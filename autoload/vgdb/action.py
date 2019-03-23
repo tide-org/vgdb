@@ -6,6 +6,9 @@ from os.path import isfile, join
 from pathlib import Path
 from logging_decorator import logging
 import path_helpers as Ph
+from config import Config
+
+PRINT_ACTIONS = Config().get()["settings"]["debugging"]["print_actions"]
 
 @logging
 def __get_actions_list():
@@ -26,6 +29,8 @@ ACTIONS_LIST = __get_actions_list()
 
 @logging
 def run_action(action_name, args_dict):
+    if PRINT_ACTIONS:
+        print("Action: " + action_name + " args: " + str(args_dict))
     if action_name.lower() in ACTIONS_LIST:
         return __call_action_class(action_name, args_dict)
     else:
