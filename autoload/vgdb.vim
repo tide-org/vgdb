@@ -9,9 +9,9 @@ function! vgdb#start_gdb(...)
     endif
     try
         call vgdb_startup#run_startup_commands('before')
-        execute g:vg_py . ' vgdb = Vgdb()'
-        execute g:vg_py . ' vgdb.start_gdb("' . command . '")'
-        echom "Vgdb started successfully"
+        execute g:vg_py . ' vgdb = Tide()'
+        execute g:vg_py . ' vgdb.start("' . command . '")'
+        echom "Tide started successfully"
         call vgdb_startup#call_on_startup_functions()
         call vgdb_startup#run_startup_commands('after')
     catch a:exception
@@ -21,7 +21,7 @@ endfunction
 
 function! vgdb#stop_gdb(...)
     call vg_buffer_do#close_all_buffers()
-    execute g:vg_py . ' vgdb.stop_gdb()'
+    execute g:vg_py . ' vgdb.stop()'
     execute g:vg_py . ' del vgdb'
     unlet g:vg_loaded
     unlet g:vg_config_dictionary

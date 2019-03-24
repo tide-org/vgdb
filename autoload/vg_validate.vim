@@ -1,6 +1,6 @@
 let s:initialised = 0
 let s:scriptdir = expand("<sfile>:h") . '/'
-let s:vgdbscriptdir = s:scriptdir . "vgdb/"
+let s:vgdbscriptdir = s:scriptdir . "tide/"
 let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 
 function! vg_validate#dependency_check()
@@ -47,5 +47,5 @@ function! vg_validate#validate_startup_buffer_names()
 endfunction
 
 function! vg_validate#source_python_files()
-    exec g:vg_pyfile . s:vgdbscriptdir . "vgdb.py"
+    exec g:vg_pyfile . s:vgdbscriptdir . "tide.py"
 endfunction

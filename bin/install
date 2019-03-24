@@ -1,0 +1,25 @@
+#! /bin/sh -e
+
+cd $(dirname $0)/../autoload
+
+rm -rf ./tide
+
+rm -rf ./lib
+
+mkdir ./lib
+
+git clone https://github.com/wilvk/tide ./tide
+
+git clone https://github.com/wilvk/jinja ./lib/jinja
+
+git clone https://github.com/wilvk/markupsafe ./lib/markupsafe
+
+git clone https://github.com/wilvk/pexpect ./lib/pexpect
+
+git clone https://github.com/wilvk/ptyprocess ./lib/ptyprocess
+
+git clone https://github.com/wilvk/pyyaml ./lib/pyyaml
+
+git clone https://github.com/wilvk/six ./lib/six
+
+git clone https://github.com/wilvk/yamlreader ./lib/yamlreader
