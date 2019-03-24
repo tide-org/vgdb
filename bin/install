@@ -6,6 +6,8 @@ rm -rf ./tide
 
 rm -rf ./lib
 
+rm -rf ../tests/docker_volume_files/vader.vim
+
 mkdir ./lib
 
 git clone https://github.com/wilvk/tide ./tide
@@ -23,3 +25,5 @@ git clone https://github.com/wilvk/pyyaml ./lib/pyyaml
 git clone https://github.com/wilvk/six ./lib/six
 
 git clone https://github.com/wilvk/yamlreader ./lib/yamlreader
+
+git clone https://github.com/wilvk/vader.vim ../tests/docker_volume_files/vader.vim
