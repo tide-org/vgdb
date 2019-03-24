@@ -1,4 +1,3 @@
-[ ] componentise python config to allow use on multiple editors - texpect (or expectoids) - as a pip package that installs all dependencies
 [ ] refactor any editor commands in actions (e.g. get_buffer) back to editor_wrapper for portability
 [ ] add language support for python
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
