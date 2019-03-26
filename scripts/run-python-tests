@@ -1,5 +1,0 @@
-#!/bin/sh
-
-cd /work/tests/nose_tests
-
-nosetests --nocapture test_*.py
