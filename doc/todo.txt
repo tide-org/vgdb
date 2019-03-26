@@ -1,7 +1,5 @@
-[ ] dig into some of these freezing errors - likely from leaving processes in zombie state after exit
 [ ] refactor any editor commands in actions (e.g. get_buffer) back to editor_wrapper for portability
 [ ] standardise all editor-specific calls from python to use the editor_wrapper (e.g. actions/set_buffer)
-
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] add shortcut keys for debugging - to vimrc and document as an example
 [ ] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)

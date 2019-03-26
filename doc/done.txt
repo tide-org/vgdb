@@ -273,3 +273,4 @@
 [n] allow list_breakpoints command to be run before disassembly in config - currently displays depending on order - requires investigating buffer cache order and precedence - not sure - too long ago
 [n] add the option of adding a name: key to commands (like ansible) - yeah, nah
 [x] componentise python config to allow use on multiple editors - texpect (or expectoids) - as a pip package that installs all dependencies
+[l] dig into some of these freezing errors - likely from leaving processes in zombie state after exit - later
