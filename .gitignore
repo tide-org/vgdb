@@ -6,6 +6,3 @@ tests/vimrunner/*.gem
 #*[*\.]gem
 vader_tests.log
 vgdb_debug.log
-autoload/tide
-autoload/lib
-tests/docker_volume_files/vader.vim

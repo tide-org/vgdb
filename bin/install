@@ -1,29 +1,11 @@
 #! /bin/sh -e
 
-cd $(dirname $0)/../autoload
+cd $(dirname $0)/..
 
-rm -rf ./tide
+git submodule init
 
-rm -rf ./lib
+git submodule update
 
-rm -rf ../tests/docker_volume_files/vader.vim
+cd $(dirname $0)/../autoload/tide
 
-mkdir ./lib
-
-git clone https://github.com/wilvk/tide ./tide
-
-git clone https://github.com/wilvk/jinja ./lib/jinja
-
-git clone https://github.com/wilvk/markupsafe ./lib/markupsafe
-
-git clone https://github.com/wilvk/pexpect ./lib/pexpect
-
-git clone https://github.com/wilvk/ptyprocess ./lib/ptyprocess
-
-git clone https://github.com/wilvk/pyyaml ./lib/pyyaml
-
-git clone https://github.com/wilvk/six ./lib/six
-
-git clone https://github.com/wilvk/yamlreader ./lib/yamlreader
-
-git clone https://github.com/wilvk/vader.vim ../tests/docker_volume_files/vader.vim
+exec bin/install

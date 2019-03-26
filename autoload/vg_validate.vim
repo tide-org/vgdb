@@ -1,7 +1,4 @@
 let s:initialised = 0
-let s:scriptdir = expand("<sfile>:h") . '/'
-let s:vgdbscriptdir = s:scriptdir . "tide/"
-let s:ptyprocessdir = s:scriptdir . "lib/ptyprocess/ptyprocess/"
 
 function! vg_validate#dependency_check()
     if s:initialised == 1 | return 0 | endif
@@ -47,5 +44,6 @@ function! vg_validate#validate_startup_buffer_names()
 endfunction
 
 function! vg_validate#source_python_files()
-    exec g:vg_pyfile . s:vgdbscriptdir . "tide.py"
+    let l:source_path = expand("<sfile>:h") . '/tide/tide/tide.py'
+    exec g:vg_pyfile . l:source_path
 endfunction

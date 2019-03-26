@@ -1,0 +1,6 @@
+[submodule "autoload/tide"]
+	path = autoload/tide
+	url = git@github.com:wilvk/tide.git
+[submodule "tests/docker_volume_files/vader.vim"]
+	path = tests/docker_volume_files/vader.vim
+	url = git@github.com:wilvk/vader.vim.git
