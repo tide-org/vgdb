@@ -274,3 +274,4 @@
 [n] add the option of adding a name: key to commands (like ansible) - yeah, nah
 [x] componentise python config to allow use on multiple editors - texpect (or expectoids) - as a pip package that installs all dependencies
 [l] dig into some of these freezing errors - likely from leaving processes in zombie state after exit - later
+[x] refactor any editor commands in actions (e.g. get_buffer) back to editor_wrapper for portability

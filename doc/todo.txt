@@ -1,4 +1,3 @@
-[ ] refactor any editor commands in actions (e.g. get_buffer) back to editor_wrapper for portability
 [ ] standardise all editor-specific calls from python to use the editor_wrapper (e.g. actions/set_buffer)
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] add shortcut keys for debugging - to vimrc and document as an example
