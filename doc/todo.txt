@@ -1,5 +1,5 @@
-[ ] standardise all editor-specific calls from python to use the editor_wrapper (e.g. actions/set_buffer)
 [ ] add ability to set a breakpoint/piet from the current line of code/disassembly
+[ ] add abillity to specify the file/binary to debug on startup
 [ ] add shortcut keys for debugging - to vimrc and document as an example
 [ ] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)
 [ ] implement command on startup log file (use pexpect)
@@ -7,7 +7,6 @@
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
 [ ] add llvm support
 [ ] add language support for python
-[ ] add other process support (e.g. ssh, terminals, log streams, etc)
 [ ] allow different configs to be called from vim command line
 [ ] test on linux
 [ ] update/create readme.md file
