@@ -1,4 +1,3 @@
-[ ] add ability to set a breakpoint/piet from the current line of code/disassembly
 [ ] add abillity to specify the file/binary to debug on startup
 [ ] add shortcut keys for debugging - to vimrc and document as an example
 [ ] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)

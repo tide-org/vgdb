@@ -30,11 +30,13 @@ commands:
                     highlight_line_variable: 'current_line_number'
     set_breakpoint:
         steps:
+            - get_current_buffer_line:
+                set_variable: 'current_buffer_line'
             - get_current_buffer_name:
                 set_variable: 'current_buffer_name'
             - set_var:
                 name: 'breakpoint_command'
-                value: 'break {{ current_buffer_name }}:{{ user_input_args }}'
+                value: 'break {{ current_buffer_name }}:{{ current_buffer_line }}'
             - run_command_string:
                 variable_name: 'breakpoint_command'
             - run_config_command:
@@ -87,6 +89,7 @@ variables:
     current_line_number: 0
     file_lines: []
     current_buffer_name: ''
+    current_buffer_line: 0
     breakpoint_highlight_color: 'darkred'
 
 events:

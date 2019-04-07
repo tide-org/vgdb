@@ -277,3 +277,4 @@
 [x] refactor any editor commands in actions (e.g. get_buffer) back to editor_wrapper for portability
 [m] standardise all editor-specific calls from python to use the editor_wrapper (e.g. actions/set_buffer) - maybe later
 [n] add other process support (e.g. ssh, terminals, log streams, etc) - too vague
+[x] add ability to set a breakpoint/piet from the current line of code/disassembly
