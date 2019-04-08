@@ -1,8 +1,8 @@
 .svn
 *.pyc
 *.swp
-vgdb_session.log
+tide_session.log
 tests/vimrunner/*.gem
 #*[*\.]gem
 vader_tests.log
-vgdb_debug.log
+tide_debug.log
