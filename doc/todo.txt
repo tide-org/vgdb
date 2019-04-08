@@ -1,4 +1,4 @@
-[ ] add abillity to specify the file/binary to debug on startup
+[ ] add better input validation/handling for startup and commands - e.g. set as variable, as argument to process, etc.
 [ ] add shortcut keys for debugging - to vimrc and document as an example
 [ ] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)
 [ ] implement command on startup log file (use pexpect)

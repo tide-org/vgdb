@@ -1,10 +1,6 @@
 ---
 
 commands:
-    load_file:
-        steps:
-            - run_command:
-                command: 'file ./tests/binaries/go_test/hello-world'
     info_source:
         steps:
             - run_command:
@@ -94,7 +90,6 @@ variables:
 
 events:
     after_startup:
-        - 'load_file'
         - 'set_highlight_for_breakpoint_and_diff'
         - 'info_source'
 
