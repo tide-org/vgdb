@@ -279,4 +279,5 @@
 [n] add other process support (e.g. ssh, terminals, log streams, etc) - too vague
 [x] add ability to set a breakpoint/piet from the current line of code/disassembly
 [x] add a basic readme to tide
+[n] add better input validation/handling for startup and commands - e.g. set as variable, as argument to process, etc. - not yet
 [x] add abillity to specify the file/binary to debug on startup
