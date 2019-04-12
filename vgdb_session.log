@@ -1,0 +1,244 @@
+--- 2019-04-12 23:30:27.285765 ---
+=thread-group-added,id="i1"
+ 
+--- 2019-04-12 23:30:27.494424 ---
+x/40x $rsp
+&"x/40x $rsp\n"
+&"Value can't be converted to integer.\n"
+^error,msg="Value can't be converted to integer."
+ 
+--- 2019-04-12 23:30:28.065913 ---
+info breakpoints
+&"info breakpoints\n"
+~"No breakpoints or watchpoints.\n"
+^done
+ 
+--- 2019-04-12 23:30:28.232761 ---
+info registers
+&"info registers\n"
+&"The program has no registers now.\n"
+^error,msg="The program has no registers now."
+ 
+--- 2019-04-12 23:30:28.399628 ---
+info breakpoints
+&"info breakpoints\n"
+~"No breakpoints or watchpoints.\n"
+^done
+ 
+--- 2019-04-12 23:30:28.572206 ---
+info registers
+&"info registers\n"
+&"The program has no registers now.\n"
+^error,msg="The program has no registers now."
+ 
+--- 2019-04-12 23:30:28.806397 ---
+target remote test-gdbserver:9999
+&"target remote test-gdbserver:9999\n"
+~"Remote debugging using test-gdbserver:9999\n"
+=tsv-created,name="trace_timestamp",initial="0"\n
+=thread-group-started,id="i1",pid="11"
+~"Reading /binaries/hello_linux from remote target...\n"
+&"warning: File transfers from remote targets can be slow. Use \"set sysroot\" to access files locally instead.\n"
+~"Reading /binaries/hello_linux from remote target...\n"
+~"Reading symbols from target:/binaries/hello_linux..."
+~"(no debugging symbols found)...done.\n"
+=thread-created,id="1",group-id="i1"
+~"Reading /lib64/ld-linux-x86-64.so.2 from remote target...\n"
+~"Reading /lib64/ld-linux-x86-64.so.2 from remote target...\n"
+=library-loaded,id="/lib64/ld-linux-x86-64.so.2",target-name="/lib64/ld-linux-x86-64.so.2",host-name="target:/lib64/ld-linux-x86-64.so.2",symbols-loaded="0",thread-group="i1",ranges=[{from="0x00007ffff7dd7ac0",to="0x00007ffff7df5790"}]
+~"Reading symbols from target:/lib64/ld-linux-x86-64.so.2..."
+~"Reading /lib64/ld-2.23.so from remote target...\n"
+~"Reading /lib64/.debug/ld-2.23.so from remote target...\n"
+~"(no debugging symbols found)...done.\n"
+~"0x00007ffff7dd7c30 in ?? () from target:/lib64/ld-linux-x86-64.so.2\n"
+*stopped,frame={addr="0x00007ffff7dd7c30",func="??",args=[],from="target:/lib64/ld-linux-x86-64.so.2"},thread-id="1",stopped-threads="all",core="1"
+^done
+ 
+--- 2019-04-12 23:30:28.949732 ---
+info breakpoints
+&"info breakpoints\n"
+~"No breakpoints or watchpoints.\n"
+^done
+ 
+--- 2019-04-12 23:30:29.117650 ---
+info registers
+&"info registers\n"
+~"rax            0x0                 0\n"
+~"rbx            0x0                 0\n"
+~"rcx            0x0                 0\n"
+~"rdx            0x0                 0\n"
+~"rsi            0x0                 0\n"
+~"rdi            0x0                 0\n"
+~"rbp            0x0                 0x0\n"
+~"rsp            0x7fffffffed80      0x7fffffffed80\n"
+~"r8             0x0                 0\n"
+~"r9             0x0                 0\n"
+~"r10            0x0                 0\n"
+~"r11            0x0                 0\n"
+~"r12            0x0                 0\n"
+~"r13            0x0                 0\n"
+~"r14            0x0                 0\n"
+~"r15            0x0                 0\n"
+~"rip            0x7ffff7dd7c30      0x7ffff7dd7c30\n"
+~"eflags         0x200               [ IF ]\n"
+~"cs             0x33                51\n"
+~"ss             0x2b                43\n"
+~"ds             0x0                 0\n"
+~"es             0x0                 0\n"
+~"fs             0x0                 0\n"
+~"gs             0x0                 0\n"
+^done
+ 
+--- 2019-04-12 23:30:29.286122 ---
+info file
+&"info file\n"
+~"Symbols from \"target:/binaries/hello_linux\".\n"
+~"Remote serial target in gdb-specific protocol:\n"
+~"Debugging a target over a serial line.\n"
+~"\tWhile running this, GDB does not access memory from...\n"
+~"Local exec file:\n"
+~"\t`target:/binaries/hello_linux', file type elf64-x86-64.\n"
+~"\tEntry point: 0x400430\n"
+~"\t0x0000000000400238 - 0x0000000000400254 is .interp\n"
+~"\t0x0000000000400254 - 0x0000000000400274 is .note.ABI-tag\n"
+~"\t0x0000000000400274 - 0x0000000000400298 is .note.gnu.build-id\n"
+~"\t0x0000000000400298 - 0x00000000004002b4 is .gnu.hash\n"
+~"\t0x00000000004002b8 - 0x0000000000400318 is .dynsym\n"
+~"\t0x0000000000400318 - 0x0000000000400357 is .dynstr\n"
+~"\t0x0000000000400358 - 0x0000000000400360 is .gnu.version\n"
+~"\t0x0000000000400360 - 0x0000000000400380 is .gnu.version_r\n"
+~"\t0x0000000000400380 - 0x0000000000400398 is .rela.dyn\n"
+~"\t0x0000000000400398 - 0x00000000004003c8 is .rela.plt\n"
+~"\t0x00000000004003c8 - 0x00000000004003e2 is .init\n"
+~"\t0x00000000004003f0 - 0x0000000000400420 is .plt\n"
+~"\t0x0000000000400420 - 0x0000000000400428 is .plt.got\n"
+~"\t0x0000000000400430 - 0x00000000004005b2 is .text\n"
+~"\t0x00000000004005b4 - 0x00000000004005bd is .fini\n"
+~"\t0x00000000004005c0 - 0x00000000004005d2 is .rodata\n"
+~"\t0x00000000004005d4 - 0x0000000000400608 is .eh_frame_hdr\n"
+~"\t0x0000000000400608 - 0x00000000004006fc is .eh_frame\n"
+~"\t0x0000000000600e10 - 0x0000000000600e18 is .init_array\n"
+~"\t0x0000000000600e18 - 0x0000000000600e20 is .fini_array\n"
+~"\t0x0000000000600e20 - 0x0000000000600e28 is .jcr\n"
+~"\t0x0000000000600e28 - 0x0000000000600ff8 is .dynamic\n"
+~"\t0x0000000000600ff8 - 0x0000000000601000 is .got\n"
+~"\t0x0000000000601000 - 0x0000000000601028 is .got.plt\n"
+~"\t0x0000000000601028 - 0x0000000000601038 is .data\n"
+~"\t0x0000000000601038 - 0x0000000000601040 is .bss\n"
+~"\t0x00007ffff7dd71c8 - 0x00007ffff7dd71ec is .note.gnu.build-id in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd71f0 - 0x00007ffff7dd72b0 is .hash in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd72b0 - 0x00007ffff7dd7390 is .gnu.hash in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd7390 - 0x00007ffff7dd7648 is .dynsym in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd7648 - 0x00007ffff7dd77ef is .dynstr in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd77f0 - 0x00007ffff7dd782a is .gnu.version in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd7830 - 0x00007ffff7dd78d4 is .gnu.version_d in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd78d8 - 0x00007ffff7dd79f8 is .rela.dyn in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd79f8 - 0x00007ffff7dd7a58 is .rela.plt in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd7a60 - 0x00007ffff7dd7ab0 is .plt in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd7ab0 - 0x00007ffff7dd7ab8 is .plt.got in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7dd7ac0 - 0x00007ffff7df5790 is .text in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7df57a0 - 0x00007ffff7df9860 is .rodata in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7df9860 - 0x00007ffff7df9861 is .stapsdt.base in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7df9864 - 0x00007ffff7df9ea8 is .eh_frame_hdr in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7df9ea8 - 0x00007ffff7dfc390 is .eh_frame in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7ffcbc0 - 0x00007ffff7ffce7c is .data.rel.ro in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7ffce80 - 0x00007ffff7ffcff0 is .dynamic in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7ffcff0 - 0x00007ffff7ffd000 is .got in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7ffd000 - 0x00007ffff7ffd038 is .got.plt in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7ffd040 - 0x00007ffff7ffdfc0 is .data in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7ffdfc0 - 0x00007ffff7ffe168 is .bss in target:/lib64/ld-linux-x86-64.so.2\n"
+~"\t0x00007ffff7ffa120 - 0x00007ffff7ffa15c is .hash in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa160 - 0x00007ffff7ffa1a8 is .gnu.hash in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa1a8 - 0x00007ffff7ffa298 is .dynsym in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa298 - 0x00007ffff7ffa2f6 is .dynstr in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa2f6 - 0x00007ffff7ffa30a is .gnu.version in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa310 - 0x00007ffff7ffa348 is .gnu.version_d in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa348 - 0x00007ffff7ffa478 is .dynamic in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa478 - 0x00007ffff7ffa7b8 is .rodata in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa7b8 - 0x00007ffff7ffa7f4 is .note in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa7f4 - 0x00007ffff7ffa830 is .eh_frame_hdr in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa830 - 0x00007ffff7ffa948 is .eh_frame in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffa950 - 0x00007ffff7ffade9 is .text in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffade9 - 0x00007ffff7ffae1d is .altinstructions in system-supplied DSO at 0x7ffff7ffa000\n"
+~"\t0x00007ffff7ffae1d - 0x00007ffff7ffae29 is .altinstr_replacement in system-supplied DSO at 0x7ffff7ffa000\n"
+^done
+ 
+--- 2019-04-12 23:30:29.447804 ---
+break *0x0000000000400430
+&"break *0x0000000000400430\n"
+~"Breakpoint 1 at 0x400430\n"
+=breakpoint-created,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0x0000000000400430",at="<_start>",thread-groups=["i1"],times="0",original-location="*0x0000000000400430"}
+^done
+ 
+--- 2019-04-12 23:30:29.619573 ---
+continue
+&"continue\n"
+~"Continuing.\n"
+^running
+*running,thread-id="all"
+ 
+~"Reading /lib/x86_64-linux-gnu/libc.so.6 from remote target...\n"
+=library-loaded,id="/lib/x86_64-linux-gnu/libc.so.6",target-name="/lib/x86_64-linux-gnu/libc.so.6",host-name="target:/lib/x86_64-linux-gnu/libc.so.6",symbols-loaded="0",thread-group="i1",ranges=[{from="0x00007ffff7a2c8b0",to="0x00007ffff7b7fb04"}]
+~"Reading /lib/x86_64-linux-gnu/libc-2.23.so from remote target...\n"
+~"Reading /lib/x86_64-linux-gnu/.debug/libc-2.23.so from remote target...\n"
+=breakpoint-modified,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0x0000000000400430",at="<_start>",thread-groups=["i1"],times="1",original-location="*0x0000000000400430"}
+~"\n"
+~"Breakpoint 1, 0x0000000000400430 in _start ()\n"
+*stopped,reason="breakpoint-hit",disp="keep",bkptno="1",frame={addr="0x0000000000400430",func="_start",args=[]},thread-id="1",stopped-threads="all",core="1"
+(gdb) 
+--- 2019-04-12 23:30:29.774781 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x0000000000400430 <_start>\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 23:30:29.915892 ---
+disassemble
+&"disassemble\n"
+~"Dump of assembler code for function _start:\n"
+~"=> 0x0000000000400430 <+0>:\txor    %ebp,%ebp\n"
+~"   0x0000000000400432 <+2>:\tmov    %rdx,%r9\n"
+~"   0x0000000000400435 <+5>:\tpop    %rsi\n"
+~"   0x0000000000400436 <+6>:\tmov    %rsp,%rdx\n"
+~"   0x0000000000400439 <+9>:\tand    $0xfffffffffffffff0,%rsp\n"
+~"   0x000000000040043d <+13>:\tpush   %rax\n"
+~"   0x000000000040043e <+14>:\tpush   %rsp\n"
+~"   0x000000000040043f <+15>:\tmov    $0x4005b0,%r8\n"
+~"   0x0000000000400446 <+22>:\tmov    $0x400540,%rcx\n"
+~"   0x000000000040044d <+29>:\tmov    $0x400526,%rdi\n"
+~"   0x0000000000400454 <+36>:\tcallq  0x400410 <__libc_start_main@plt>\n"
+~"   0x0000000000400459 <+41>:\thlt    \n"
+~"End of assembler dump.\n"
+^done
+ 
+--- 2019-04-12 23:30:30.103929 ---
+info registers
+&"info registers\n"
+~"rax            0x1c                28\n"
+~"rbx            0x0                 0\n"
+~"rcx            0x7fffffffed98      140737488350616\n"
+~"rdx            0x7ffff7de7ac0      140737351940800\n"
+~"rsi            0x1                 1\n"
+~"rdi            0x7ffff7ffe168      140737354129768\n"
+~"rbp            0x0                 0x0\n"
+~"rsp            0x7fffffffed80      0x7fffffffed80\n"
+~"r8             0x7ffff7ffe6f8      140737354131192\n"
+~"r9             0x0                 0\n"
+~"r10            0x3d                61\n"
+~"r11            0x7ffff7b95300      140737349505792\n"
+~"r12            0x400430            4195376\n"
+~"r13            0x7fffffffed80      140737488350592\n"
+~"r14            0x0                 0\n"
+~"r15            0x0                 0\n"
+~"rip            0x400430            0x400430 <_start>\n"
+~"eflags         0x206               [ PF IF ]\n"
+~"cs             0x33                51\n"
+~"ss             0x2b                43\n"
+~"ds             0x0                 0\n"
+~"es             0x0                 0\n"
+~"fs             0x0                 0\n"
+~"gs             0x0                 0\n"
+^done
+ 

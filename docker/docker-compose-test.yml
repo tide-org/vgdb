@@ -13,7 +13,7 @@ services:
     working_dir: /root/.vim/plugin/vgdb
     tmpfs: /tests
     environment:
-      - VGDB_CONFIG_LOCATION=/root/.vim/plugin/vgdb/plugins/assembly/config
+      - TIDE_CONFIG_LOCATION=/root/.vim/plugin/vgdb/plugins/assembly/config
     volumes:
       - ..:/root/.vim/plugin/vgdb
       - ../tests/docker_volume_files/vader.vim:/root/.vim/plugin/vader.vim

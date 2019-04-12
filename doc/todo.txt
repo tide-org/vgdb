@@ -1,4 +1,3 @@
-[ ] fix docker stuff for vgdb
 [ ] make tide a pip package
 [ ] install tide in vgdb using pip
 [ ] do a poc using atom with tide
