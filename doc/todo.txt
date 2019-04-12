@@ -1,7 +1,7 @@
 [ ] fix docker stuff for vgdb
 [ ] make tide a pip package
 [ ] install tide in vgdb using pip
-[ ] add shortcut keys for debugging - to vimrc and document as an example
+[ ] do a poc using atom with tide
 [ ] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)
 [ ] implement command on startup log file (use pexpect)
 [ ] make stacking/abutting buffer-specific

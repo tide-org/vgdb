@@ -282,3 +282,4 @@
 [n] add better input validation/handling for startup and commands - e.g. set as variable, as argument to process, etc. - not yet
 [x] add abillity to specify the file/binary to debug on startup
 [x] fix docker stuff for tide
+[x] add shortcut keys for debugging - to vimrc and document as an example
