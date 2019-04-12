@@ -1,0 +1,1395 @@
+--- 2019-04-12 12:17:34.450271 ---
+=thread-group-added,id="i1"
+=cmd-param-changed,param="startup-with-shell",value="off"
+~"Reading symbols from ./tests/binaries/go_test/hello-world...\n"
+&"Loading Go Runtime support.\n"
+ 
+--- 2019-04-12 12:17:34.787825 ---
+info breakpoints
+&"info breakpoints\n"
+~"No breakpoints or watchpoints.\n"
+^done
+ 
+--- 2019-04-12 12:17:35.066007 ---
+info breakpoints
+&"info breakpoints\n"
+~"No breakpoints or watchpoints.\n"
+^done
+ 
+--- 2019-04-12 12:17:35.226132 ---
+list
+&"list\n"
+~"1\tpackage main\n"
+~"2\t\n"
+~"3\timport \"fmt\"\n"
+~"4\t\n"
+~"5\tfunc main() {\n"
+~"6\t    fmt.Println(\"hello world\")\n"
+~"7\t}\n"
+^done
+ 
+--- 2019-04-12 12:17:35.362110 ---
+info source
+&"info source\n"
+~"Current source file is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go\n"
+~"Contains 7 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:17:35.539803 ---
+backtrace
+&"backtrace\n"
+&"No stack.\n"
+^error,msg="No stack."
+ 
+--- 2019-04-12 12:17:35.789968 ---
+info breakpoints
+&"info breakpoints\n"
+~"No breakpoints or watchpoints.\n"
+^done
+ 
+--- 2019-04-12 12:17:40.322451 ---
+break /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6
+&"break /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"Breakpoint 1 at 0x10935cd: file /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go, line 6.\n"
+=breakpoint-created,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0x00000000010935cd",func="main.main",file="/Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go",fullname="/Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go",line="6",thread-groups=["i1"],times="0",original-location="/Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6"}
+^done
+ 
+--- 2019-04-12 12:17:40.463429 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:17:40.719090 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:17:44.117703 ---
+run
+&"run\n"
+~"Starting program: /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world \n"
+=thread-group-started,id="i1",pid="48929"
+=thread-created,id="1",group-id="i1"
+~"[New Thread 0xe03 of process 48929]\n"
+=thread-created,id="2",group-id="i1"
+~"[New Thread 0xc03 of process 48929]\n"
+=thread-exited,id="1",group-id="i1"
+^running
+*running,thread-id="all"
+ 
+=thread-created,id="3",group-id="i1"
+~"[New Thread 0xd0f of process 48929]\n"
+=thread-created,id="4",group-id="i1"
+~"[New Thread 0x1503 of process 48929]\n"
+=thread-created,id="5",group-id="i1"
+~"[New Thread 0x1603 of process 48929]\n"
+=thread-created,id="6",group-id="i1"
+~"[New Thread 0x2903 of process 48929]\n"
+=breakpoint-modified,bkpt={number="1",type="breakpoint",disp="keep",enabled="y",addr="0x00000000010935cd",func="main.main",file="/Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go",fullname="/Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go",line="6",thread-groups=["i1"],times="1",original-location="/Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6"}
+~"\n"
+~"Thread 2 hit Breakpoint 1, main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"6\t    fmt.Println(\"hello world\")\n"
+*stopped,reason="breakpoint-hit",disp="keep",bkptno="1",frame={addr="0x00000000010935cd",func="main.main",args=[],file="/Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go",fullname="/Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go",line="6",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:17:44.258040 ---
+list
+&"list\n"
+~"1\tpackage main\n"
+~"2\t\n"
+~"3\timport \"fmt\"\n"
+~"4\t\n"
+~"5\tfunc main() {\n"
+~"6\t    fmt.Println(\"hello world\")\n"
+~"7\t}\n"
+^done
+ 
+--- 2019-04-12 12:17:44.398164 ---
+info source
+&"info source\n"
+~"Current source file is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go\n"
+~"Contains 7 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:17:44.559586 ---
+backtrace
+&"backtrace\n"
+~"#0  main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:17:44.801089 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:17:52.351322 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:256\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c500",func="fmt.Println",args=[{name="a",value="..."},{name="n",value="29"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="256",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:17:52.491058 ---
+list
+&"list\n"
+~"251\t}\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+^done
+ 
+--- 2019-04-12 12:17:52.627165 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:17:52.914412 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:256\n"
+~"#1  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:17:53.153951 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:17:54.080581 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c51d",func="fmt.Println",args=[{name="a",value="..."},{name="n",value="29"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="257",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:17:54.218389 ---
+list
+&"list\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+~"261\t// Spaces are always added between operands and a newline is appended.\n"
+^done
+ 
+--- 2019-04-12 12:17:54.358353 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:17:54.622762 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#1  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:17:54.861972 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:17:55.504566 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c534",func="fmt.Println",args=[{name="a",value="..."},{name="n",value="29"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="256",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:17:55.648178 ---
+list
+&"list\n"
+~"251\t}\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+^done
+ 
+--- 2019-04-12 12:17:55.784746 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:17:56.055092 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:256\n"
+~"#1  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:17:56.293494 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:17:56.826148 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c539",func="fmt.Println",args=[{name="a",value="..."},{name="n",value="29"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="257",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:17:56.964728 ---
+list
+&"list\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+~"261\t// Spaces are always added between operands and a newline is appended.\n"
+^done
+ 
+--- 2019-04-12 12:17:57.101331 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:17:57.368364 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#1  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:17:57.607889 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:17:58.107381 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c53e",func="fmt.Println",args=[{name="a",value="..."},{name="n",value="29"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="256",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:17:58.244991 ---
+list
+&"list\n"
+~"251\t}\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+^done
+ 
+--- 2019-04-12 12:17:58.383675 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:17:58.677373 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:256\n"
+~"#1  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:17:58.941295 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:17:59.362385 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c543",func="fmt.Println",args=[{name="a",value="..."},{name="n",value="29"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="257",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:17:59.501553 ---
+list
+&"list\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+~"261\t// Spaces are always added between operands and a newline is appended.\n"
+^done
+ 
+--- 2019-04-12 12:17:59.641677 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:17:59.907638 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#1  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:00.154117 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:00.596734 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c548",func="fmt.Println",args=[{name="a",value="..."},{name="n",value="29"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="256",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:00.740593 ---
+list
+&"list\n"
+~"251\t}\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+^done
+ 
+--- 2019-04-12 12:18:00.879622 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:01.145698 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:256\n"
+~"#1  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:01.387617 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:01.751640 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c54d",func="fmt.Println",args=[{name="a",value="..."},{name="n",value="29"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="257",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:01.892155 ---
+list
+&"list\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+~"261\t// Spaces are always added between operands and a newline is appended.\n"
+^done
+ 
+--- 2019-04-12 12:18:02.035090 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:02.300645 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#1  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:02.539503 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:03.042999 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:245\n"
+~"245\tfunc Fprintln(w io.Writer, a ...interface{}) (n int, err error) {\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c400",func="fmt.Fprintln",args=[{name="w",value="..."},{name="a",value="..."},{name="n",value="842350731056"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="245",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:03.181746 ---
+list
+&"list\n"
+~"240\t// after the last operand.\n"
+~"241\t\n"
+~"242\t// Fprintln formats using the default formats for its operands and writes to w.\n"
+~"243\t// Spaces are always added between operands and a newline is appended.\n"
+~"244\t// It returns the number of bytes written and any write error encountered.\n"
+~"245\tfunc Fprintln(w io.Writer, a ...interface{}) (n int, err error) {\n"
+~"246\t\tp := newPrinter()\n"
+~"247\t\tp.doPrintln(a)\n"
+~"248\t\tn, err = w.Write(p.buf)\n"
+~"249\t\tp.free()\n"
+^done
+ 
+--- 2019-04-12 12:18:03.320896 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:03.587355 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:245\n"
+~"#1  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#2  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:03.829913 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:04.383225 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"246\t\tp := newPrinter()\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c421",func="fmt.Fprintln",args=[{name="w",value="..."},{name="a",value="..."},{name="n",value="842350731056"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="246",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:04.524373 ---
+list
+&"list\n"
+~"241\t\n"
+~"242\t// Fprintln formats using the default formats for its operands and writes to w.\n"
+~"243\t// Spaces are always added between operands and a newline is appended.\n"
+~"244\t// It returns the number of bytes written and any write error encountered.\n"
+~"245\tfunc Fprintln(w io.Writer, a ...interface{}) (n int, err error) {\n"
+~"246\t\tp := newPrinter()\n"
+~"247\t\tp.doPrintln(a)\n"
+~"248\t\tn, err = w.Write(p.buf)\n"
+~"249\t\tp.free()\n"
+~"250\t\treturn\n"
+^done
+ 
+--- 2019-04-12 12:18:04.667589 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:04.936731 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:246\n"
+~"#1  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#2  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:05.175296 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:05.468824 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"fmt.newPrinter (~r0=0x10) at /usr/local/opt/go/libexec/src/fmt/print.go:132\n"
+~"132\tfunc newPrinter() *pp {\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c000",func="fmt.newPrinter",args=[{name="~r0",value="0x10"}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="132",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:05.609461 ---
+list
+&"list\n"
+~"127\tvar ppFree = sync.Pool{\n"
+~"128\t\tNew: func() interface{} { return new(pp) },\n"
+~"129\t}\n"
+~"130\t\n"
+~"131\t// newPrinter allocates a new pp struct or grabs a cached one.\n"
+~"132\tfunc newPrinter() *pp {\n"
+~"133\t\tp := ppFree.Get().(*pp)\n"
+~"134\t\tp.panicking = false\n"
+~"135\t\tp.erroring = false\n"
+~"136\t\tp.fmt.init(&p.buf)\n"
+^done
+ 
+--- 2019-04-12 12:18:05.749646 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:06.021147 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.newPrinter (~r0=0x10) at /usr/local/opt/go/libexec/src/fmt/print.go:132\n"
+~"#1  0x000000000108c426 in fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:246\n"
+~"#2  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#3  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:06.266756 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:06.577456 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"133\t\tp := ppFree.Get().(*pp)\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c028",func="fmt.newPrinter",args=[{name="~r0",value="0x10"}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="133",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:06.718205 ---
+list
+&"list\n"
+~"128\t\tNew: func() interface{} { return new(pp) },\n"
+~"129\t}\n"
+~"130\t\n"
+~"131\t// newPrinter allocates a new pp struct or grabs a cached one.\n"
+~"132\tfunc newPrinter() *pp {\n"
+~"133\t\tp := ppFree.Get().(*pp)\n"
+~"134\t\tp.panicking = false\n"
+~"135\t\tp.erroring = false\n"
+~"136\t\tp.fmt.init(&p.buf)\n"
+~"137\t\treturn p\n"
+^done
+ 
+--- 2019-04-12 12:18:06.860065 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:07.130948 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.newPrinter (~r0=0x10) at /usr/local/opt/go/libexec/src/fmt/print.go:133\n"
+~"#1  0x000000000108c426 in fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:246\n"
+~"#2  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#3  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:07.371022 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:12.254663 ---
+break /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go:136
+&"break /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go:136\n"
+~"Breakpoint 2 at 0x108c050: file /usr/local/opt/go/libexec/src/fmt/print.go, line 136.\n"
+=breakpoint-created,bkpt={number="2",type="breakpoint",disp="keep",enabled="y",addr="0x000000000108c050",func="fmt.newPrinter",file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="136",thread-groups=["i1"],times="0",original-location="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go:136"}
+^done
+ 
+--- 2019-04-12 12:18:12.395839 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+^done
+ 
+--- 2019-04-12 12:18:12.645119 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+^done
+ 
+--- 2019-04-12 12:18:22.760049 ---
+continue
+&"continue\n"
+~"Continuing.\n"
+^running
+*running,thread-id="all"
+ 
+=breakpoint-modified,bkpt={number="2",type="breakpoint",disp="keep",enabled="y",addr="0x000000000108c050",func="fmt.newPrinter",file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="136",thread-groups=["i1"],times="1",original-location="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go:136"}
+~"\n"
+~"Thread 2 hit Breakpoint 2, fmt.newPrinter (~r0=0x10) at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"136\t\tp.fmt.init(&p.buf)\n"
+*stopped,reason="breakpoint-hit",disp="keep",bkptno="2",frame={addr="0x000000000108c050",func="fmt.newPrinter",args=[{name="~r0",value="0x10"}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="136",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:22.896867 ---
+list
+&"list\n"
+~"131\t// newPrinter allocates a new pp struct or grabs a cached one.\n"
+~"132\tfunc newPrinter() *pp {\n"
+~"133\t\tp := ppFree.Get().(*pp)\n"
+~"134\t\tp.panicking = false\n"
+~"135\t\tp.erroring = false\n"
+~"136\t\tp.fmt.init(&p.buf)\n"
+~"137\t\treturn p\n"
+~"138\t}\n"
+~"139\t\n"
+~"140\t// free saves used pp structs in ppFree; avoids an allocation per invocation.\n"
+^done
+ 
+--- 2019-04-12 12:18:23.039575 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:23.316806 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.newPrinter (~r0=0x10) at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"#1  0x000000000108c426 in fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:246\n"
+~"#2  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#3  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:23.558635 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:29.466137 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"59\t\tf.buf = buf\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c054",func="fmt.newPrinter",args=[{name="~r0",value="0x10"}],file="/usr/local/opt/go/libexec/src/fmt/format.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/format.go",line="59",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:29.607931 ---
+list
+&"list\n"
+~"54\tfunc (f *fmt) clearflags() {\n"
+~"55\t\tf.fmtFlags = fmtFlags{}\n"
+~"56\t}\n"
+~"57\t\n"
+~"58\tfunc (f *fmt) init(buf *buffer) {\n"
+~"59\t\tf.buf = buf\n"
+~"60\t\tf.clearflags()\n"
+~"61\t}\n"
+~"62\t\n"
+~"63\t// writePadding generates n bytes of padding.\n"
+^done
+ 
+--- 2019-04-12 12:18:29.750119 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/format.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/format.go\n"
+~"Contains 538 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:29.982110 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.newPrinter (~r0=0x10) at /usr/local/opt/go/libexec/src/fmt/format.go:59\n"
+~"#1  0x000000000108c426 in fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:246\n"
+~"#2  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#3  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:30.221267 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:31.294156 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"55\t\tf.fmtFlags = fmtFlags{}\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c068",func="fmt.newPrinter",args=[{name="~r0",value="0x10"}],file="/usr/local/opt/go/libexec/src/fmt/format.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/format.go",line="55",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:31.435954 ---
+list
+&"list\n"
+~"50\t\t// avoids padding at the end of the struct on 32 bit architectures.\n"
+~"51\t\tintbuf [68]byte\n"
+~"52\t}\n"
+~"53\t\n"
+~"54\tfunc (f *fmt) clearflags() {\n"
+~"55\t\tf.fmtFlags = fmtFlags{}\n"
+~"56\t}\n"
+~"57\t\n"
+~"58\tfunc (f *fmt) init(buf *buffer) {\n"
+~"59\t\tf.buf = buf\n"
+^done
+ 
+--- 2019-04-12 12:18:31.577284 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/format.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/format.go\n"
+~"Contains 538 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:31.807925 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.newPrinter (~r0=0x10) at /usr/local/opt/go/libexec/src/fmt/format.go:55\n"
+~"#1  0x000000000108c426 in fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:246\n"
+~"#2  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#3  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:32.079395 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:33.242784 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"137\t\treturn p\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c078",func="fmt.newPrinter",args=[{name="~r0",value="0x10"}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="137",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:33.380110 ---
+list
+&"list\n"
+~"132\tfunc newPrinter() *pp {\n"
+~"133\t\tp := ppFree.Get().(*pp)\n"
+~"134\t\tp.panicking = false\n"
+~"135\t\tp.erroring = false\n"
+~"136\t\tp.fmt.init(&p.buf)\n"
+~"137\t\treturn p\n"
+~"138\t}\n"
+~"139\t\n"
+~"140\t// free saves used pp structs in ppFree; avoids an allocation per invocation.\n"
+~"141\tfunc (p *pp) free() {\n"
+^done
+ 
+--- 2019-04-12 12:18:33.518761 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:33.799355 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.newPrinter (~r0=0x10) at /usr/local/opt/go/libexec/src/fmt/print.go:137\n"
+~"#1  0x000000000108c426 in fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:246\n"
+~"#2  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#3  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:34.044515 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:35.953535 ---
+step
+&"step\n"
+^running
+*running,thread-id="all"
+ 
+~"fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:247\n"
+~"247\t\tp.doPrintln(a)\n"
+*stopped,reason="end-stepping-range",frame={addr="0x000000000108c434",func="fmt.Fprintln",args=[{name="w",value="..."},{name="a",value="..."},{name="n",value="842350731056"},{name="err",value="..."}],file="/usr/local/opt/go/libexec/src/fmt/print.go",fullname="/usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go",line="247",arch="i386:x86-64"},thread-id="2",stopped-threads="all"
+(gdb) 
+--- 2019-04-12 12:18:36.094599 ---
+list
+&"list\n"
+~"242\t// Fprintln formats using the default formats for its operands and writes to w.\n"
+~"243\t// Spaces are always added between operands and a newline is appended.\n"
+~"244\t// It returns the number of bytes written and any write error encountered.\n"
+~"245\tfunc Fprintln(w io.Writer, a ...interface{}) (n int, err error) {\n"
+~"246\t\tp := newPrinter()\n"
+~"247\t\tp.doPrintln(a)\n"
+~"248\t\tn, err = w.Write(p.buf)\n"
+~"249\t\tp.free()\n"
+~"250\t\treturn\n"
+~"251\t}\n"
+^done
+ 
+--- 2019-04-12 12:18:36.236004 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:36.502334 ---
+backtrace
+&"backtrace\n"
+~"#0  fmt.Fprintln (w=..., a=..., n=842350731056, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:247\n"
+~"#1  0x000000000108c557 in fmt.Println (a=..., n=29, err=...) at /usr/local/opt/go/libexec/src/fmt/print.go:257\n"
+~"#2  0x0000000001093617 in main.main () at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+^done
+ 
+--- 2019-04-12 12:18:36.752664 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:38.083460 ---
+continue
+&"continue\n"
+~"Continuing.\n"
+^running
+*running,thread-id="all"
+ 
+hello world
+~"[Inferior 1 (process 48929) exited normally]\n"
+=thread-exited,id="2",group-id="i1"
+=thread-exited,id="3",group-id="i1"
+=thread-exited,id="4",group-id="i1"
+=thread-exited,id="5",group-id="i1"
+=thread-exited,id="6",group-id="i1"
+=thread-group-exited,id="i1",exit-code="0"
+*stopped,reason="exited-normally"
+(gdb) 
+--- 2019-04-12 12:18:38.225126 ---
+list
+&"list\n"
+~"252\t\n"
+~"253\t// Println formats using the default formats for its operands and writes to standard output.\n"
+~"254\t// Spaces are always added between operands and a newline is appended.\n"
+~"255\t// It returns the number of bytes written and any write error encountered.\n"
+~"256\tfunc Println(a ...interface{}) (n int, err error) {\n"
+~"257\t\treturn Fprintln(os.Stdout, a...)\n"
+~"258\t}\n"
+~"259\t\n"
+~"260\t// Sprintln formats using the default formats for its operands and returns the resulting string.\n"
+~"261\t// Spaces are always added between operands and a newline is appended.\n"
+^done
+ 
+--- 2019-04-12 12:18:38.364151 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:38.628436 ---
+backtrace
+&"backtrace\n"
+&"No stack.\n"
+^error,msg="No stack."
+ 
+--- 2019-04-12 12:18:38.875612 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:39.745663 ---
+continue
+&"continue\n"
+&"The program is not being run.\n"
+^error,msg="The program is not being run."
+ 
+--- 2019-04-12 12:18:39.886020 ---
+list
+&"list\n"
+~"262\tfunc Sprintln(a ...interface{}) string {\n"
+~"263\t\tp := newPrinter()\n"
+~"264\t\tp.doPrintln(a)\n"
+~"265\t\ts := string(p.buf)\n"
+~"266\t\tp.free()\n"
+~"267\t\treturn s\n"
+~"268\t}\n"
+~"269\t\n"
+~"270\t// getField gets the i'th field of the struct value.\n"
+~"271\t// If the field is itself is an interface, return a value for\n"
+^done
+ 
+--- 2019-04-12 12:18:40.028961 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:40.296900 ---
+backtrace
+&"backtrace\n"
+&"No stack.\n"
+^error,msg="No stack."
+ 
+--- 2019-04-12 12:18:40.536161 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:41.612173 ---
+step
+&"step\n"
+&"The program is not being run.\n"
+^error,msg="The program is not being run."
+ 
+--- 2019-04-12 12:18:41.753198 ---
+list
+&"list\n"
+~"272\t// the thing inside the interface, not the interface itself.\n"
+~"273\tfunc getField(v reflect.Value, i int) reflect.Value {\n"
+~"274\t\tval := v.Field(i)\n"
+~"275\t\tif val.Kind() == reflect.Interface && !val.IsNil() {\n"
+~"276\t\t\tval = val.Elem()\n"
+~"277\t\t}\n"
+~"278\t\treturn val\n"
+~"279\t}\n"
+~"280\t\n"
+~"281\t// tooLarge reports whether the magnitude of the integer is\n"
+^done
+ 
+--- 2019-04-12 12:18:41.896239 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:42.160048 ---
+backtrace
+&"backtrace\n"
+&"No stack.\n"
+^error,msg="No stack."
+ 
+--- 2019-04-12 12:18:42.414312 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:43.170283 ---
+step
+&"step\n"
+&"The program is not being run.\n"
+^error,msg="The program is not being run."
+ 
+--- 2019-04-12 12:18:43.315435 ---
+list
+&"list\n"
+~"282\t// too large to be used as a formatting width or precision.\n"
+~"283\tfunc tooLarge(x int) bool {\n"
+~"284\t\tconst max int = 1e6\n"
+~"285\t\treturn x > max || x < -max\n"
+~"286\t}\n"
+~"287\t\n"
+~"288\t// parsenum converts ASCII to integer.  num is 0 (and isnum is false) if no number present.\n"
+~"289\tfunc parsenum(s string, start, end int) (num int, isnum bool, newi int) {\n"
+~"290\t\tif start >= end {\n"
+~"291\t\t\treturn 0, false, end\n"
+^done
+ 
+--- 2019-04-12 12:18:43.454665 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:43.721277 ---
+backtrace
+&"backtrace\n"
+&"No stack.\n"
+^error,msg="No stack."
+ 
+--- 2019-04-12 12:18:43.959551 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:44.715950 ---
+step
+&"step\n"
+&"The program is not being run.\n"
+^error,msg="The program is not being run."
+ 
+--- 2019-04-12 12:18:44.855390 ---
+list
+&"list\n"
+~"292\t\t}\n"
+~"293\t\tfor newi = start; newi < end && '0' <= s[newi] && s[newi] <= '9'; newi++ {\n"
+~"294\t\t\tif tooLarge(num) {\n"
+~"295\t\t\t\treturn 0, false, end // Overflow; crazy long number most likely.\n"
+~"296\t\t\t}\n"
+~"297\t\t\tnum = num*10 + int(s[newi]-'0')\n"
+~"298\t\t\tisnum = true\n"
+~"299\t\t}\n"
+~"300\t\treturn\n"
+~"301\t}\n"
+^done
+ 
+--- 2019-04-12 12:18:44.995067 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:45.264270 ---
+backtrace
+&"backtrace\n"
+&"No stack.\n"
+^error,msg="No stack."
+ 
+--- 2019-04-12 12:18:45.505800 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
+--- 2019-04-12 12:18:46.420520 ---
+step
+&"step\n"
+&"The program is not being run.\n"
+^error,msg="The program is not being run."
+ 
+--- 2019-04-12 12:18:46.558930 ---
+list
+&"list\n"
+~"302\t\n"
+~"303\tfunc (p *pp) unknownType(v reflect.Value) {\n"
+~"304\t\tif !v.IsValid() {\n"
+~"305\t\t\tp.buf.WriteString(nilAngleString)\n"
+~"306\t\t\treturn\n"
+~"307\t\t}\n"
+~"308\t\tp.buf.WriteByte('?')\n"
+~"309\t\tp.buf.WriteString(v.Type().String())\n"
+~"310\t\tp.buf.WriteByte('?')\n"
+~"311\t}\n"
+^done
+ 
+--- 2019-04-12 12:18:46.696762 ---
+info source
+&"info source\n"
+~"Current source file is /usr/local/opt/go/libexec/src/fmt/print.go\n"
+~"Compilation directory is /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test\n"
+~"Located in /usr/local/Cellar/go/1.9.2/libexec/src/fmt/print.go\n"
+~"Contains 1139 lines.\n"
+~"Source language is asm.\n"
+~"Producer is Go cmd/compile go1.9.2.\n"
+~"Compiled with DWARF 2 debugging format.\n"
+~"Does not include preprocessor macro info.\n"
+^done
+ 
+--- 2019-04-12 12:18:46.961463 ---
+backtrace
+&"backtrace\n"
+&"No stack.\n"
+^error,msg="No stack."
+ 
+--- 2019-04-12 12:18:47.205466 ---
+info breakpoints
+&"info breakpoints\n"
+~"Num     Type           Disp Enb Address            What\n"
+~"1       breakpoint     keep y   0x00000000010935cd in main.main at /Users/willvk/Source/wilvk/vgdb/tests/binaries/go_test/hello-world.go:6\n"
+~"\tbreakpoint already hit 1 time\n"
+~"2       breakpoint     keep y   0x000000000108c050 in fmt.newPrinter at /usr/local/opt/go/libexec/src/fmt/print.go:136\n"
+~"\tbreakpoint already hit 1 time\n"
+^done
+ 
