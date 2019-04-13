@@ -1,6 +1,7 @@
-[ ] do a poc using atom with tide
+[ ] do a spike using atom with tide
 [ ] get a python interpreter config working
 [ ] implement command on startup log file (use pexpect)
+[ ] update documentation
 [ ] make stacking/abutting buffer-specific
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
 [ ] add llvm support
