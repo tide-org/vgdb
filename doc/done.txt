@@ -285,3 +285,5 @@
 [x] add shortcut keys for debugging - to vimrc and document as an example
 [x] fix docker stuff for vgdb
 [x] make tide a pip package
+[n] install tide in vgdb using pip - maybe later
+[x] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)
