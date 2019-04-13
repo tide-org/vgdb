@@ -9,6 +9,12 @@ function! vgdb#start_gdb(...)
     endif
     try
         call vgdb_startup#run_startup_commands('before')
+        try
+            " from pip install
+            execute g:vg_py . 'import tide.tide'
+        catch
+            " from git install
+        endtry
         execute g:vg_py . ' vgdb = Tide()'
         execute g:vg_py . ' vgdb.start("' . command . '")'
         echom "Tide started successfully"

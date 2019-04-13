@@ -45,6 +45,10 @@ function! vg_validate#validate_startup_buffer_names()
 endfunction
 
 function! vg_validate#source_python_files()
-    let l:source_path = s:script_file . '/tide/tide/tide.py'
-    exec g:vg_pyfile . l:source_path
+    try
+        let l:source_path = s:script_file . '/tide/tide/tide.py'
+        exec g:vg_pyfile . l:source_path
+    catch
+        " using pip tide
+    endtry
 endfunction

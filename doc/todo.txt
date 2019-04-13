@@ -1,4 +1,3 @@
-[ ] make tide a pip package
 [ ] install tide in vgdb using pip
 [ ] do a poc using atom with tide
 [ ] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)

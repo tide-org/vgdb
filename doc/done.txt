@@ -284,3 +284,4 @@
 [x] fix docker stuff for tide
 [x] add shortcut keys for debugging - to vimrc and document as an example
 [x] fix docker stuff for vgdb
+[x] make tide a pip package
