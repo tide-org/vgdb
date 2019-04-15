@@ -10,13 +10,13 @@ Make sure git is installed. Currently only works on MacOS.
 
 1. Install into Vim:
 
-- Using Vundle:
-
-In your `.vimrc` file:
+Using Vundle, in your `.vimrc` file:
 
     Plugin 'wilvk/vgdb'
 
 2. Install the prerequisite libraries:
+
+e.g.
 
     cd ~/.vim/bundle/vgdb
     bin/git-install
@@ -33,9 +33,13 @@ e.g.
 
 4. start up vim:
 
+e.g.
+
     vgdb git:(master) ✗ vim
 
 5. start up vgdb with an argument to the file to debug (optional):
+
+e.g.
 
     :Vgdb ./tests/binaries/go_test/hello-world
 
@@ -46,6 +50,9 @@ e.g.
 7. Run to breakpoint
 
 8. Step through
+
+# Tide configuration files
+
 
 
 
