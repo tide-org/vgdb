@@ -287,3 +287,4 @@
 [x] make tide a pip package
 [n] install tide in vgdb using pip - maybe later
 [x] add a timer refresh config option - useful for streaming logs and sampling - would call a command on a timer - e.g. every 5 seconds (like watch)
+[x] implement interface for editor functions (or a dynamic version) in editor_base.py - already done

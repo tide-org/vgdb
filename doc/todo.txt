@@ -1,8 +1,9 @@
-[ ] implement interface for editor functions (or a dynamic version) in editor_base.py
-[ ] get a python interpreter config working
-[ ] do a spike using atom with tide
-[ ] implement command on startup log file (use pexpect)
+[ ] add readthedocs to tide and vgdb
 [ ] set keybindings from config file
+[ ] do atom with tide repo
+[ ] get a python interpreter config working
+[ ] get inspiration from other editors
+[ ] implement command on startup log file (use pexpect)
 [ ] update documentation
 [ ] make stacking/abutting buffer-specific
 [ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
