@@ -20,3 +20,7 @@ settings:
         ttl_stream_timeout: 0.08
         main_process_name: 'bash'
         end_of_output_regex: 'bash-3\.2\$'
+
+keybindings:
+    - key: F1
+      command: do_hello
