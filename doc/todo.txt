@@ -1,3 +1,5 @@
+[ ] fix tide.tide in pypi package
+[ ] add a cli to tide
 [ ] add readthedocs to tide and vgdb
 [ ] set keybindings from config file
 [ ] do atom with tide repo
