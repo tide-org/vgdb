@@ -9,14 +9,16 @@ function! vgdb#start_gdb(...)
     endif
     try
         call vgdb_startup#run_startup_commands('before')
+        silent execute g:vg_py . 'from pip._internal import main as pip; pip(["install", "tide"])'
         try
             " from pip install
             execute g:vg_py . 'import tide.tide'
+            execute g:vg_py . 'vgdb = tide.tide.Tide()'
         catch
-            " from git install
+            " from bin/install -> autoload/tide
+            execute g:vg_py . 'vgdb = Tide()'
         endtry
-        execute g:vg_py . ' vgdb = Tide()'
-        execute g:vg_py . ' vgdb.start("' . command . '")'
+        execute g:vg_py . 'vgdb.start("' . command . '")'
         echom "Tide started successfully"
         call vgdb_startup#call_on_startup_functions()
         call vgdb_startup#run_startup_commands('after')
@@ -27,8 +29,8 @@ endfunction
 
 function! vgdb#stop_gdb(...)
     call vg_buffer_do#close_all_buffers()
-    execute g:vg_py . ' vgdb.stop()'
-    execute g:vg_py . ' del vgdb'
+    execute g:vg_py . 'vgdb.stop()'
+    execute g:vg_py . 'del vgdb'
     unlet g:vg_loaded
     unlet g:vg_config_dictionary
 endfunction
@@ -36,7 +38,7 @@ endfunction
 function! vgdb#run_config_command(...)
     let l:command = join(a:000, ' ')
     try
-        execute g:vg_py . ' vgdb.run_config_command("' . l:command . '")'
+        execute g:vg_py . 'vgdb.run_config_command("' . l:command . '")'
         echom "config command ran successfully: " . l:command
         call vgdb#check_update_buffers(l:command)
     catch a:exception

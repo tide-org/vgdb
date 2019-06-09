@@ -1,6 +1,7 @@
 .svn
 *.pyc
 *.swp
+*.log
 tide_session.log
 tests/vimrunner/*.gem
 #*[*\.]gem
