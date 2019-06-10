@@ -1,3 +1,5 @@
+[ ] create a quick start guide for assembly
+[ ] fix assembly debugging failing on jump to new code section
 [ ] fix tide.tide in pypi package - use __init__.py
 [ ] add a cli to tide
 [ ] add readthedocs to tide and vgdb
