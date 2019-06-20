@@ -9,11 +9,12 @@ function! vgdb#start_gdb(...)
     endif
     try
         call vgdb_startup#run_startup_commands('before')
+        "execute g:vg_py . 'from pip._internal import main as pip; pip(["uninstall", "tide"])'
         silent execute g:vg_py . 'from pip._internal import main as pip; pip(["install", "tide"])'
         try
             " from pip install
-            execute g:vg_py . 'import tide.tide'
-            execute g:vg_py . 'vgdb = tide.tide.Tide()'
+            execute g:vg_py . 'from tide import Tide'
+            execute g:vg_py . 'vgdb = Tide()'
         catch
             " from bin/install -> autoload/tide
             execute g:vg_py . 'vgdb = Tide()'
