@@ -291,3 +291,4 @@
 [x] fix vgdb to pip install tide correctly
 [x] fix tide.tide in pypi package - use __init__.py
 [x] add readthedocs to tide
+[x] add readthedocs to vgdb

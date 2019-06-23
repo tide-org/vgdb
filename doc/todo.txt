@@ -1,7 +1,6 @@
 [ ] create a quick start guide for assembly
 [ ] fix assembly debugging failing on jump to new code section
 [ ] add a cli to tide
-[ ] add readthedocs to vgdb
 [ ] set keybindings from config file
 [ ] do atom with tide repo
 [ ] get a python interpreter config working
