@@ -292,3 +292,4 @@
 [x] fix tide.tide in pypi package - use __init__.py
 [x] add readthedocs to tide
 [x] add readthedocs to vgdb
+[x] use /after path for PluginInstall to install Tide correctly when called
