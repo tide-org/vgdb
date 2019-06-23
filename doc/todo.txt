@@ -1,8 +1,8 @@
-[ ] create a quick start guide for assembly
 [ ] fix assembly debugging failing on jump to new code section
+[ ] create a quick start guide for assembly
+[ ] do atom with tide repo
 [ ] add a cli to tide
 [ ] set keybindings from config file
-[ ] do atom with tide repo
 [ ] get a python interpreter config working
 [ ] get inspiration from other editors
 [ ] implement command on startup log file (use pexpect)
