@@ -293,3 +293,4 @@
 [x] add readthedocs to tide
 [x] add readthedocs to vgdb
 [x] use /after path for PluginInstall to install Tide correctly when called
+[x] allow different configs to be called from vim command line
