@@ -1,4 +1,4 @@
-[ ] fix assembly debugging failing on jump to new code section
+[ ] fix assembly debugging failing on jump to new code section - No function contains program counter for selected frame.
 [ ] create a quick start guide for assembly
 [ ] create a quick start guide for c
 [ ] create a quick start guide for golang

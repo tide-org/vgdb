@@ -3,7 +3,7 @@
 buffers:
     vg_session_log:
         scrolling_buffer: true
-        on_startup: false
+        on_startup: true
     vg_watchpoints:
         command: 'list_watchpoints'
     vg_registers:
