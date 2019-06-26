@@ -38,19 +38,19 @@ commands:
                     base_address: '{{ base_disassembly_address }}'
                     address_range: '{{ disassemble_frame_range }}'
                 set_on_return: 'disassemble_is_in_range'
-              when: base_disassembly_address != None
+              when: base_disassembly_address
             - set_var:
                 name: 'base_disassembly_address'
                 value: '{{ current_frame_address }}'
-              when: disassemble_is_in_range == 0 and current_frame_address != None
+              when: disassemble_is_in_range == 0 and current_frame_address
             - set_var:
                 name: 'disassemble_range_command'
                 value: 'disassemble {{ base_disassembly_address }}, {{ base_disassembly_address }}+{{ disassemble_frame_range }}'
-              when: disassemble_is_in_range == 0 and base_disassembly_address != None
+              when: disassemble_is_in_range == 0 and base_disassembly_address
             - run_command_string:
                 variable_name: 'disassemble_range_command'
                 buffer_name: 'vg_disassembly'
-              when: disassemble_range_command != None and current_frame_address != None
+              when: disassemble_range_command and current_frame_address
     disassemble:
         steps:
             - run_command:

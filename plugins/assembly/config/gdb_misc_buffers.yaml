@@ -16,6 +16,7 @@ buffers:
                     buffer_cache_variable: 'registers_cache'
     vg_breakpoints:
         command: 'list_breakpoints'
+        on_startup: true
     vg_memory:
         command: 'list_memory'
         on_startup: true
