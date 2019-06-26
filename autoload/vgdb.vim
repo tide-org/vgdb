@@ -9,7 +9,6 @@ function! vgdb#start_gdb(...)
     endif
     try
         call vgdb_startup#run_startup_commands('before')
-        " from pip install
         execute g:vg_py . 'from tide import Tide'
         execute g:vg_py . 'vgdb = Tide()'
         execute g:vg_py . 'vgdb.start("' . command . '")'
