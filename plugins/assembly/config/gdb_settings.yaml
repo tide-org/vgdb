@@ -13,7 +13,7 @@ settings:
         stack_buffers_by_default: 1
         stack_buffer_window_width: 80
     process:
-        ttl_stream_timeout: 0.1
+        ttl_stream_timeout: 0.02
         run_command_on_startup: 0
         command_to_run_on_startup: 'bin/dev-up'
         command_on_startup_log_file: 'vgdb_startup.log'
