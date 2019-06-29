@@ -1,17 +1,8 @@
-[ ] create a quick start guide for assembly
-[ ] create a quick start guide for c
-[ ] create a quick start guide for golang
-[ ] do atom with tide repo
+[ ] do atom with tide repo - atide
 [ ] add a cli to tide
 [ ] set keybindings from config file
 [ ] get a python interpreter config working
-[ ] get inspiration from other editors
 [ ] implement command on startup log file (use pexpect)
-[ ] update documentation for vgdb
-[ ] update documentation for tide
-[ ] update documentation for atide
-[ ] make stacking/abutting buffer-specific
-[ ] add max windows per column - e.g. 4 windows down before starting a new column of buffers - (or add a buffer grouping field to the config with settings)
 [ ] add llvm support
 [ ] test on linux
 [ ] update/create readme.md file
