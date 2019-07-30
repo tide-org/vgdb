@@ -1,0 +1,48 @@
+---
+
+buffers:
+    vg_session_log:
+        scrolling_buffer: true
+        on_startup: true
+    vg_watchpoints:
+        command: 'list_watchpoints'
+    vg_registers:
+        command: 'list_registers'
+        on_startup: true
+        events:
+            after_command:
+                - command: 'do_buffer_diff'
+                  input_args:
+                    buffer_cache_variable: 'registers_cache'
+    vg_breakpoints:
+        command: 'list_breakpoints'
+        on_startup: true
+    vg_memory:
+        command: 'list_memory'
+        on_startup: true
+        events:
+            after_command:
+                - command: 'do_buffer_diff'
+                  input_args:
+                      buffer_cache_variable: 'memory_cache'
+
+commands:
+    list_memory:
+        steps:
+            - run_command:
+                  command: 'x/40x $rsp'
+    list_breakpoints:
+        steps:
+            - run_command:
+                command: 'info breakpoints'
+                buffer_name: 'vg_breakpoints'
+    list_watchpoints:
+        steps:
+            - run_command:
+                command: 'info watchpoints'
+                buffer_name: 'vg_watchpoints'
+    list_registers:
+        steps:
+            - run_command:
+                command: 'info registers'
+                buffer_name: 'vg_registers'
