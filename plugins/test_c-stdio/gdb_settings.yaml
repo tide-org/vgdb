@@ -137,5 +137,3 @@ settings:
         filters_path: './filters'
         functions_path: './functions'
         templates_path: './templates'
-    debugging:
-        print_actions: True
