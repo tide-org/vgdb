@@ -1,3 +1,4 @@
+[ ] fix highlight line for c_test-stdio
 [ ] do atom with tide repo - atide
 [ ] add a cli to tide
 [ ] set keybindings from config file
@@ -8,4 +9,3 @@
 [ ] update/create readme.md file
 [ ] create a product website
 [ ] promote it as an app
-
