@@ -295,3 +295,4 @@
 [x] use /after path for PluginInstall to install Tide correctly when called
 [x] allow different configs to be called from vim command line
 [x] fix assembly debugging failing on jump to new code section - No function contains program counter for selected frame. - fixed with empty string checks
+[x] fix c_test-stdio as vim81 not showing source file correctly

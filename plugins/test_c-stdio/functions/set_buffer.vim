@@ -8,11 +8,11 @@ function! set_buffer#for_filename(...)
    if l:buffer_filename_variable
        let l:buffer_filename = g:vg_config_dictionary["variables"][l:buffer_filename_variable]
    endif
-   if l:buffer_filename_variable
-       let l:mapped_file_buffers = g:vg_config_dictionary["internal"]["variables"]["mapped_filename_buffers"]
-       if !l:mapped_file_buffers
-           let g:vg_config_dictionary["internal"]["variables"]["mapped_file_buffers"] = {}
-       endif
+   let l:mapped_file_buffers = get(g:vg_config_dictionary["internal"]["variables"], "mapped_filename_buffers", 0)
+   if !l:mapped_file_buffers
+       let g:vg_config_dictionary["internal"]["variables"]["mapped_file_buffers"] = {}
+   endif
+   if len(l:buffer_filename_variable)
        let l:buffer_window_number = l:mapped_file_buffers[l:buffer_name]
        if !l:buffer_window_number
            let l:buffer_window_number = vg_buffer_find#find_window_by_bufname(l:buffer_name, 1)
@@ -20,7 +20,7 @@ function! set_buffer#for_filename(...)
            set buftype=
            set modifiable
            execute l:buffer_window_number . "wincmd w"
-           execute "silent edit! " . l:buffer_filename
+           execute "silent edit! " . l:file_name
        else
             if findfile(l:file_name)
                 let l:lines = readfile(l:filename)
