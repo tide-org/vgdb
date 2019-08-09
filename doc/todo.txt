@@ -1,3 +1,5 @@
+[ ] split plugins into separate repo
+[ ] put all repos under separate github organisation
 [ ] fix highlight line for c_test-stdio
 [ ] do atom with tide repo - atide
 [ ] add a cli to tide

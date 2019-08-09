@@ -26,6 +26,13 @@ commands:
                 match_group: 1
                 try_set: 'current_line_number'
                 else_set: '0'
+            - run_config_command:
+                name: 'set_highlight_line'
+            - run_config_command:
+                name: 'set_piets'
+                input_args:
+                    piet_match_array_variable: 'file_lines'
+                    current_filename_variable: 'current_buffer_name'
     set_highlight_line:
         steps:
             - run_editor_function:
@@ -95,6 +102,7 @@ variables:
     file_lines: []
     current_buffer_name: ''
     breakpoint_highlight_color: 'darkred'
+    mapped_file_buffers: {}
 
 events:
     after_startup:
