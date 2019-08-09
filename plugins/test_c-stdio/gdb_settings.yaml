@@ -135,7 +135,7 @@ buffers:
 
 settings:
     editor:
-        name: 'vim81'
+        name: 'stdio'
     process:
         ttl_stream_timeout: 0.08
         main_process_name: 'gdb'

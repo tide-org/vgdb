@@ -1,5 +1,6 @@
 function! buffer_piets#set_piets(...)
-   let l:event_args = get(a:, 1, {})
+   let l:args = get(a:, 1, {})
+   let l:event_args = l:args["event_input_args"]
    let l:piet_match_array_variable = get(l:event_args, "piet_match_array_variable", '')
    let l:current_filename_variable = get(l:event_args, "current_filename_variable", '')
    if l:piet_match_array_variable != ''
