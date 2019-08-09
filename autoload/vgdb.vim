@@ -41,9 +41,12 @@ endfunction
 
 function! vgdb#check_update_buffers(command)
     let l:command_buffer = vgdb#get_command_from_string(a:command)
-    let l:should_update = get(g:vg_config_dictionary["commands"][l:command_buffer], "update_buffer", 1)
-    if vg_helpers#is_value_true(l:should_update)
-        call vg_display#check_update_config_buffers()
+    let l:commands = get(g:vg_config_dictionary, "commands", 0)
+    if l:commands
+        let l:should_update = get(l:commands[l:command_buffer], "update_buffer", 1)
+        if vg_helpers#is_value_true(l:should_update)
+            call vg_display#check_update_config_buffers()
+        endif
     endif
 endfunction
 
