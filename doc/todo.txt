@@ -1,3 +1,4 @@
+[ ] move buffer startup logic from vgdb to tide (where possible)
 [ ] put all repos under separate github organisation
 [ ] fix highlight line for c_test-stdio
 [ ] do atom with tide repo - atide
