@@ -297,3 +297,6 @@
 [x] fix assembly debugging failing on jump to new code section - No function contains program counter for selected frame. - fixed with empty string checks
 [x] fix c_test-stdio as vim81 not showing source file correctly
 [x] split plugins into separate repo
+[x] fix set_buffer#find_window
+[x] move vg_display#run_buffer_commands() into tide.start() (with run option)
+[x] move buffer startup logic from vgdb to tide (where possible)
