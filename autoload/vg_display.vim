@@ -15,9 +15,6 @@ function! vg_display#display_buffer(buffer_name)
     if l:stripped_buffer_name != '' && g:vg_config_dictionary != {}
         if has_key(g:vg_config_dictionary['buffers'], l:stripped_buffer_name)
             call vg_display#default_display_buffer(a:buffer_name)
-         else
-             echo "error: unable to find buffer in config: " . l:stripped_buffer_name
-             echo "buffers: " . join(keys(g:vg_config_dictionary['buffers']), ",")
          endif
     endif
 endfunction
@@ -25,8 +22,6 @@ endfunction
 function! vg_display#default_display_buffer(buffer_name)
     let l:current_window_num = winnr()
 
-    let l:buffer_command = get(g:vg_config_dictionary['buffers'][a:buffer_name], "command", "")
-    let l:python_command = vg_python#set_python_command(l:buffer_command, a:buffer_name)
     let l:primary_window = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'primary_window', 0)
     let l:is_primary_window = vg_helpers#is_value_true(l:primary_window)
     let l:language = get(g:vg_config_dictionary['buffers'][a:buffer_name], 'language', "")
@@ -35,25 +30,30 @@ function! vg_display#default_display_buffer(buffer_name)
     let l:using_filename = vg_display_is#is_buffer_using_filename(a:buffer_name)
     call vg_buffer#switch_to_buffer(a:buffer_name, l:is_primary_window, l:language, l:line_numbers)
 
-    call vg_display#run_config_events(a:buffer_name, 'before_command')
-
-    call vg_python#check_run_python_command(l:python_command)
-
     if !l:using_filename
         call vg_buffer_do#write_array_to_buffer(a:buffer_name, l:clear_buffer)
     endif
 
-    call vg_display#run_config_events(a:buffer_name, 'after_command')
     let l:scrolling_buffer = vg_display_is#is_scrolling_buffer(a:buffer_name)
     call vg_buffer_do#check_do_scroll_to_end(l:scrolling_buffer)
 
     exec l:current_window_num . 'wincmd w'
 endfunction
 
+function! vg_display#run_buffer_commands()
+    for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
+        call vg_display#run_config_events(l:buffer_name, 'before_command')
+        let l:buffer_command = get(g:vg_config_dictionary['buffers'][l:buffer_name], "command", "")
+        let l:python_command = vg_python#set_python_command(l:buffer_command, l:buffer_name)
+        call vg_python#check_run_python_command(l:python_command)
+        call vg_display#run_config_events(l:buffer_name, 'after_command')
+    endfor
+endfunction
+
 function! vg_display#open_startup_buffers()
     for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
         if vg_helpers#is_value_true(get(g:vg_config_dictionary["buffers"][l:buffer_name], "on_startup", ""))
-            call vg_display#display_buffer(l:buffer_name)
+            call vg_display#default_display_buffer(l:buffer_name)
         endif
     endfor
 endfunction

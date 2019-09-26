@@ -1,3 +1,6 @@
+[ ] fix set_buffer#find_window
+[ ] fix set_buffer running when is is not on_startup=true
+[ ] move vg_display#run_buffer_commands() into tide.start()
 [ ] move buffer startup logic from vgdb to tide (where possible)
 [ ] put all repos under separate github organisation
 [ ] fix highlight line for c_test-stdio

@@ -13,18 +13,9 @@ function! vgdb_startup#call_bootstrap_functions()
     return 0
 endfunction
 
-function! vgdb_startup#call_on_startup_functions()
-    if has_key(g:vg_config_dictionary, "settings")
-        call vg_display#open_startup_buffers()
-        if g:vg_config_dictionary['settings']['process']['run_command_on_startup']
-            execute '!nohup ' . g:vg_config_dictionary['settings']['process']['command_to_run_on_startup'] . ' </dev/null >/dev/null 2>&1 &'
-        endif
-    endif
-endfunction
-
-function! vgdb_startup#run_startup_commands(position)
+function! vgdb_startup#run_after_startup_commands()
     if has_key(g:vg_config_dictionary, "events")
-        let l:startup_commands = get(g:vg_config_dictionary["events"], a:position . "_startup", [])
+        let l:startup_commands = get(g:vg_config_dictionary["events"], "after_startup", [])
         if type(l:startup_commands) == 3
             for l:startup_command in l:startup_commands
                 call vgdb#run_config_command(l:startup_command)

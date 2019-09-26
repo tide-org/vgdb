@@ -8,13 +8,15 @@ function! vgdb#start_gdb(...)
         return 0
     endif
     try
-        call vgdb_startup#run_startup_commands('before')
+        echom "starting Tide"
         execute g:vg_py . 'from tide import Tide'
         execute g:vg_py . 'vgdb = Tide()'
         execute g:vg_py . 'vgdb.start("' . command . '")'
         echom "Tide started successfully"
-        call vgdb_startup#call_on_startup_functions()
-        call vgdb_startup#run_startup_commands('after')
+        echom "running startup commands"
+        call vgdb_startup#run_after_startup_commands()
+        echom "opening buffers"
+        call vg_display#open_startup_buffers()
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#start_gdb: " . command . ", " . a:exception | echohl None
     endtry
@@ -33,6 +35,7 @@ function! vgdb#run_config_command(...)
     try
         execute g:vg_py . 'vgdb.run_config_command("' . l:command . '")'
         echom "config command ran successfully: " . l:command
+        call vg_display#run_buffer_commands()
         call vgdb#check_update_buffers(l:command)
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_config_command: " . l:command . ", " . a:exception | echohl None

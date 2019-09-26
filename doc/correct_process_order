@@ -1,0 +1,146 @@
+With py commands in buffers
+
+Tide started successfully
+running startup buffers
+running python command: vgdb.run_config_command("list_locals", "vg_locals")
+running python command: vgdb.run_config_command("display_template", "vg_test_template")
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': {'piet_match_array_variable': 'file_lines', 'current_filename_variable': 'current_filename'}, 'buffer_name': 'vg_code'})
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': 'vg_code'})
+running startup commands
+running config command:  load_file
+config command ran successfully: load_file
+running python command: vgdb.run_config_command("list_locals", "vg_locals")
+running python command: vgdb.run_config_command("display_template", "vg_test_template")
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': {'piet_match_array_variable': 'file_lines', 'current_filename_variable': 'current_filename'}, 'buffer_name': 'vg_code'})
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': 'vg_code'})
+running config command:  set_highlight_for_breakpoint_and_diff
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/set_highlight.vim
+vim.command(call set_highlight#for_breakpoint_and_diff({'function_args': 'None', 'event_input_args': 'None', 'buffer_name': ''})
+config command ran successfully: set_highlight_for_breakpoint_and_diff
+running python command: vgdb.run_config_command("list_locals", "vg_locals")
+running python command: vgdb.run_config_command("display_template", "vg_test_template")
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': {'piet_match_array_variable': 'file_lines', 'current_filename_variable': 'current_filename'}, 'buffer_name': 'vg_code'})
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': 'vg_code'})
+running config command:  info_source
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/set_buffer.vim
+vim.command(call set_buffer#for_filename({'function_args': {'buffer_name': 'vg_code', 'file_name': '/Users/willvk/source/wilvk/vgdb/tests/binaries/c_test/main.c'}, 'event_input_args': 'None', 'buffer_name': ''})
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': {'piet_match_array_variable': 'file_lines', 'current_filename_variable': 'current_filename'}, 'buffer_name': ''})
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': ''})
+config command ran successfully: info_source
+running python command: vgdb.run_config_command("list_locals", "vg_locals")
+running python command: vgdb.run_config_command("display_template", "vg_test_template")
+
+(smaller version)
+Tide started successfully
+running startup buffers
+running python command: vgdb.run_config_command("list_locals", "vg_locals")
+running python command: vgdb.run_config_command("display_template", "vg_test_template")
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+running startup commands
+running config command:  load_file
+config command ran successfully: load_file
+running python command: vgdb.run_config_command("list_locals", "vg_locals")
+running python command: vgdb.run_config_command("display_template", "vg_test_template")
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+running config command:  set_highlight_for_breakpoint_and_diff
+config command ran successfully: set_highlight_for_breakpoint_and_diff
+running python command: vgdb.run_config_command("list_locals", "vg_locals")
+running python command: vgdb.run_config_command("display_template", "vg_test_template")
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+running config command:  info_source
+config command ran successfully: info_source
+running python command: vgdb.run_config_command("list_locals", "vg_locals")
+running python command: vgdb.run_config_command("display_template", "vg_test_template")
+
+without before commands:
+
+Tide started successfully
+running startup buffers
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': {'piet_match_array_variable': 'file_lines', 'current_filename_variable': 'current_filename'}, 'buffer_name': 'vg_code'})
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': 'vg_code'})
+running startup commands
+running config command:  load_file
+config command ran successfully: load_file
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': {'piet_match_array_variable': 'file_lines', 'current_filename_variable': 'current_filename'}, 'buffer_name': 'vg_code'})
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': 'vg_code'})
+running config command:  set_highlight_for_breakpoint_and_diff
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/set_highlight.vim
+vim.command(call set_highlight#for_breakpoint_and_diff({'function_args': 'None', 'event_input_args': 'None', 'buffer_name': ''})
+config command ran successfully: set_highlight_for_breakpoint_and_diff
+running event command: set_piets
+running python command: vgdb.run_config_command("set_piets", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': {'piet_match_array_variable': 'file_lines', 'current_filename_variable': 'current_filename'}, 'buffer_name': 'vg_code'})
+running event command: set_highlight_line
+running python command: vgdb.run_config_command("set_highlight_line", "vg_code", "after_command")
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': 'vg_code'})
+running config command:  info_source
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/set_buffer.vim
+vim.command(call set_buffer#for_filename({'function_args': {'buffer_name': 'vg_code', 'file_name': '/Users/willvk/source/wilvk/vgdb/tests/binaries/c_test/main.c'}, 'event_input_args': 'None', 'buffer_name': ''})
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': {'piet_match_array_variable': 'file_lines', 'current_filename_variable': 'current_filename'}, 'buffer_name': ''})
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': ''})
+config command ran successfully: info_source
+
+without before or after:
+
+Tide started successfully
+running startup buffers
+running startup commands
+running config command:  load_file
+config command ran successfully: load_file
+running config command:  set_highlight_for_breakpoint_and_diff
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/set_highlight.vim
+vim.command(call set_highlight#for_breakpoint_and_diff({'function_args': 'None', 'event_input_args': 'None', 'buffer_name': ''})
+config command ran successfully: set_highlight_for_breakpoint_and_diff
+running config command:  info_source
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/set_buffer.vim
+vim.command(call set_buffer#for_filename({'function_args': {'buffer_name': 'vg_code', 'file_name': '/Users/willvk/source/wilvk/vgdb/tests/binaries/c_test/main.c'}, 'event_input_args': 'None', 'buffer_name': ''})
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_piets.vim
+vim.command(call buffer_piets#set_piets({'function_args': 'None', 'event_input_args': 'None', 'buffer_name': ''})
+vim.command(source /Users/willvk/source/wilvk/tide-plugins/plugins/vim/test_c/functions/buffer_breakpoint.vim
+vim.command(call buffer_breakpoint#set_highlight_line({'function_args': 'None', 'event_input_args': {'highlight_line_variable': 'current_line_number'}, 'buffer_name': ''})
+config command ran successfully: info_source

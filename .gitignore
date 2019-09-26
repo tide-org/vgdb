@@ -11,3 +11,4 @@ docs/_build/
 autoload/tide/
 doc/tags
 .DS_Store
+vg_*
