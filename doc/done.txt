@@ -300,3 +300,5 @@
 [x] fix set_buffer#find_window
 [x] move vg_display#run_buffer_commands() into tide.start() (with run option)
 [x] move buffer startup logic from vgdb to tide (where possible)
+[x] do atom with tide repo - atide
+[x] add a cli to tide
