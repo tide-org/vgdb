@@ -1,9 +1,5 @@
-[ ] fix duplicate vg_code buffer showing with source file
-[ ] fix set_buffer running when is is not on_startup=true
 [ ] fix piet and highlight line not showing at same time for same line
-[ ] put all repos under separate github organisation
 [ ] fix highlight line for c_test-stdio
-[ ] set keybindings from config file
 [ ] get a python interpreter config working
 [ ] implement command on startup log file (use pexpect)
 [ ] add llvm support

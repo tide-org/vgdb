@@ -302,3 +302,7 @@
 [x] move buffer startup logic from vgdb to tide (where possible)
 [x] do atom with tide repo - atide
 [x] add a cli to tide
+[n] fix duplicate vg_code buffer showing with source file
+[n] fix set_buffer running when is is not on_startup=true
+[n] set keybindings from config file
+[x] put all repos under separate github organisation
