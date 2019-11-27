@@ -1,3 +1,7 @@
+[ ] get assembly working again
+[ ] use a makefile for all the commands in ./bin
+[ ] then get it working in atide
+[ ] split test harness stuff into separate repo
 [ ] fix piet and highlight line not showing at same time for same line
 [ ] fix highlight line for c_test-stdio
 [ ] get a python interpreter config working
