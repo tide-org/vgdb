@@ -31,6 +31,7 @@ function! vgdb#run_config_command(...)
     let l:command = join(a:000, ' ')
     try
         execute g:vg_py . 'vgdb.run_config_command("' . l:command . '")'
+        call vg_display#refresh_all_buffers()
         echom "config command ran successfully: " . l:command
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_config_command: " . l:command . ", " . a:exception | echohl None

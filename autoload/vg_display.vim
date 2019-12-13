@@ -40,13 +40,9 @@ function! vg_display#default_display_buffer(buffer_name)
     exec l:current_window_num . 'wincmd w'
 endfunction
 
-function! vg_display#run_buffer_commands()
+function! vg_display#refresh_all_buffers()
     for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
-        call vg_display#run_config_events(l:buffer_name, 'before_command')
-        let l:buffer_command = get(g:vg_config_dictionary['buffers'][l:buffer_name], "command", "")
-        let l:python_command = vg_python#set_python_command(l:buffer_command, l:buffer_name)
-        call vg_python#check_run_python_command(l:python_command)
-        call vg_display#run_config_events(l:buffer_name, 'after_command')
+        call vg_display#default_display_buffer(l:buffer_name)
     endfor
 endfunction
 
