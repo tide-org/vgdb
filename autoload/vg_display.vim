@@ -40,28 +40,10 @@ function! vg_display#default_display_buffer(buffer_name)
     exec l:current_window_num . 'wincmd w'
 endfunction
 
-function! vg_display#refresh_all_buffers()
-    for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
-        call vg_display#default_display_buffer(l:buffer_name)
-    endfor
-endfunction
-
 function! vg_display#open_startup_buffers()
     for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
         if vg_helpers#is_value_true(get(g:vg_config_dictionary["buffers"][l:buffer_name], "on_startup", ""))
             call vg_display#default_display_buffer(l:buffer_name)
         endif
     endfor
-endfunction
-
-function! vg_display#run_config_events(buffer_name, event_name)
-    let l:has_events = has_key(g:vg_config_dictionary["buffers"][a:buffer_name], "events")
-    if l:has_events
-        let l:event_commands = get(g:vg_config_dictionary["buffers"][a:buffer_name]["events"], a:event_name, [])
-        for l:event_command in l:event_commands
-            let l:event_command_name = l:event_command["command"]
-            let l:python_command = vg_python#get_python_command_for_event(l:event_command_name, a:buffer_name, a:event_name)
-            call vg_python#check_run_python_command(l:python_command)
-        endfor
-    endif
 endfunction

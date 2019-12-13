@@ -1,4 +1,5 @@
-[ ] get assembly working again
+[ ] fix template buffer not updating on set_Breakpoint for test_c
+[x] get assembly working again
 [ ] use a makefile for all the commands in ./bin
 [ ] then get it working in atide
 [ ] split test harness stuff into separate repo
