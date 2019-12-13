@@ -32,27 +32,7 @@ function! vgdb#run_config_command(...)
     try
         execute g:vg_py . 'vgdb.run_config_command("' . l:command . '")'
         echom "config command ran successfully: " . l:command
-        call vg_display#run_buffer_commands()
-        call vgdb#check_update_buffers(l:command)
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#run_config_command: " . l:command . ", " . a:exception | echohl None
     endtry
-endfunction
-
-function! vgdb#check_update_buffers(command)
-    let l:command_buffer = vgdb#get_command_from_string(a:command)
-    let l:commands = get(g:vg_config_dictionary, "commands", {})
-    if len(l:commands) > 0
-        let l:should_update = get(l:commands[l:command_buffer], "update_buffer", 1)
-        if vg_helpers#is_value_true(l:should_update)
-            call vg_display#check_update_config_buffers()
-        endif
-    endif
-endfunction
-
-function! vgdb#get_command_from_string(command)
-    if a:command =~ " "
-        return split(a:command, " ")[0]
-    endif
-    return a:command
 endfunction
