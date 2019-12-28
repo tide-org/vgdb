@@ -43,7 +43,9 @@ endfunction
 function! vg_display#open_startup_buffers()
     for l:buffer_name in keys(g:vg_config_dictionary["buffers"])
         if vg_helpers#is_value_true(get(g:vg_config_dictionary["buffers"][l:buffer_name], "on_startup", ""))
-            call vg_display#default_display_buffer(l:buffer_name)
+            if vg_helpers#is_value_true(get(g:vg_config_dictionary["buffers"][l:buffer_name], "use_buffer_cache", 1))
+              call vg_display#default_display_buffer(l:buffer_name)
+            endif
         endif
     endfor
 endfunction
