@@ -10,8 +10,8 @@ function! vgdb#start_gdb(...)
     try
         echom "starting Tide"
         execute g:vg_py . 'from tide import Tide'
-        execute g:vg_py . 'vgdb = Tide()'
-        execute g:vg_py . 'vgdb.start("' . command . '")'
+        execute g:vg_py . 'vgdb = Tide("vim81")'
+        execute g:vg_py . 'vgdb.start(startup_commands="' . command . '")'
         echom "Tide started successfully"
         call vg_display#open_startup_buffers()
     catch a:exception
