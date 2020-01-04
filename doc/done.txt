@@ -306,3 +306,5 @@
 [n] fix set_buffer running when is is not on_startup=true
 [n] set keybindings from config file
 [x] put all repos under separate github organisation
+[x] fix template buffer not updating on set_Breakpoint for test_c
+[x] get assembly working again

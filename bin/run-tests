@@ -1,5 +1,0 @@
-#! /bin/sh -e
-
-cd $(dirname $0)/..
-
-bin/test-environment ./tests/binaries/hello_linux /root/.vim/plugin/vgdb/scripts/run-tests

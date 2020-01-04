@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -x
-
-ls -alh /binaries
-
-gdbserver :9999 /binaries/${BINARY_TO_RUN}

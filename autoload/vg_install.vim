@@ -10,7 +10,7 @@ endfunction
 function vg_install#install_tide()
   if !vgdb_startup#call_bootstrap_functions()
     echom "install latest version of Tide"
-    execute g:vg_py . 'from pip._internal import main as pip; pip(["install", "tide"])'
+    execute g:vg_py . 'from pip import main as pip; pip(["install", "tide"])'
   else
     echom "unable to bootstrap vgdb"
   endif

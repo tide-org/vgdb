@@ -4,8 +4,8 @@ services:
 
   dev-server:
     build:
-      context: ..
-      dockerfile: ./docker/Dockerfile-server
+      context: .
+      dockerfile: Dockerfile-server
     restart: unless-stopped
     working_dir: /work
     security_opt:
@@ -15,7 +15,7 @@ services:
     environment:
       - BINARY_TO_RUN
     volumes:
-      - ..:/work
+      - ../..:/work
       - ${BINARY_LOCATION}:/binaries
-    command: /work/scripts/start-server
+    command: /work/test/scripts/start-server
 

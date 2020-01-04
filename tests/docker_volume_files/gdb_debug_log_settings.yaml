@@ -1,6 +1,0 @@
----
-
-settings:
-    debugging:
-        log_to_file: true
-        log_filename: '/tests/vgdb_debug.log'

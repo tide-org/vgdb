@@ -1,7 +1,0 @@
-#! /bin/sh -e
-
-cd $(dirname $0)/../autoload
-
-rm -rf ./tide
-
-rm -rf ../tests/docker_volume_files/vader.vim

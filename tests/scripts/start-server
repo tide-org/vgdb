@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -x
+
+ls -alh /work/tests/binaries
+
+gdbserver :9999 /work/tests/binaries/hello_linux

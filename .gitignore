@@ -12,3 +12,4 @@ autoload/tide/
 doc/tags
 .DS_Store
 vg_*
+plugins/
