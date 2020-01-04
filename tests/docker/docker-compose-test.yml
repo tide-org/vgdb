@@ -28,7 +28,7 @@ services:
       context: .
       dockerfile: Dockerfile-server
     working_dir: /work
-    restart: on-failure
+    restart: unless-stopped
     security_opt:
       - seccomp:unconfined
     expose:

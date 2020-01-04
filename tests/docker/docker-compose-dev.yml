@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  dev-server:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    restart: unless-stopped
+    working_dir: /work
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "9999:9999"
+    environment:
+      - BINARY_TO_RUN
+    volumes:
+      - ../..:/work
+    command: /work/tests/scripts/start-server

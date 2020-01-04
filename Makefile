@@ -31,5 +31,6 @@ docker-dev:
 	$(DOCKER_COMPOSE) test-vim sh
 
 docker-dev-up:
-	$(DOCKER_COMPOSE) -d test-gdbserver
-	docker ps
+	docker-compose -f ./tests/docker/docker-compose-dev.yml down
+	docker-compose -f ./tests/docker/docker-compose-dev.yml build
+	docker-compose -f ./tests/docker/docker-compose-dev.yml up --build --force-recreate dev-server
