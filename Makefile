@@ -1,18 +1,13 @@
 .PHONY: tests clean tide-install-git tide-install-pip  build upload local-dev docker-dev pylint docker-dev-server
 
-define DOCKER_COMPOSE_DEV_SERVER
-docker-compose -f ./tests/docker/docker-compose-dev.yml build
-docker-compose -f ./tests/docker/docker-compose-dev.yml run -d --rm --service-ports dev-server
-endef
-
-define DOCKER_COMPOSE_TESTS
+define DOCKER_COMPOSE
 cd ./plugins && git clean -f && git checkout .
 docker-compose -f ./tests/docker/docker-compose-test.yml build
-docker-compose -f ./tests/docker/docker-compose-test.yml run --rm --service-ports test-vim
+docker-compose -f ./tests/docker/docker-compose-test.yml run --rm --service-ports
 endef
 
 tests:
-	$(DOCKER_COMPOSE_TESTS) ./tests/scripts/run-tests
+	$(DOCKER_COMPOSE) test-vim ./tests/scripts/run-tests
 
 clean:
 	rm -rf ./plugins
@@ -33,7 +28,8 @@ tide-install-pip:
 	pip install --target=$(shell pwd).autoload/tide tide
 
 docker-dev:
-	$(DOCKER_COMPOSE_TESTS) sh
+	$(DOCKER_COMPOSE) test-vim sh
 
 docker-dev-up:
-	$(DOCKER_COMPOSE_DEV_SERVER)
+	$(DOCKER_COMPOSE) -d test-gdbserver
+	docker ps
