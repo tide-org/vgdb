@@ -308,3 +308,8 @@
 [x] put all repos under separate github organisation
 [x] fix template buffer not updating on set_Breakpoint for test_c
 [x] get assembly working again
+[x] use a makefile for all the commands in ./bin
+[x] then get it working in atide
+[n] split test harness stuff into separate repo
+[x] fix highlight line for c_test-stdio
+[n] implement command on startup log file (use pexpect)

@@ -1,12 +1,9 @@
-[ ] use a makefile for all the commands in ./bin
-[ ] then get it working in atide
-[ ] split test harness stuff into separate repo
+[ ] fix buffer piets showing randomly on later pages
 [ ] fix piet and highlight line not showing at same time for same line
-[ ] fix highlight line for c_test-stdio
 [ ] get a python interpreter config working
-[ ] implement command on startup log file (use pexpect)
 [ ] add llvm support
 [ ] test on linux
+[ ] create asciinema.org recording
 [ ] update/create readme.md file
 [ ] create a product website
 [ ] promote it as an app
