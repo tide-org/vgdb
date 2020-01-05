@@ -14,6 +14,8 @@ function! vgdb#start_gdb(...)
         execute g:vg_py . 'vgdb.start(startup_commands="' . command . '")'
         echom "Tide started successfully"
         call vg_display#open_startup_buffers()
+        sleep 500m
+        call vgdb#run_config_command('')
     catch a:exception
         echohl WarningMsg | echomsg "An error occurred in vgdb#start_gdb: " . command . ", " . a:exception | echohl None
     endtry
