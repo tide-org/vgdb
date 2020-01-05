@@ -10,7 +10,7 @@ services:
     build:
       context: ../scripts
       dockerfile: ../docker/Dockerfile-vim
-    working_dir: /root/.vim/plugin/vgdb
+    working_dir: /root/.vim/plugin/vgdb/tests/scripts
     tmpfs: /tests
     environment:
       - TIDE_CONFIG_LOCATION=/plugins/atom/assembly_filter/config
@@ -18,9 +18,8 @@ services:
     volumes:
       - ../..:/root/.vim/plugin/vgdb
       - ../../plugins/plugins:/plugins
-      - ../../tests/docker_volume_files/vader.vim:/root/.vim/plugin/vader.vim
-      - ../../tests/docker_volume_files/.vimrc_test:/root/.vimrc
-      - ../../tests/docker_volume_files/remote_address.yaml:/plugins/atom/assembly_filter/config/remote_address.yaml
+      - ../docker/volume_files/.vimrc_test:/root/.vimrc
+      - ../docker/volume_files/remote_address.yaml:/plugins/atom/assembly_filter/config/remote_address.yaml
 
   test-gdbserver:
     hostname: test-gdbserver

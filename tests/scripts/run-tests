@@ -2,5 +2,5 @@
 
 TEST_FILENAME=vader_tests.log
 
-vim -c 'Vader! ./tests/vader_tests/*' > /dev/null 2> $TEST_FILENAME
+vim -c 'Vader! ../vader_tests/*' > /dev/null 2> $TEST_FILENAME
 cat $TEST_FILENAME

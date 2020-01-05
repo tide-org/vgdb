@@ -16,6 +16,14 @@ Expect:
       0x0000000000400454 <+36>:    callq  0x400410 <__libc_start_main@plt>
       0x0000000000400459 <+41>:    hlt
 
+Execute (test that breakpoint is set and shown correctly):
+  :sbuffer vg_breakpoints
+
+Expect:
+  Num     Type           Disp Enb Address            What
+  1       breakpoint     keep y   0x0000000000400430 <_start>
+      breakpoint already hit 1 time
+
 Execute (test that we get a memory output correctly):
   :sbuffer vg_registers
 
@@ -44,3 +52,120 @@ Expect:
   es             0x0                 0
   fs             0x0                 0
   gs             0x0                 0
+
+Execute (confirm that the memory output is correct):
+  :sbuffer vg_memory
+
+Expect:
+  0x7fffffffed80:    0x00000001    0x00000000    0xffffef2a    0x00007fff
+  0x7fffffffed90:    0x00000000    0x00000000    0xffffef4b    0x00007fff
+  0x7fffffffeda0:    0xffffef63    0x00007fff    0xffffef6b    0x00007fff
+  0x7fffffffedb0:    0xffffef76    0x00007fff    0xffffef8b    0x00007fff
+  0x7fffffffedc0:    0xffffefcd    0x00007fff    0x00000000    0x00000000
+  0x7fffffffedd0:    0x00000021    0x00000000    0xf7ffa000    0x00007fff
+  0x7fffffffede0:    0x00000010    0x00000000    0x9f8bfbff    0x00000000
+  0x7fffffffedf0:    0x00000006    0x00000000    0x00001000    0x00000000
+  0x7fffffffee00:    0x00000011    0x00000000    0x00000064    0x00000000
+  0x7fffffffee10:    0x00000003    0x00000000    0x00400040    0x00000000
+
+Execute (test the page transitions work with known program counter):
+  :sbuffer vg_disassembly
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+
+Expect:
+      0x0000000000400410 <+0>:    jmpq   *0x200c0a(%rip)        # 0x601020 <__libc_start_main@got.plt>
+      0x0000000000400416 <+6>:    pushq  $0x1
+      0x000000000040041b <+11>:    jmpq   0x4003f0
+
+Execute (test the page transitions work without a known program counter):
+  :sbuffer vg_disassembly
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+  :sleep 100m
+  :VgRunConfigCommand stepi
+
+Expect:
+      0x00007ffff7deee10:    push   %rbx
+      0x00007ffff7deee11:    mov    %rsp,%rbx
+      0x00007ffff7deee14:    and    $0xffffffffffffffc0,%rsp
+      0x00007ffff7deee18:    sub    0x20df31(%rip),%rsp        # 0x7ffff7ffcd50 <_rtld_global_ro+176>
+      0x00007ffff7deee1f:    mov    %rax,(%rsp)
+      0x00007ffff7deee23:    mov    %rcx,0x8(%rsp)
+      0x00007ffff7deee28:    mov    %rdx,0x10(%rsp)
+      0x00007ffff7deee2d:    mov    %rsi,0x18(%rsp)
+      0x00007ffff7deee32:    mov    %rdi,0x20(%rsp)
+      0x00007ffff7deee37:    mov    %r8,0x28(%rsp)
+      0x00007ffff7deee3c:    mov    %r9,0x30(%rsp)
+      0x00007ffff7deee41:    mov    $0xee,%eax
+      0x00007ffff7deee46:    xor    %edx,%edx
+      0x00007ffff7deee48:    mov    %rdx,0x240(%rsp)
+      0x00007ffff7deee50:    mov    %rdx,0x248(%rsp)
+      0x00007ffff7deee58:    mov    %rdx,0x250(%rsp)
+      0x00007ffff7deee60:    mov    %rdx,0x258(%rsp)
+      0x00007ffff7deee68:    mov    %rdx,0x260(%rsp)
+      0x00007ffff7deee70:    mov    %rdx,0x268(%rsp)
+      0x00007ffff7deee78:    mov    %rdx,0x270(%rsp)
+      0x00007ffff7deee80:    mov    %rdx,0x278(%rsp)
+      0x00007ffff7deee88:    xsave  0x40(%rsp)
+      0x00007ffff7deee8d:    mov    0x10(%rbx),%rsi
+      0x00007ffff7deee91:    mov    0x8(%rbx),%rdi
+      0x00007ffff7deee95:    callq  0x7ffff7de6a00
+      0x00007ffff7deee9a:    mov    %rax,%r11
+      0x00007ffff7deee9d:    mov    $0xee,%eax
+      0x00007ffff7deeea2:    xor    %edx,%edx
+      0x00007ffff7deeea4:    xrstor 0x40(%rsp)
+      0x00007ffff7deeea9:    mov    0x30(%rsp),%r9
+      0x00007ffff7deeeae:    mov    0x28(%rsp),%r8
+      0x00007ffff7deeeb3:    mov    0x20(%rsp),%rdi
+      0x00007ffff7deeeb8:    mov    0x18(%rsp),%rsi
+      0x00007ffff7deeebd:    mov    0x10(%rsp),%rdx
+      0x00007ffff7deeec2:    mov    0x8(%rsp),%rcx
+      0x00007ffff7deeec7:    mov    (%rsp),%rax
+      0x00007ffff7deeecb:    mov    %rbx,%rsp
+      0x00007ffff7deeece:    mov    (%rsp),%rbx
+      0x00007ffff7deeed2:    add    $0x18,%rsp
+      0x00007ffff7deeed6:    bnd jmpq *%r11
+      0x00007ffff7deeeda:    nopw   0x0(%rax,%rax,1)
+      0x00007ffff7deeee0:    push   %rbx
+      0x00007ffff7deeee1:    mov    %rsp,%rbx
+      0x00007ffff7deeee4:    and    $0xffffffffffffffc0,%rsp
+      0x00007ffff7deeee8:    sub    0x20de61(%rip),%rsp        # 0x7ffff7ffcd50 <_rtld_global_ro+176>
+      0x00007ffff7deeeef:    mov    %rax,(%rsp)
+      0x00007ffff7deeef3:    mov    %rcx,0x8(%rsp)
+      0x00007ffff7deeef8:    mov    %rdx,0x10(%rsp)
+      0x00007ffff7deeefd:    mov    %rsi,0x18(%rsp)
+      0x00007ffff7deef02:    mov    %rdi,0x20(%rsp)
+      0x00007ffff7deef07:    mov    %r8,0x28(%rsp)
+      0x00007ffff7deef0c:    mov    %r9,0x30(%rsp)

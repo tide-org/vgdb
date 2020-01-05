@@ -7,25 +7,25 @@ docker-compose -f ./tests/docker/docker-compose-test.yml run --rm --service-port
 endef
 
 tests:
-	$(DOCKER_COMPOSE) test-vim ./tests/scripts/run-tests
+	$(DOCKER_COMPOSE) test-vim ./run-tests
 
 clean:
 	rm -rf ./plugins
 	rm -rf ./autoload/tide
-	rm -rf ./tests/docker_volume_files/vader.vim
 
 tide-install-git:
 	$(MAKE) clean
-	git clone git@github.com:wilvk/tide.git ./autoload/tide
-	git clone git@github.com:wilvk/vader.vim.git ./tests/docker_volume_files/vader.vim
-	git clone git@github.com:wilvk/tide-plugins.git ./plugins
+	git clone https://github.com/wilvk/tide.git ./autoload/tide
+	git clone https://github.com/wilvk/tide-plugins.git ./plugins
 	cd ./autoload/tide && \
 	  git checkout master && \
 	  git pull && \
 	  $(MAKE) git-install
 
 tide-install-pip:
-	pip install --target=$(shell pwd).autoload/tide tide
+	$(MAKE) clean
+	git clone https://github.com/wilvk/tide.git ./autoload/tide
+	pip install --target=$(shell pwd)/autoload/tide tide
 
 docker-dev:
 	$(DOCKER_COMPOSE) test-vim sh
