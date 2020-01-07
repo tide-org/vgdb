@@ -1,5 +1,3 @@
-[ ] fix buffer piets showing randomly on later pages
-[ ] fix piet and highlight line not showing at same time for same line
 [ ] get a python interpreter config working
 [ ] add llvm support
 [ ] test on linux

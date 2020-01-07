@@ -313,3 +313,5 @@
 [n] split test harness stuff into separate repo
 [x] fix highlight line for c_test-stdio
 [n] implement command on startup log file (use pexpect)
+[x] fix buffer piets showing randomly on later pages - was ttl
+[n] fix piet and highlight line not showing at same time for same line - not possible (without a lot of work)- this is a vim thing.
