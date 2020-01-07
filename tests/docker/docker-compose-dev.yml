@@ -15,4 +15,5 @@ services:
       - BINARY_TO_RUN
     volumes:
       - ../..:/work
+      - ../docker/volume_files/.vimrc_dev:/root/.vimrc
     command: /work/tests/scripts/start-server

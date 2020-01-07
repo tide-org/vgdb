@@ -1,0 +1,3 @@
+syntax enable
+set splitright
+colorscheme desert
