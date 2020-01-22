@@ -315,3 +315,5 @@
 [n] implement command on startup log file (use pexpect)
 [x] fix buffer piets showing randomly on later pages - was ttl
 [n] fix piet and highlight line not showing at same time for same line - not possible (without a lot of work)- this is a vim thing.
+[x] test on linux
+[x] create asciinema.org recording

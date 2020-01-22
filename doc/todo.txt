@@ -1,7 +1,6 @@
+[ ] fix breakpoint and highlight not showing at the same time on the same line
 [ ] get a python interpreter config working
 [ ] add llvm support
-[ ] test on linux
-[ ] create asciinema.org recording
 [ ] update/create readme.md file
 [ ] create a product website
 [ ] promote it as an app
