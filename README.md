@@ -4,7 +4,7 @@ A vim plugin to give your editor super powers.
 
 # Prerequisites:
 
-Make sure git is installed. Currently only works on MacOS.
+Make sure git is installed. Works on MacOS and Linux.
 
 # Installation
 
