@@ -2,7 +2,7 @@
 
 A vim plugin to give your editor super powers.
 
-[![asciicast](https://asciinema.org/a/eOXrRp8ki4Ptz7w9H8Nc73J7k.svg)](https://asciinema.org/a/eOXrRp8ki4Ptz7w9H8Nc73J7k)
+[![asciicast](https://asciinema.org/a/eOXrRp8ki4Ptz7w9H8Nc73J7k.svg)](https://asciinema.org/a/eOXrRp8ki4Ptz7w9H8Nc73J7k?t=1)
 
 # Prerequisites:
 
