@@ -2,6 +2,8 @@
 
 A vim plugin to give your editor super powers.
 
+[![asciicast](https://asciinema.org/a/14.png)](https://asciinema.org/a/14)
+
 # Prerequisites:
 
 Make sure git is installed. Works on MacOS and Linux.
