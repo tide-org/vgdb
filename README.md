@@ -2,7 +2,17 @@
 
 A vim plugin to give your editor super powers.
 
+Debugging Assembly:
+
 [![asciicast](https://asciinema.org/a/eOXrRp8ki4Ptz7w9H8Nc73J7k.svg)](https://asciinema.org/a/eOXrRp8ki4Ptz7w9H8Nc73J7k?t=1)
+
+Debugging C Code:
+
+[![asciicast](https://asciinema.org/a/omi3IhCBsGdNYomd0GGRYnvJP.svg)](https://asciinema.org/a/omi3IhCBsGdNYomd0GGRYnvJP?t=1)
+
+Debugging Python:
+
+[![asciicast](https://asciinema.org/a/CRSzscrwJtLYDhn9J7A0yW4Ib.svg)](https://asciinema.org/a/CRSzscrwJtLYDhn9J7A0yW4Ib?t=1)
 
 # Prerequisites:
 
