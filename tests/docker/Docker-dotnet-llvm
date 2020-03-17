@@ -16,6 +16,6 @@ RUN apt-get -y update && \
 
 RUN dotnet tool install -g dotnet-sos
 
-ENV PATH="/root/.dotnet/tools:${PATH}"
+ENV PATH="/usr/lib/llvm-8/bin:/root/.dotnet/tools:${PATH}"
 
 RUN dotnet-sos install
